@@ -39,15 +39,15 @@ export default function MarketDistribution() {
             <h3 className="text-xs font-semibold text-center mb-2 text-muted-foreground">
               Price Distribution<br/>(Rise/Fall/Flat)
             </h3>
-            <div className="w-full h-[150px] relative">
+            <div className="w-full h-[200px] relative">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={priceDistributionData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={40}
-                    outerRadius={65}
+                    innerRadius={50}
+                    outerRadius={80}
                     paddingAngle={2}
                     dataKey="value"
                     stroke="none"
@@ -81,15 +81,15 @@ export default function MarketDistribution() {
              <h3 className="text-xs font-semibold text-center mb-2 text-muted-foreground">
               Investor Volume<br/>(Buy/Sell Ratio)
             </h3>
-            <div className="w-full h-[150px] relative">
+            <div className="w-full h-[200px] relative">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={investorVolumeData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={40}
-                    outerRadius={65}
+                    innerRadius={50}
+                    outerRadius={80}
                     paddingAngle={2}
                     dataKey="value"
                     stroke="none"

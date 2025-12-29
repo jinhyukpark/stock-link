@@ -51,7 +51,7 @@ export default function Dashboard() {
              <div className="flex-1 min-h-[350px]">
                 <MarketHeatmap />
              </div>
-             <div className="h-[250px] shrink-0">
+             <div className="h-[300px] shrink-0">
                 <MarketDistribution />
              </div>
           </div>
