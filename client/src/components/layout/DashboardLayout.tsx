@@ -14,8 +14,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const navItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/" },
     { icon: LineChart, label: "Stock", href: "/stock" },
-    { icon: PieChart, label: "Analysis", href: "/analysis" },
-    { icon: Newspaper, label: "News", href: "/news" },
+    { icon: PieChart, label: "모멘텀 분석", href: "/analysis" },
+    { icon: Newspaper, label: "시장분석", href: "/news" },
     { icon: Users, label: "Community", href: "/community" },
   ];
 
