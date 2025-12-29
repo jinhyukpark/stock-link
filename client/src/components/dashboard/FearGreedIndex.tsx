@@ -1,7 +1,8 @@
 import { PieChart, Pie, Cell } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Info } from "lucide-react";
+import { Info, Check } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
 
 export default function FearGreedIndex() {
   const data = [
@@ -11,9 +12,9 @@ export default function FearGreedIndex() {
   
   // Fixed coordinate system for perfect alignment
   const width = 300;
-  const height = 200;
+  const height = 180;
   const cx = width / 2;
-  const cy = height * 0.75; // Lower down to make room for half-circle
+  const cy = height * 0.8;
   const iR = 80;
   const oR = 100;
 
@@ -44,66 +45,99 @@ export default function FearGreedIndex() {
   };
 
   return (
-    <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50">
+    <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 flex flex-col">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-base font-semibold">Fear & Greed Index</CardTitle>
+        <CardTitle className="text-base font-semibold">공포 & 탐욕 지수</CardTitle>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
               <Info className="w-4 h-4 text-muted-foreground" />
             </TooltipTrigger>
             <TooltipContent>
-              <p>Market sentiment indicator</p>
+              <p>시장 심리 지표</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
       </CardHeader>
-      <CardContent>
-        <div className="relative h-[200px] w-full flex items-center justify-center overflow-hidden">
-          {/* Using fixed dimensions to ensure needle aligns with Pie center */}
-          <div className="scale-75 sm:scale-90 md:scale-100 origin-center transition-transform">
-            <PieChart width={width} height={height}>
-              <Pie
-                dataKey="value"
-                startAngle={180}
-                endAngle={0}
-                data={data}
-                cx={cx}
-                cy={cy}
-                innerRadius={iR}
-                outerRadius={oR}
-                fill="#8884d8"
-                stroke="none"
-              >
-                <Cell fill="url(#gradientFear)" />
-                <Cell fill="#333" />
-              </Pie>
-              {needle(75, data, cx, cy, iR, oR, '#d0d000')}
-              <defs>
-                <linearGradient id="gradientFear" x1="0" y1="0" x2="1" y2="0">
-                  <stop offset="0%" stopColor="#ef4444" />
-                  <stop offset="50%" stopColor="#eab308" />
-                  <stop offset="100%" stopColor="#22c55e" />
-                </linearGradient>
-              </defs>
-            </PieChart>
+      
+      <CardContent className="flex-1 flex flex-col gap-6">
+        <div className="flex flex-col md:flex-row gap-4 items-center">
+          {/* Gauge Chart Section */}
+          <div className="relative h-[180px] w-full md:w-1/2 flex items-center justify-center overflow-hidden">
+            <div className="scale-75 sm:scale-90 md:scale-100 origin-center transition-transform">
+              <PieChart width={width} height={height}>
+                <Pie
+                  dataKey="value"
+                  startAngle={180}
+                  endAngle={0}
+                  data={data}
+                  cx={cx}
+                  cy={cy}
+                  innerRadius={iR}
+                  outerRadius={oR}
+                  fill="#8884d8"
+                  stroke="none"
+                >
+                  <Cell fill="url(#gradientFear)" />
+                  <Cell fill="#333" />
+                </Pie>
+                {needle(75, data, cx, cy, iR, oR, '#e2e8f0')}
+                <defs>
+                  <linearGradient id="gradientFear" x1="0" y1="0" x2="1" y2="0">
+                    <stop offset="0%" stopColor="#3b82f6" /> {/* Extreme Fear (Blue in original) */}
+                    <stop offset="50%" stopColor="#a855f7" /> {/* Neutral (Purple) */}
+                    <stop offset="100%" stopColor="#ef4444" /> {/* Extreme Greed (Red) */}
+                  </linearGradient>
+                </defs>
+              </PieChart>
+            </div>
+            
+            <div className="absolute bottom-6 flex flex-col items-center pointer-events-none">
+              <span className="text-4xl font-bold font-display text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">75</span>
+            </div>
+            <div className="absolute bottom-0 w-full flex justify-between px-8 text-[10px] font-medium text-muted-foreground uppercase">
+              <span className="text-blue-400">Extreme<br/>Fear</span>
+              <span className="text-red-400 text-right">Extreme<br/>Greed</span>
+            </div>
           </div>
-          
-          <div className="absolute bottom-4 flex flex-col items-center pointer-events-none">
-             <span className="text-4xl font-bold font-display text-primary drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">75</span>
-             <span className="text-sm font-medium text-green-400">Greed</span>
+
+          {/* Time-based Indices List */}
+          <div className="w-full md:w-1/2 flex flex-col gap-2">
+             {[
+               { label: "공포 지수", period: "1주일", val: 28, color: "text-blue-400 border-blue-500/30" },
+               { label: "중립 지수", period: "1달", val: 57, color: "text-purple-400 border-purple-500/30" },
+               { label: "탐욕 지수", period: "3개월", val: 66, color: "text-red-400 border-red-500/30" },
+               { label: "탐욕 지수", period: "6개월", val: 71, color: "text-red-400 border-red-500/30" },
+             ].map((item, i) => (
+               <div key={i} className={`flex items-center justify-between p-3 rounded-lg border bg-secondary/20 ${item.color.split(' ')[1]}`}>
+                  <div className="flex flex-col">
+                    <span className={`text-sm font-bold ${item.color.split(' ')[0]}`}>{item.label}</span>
+                    <span className="text-xs text-muted-foreground">{item.period}</span>
+                  </div>
+                  <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-bold ${item.color}`}>
+                     {item.val}
+                  </div>
+               </div>
+             ))}
           </div>
         </div>
 
-        <div className="grid grid-cols-1 gap-2 mt-4">
-           <div className="flex justify-between items-center bg-secondary/30 p-2 rounded text-xs">
-              <span className="text-muted-foreground">Previous Close</span>
-              <span className="font-medium">68 (Greed)</span>
+        {/* Check Point Section */}
+        <div className="bg-secondary/10 border border-border/50 rounded-lg p-4 space-y-3">
+           <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                 <Check className="w-5 h-5 text-primary" />
+                 <span className="font-bold font-display italic text-lg">Check Point!</span>
+              </div>
+              <Button variant="outline" size="sm" className="h-7 text-xs border-primary/30 text-primary hover:bg-primary/10">
+                 자세히보기
+              </Button>
            </div>
-           <div className="flex justify-between items-center bg-secondary/30 p-2 rounded text-xs">
-              <span className="text-muted-foreground">1 Week Ago</span>
-              <span className="font-medium">45 (Neutral)</span>
-           </div>
+           <p className="text-xs text-muted-foreground leading-relaxed">
+             지난 1주일 동안 주식시장의 공포 탐욕지수는 12.65에서 44.76까지 변동하며 총 32.11포인트의 변동폭을 보였습니다. 
+             시작값은 25.38로 공포 구간(29 이하)에 속했으며, 최고값 44.76은 중립 구간(30~69)에 해당합니다. 
+             지수는 초기에는 공포심이 강했으나 중반에 중립 수준으로 올라갔다가 다시 하락하며 변동성을 보였습니다.
+           </p>
         </div>
       </CardContent>
     </Card>
