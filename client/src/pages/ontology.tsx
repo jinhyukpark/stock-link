@@ -582,8 +582,64 @@ export default function OntologyPage() {
             {/* Fear & Greed Gauge - Top Left Floating - REMOVED */}
             
             {/* Left Floating Toolbar */}
-            <div className="absolute left-4 top-4 z-30 flex flex-col gap-2">
-                 <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1">
+            <div className="absolute left-4 top-4 z-30 flex flex-col gap-4">
+                 {/* Mini Market Insights */}
+                 <div className="flex flex-col gap-3">
+                    {/* Compact Fear & Greed */}
+                    <div className="bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg p-3 shadow-lg w-[180px]">
+                        <div className="flex items-center justify-between mb-2">
+                            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Greed Index</span>
+                            <span className="text-[10px] text-red-400 font-bold">GREED</span>
+                        </div>
+                        <div className="flex items-end gap-2">
+                             <div className="relative w-12 h-12 flex items-center justify-center">
+                                {/* Simple CSS Gauge */}
+                                <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
+                                    <path className="text-gray-700" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3" />
+                                    <path className="text-red-500" strokeDasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3" />
+                                </svg>
+                                <span className="absolute text-sm font-bold text-white">75</span>
+                             </div>
+                             <div className="flex flex-col pb-1">
+                                <span className="text-[9px] text-gray-500">전일대비</span>
+                                <span className="text-[10px] text-red-400 font-bold">▲ 2.5</span>
+                             </div>
+                        </div>
+                    </div>
+
+                    {/* Today's Keywords */}
+                    <div className="bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg p-3 shadow-lg w-[180px]">
+                        <div className="flex items-center gap-2 mb-3 border-b border-white/5 pb-2">
+                            <Sparkles className="w-3.5 h-3.5 text-primary" />
+                            <span className="text-[11px] font-bold text-gray-200">Today's Keyword</span>
+                        </div>
+                        <div className="flex flex-col gap-2">
+                            {[
+                                { rank: 1, text: "반도체", count: 1242, trend: "up" },
+                                { rank: 2, text: "2차전지", count: 893, trend: "down" },
+                                { rank: 3, text: "AI", count: 756, trend: "up" },
+                                { rank: 4, text: "초전도체", count: 512, trend: "up" },
+                                { rank: 5, text: "바이오", count: 489, trend: "down" }
+                            ].map((k) => (
+                                <div key={k.rank} className="flex items-center justify-between group cursor-pointer">
+                                    <div className="flex items-center gap-2">
+                                        <span className={cn(
+                                            "w-3.5 h-3.5 flex items-center justify-center text-[9px] font-bold rounded shadow-inner",
+                                            k.rank <= 3 ? "bg-primary/20 text-primary border border-primary/30" : "bg-white/5 text-gray-500"
+                                        )}>{k.rank}</span>
+                                        <span className="text-[11px] text-gray-300 group-hover:text-white transition-colors">{k.text}</span>
+                                    </div>
+                                    <span className={cn("text-[9px]", k.trend === 'up' ? "text-red-400" : "text-blue-400")}>
+                                        {k.trend === 'up' ? '▲' : '▼'}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                 </div>
+
+                 {/* Original Floating Buttons - Now below widgets */}
+                 <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1 w-fit">
                      <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded">
                         <Database className="w-4 h-4" />
                      </Button>
