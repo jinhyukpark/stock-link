@@ -804,7 +804,7 @@ export default function MarketAnalysis() {
       </div>
       
       <Dialog open={!!selectedChart} onOpenChange={(open) => !open && setSelectedChart(null)}>
-        <DialogContent className="max-w-[95vw] h-[90vh] bg-[#0B0E14] border-border/50 flex flex-col p-0 overflow-visible sm:max-w-[90vw] lg:max-w-[1400px]">
+        <DialogContent className="max-w-[95vw] h-[90vh] bg-[#0B0E14] border-border/50 flex flex-col p-0 overflow-visible sm:max-w-[90vw] lg:max-w-[1600px]">
           
           <Button variant="ghost" size="icon" className="absolute -left-16 top-1/2 -translate-y-1/2 z-50 h-12 w-12 rounded-full bg-black/50 hover:bg-black/80 border border-white/10 text-white hidden xl:flex" onClick={handlePrev}>
              <ChevronLeft className="w-8 h-8" />
@@ -831,14 +831,14 @@ export default function MarketAnalysis() {
                             key={idx} 
                             variant="ghost" 
                             className={cn(
-                                "h-9 px-4 rounded-md border transition-all flex items-center justify-center",
+                                "h-9 px-5 rounded-full border transition-all flex items-center justify-center",
                                 currentIndex === idx 
                                     ? "bg-primary/20 text-primary border-primary/50 shadow-[0_0_10px_rgba(34,197,94,0.2)]" 
                                     : "bg-secondary/10 text-muted-foreground border-transparent hover:bg-secondary/30 hover:text-white"
                             )}
                             onClick={() => setSelectedChart(item)}
                         >
-                            <span className="text-[10px] font-bold font-mono tracking-tight uppercase">{item.title.split('(')[0].trim()}</span>
+                            <span className="text-xs font-bold font-mono tracking-tight uppercase">{item.title.split('(')[0].trim()}</span>
                         </Button>
                     ))}
                 </div>
