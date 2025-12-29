@@ -63,6 +63,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               className="pl-9 h-9 bg-secondary/50 border-transparent focus:bg-background transition-all text-sm rounded-full"
             />
           </div>
+
+          <div className="flex items-center gap-3">
+             <div className="flex items-center gap-1.5 px-2 py-0.5 bg-green-500/10 rounded-full border border-green-500/20">
+                <span className="flex h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                <span className="text-[10px] text-green-500 font-bold uppercase">Open</span>
+             </div>
+             <span className="text-[10px] font-mono text-muted-foreground/80">2024-12-29 20:55 KST</span>
+          </div>
         </div>
 
         {/* Right: Navigation & User */}
