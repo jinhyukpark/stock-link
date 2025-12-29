@@ -730,25 +730,25 @@ export default function MarketAnalysis() {
       </div>
       
       <Dialog open={!!selectedChart} onOpenChange={(open) => !open && setSelectedChart(null)}>
-        <DialogContent className="max-w-4xl bg-[#0B0E14] border-border/50">
-          <DialogHeader>
-            <DialogTitle className="text-2xl font-display font-bold text-white mb-2">{selectedChart?.title}</DialogTitle>
+        <DialogContent className="max-w-[90vw] h-[85vh] bg-[#0B0E14] border-border/50 flex flex-col p-8">
+          <DialogHeader className="shrink-0 mb-6">
+            <DialogTitle className="text-3xl font-display font-bold text-white mb-4 flex items-center gap-3">
+              {selectedChart?.title}
+            </DialogTitle>
             <DialogDescription className="hidden">Chart Detail</DialogDescription>
-          </DialogHeader>
-          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
-            <div className="lg:col-span-2 h-[400px]">
-              {selectedChart?.chart}
-            </div>
-            <div className="lg:col-span-1">
-              <div className="bg-blue-900/10 border border-blue-500/20 rounded-lg p-4 h-full overflow-y-auto">
-                 <h4 className="text-sm font-bold text-blue-400 mb-3 flex items-center gap-2">
+            
+            <div className="bg-blue-950/20 border border-blue-500/20 rounded-lg p-5">
+                 <h4 className="text-sm font-bold text-blue-400 mb-2 flex items-center gap-2">
                    <Sparkles className="w-4 h-4" /> AI Analysis
                  </h4>
                  <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line">
                    {selectedChart?.analysis}
                  </p>
-              </div>
             </div>
+          </DialogHeader>
+          
+          <div className="flex-1 w-full min-h-0 bg-[#0B0E14] rounded-lg border border-white/5 p-2 relative overflow-hidden">
+             {selectedChart?.chart}
           </div>
         </DialogContent>
       </Dialog>
