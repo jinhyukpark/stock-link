@@ -57,8 +57,8 @@ export default function MarketDistribution() {
                         data={priceDistributionData}
                         cx="50%"
                         cy="50%"
-                        innerRadius={35}
-                        outerRadius={55}
+                        innerRadius="60%"
+                        outerRadius="90%"
                         paddingAngle={2}
                         dataKey="value"
                         stroke="none"
@@ -102,8 +102,8 @@ export default function MarketDistribution() {
                         data={investorVolumeData}
                         cx="50%"
                         cy="50%"
-                        innerRadius={35}
-                        outerRadius={55}
+                        innerRadius="60%"
+                        outerRadius="90%"
                         paddingAngle={2}
                         dataKey="value"
                         stroke="none"
