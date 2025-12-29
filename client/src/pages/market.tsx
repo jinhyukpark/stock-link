@@ -825,20 +825,20 @@ export default function MarketAnalysis() {
              </Button>
 
              <div className="shrink-0 mb-6 flex justify-center w-full">
-                <div className="flex gap-2">
+                <div className="flex flex-wrap gap-2 justify-center">
                     {allCharts.map((item, idx) => (
                         <Button 
                             key={idx} 
                             variant="ghost" 
                             className={cn(
-                                "w-12 h-10 p-0 rounded-md border transition-all flex items-center justify-center",
+                                "h-9 px-4 rounded-md border transition-all flex items-center justify-center",
                                 currentIndex === idx 
                                     ? "bg-primary/20 text-primary border-primary/50 shadow-[0_0_10px_rgba(34,197,94,0.2)]" 
                                     : "bg-secondary/10 text-muted-foreground border-transparent hover:bg-secondary/30 hover:text-white"
                             )}
                             onClick={() => setSelectedChart(item)}
                         >
-                            <span className="text-xs font-bold font-mono">{idx + 1}</span>
+                            <span className="text-[10px] font-bold font-mono tracking-tight uppercase">{item.title.split('(')[0].replace('History', '').replace('Distribution', 'Dist.').replace('Rotation', 'Rot.').trim()}</span>
                         </Button>
                     ))}
                 </div>
