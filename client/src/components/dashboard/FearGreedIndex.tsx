@@ -160,21 +160,21 @@ export default function FearGreedIndex() {
         <div className="h-px bg-border/50 w-full my-2" />
 
         {/* Bottom Section: Distribution Donut Charts */}
-        <div className="h-[140px] grid grid-cols-2 gap-2">
+        <div className="flex-1 flex flex-col gap-4 mt-4 min-h-[300px]">
             {/* Chart 1: Price Distribution */}
-            <div className="flex flex-col h-full items-center justify-center">
-                <h3 className="text-[10px] font-semibold text-center mb-1 text-muted-foreground">
+            <div className="flex flex-col h-1/2 items-center justify-center">
+                <h3 className="text-sm font-semibold text-center mb-2 text-muted-foreground">
                     Price Distribution
                 </h3>
-                <div className="w-full h-[100px] relative">
+                <div className="w-full h-full relative">
                     <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie
                         data={priceDistributionData}
                         cx="50%"
                         cy="50%"
-                        innerRadius={25}
-                        outerRadius={40}
+                        innerRadius={45}
+                        outerRadius={70}
                         paddingAngle={2}
                         dataKey="value"
                         stroke="none"
@@ -194,20 +194,23 @@ export default function FearGreedIndex() {
                 </div>
             </div>
 
+            {/* Separator */}
+            <div className="h-px bg-border/30 w-[80%] mx-auto" />
+
             {/* Chart 2: Investor Volume */}
-            <div className="flex flex-col h-full items-center justify-center border-l border-border/30 pl-2">
-                <h3 className="text-[10px] font-semibold text-center mb-1 text-muted-foreground">
+            <div className="flex flex-col h-1/2 items-center justify-center">
+                <h3 className="text-sm font-semibold text-center mb-2 text-muted-foreground">
                     Investor Volume
                 </h3>
-                <div className="w-full h-[100px] relative">
+                <div className="w-full h-full relative">
                     <ResponsiveContainer width="100%" height="100%">
                     <PieChart>
                         <Pie
                         data={investorVolumeData}
                         cx="50%"
                         cy="50%"
-                        innerRadius={25}
-                        outerRadius={40}
+                        innerRadius={45}
+                        outerRadius={70}
                         paddingAngle={2}
                         dataKey="value"
                         stroke="none"
