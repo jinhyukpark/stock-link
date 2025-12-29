@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, ComposedChart, ReferenceLine } from "recharts";
-import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Sparkles, FileText, Calendar, User, Download, CalendarDays, Check, ChevronsUpDown, HelpCircle, Maximize2, X, Gauge, ArrowRightLeft, Target } from "lucide-react";
+import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Sparkles, FileText, Calendar, User, Download, CalendarDays, Check, ChevronsUpDown, HelpCircle, Maximize2, X, Gauge, ArrowRightLeft, Target, ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -459,17 +459,34 @@ export default function MarketAnalysis() {
     </ResponsiveContainer>
   );
 
+  const allCharts = [
+    { id: 'fgi', title: "Fear & Greed Index History", description: chartDescriptions.fgi, chart: fgiChart, analysis: analysisTexts.fgi },
+    { id: 'kospiBreadth', title: "KOSPI Breadth", description: chartDescriptions.breadth, chart: kospiBreadthChart, analysis: analysisTexts.breadth },
+    { id: 'kosdaqBreadth', title: "KOSDAQ Breadth", description: chartDescriptions.breadth, chart: kosdaqBreadthChart, analysis: analysisTexts.breadth },
+    { id: 'kospiDist', title: "KOSPI Price Distribution", description: chartDescriptions.dist, chart: kospiDistChart, analysis: analysisTexts.dist },
+    { id: 'kosdaqDist', title: "KOSDAQ Price Distribution", description: chartDescriptions.dist, chart: kosdaqDistChart, analysis: analysisTexts.dist },
+    { id: 'kospiCap', title: "KOSPI Market Cap Rotation", description: chartDescriptions.cap, chart: kospiSizeChart, analysis: analysisTexts.cap },
+    { id: 'kosdaqCap', title: "KOSDAQ Market Cap Rotation", description: chartDescriptions.cap, chart: kosdaqSizeChart, analysis: analysisTexts.cap },
+    { id: 'pam', title: "KOSPI Expected Returns (PAM)", description: chartDescriptions.pam, chart: pamChart, analysis: analysisTexts.pam },
+  ];
+
+  const currentIndex = selectedChart ? allCharts.findIndex(c => c.title === selectedChart.title) : -1;
+
+  const handlePrev = () => {
+    if (currentIndex === -1) return;
+    const prevIndex = (currentIndex - 1 + allCharts.length) % allCharts.length;
+    setSelectedChart(allCharts[prevIndex]);
+  };
+
+  const handleNext = () => {
+    if (currentIndex === -1) return;
+    const nextIndex = (currentIndex + 1) % allCharts.length;
+    setSelectedChart(allCharts[nextIndex]);
+  };
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      // Offset for sticky header
-      const offset = 80;
-      
-      // Since the scroll is happening on the WINDOW/BODY (due to DashboardLayout structure changes requested),
-      // we use window.scrollTo or element.scrollIntoView.
-      // However, if we are in a specific container, we need to target that.
-      
-      // Let's stick to the container approach if we want the "toolbar fixed, report scrolls" behavior perfectly.
       const container = document.getElementById('market-content-container');
       if (container) {
           const elementPosition = element.offsetTop;
@@ -787,27 +804,60 @@ export default function MarketAnalysis() {
       </div>
       
       <Dialog open={!!selectedChart} onOpenChange={(open) => !open && setSelectedChart(null)}>
-        <DialogContent className="max-w-[90vw] h-[85vh] bg-[#0B0E14] border-border/50 flex flex-col p-6 overflow-hidden">
-          <DialogHeader className="shrink-0 mb-4">
-            <DialogTitle className="text-2xl font-display font-bold text-white flex items-center gap-3">
-              {selectedChart?.title}
-            </DialogTitle>
-            <p className="text-muted-foreground mt-2 text-sm leading-relaxed max-w-4xl font-sans">
-              {selectedChart?.description}
-            </p>
-          </DialogHeader>
-          
-          <div className="flex-1 min-h-0 bg-[#0B0E14] rounded-lg border border-white/5 p-4 relative mb-4">
-             {selectedChart?.chart}
-          </div>
+        <DialogContent className="max-w-[95vw] h-[90vh] bg-[#0B0E14] border-border/50 flex flex-col p-0 overflow-hidden sm:max-w-[90vw] lg:max-w-[1400px]">
+          <div className="flex-1 flex flex-col p-6 relative">
+             <Button variant="ghost" size="icon" className="absolute left-2 top-1/2 -translate-y-1/2 z-50 h-12 w-12 rounded-full bg-black/50 hover:bg-black/80 border border-white/10 text-white" onClick={handlePrev}>
+                <ChevronLeft className="w-8 h-8" />
+             </Button>
+             
+             <Button variant="ghost" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 z-50 h-12 w-12 rounded-full bg-black/50 hover:bg-black/80 border border-white/10 text-white" onClick={handleNext}>
+                <ChevronRight className="w-8 h-8" />
+             </Button>
+             
+            <DialogHeader className="shrink-0 mb-4 px-8">
+                <div className="flex items-center justify-between">
+                    <DialogTitle className="text-2xl font-display font-bold text-white flex items-center gap-3">
+                    {selectedChart?.title}
+                    </DialogTitle>
+                </div>
+                <p className="text-muted-foreground mt-2 text-sm leading-relaxed max-w-4xl font-sans">
+                {selectedChart?.description}
+                </p>
+            </DialogHeader>
+            
+            <div className="flex-1 min-h-0 bg-[#0B0E14] rounded-lg border border-white/5 p-4 relative mb-4 mx-8">
+                {selectedChart?.chart}
+            </div>
 
-          <div className="shrink-0 bg-blue-950/20 border border-blue-500/20 rounded-lg p-4">
-               <h4 className="text-sm font-bold text-blue-400 mb-2 flex items-center gap-2">
-                 <Sparkles className="w-4 h-4" /> AI Analysis
-               </h4>
-               <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line">
-                 {selectedChart?.analysis}
-               </p>
+            <div className="shrink-0 bg-blue-950/20 border border-blue-500/20 rounded-lg p-4 mx-8">
+                <h4 className="text-sm font-bold text-blue-400 mb-2 flex items-center gap-2">
+                    <Sparkles className="w-4 h-4" /> AI Analysis
+                </h4>
+                <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line">
+                    {selectedChart?.analysis}
+                </p>
+            </div>
+            
+             <div className="shrink-0 mt-4 px-8 pt-4 border-t border-border/20 overflow-x-auto">
+                <div className="flex gap-2 pb-2">
+                    {allCharts.map((item, idx) => (
+                        <Button 
+                            key={idx} 
+                            variant="ghost" 
+                            size="sm" 
+                            className={cn(
+                                "text-xs h-8 px-3 whitespace-nowrap border transition-all",
+                                currentIndex === idx 
+                                    ? "bg-primary/20 text-primary border-primary/50" 
+                                    : "bg-secondary/10 text-muted-foreground border-transparent hover:bg-secondary/30 hover:text-white"
+                            )}
+                            onClick={() => setSelectedChart(item)}
+                        >
+                            {idx + 1}. {item.title.split('(')[0].trim()}
+                        </Button>
+                    ))}
+                </div>
+            </div>
           </div>
         </DialogContent>
       </Dialog>
