@@ -1,248 +1,312 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, Pie, PieChart, ResponsiveContainer, Tooltip, XAxis, YAxis, ComposedChart, Scatter } from "recharts";
-import { TrendingUp, TrendingDown, Minus, ArrowUpRight, ArrowDownRight, Activity } from "lucide-react";
-import { Badge } from "@/components/ui/badge";
+import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, ComposedChart, ReferenceLine } from "recharts";
+import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap } from "lucide-react";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 
-// 1. Fear & Greed Data (Last 6 Months)
-const fearGreedHistory = [
-  { date: "Jul", value: 25, status: "Fear" },
-  { date: "Aug", value: 45, status: "Neutral" },
-  { date: "Sep", value: 30, status: "Fear" },
-  { date: "Oct", value: 65, status: "Greed" },
-  { date: "Nov", value: 80, status: "Extreme Greed" },
-  { date: "Dec", value: 75, status: "Greed" },
-];
+// --- Mock Data ---
 
-// 2. Theme Analysis Data
-const themeData = [
-  { name: "AI Semi", value: 85, fill: "#ef4444" },
-  { name: "Batteries", value: 65, fill: "#f97316" },
-  { name: "Bio", value: 45, fill: "#22c55e" },
-  { name: "Auto", value: 30, fill: "#3b82f6" },
-  { name: "Platform", value: 25, fill: "#a855f7" },
-];
+// 1. Fear & Greed History
+const fgiHistoryData = Array.from({ length: 30 }, (_, i) => ({
+  date: `2025-12-${i + 1}`,
+  weekly: 40 + Math.random() * 40 + Math.sin(i / 3) * 15,
+  monthly: 50 + Math.random() * 20 + Math.sin(i / 5) * 10,
+}));
 
-// 3. Daily Closing Price Changes Distribution (Histogram & KDE Mock)
-const priceChangeDist = [
-  { range: "-5%~", count: 120 },
-  { range: "-3%~", count: 350 },
-  { range: "-1%~", count: 890 },
-  { range: "0%", count: 450 },
-  { range: "~1%", count: 920 },
-  { range: "~3%", count: 410 },
-  { range: "~5%", count: 150 },
-];
+// 2. Rising Stocks Count (KOSPI/KOSDAQ)
+const risingStocksKospi = Array.from({ length: 30 }, (_, i) => ({
+  date: `12-${i + 1}`,
+  ma5: 400 + Math.random() * 200,
+  ma10: 450 + Math.random() * 150,
+  ma20: 500 + Math.random() * 100,
+  daily: 300 + Math.random() * 400,
+}));
 
-// 4. Cumulative Rising Ratio by Market/Size (Last 5 Days)
-const marketSizeRisingRatio = [
-  { day: "D-4", large: 12, mid: 8, small: 15 },
-  { day: "D-3", large: 25, mid: 20, small: 18 },
-  { day: "D-2", large: 18, mid: 25, small: 30 },
-  { day: "D-1", large: 35, mid: 32, small: 45 },
-  { day: "Today", large: 42, mid: 38, small: 52 },
-];
+const risingStocksKosdaq = Array.from({ length: 30 }, (_, i) => ({
+  date: `12-${i + 1}`,
+  ma5: 700 + Math.random() * 300,
+  ma10: 750 + Math.random() * 200,
+  ma20: 800 + Math.random() * 150,
+  daily: 500 + Math.random() * 600,
+}));
+
+// 3. Price Change Distribution (Histogram & KDE)
+const generateDistData = (center: number, spread: number) => {
+  return Array.from({ length: 40 }, (_, i) => {
+    const x = (i - 20) / 2; // -10% to +10%
+    const kde = Math.exp(-Math.pow(x - center, 2) / (2 * spread * spread)) * 100;
+    const count = kde * (0.8 + Math.random() * 0.4) * 5; 
+    return { range: x.toFixed(1), count: Math.floor(count), kde };
+  });
+};
+
+const distKospi = generateDistData(0.5, 2.5);
+const distKosdaq = generateDistData(-0.2, 3.5);
+
+// 4. Rising Ratio by Market Size (Cumulative)
+const risingRatioKospi = Array.from({ length: 14 }, (_, i) => ({
+  date: `12-${15 + i}`,
+  large: 20 + Math.random() * 10 + i * 2,
+  mid: 30 + Math.random() * 15 + i,
+  small: 50 + Math.random() * 20 - i,
+}));
+
+const risingRatioKosdaq = Array.from({ length: 14 }, (_, i) => ({
+  date: `12-${15 + i}`,
+  large: 15 + Math.random() * 10 - i,
+  mid: 40 + Math.random() * 15 + i,
+  small: 45 + Math.random() * 20 + i * 1.5,
+}));
 
 // 5. Market Expected Return (PAM)
-const pamData = [
-  { name: "KOSPI", return: 8.5, risk: 12 },
-  { name: "KOSDAQ", return: 12.2, risk: 18 },
-  { name: "S&P500", return: 10.5, risk: 14 },
-  { name: "NASDAQ", return: 15.8, risk: 22 },
-];
+const pamKospi = Array.from({ length: 30 }, (_, i) => ({
+  date: `12-${i + 1}`,
+  day5: Math.sin(i / 2) * 0.5 + 0.2 + Math.random() * 0.2,
+  day10: Math.sin(i / 4) * 0.4 + 0.1 + Math.random() * 0.1,
+  day20: Math.sin(i / 6) * 0.3 + 0.05 + Math.random() * 0.1,
+}));
+
+const pamKosdaq = Array.from({ length: 30 }, (_, i) => ({
+  date: `12-${i + 1}`,
+  day5: Math.cos(i / 2) * 0.8 + 0.1 + Math.random() * 0.3,
+  day10: Math.cos(i / 4) * 0.6 + 0.1 + Math.random() * 0.2,
+  day20: Math.cos(i / 6) * 0.4 + 0.05 + Math.random() * 0.1,
+}));
+
+// --- Components ---
+
+const CustomTooltip = ({ active, payload, label }: any) => {
+  if (active && payload && payload.length) {
+    return (
+      <div className="bg-[#1e293b] border border-border/50 p-2 rounded shadow-xl text-xs">
+        <p className="font-bold text-white mb-1">{label}</p>
+        {payload.map((entry: any, index: number) => (
+          <div key={index} className="flex items-center gap-2">
+            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: entry.stroke || entry.fill }} />
+            <span className="text-gray-300">{entry.name}:</span>
+            <span className="font-mono font-medium text-white">
+              {typeof entry.value === 'number' ? entry.value.toFixed(2) : entry.value}
+              {entry.unit}
+            </span>
+          </div>
+        ))}
+      </div>
+    );
+  }
+  return null;
+};
 
 export default function MarketAnalysis() {
   return (
     <DashboardLayout>
-      <div className="flex flex-col gap-6 p-6 h-full overflow-y-auto">
-        <div className="flex flex-col gap-1">
-           <h1 className="text-2xl font-display font-bold text-white">Market Analysis</h1>
-           <p className="text-sm text-muted-foreground">Comprehensive market overview and quantitative metrics.</p>
+      <div className="flex flex-col gap-8 p-6 min-h-full bg-[#0B0E14] text-foreground">
+        
+        {/* Header */}
+        <div className="flex flex-col gap-1 border-b border-border/50 pb-4">
+           <h1 className="text-2xl font-display font-bold text-white flex items-center gap-2">
+             <Activity className="w-6 h-6 text-primary" />
+             Market Statistical Analysis
+           </h1>
+           <p className="text-sm text-muted-foreground">Detailed statistical analysis and quantitative metrics for the entire market.</p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-          
-          {/* 1. Fear & Greed Index History */}
-          <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-            <CardHeader>
-              <CardTitle className="text-base font-semibold flex items-center gap-2">
-                <Activity className="w-4 h-4 text-primary" />
-                Fear & Greed History (6M)
+        {/* 1. Fear & Greed Index Chart */}
+        <Card className="bg-card/30 backdrop-blur-sm border-border/50">
+            <CardHeader className="py-3 border-b border-border/50">
+              <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                <Zap className="w-4 h-4 text-yellow-500" />
+                Fear & Greed Index History (6 Months)
               </CardTitle>
             </CardHeader>
-            <CardContent>
-              <div className="h-[200px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={fearGreedHistory}>
-                    <defs>
-                      <linearGradient id="colorFear" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#8884d8" stopOpacity={0.8}/>
-                        <stop offset="95%" stopColor="#8884d8" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                    <XAxis dataKey="date" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} domain={[0, 100]} />
-                    <Tooltip 
-                      contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px' }}
-                      itemStyle={{ color: '#fff' }}
-                    />
-                    <Area type="monotone" dataKey="value" stroke="#8884d8" fillOpacity={1} fill="url(#colorFear)" />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </div>
-            </CardContent>
-          </Card>
-
-          {/* 2. Theme Analysis */}
-          <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-            <CardHeader>
-               <CardTitle className="text-base font-semibold flex items-center gap-2">
-                <TrendingUp className="w-4 h-4 text-red-500" />
-                Theme Strength Analysis
-              </CardTitle>
-            </CardHeader>
-            <CardContent>
-               <div className="h-[200px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <BarChart data={themeData} layout="vertical">
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" horizontal={true} vertical={false} />
-                    <XAxis type="number" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} hide />
-                    <YAxis dataKey="name" type="category" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} width={80} />
-                    <Tooltip 
-                        cursor={{fill: 'rgba(255,255,255,0.05)'}}
-                        contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px' }}
-                        itemStyle={{ color: '#fff' }}
-                    />
-                    <Bar dataKey="value" radius={[0, 4, 4, 0]}>
-                      {themeData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={entry.fill} />
-                      ))}
-                    </Bar>
-                  </BarChart>
-                </ResponsiveContainer>
-              </div>
-            </CardContent>
-          </Card>
-
-           {/* 3. Rising Stocks Count */}
-           <Card className="bg-card/50 backdrop-blur-sm border-border/50 flex flex-col justify-between">
-            <CardHeader>
-               <CardTitle className="text-base font-semibold flex items-center gap-2">
-                <ArrowUpRight className="w-4 h-4 text-green-500" />
-                Rising Stocks Count
-              </CardTitle>
-               <p className="text-[10px] text-muted-foreground">Updated: 2025-12-29 21:51:36</p>
-            </CardHeader>
-            <CardContent className="flex-1 flex flex-col items-center justify-center pb-8">
-               <div className="text-5xl font-bold font-mono text-green-500 drop-shadow-[0_0_15px_rgba(34,197,94,0.3)]">
-                  1,248
-               </div>
-               <div className="text-sm text-muted-foreground mt-2 flex items-center gap-2">
-                  <span>vs Prev Day</span>
-                  <Badge variant="outline" className="bg-green-500/10 text-green-500 border-green-500/20 gap-1">
-                     <TrendingUp className="w-3 h-3" /> +152
-                  </Badge>
-               </div>
-            </CardContent>
-          </Card>
-
-          {/* 4. Price Change Distribution */}
-          <Card className="bg-card/50 backdrop-blur-sm border-border/50 lg:col-span-2">
-            <CardHeader>
-               <CardTitle className="text-base font-semibold">Price Change Distribution (Histogram)</CardTitle>
-            </CardHeader>
-            <CardContent>
+            <CardContent className="pt-4">
               <div className="h-[250px] w-full">
                 <ResponsiveContainer width="100%" height="100%">
-                  <ComposedChart data={priceChangeDist}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                    <XAxis dataKey="range" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-                    <Tooltip 
-                        contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px' }}
-                        itemStyle={{ color: '#fff' }}
-                    />
-                    <Bar dataKey="count" fill="#3b82f6" barSize={40} radius={[4, 4, 0, 0]} />
-                    <Line type="monotone" dataKey="count" stroke="#f97316" strokeWidth={2} dot={{r: 4, fill: "#f97316"}} />
+                  <ComposedChart data={fgiHistoryData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={true} />
+                    <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                    <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} domain={[0, 100]} />
+                    <Tooltip content={<CustomTooltip />} />
+                    <ReferenceLine y={80} stroke="#ef4444" strokeDasharray="3 3" label={{ value: 'Extreme Greed', fill: '#ef4444', fontSize: 10, position: 'insideTopRight' }} />
+                    <ReferenceLine y={20} stroke="#3b82f6" strokeDasharray="3 3" label={{ value: 'Extreme Fear', fill: '#3b82f6', fontSize: 10, position: 'insideBottomRight' }} />
+                    <Line type="monotone" dataKey="weekly" name="Weekly FGI" stroke="#ef4444" strokeWidth={2} dot={false} />
+                    <Line type="monotone" dataKey="monthly" name="Monthly FGI" stroke="#3b82f6" strokeWidth={2} dot={false} />
                   </ComposedChart>
                 </ResponsiveContainer>
               </div>
             </CardContent>
-          </Card>
+        </Card>
 
-          {/* 5. Market Size Rising Ratio */}
-          <Card className="bg-card/50 backdrop-blur-sm border-border/50">
-            <CardHeader>
-               <CardTitle className="text-base font-semibold">Rising Ratio by Size (5D)</CardTitle>
-            </CardHeader>
-            <CardContent>
-               <div className="h-[250px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <LineChart data={marketSizeRisingRatio}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" vertical={false} />
-                    <XAxis dataKey="day" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} />
-                    <YAxis stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false} unit="%" />
-                    <Tooltip 
-                        contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px' }}
-                        itemStyle={{ color: '#fff' }}
-                    />
-                    <Legend />
-                    <Line type="monotone" dataKey="large" name="Large Cap" stroke="#3b82f6" strokeWidth={2} dot={false} />
-                    <Line type="monotone" dataKey="mid" name="Mid Cap" stroke="#f97316" strokeWidth={2} dot={false} />
-                    <Line type="monotone" dataKey="small" name="Small Cap" stroke="#22c55e" strokeWidth={2} dot={false} />
-                  </LineChart>
-                </ResponsiveContainer>
-              </div>
-            </CardContent>
-          </Card>
-
-           {/* 6. Market Expected Return (PAM) */}
-           <Card className="bg-card/50 backdrop-blur-sm border-border/50 lg:col-span-3">
-            <CardHeader>
-               <CardTitle className="text-base font-semibold">Market Expected Return (PAM) - 2025-12-29</CardTitle>
-            </CardHeader>
-            <CardContent>
-               <div className="h-[250px] w-full">
-                <ResponsiveContainer width="100%" height="100%">
-                  <ScatterChart margin={{ top: 20, right: 20, bottom: 20, left: 20 }}>
-                    <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
-                    <XAxis type="number" dataKey="risk" name="Risk (Std Dev)" unit="%" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false}>
-                       <Label value="Risk (Standard Deviation)" offset={0} position="insideBottom" fill="#94a3b8" style={{fontSize: '12px'}} />
-                    </XAxis>
-                    <YAxis type="number" dataKey="return" name="Expected Return" unit="%" stroke="#94a3b8" fontSize={12} tickLine={false} axisLine={false}>
-                       <Label value="Expected Return" angle={-90} position="insideLeft" fill="#94a3b8" style={{fontSize: '12px'}} />
-                    </YAxis>
-                    <Tooltip cursor={{ strokeDasharray: '3 3' }} 
-                        content={({ active, payload }) => {
-                            if (active && payload && payload.length) {
-                              const data = payload[0].payload;
-                              return (
-                                <div className="bg-slate-800 border border-slate-700 p-2 rounded shadow-lg text-xs">
-                                  <p className="font-bold text-white mb-1">{data.name}</p>
-                                  <p className="text-blue-300">Return: {data.return}%</p>
-                                  <p className="text-red-300">Risk: {data.risk}%</p>
-                                </div>
-                              );
-                            }
-                            return null;
-                        }}
-                    />
-                    <Scatter name="Markets" data={pamData} fill="#8884d8">
-                      {pamData.map((entry, index) => (
-                        <Cell key={`cell-${index}`} fill={index % 2 === 0 ? "#3b82f6" : "#f97316"} />
-                      ))}
-                    </Scatter>
-                  </ScatterChart>
-                </ResponsiveContainer>
-              </div>
-            </CardContent>
-          </Card>
+        {/* 2. Rising Stocks Count */}
+        <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
+            <Card className="bg-card/30 backdrop-blur-sm border-border/50 col-span-1 lg:col-span-2">
+                <CardHeader className="py-3 border-b border-border/50">
+                    <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                        <TrendingUp className="w-4 h-4 text-red-500" />
+                        Rising Stocks Count (Daily)
+                    </CardTitle>
+                </CardHeader>
+                <CardContent className="pt-4 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                    <div className="h-[200px] w-full">
+                        <h4 className="text-xs font-bold text-center mb-2 text-muted-foreground">KOSPI</h4>
+                        <ResponsiveContainer width="100%" height="100%">
+                            <LineChart data={risingStocksKospi}>
+                                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                                <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                                <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                                <Tooltip content={<CustomTooltip />} />
+                                <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
+                                <Line type="monotone" dataKey="daily" name="Daily" stroke="#ef4444" strokeWidth={1} dot={false} />
+                                <Line type="monotone" dataKey="ma5" name="5D MA" stroke="#f97316" strokeWidth={1.5} dot={false} />
+                                <Line type="monotone" dataKey="ma10" name="10D MA" stroke="#22c55e" strokeWidth={1.5} dot={false} />
+                                <Line type="monotone" dataKey="ma20" name="20D MA" stroke="#3b82f6" strokeWidth={1.5} dot={false} />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
+                    <div className="h-[200px] w-full">
+                        <h4 className="text-xs font-bold text-center mb-2 text-muted-foreground">KOSDAQ</h4>
+                        <ResponsiveContainer width="100%" height="100%">
+                            <LineChart data={risingStocksKosdaq}>
+                                <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                                <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                                <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                                <Tooltip content={<CustomTooltip />} />
+                                <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
+                                <Line type="monotone" dataKey="daily" name="Daily" stroke="#ef4444" strokeWidth={1} dot={false} />
+                                <Line type="monotone" dataKey="ma5" name="5D MA" stroke="#f97316" strokeWidth={1.5} dot={false} />
+                                <Line type="monotone" dataKey="ma10" name="10D MA" stroke="#22c55e" strokeWidth={1.5} dot={false} />
+                                <Line type="monotone" dataKey="ma20" name="20D MA" stroke="#3b82f6" strokeWidth={1.5} dot={false} />
+                            </LineChart>
+                        </ResponsiveContainer>
+                    </div>
+                </CardContent>
+            </Card>
         </div>
+
+        {/* 3. Price Change Distribution */}
+        <Card className="bg-card/30 backdrop-blur-sm border-border/50">
+            <CardHeader className="py-3 border-b border-border/50">
+                <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                    <BarChart2 className="w-4 h-4 text-blue-500" />
+                    Price Change Distribution (Histogram & KDE)
+                </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="h-[200px] w-full">
+                    <h4 className="text-xs font-bold text-center mb-2 text-muted-foreground">KOSPI</h4>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <ComposedChart data={distKospi}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                            <XAxis dataKey="range" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                            <YAxis yAxisId="left" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                            <YAxis yAxisId="right" orientation="right" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} hide />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Bar yAxisId="left" dataKey="count" name="Count" fill="#3b82f6" opacity={0.6} barSize={10} />
+                            <Line yAxisId="right" type="monotone" dataKey="kde" name="KDE" stroke="#ef4444" strokeWidth={2} dot={false} />
+                        </ComposedChart>
+                    </ResponsiveContainer>
+                </div>
+                <div className="h-[200px] w-full">
+                    <h4 className="text-xs font-bold text-center mb-2 text-muted-foreground">KOSDAQ</h4>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <ComposedChart data={distKosdaq}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                            <XAxis dataKey="range" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                            <YAxis yAxisId="left" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                            <YAxis yAxisId="right" orientation="right" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} hide />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Bar yAxisId="left" dataKey="count" name="Count" fill="#3b82f6" opacity={0.6} barSize={10} />
+                            <Line yAxisId="right" type="monotone" dataKey="kde" name="KDE" stroke="#ef4444" strokeWidth={2} dot={false} />
+                        </ComposedChart>
+                    </ResponsiveContainer>
+                </div>
+            </CardContent>
+        </Card>
+
+        {/* 4. Rising Ratio by Market Size */}
+        <Card className="bg-card/30 backdrop-blur-sm border-border/50">
+            <CardHeader className="py-3 border-b border-border/50">
+                <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                    <PieChartIcon className="w-4 h-4 text-green-500" />
+                    Rising Ratio by Market Size (Cumulative)
+                </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="h-[200px] w-full">
+                    <h4 className="text-xs font-bold text-center mb-2 text-muted-foreground">KOSPI</h4>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={risingRatioKospi}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                            <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                            <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} unit="%" />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
+                            <Area type="monotone" dataKey="small" name="Small Cap" stackId="1" stroke="#22c55e" fill="#22c55e" fillOpacity={0.6} />
+                            <Area type="monotone" dataKey="mid" name="Mid Cap" stackId="1" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.6} />
+                            <Area type="monotone" dataKey="large" name="Large Cap" stackId="1" stroke="#ef4444" fill="#ef4444" fillOpacity={0.6} />
+                        </AreaChart>
+                    </ResponsiveContainer>
+                </div>
+                <div className="h-[200px] w-full">
+                    <h4 className="text-xs font-bold text-center mb-2 text-muted-foreground">KOSDAQ</h4>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <AreaChart data={risingRatioKosdaq}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                            <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                            <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} unit="%" />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
+                            <Area type="monotone" dataKey="small" name="Small Cap" stackId="1" stroke="#22c55e" fill="#22c55e" fillOpacity={0.6} />
+                            <Area type="monotone" dataKey="mid" name="Mid Cap" stackId="1" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.6} />
+                            <Area type="monotone" dataKey="large" name="Large Cap" stackId="1" stroke="#ef4444" fill="#ef4444" fillOpacity={0.6} />
+                        </AreaChart>
+                    </ResponsiveContainer>
+                </div>
+            </CardContent>
+        </Card>
+
+        {/* 5. Market Expected Return (PAM) */}
+        <Card className="bg-card/30 backdrop-blur-sm border-border/50">
+            <CardHeader className="py-3 border-b border-border/50">
+                <CardTitle className="text-sm font-semibold flex items-center gap-2">
+                    <Activity className="w-4 h-4 text-purple-500" />
+                    Market Expected Return (PAM)
+                </CardTitle>
+            </CardHeader>
+            <CardContent className="pt-4 grid grid-cols-1 lg:grid-cols-2 gap-6">
+                <div className="h-[200px] w-full">
+                    <h4 className="text-xs font-bold text-center mb-2 text-muted-foreground">KOSPI</h4>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={pamKospi}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                            <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                            <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
+                            <Line type="monotone" dataKey="day5" name="5 Day PAM" stroke="#ef4444" strokeWidth={2} dot={false} />
+                            <Line type="monotone" dataKey="day10" name="10 Day PAM" stroke="#22c55e" strokeWidth={2} dot={false} />
+                            <Line type="monotone" dataKey="day20" name="20 Day PAM" stroke="#3b82f6" strokeWidth={2} dot={false} />
+                        </LineChart>
+                    </ResponsiveContainer>
+                </div>
+                <div className="h-[200px] w-full">
+                    <h4 className="text-xs font-bold text-center mb-2 text-muted-foreground">KOSDAQ</h4>
+                    <ResponsiveContainer width="100%" height="100%">
+                        <LineChart data={pamKosdaq}>
+                            <CartesianGrid strokeDasharray="3 3" stroke="#334155" />
+                            <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                            <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+                            <Tooltip content={<CustomTooltip />} />
+                            <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '10px' }} />
+                            <Line type="monotone" dataKey="day5" name="5 Day PAM" stroke="#ef4444" strokeWidth={2} dot={false} />
+                            <Line type="monotone" dataKey="day10" name="10 Day PAM" stroke="#22c55e" strokeWidth={2} dot={false} />
+                            <Line type="monotone" dataKey="day20" name="20 Day PAM" stroke="#3b82f6" strokeWidth={2} dot={false} />
+                        </LineChart>
+                    </ResponsiveContainer>
+                </div>
+            </CardContent>
+        </Card>
+
       </div>
     </DashboardLayout>
   );
 }
-
-// Importing ScatterChart specifically since it wasn't in the initial import list
-import { ScatterChart, Label } from "recharts";
