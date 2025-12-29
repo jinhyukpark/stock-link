@@ -300,7 +300,7 @@ export default function MarketAnalysis() {
     <ResponsiveContainer width="100%" height="100%">
       <ComposedChart data={fgiHistoryData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
         <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={true} />
-        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} angle={-45} textAnchor="end" height={60} />
         <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} domain={[0, 100]} />
         <Tooltip content={<CustomTooltip />} />
         <ReferenceLine y={80} stroke="#ef4444" strokeDasharray="3 3" label={{ value: 'EXTREME GREED', fill: '#ef4444', fontSize: 9, position: 'insideTopRight' }} />
@@ -315,7 +315,7 @@ export default function MarketAnalysis() {
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={risingStocksKospi}>
         <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} angle={-45} textAnchor="end" height={60} />
         <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
         <Tooltip content={<CustomTooltip />} />
         <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
@@ -330,7 +330,7 @@ export default function MarketAnalysis() {
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={risingStocksKosdaq}>
         <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} angle={-45} textAnchor="end" height={60} />
         <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
         <Tooltip content={<CustomTooltip />} />
         <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
@@ -369,7 +369,7 @@ export default function MarketAnalysis() {
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart data={risingRatioKospi}>
         <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} angle={-45} textAnchor="end" height={60} />
         <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} unit="%" />
         <Tooltip content={<CustomTooltip />} />
         <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
@@ -384,7 +384,7 @@ export default function MarketAnalysis() {
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart data={risingRatioKosdaq}>
         <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} angle={-45} textAnchor="end" height={60} />
         <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} unit="%" />
         <Tooltip content={<CustomTooltip />} />
         <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
@@ -399,7 +399,7 @@ export default function MarketAnalysis() {
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={pamKospi}>
         <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} angle={-45} textAnchor="end" height={60} />
         <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
         <Tooltip content={<CustomTooltip />} />
         <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="plainline" />
