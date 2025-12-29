@@ -408,7 +408,6 @@ export default function OntologyPage() {
             next.delete(id);
         } else {
             next.add(id);
-            if (!isChatOpen) setIsChatOpen(true);
         }
         return next;
     });
