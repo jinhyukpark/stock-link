@@ -1,35 +1,8 @@
-import { PieChart, Pie, Cell, ResponsiveContainer, Tooltip } from "recharts";
+import { PieChart, Pie, Cell } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Info } from "lucide-react";
-import { Tooltip as UITooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-
-const priceDistributionData = [
-  { name: "Rising", value: 44.6, color: "#3b82f6" }, // Blue
-  { name: "Falling", value: 48.6, color: "#06b6d4" }, // Cyan
-  { name: "Unchanged", value: 6.8, color: "#eab308" }, // Yellow
-];
-
-const investorVolumeData = [
-  { name: "Individual", value: 75.7, color: "#3b82f6" }, // Blue
-  { name: "Institution", value: 6.5, color: "#06b6d4" }, // Cyan
-  { name: "Foreign", value: 17.8, color: "#eab308" }, // Yellow
-];
-
-const CustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, index }: any) => {
-  const RADIAN = Math.PI / 180;
-  const radius = innerRadius + (outerRadius - innerRadius) * 0.5;
-  const x = cx + radius * Math.cos(-midAngle * RADIAN);
-  const y = cy + radius * Math.sin(-midAngle * RADIAN);
-
-  // Only show label if percentage is significant to avoid clutter
-  if (percent < 0.05) return null;
-
-  return (
-    <text x={x} y={y} fill="white" textAnchor={x > cx ? 'start' : 'end'} dominantBaseline="central" className="text-[10px] font-bold fill-white drop-shadow-md">
-      {`${(percent * 100).toFixed(1)}%`}
-    </text>
-  );
-};
+import { Info, Check } from "lucide-react";
+import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
+import { Button } from "@/components/ui/button";
 
 export default function FearGreedIndex() {
   const data = [
@@ -74,24 +47,23 @@ export default function FearGreedIndex() {
   return (
     <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 flex flex-col">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-base font-semibold">Market Sentiment</CardTitle>
+        <CardTitle className="text-base font-semibold">Fear & Greed Index</CardTitle>
         <TooltipProvider>
-          <UITooltip>
+          <Tooltip>
             <TooltipTrigger>
               <Info className="w-4 h-4 text-muted-foreground" />
             </TooltipTrigger>
             <TooltipContent>
-              <p>Market sentiment & distribution indicators</p>
+              <p>Market sentiment indicator</p>
             </TooltipContent>
-          </UITooltip>
+          </Tooltip>
         </TooltipProvider>
       </CardHeader>
       
-      <CardContent className="flex-1 flex flex-col justify-between py-2">
-        {/* Top Section: Fear & Greed + Indices */}
-        <div className="flex flex-col xl:flex-row gap-2 xl:gap-4 items-center flex-1">
+      <CardContent className="flex-1 flex flex-col gap-6">
+        <div className="flex flex-col md:flex-row gap-4 items-center">
           {/* Gauge Chart Section */}
-          <div className="relative h-[160px] w-full xl:w-1/2 flex items-center justify-center overflow-hidden shrink-0">
+          <div className="relative h-[160px] w-full md:w-1/2 flex items-center justify-center overflow-hidden">
             <div className="scale-75 sm:scale-90 md:scale-90 origin-center transition-transform">
               <PieChart width={width} height={height}>
                 <Pie
@@ -136,7 +108,7 @@ export default function FearGreedIndex() {
           </div>
 
           {/* Time-based Indices List */}
-          <div className="w-full xl:w-1/2 flex flex-col gap-1.5 px-2 xl:px-0">
+          <div className="w-full md:w-1/2 flex flex-col gap-1.5">
              {[
                { label: "Fear Index", period: "1 Week", val: 28, color: "text-blue-400 border-blue-500/30" },
                { label: "Neutral Index", period: "1 Month", val: 57, color: "text-purple-400 border-purple-500/30" },
@@ -156,79 +128,23 @@ export default function FearGreedIndex() {
           </div>
         </div>
 
-        {/* Separator */}
-        <div className="h-px bg-border/50 w-full my-2" />
-
-        {/* Bottom Section: Distribution Donut Charts */}
-        <div className="flex-1 flex flex-col gap-4 mt-4 min-h-[300px]">
-            {/* Chart 1: Price Distribution */}
-            <div className="flex flex-col h-1/2 items-center justify-center">
-                <h3 className="text-sm font-semibold text-center mb-2 text-muted-foreground">
-                    Price Distribution
-                </h3>
-                <div className="w-full h-full relative">
-                    <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                        <Pie
-                        data={priceDistributionData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={45}
-                        outerRadius={70}
-                        paddingAngle={2}
-                        dataKey="value"
-                        stroke="none"
-                        labelLine={false}
-                        label={CustomLabel}
-                        >
-                        {priceDistributionData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
-                        </Pie>
-                        <Tooltip 
-                            contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
-                            itemStyle={{ color: '#fff' }}
-                        />
-                    </PieChart>
-                    </ResponsiveContainer>
-                </div>
-            </div>
-
-            {/* Separator */}
-            <div className="h-px bg-border/30 w-[80%] mx-auto" />
-
-            {/* Chart 2: Investor Volume */}
-            <div className="flex flex-col h-1/2 items-center justify-center">
-                <h3 className="text-sm font-semibold text-center mb-2 text-muted-foreground">
-                    Investor Volume
-                </h3>
-                <div className="w-full h-full relative">
-                    <ResponsiveContainer width="100%" height="100%">
-                    <PieChart>
-                        <Pie
-                        data={investorVolumeData}
-                        cx="50%"
-                        cy="50%"
-                        innerRadius={45}
-                        outerRadius={70}
-                        paddingAngle={2}
-                        dataKey="value"
-                        stroke="none"
-                        labelLine={false}
-                        label={CustomLabel}
-                        >
-                        {investorVolumeData.map((entry, index) => (
-                            <Cell key={`cell-${index}`} fill={entry.color} />
-                        ))}
-                        </Pie>
-                        <Tooltip 
-                            contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
-                            itemStyle={{ color: '#fff' }}
-                        />
-                    </PieChart>
-                    </ResponsiveContainer>
-                </div>
-            </div>
+        {/* Check Point Section */}
+        <div className="bg-secondary/10 border border-border/50 rounded-lg p-3 space-y-2">
+           <div className="flex items-center justify-between">
+              <div className="flex items-center gap-2">
+                 <Check className="w-5 h-5 text-primary" />
+                 <span className="font-bold font-display italic text-lg">Check Point!</span>
+              </div>
+              <Button variant="outline" size="sm" className="h-7 text-xs border-primary/30 text-primary hover:bg-primary/10">
+                 View Details
+              </Button>
+           </div>
+           <p className="text-xs text-muted-foreground leading-relaxed">
+             Over the past week, the stock market's Fear & Greed Index fluctuated between 12.65 and 44.76, showing a total volatility of 32.11 points. 
+             The starting value was 25.38, falling within the Fear range (29 or lower), while the peak of 44.76 corresponded to the Neutral range (30-69). 
+             The index initially showed strong fear but rose to neutral levels mid-week before declining again, demonstrating volatility. 
+             This suggests that market sentiment has shown unstable movements.
+           </p>
         </div>
       </CardContent>
     </Card>
