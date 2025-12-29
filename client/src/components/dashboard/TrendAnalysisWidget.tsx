@@ -46,9 +46,9 @@ export default function TrendAnalysisWidget() {
   ];
 
   return (
-    <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 flex flex-col md:flex-row xl:flex-col 2xl:flex-row overflow-hidden">
-      {/* Left Panel: Trend Word Cloud */}
-      <div className="flex-1 border-b md:border-b-0 md:border-r xl:border-b xl:border-r-0 2xl:border-b-0 2xl:border-r border-border/50 flex flex-col min-h-[140px] md:min-h-[220px] xl:min-h-[140px] 2xl:min-h-[220px]">
+    <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 flex flex-col overflow-hidden">
+      {/* Top Panel: Trend Word Cloud */}
+      <div className="flex-1 border-b border-border/50 flex flex-col min-h-[200px]">
         <CardHeader className="py-2 px-4">
           <CardTitle className="text-sm font-semibold">Market Trends & Keywords</CardTitle>
         </CardHeader>
@@ -93,8 +93,8 @@ export default function TrendAnalysisWidget() {
         </CardContent>
       </div>
 
-      {/* Right Panel: Related Stocks */}
-      <div className="flex-1 flex flex-col bg-secondary/10 min-h-[300px]">
+      {/* Bottom Panel: Related Stocks */}
+      <div className="flex-1 flex flex-col bg-secondary/10 min-h-[200px]">
         <CardHeader className="flex flex-row items-center justify-between pb-2 bg-secondary/20 border-b border-border/30">
           <div className="flex items-center gap-2">
              <div className="p-1.5 bg-primary/20 rounded-md">
