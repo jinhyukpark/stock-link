@@ -48,8 +48,8 @@ export default function TrendAnalysisWidget() {
   return (
     <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 flex flex-col overflow-hidden">
       {/* Top Panel: Trend Word Cloud */}
-      <div className="flex-1 border-b border-border/50 flex flex-col min-h-[200px]">
-        <CardHeader className="py-2 px-4">
+      <div className="flex-1 flex flex-col h-full">
+        <CardHeader className="py-2 px-4 shrink-0">
           <CardTitle className="text-sm font-semibold">Market Trends & Keywords</CardTitle>
         </CardHeader>
         <CardContent className="flex-1 relative overflow-hidden bg-gradient-to-br from-transparent to-black/20 p-2">
@@ -90,57 +90,6 @@ export default function TrendAnalysisWidget() {
                   Updated: 14:30 KST
               </Badge>
           </div>
-        </CardContent>
-      </div>
-
-      {/* Bottom Panel: Related Stocks */}
-      <div className="flex-1 flex flex-col bg-secondary/10 min-h-[200px]">
-        <CardHeader className="flex flex-row items-center justify-between pb-2 bg-secondary/20 border-b border-border/30">
-          <div className="flex items-center gap-2">
-             <div className="p-1.5 bg-primary/20 rounded-md">
-                <Zap className="w-4 h-4 text-primary" />
-             </div>
-             <div>
-               <p className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider">Related Stocks</p>
-               <CardTitle className="text-base font-semibold text-primary">{selectedTrend}</CardTitle>
-             </div>
-          </div>
-          <Button variant="ghost" size="sm" className="text-xs h-7 text-muted-foreground hover:text-white">
-            View All <ChevronRight className="w-3 h-3 ml-1" />
-          </Button>
-        </CardHeader>
-        <CardContent className="p-0 flex-1 overflow-auto">
-          <Table>
-            <TableHeader className="bg-transparent">
-              <TableRow className="hover:bg-transparent border-border/50">
-                <TableHead className="w-12 text-center text-xs">Rank</TableHead>
-                <TableHead className="text-xs">Company</TableHead>
-                <TableHead className="text-right text-xs">Price</TableHead>
-                <TableHead className="text-right text-xs">Chg%</TableHead>
-                <TableHead className="text-right text-xs hidden sm:table-cell">Vol</TableHead>
-              </TableRow>
-            </TableHeader>
-            <TableBody>
-              {stocks.map((stock) => (
-                <TableRow key={stock.rank} className="border-border/40 hover:bg-white/5 transition-colors cursor-pointer group">
-                  <TableCell className="text-center font-medium text-xs text-muted-foreground group-hover:text-primary transition-colors">
-                    {stock.rank}
-                  </TableCell>
-                  <TableCell className="font-medium text-sm">
-                      {stock.name}
-                  </TableCell>
-                  <TableCell className="text-right font-mono text-sm">{stock.price}</TableCell>
-                  <TableCell className={cn(
-                    "text-right font-mono text-sm font-bold flex items-center justify-end gap-1",
-                    stock.trend === 'up' ? "text-red-400" : "text-blue-400"
-                  )}>
-                    {stock.change}
-                  </TableCell>
-                  <TableCell className="text-right text-xs text-muted-foreground hidden sm:table-cell">{stock.volume}</TableCell>
-                </TableRow>
-              ))}
-            </TableBody>
-          </Table>
         </CardContent>
       </div>
     </Card>
