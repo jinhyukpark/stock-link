@@ -218,7 +218,7 @@ const DescriptionBlock = ({ content }: { content: string }) => (
 );
 
 const MarketSummaryReport = ({ date }: { date: string }) => (
-  <div className="bg-gradient-to-br from-[#12141a] to-[#0B0E14] border border-border/30 rounded-xl mb-12 shadow-2xl overflow-hidden">
+  <div className="bg-gradient-to-br from-[#12141a] to-[#0B0E14] border border-[#00ff9d]/50 rounded-xl mb-12 shadow-[0_0_30px_rgba(0,255,157,0.1)] overflow-hidden">
     {/* Header Section */}
     <div className="bg-secondary/30 px-6 py-3 border-b border-border/40 flex justify-between items-center">
       <h3 className="font-bold text-white uppercase tracking-wider text-sm flex items-center gap-2">
