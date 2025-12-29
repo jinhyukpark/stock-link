@@ -22,18 +22,18 @@ const chartData = [
 export default function Dashboard() {
   return (
     <DashboardLayout>
-      <div className="flex flex-col h-auto xl:h-[calc(100vh-4rem)] gap-4 p-4 overflow-y-auto xl:overflow-hidden bg-[#0B0E14]">
+      <div className="flex flex-col gap-4 p-4 min-h-full bg-[#0B0E14]">
         {/* Ticker - Compact */}
         <div className="shrink-0">
           <MarketTicker />
         </div>
 
         {/* Main Content Grid - Responsive: Stack on mobile/tablet, Grid on XL+ */}
-        <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 flex-1 xl:min-h-0">
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 flex-1">
           
           {/* Left Column: Sentiment & Distribution (Stack) */}
-          <div className="xl:col-span-3 flex flex-col gap-4 xl:h-full min-h-0">
-            <div className="xl:flex-1 h-[300px] xl:h-auto overflow-y-auto scrollbar-none">
+          <div className="xl:col-span-3 flex flex-col gap-4 min-h-[550px]">
+            <div className="flex-1 min-h-[300px]">
               <FearGreedIndex />
             </div>
             <div className="h-[250px] shrink-0">
@@ -42,13 +42,13 @@ export default function Dashboard() {
           </div>
 
           {/* Middle Column: Stock List */}
-          <div className="xl:col-span-5 xl:h-full h-[600px] min-h-0">
+          <div className="xl:col-span-5 min-h-[600px]">
              <RealTimeStockList />
           </div>
 
           {/* Right Column: Heatmap & Trends (Stack) */}
-          <div className="xl:col-span-4 flex flex-col gap-4 xl:h-full min-h-0">
-             <div className="xl:flex-1 h-[400px] xl:h-auto min-h-0">
+          <div className="xl:col-span-4 flex flex-col gap-4 min-h-[550px]">
+             <div className="flex-1 min-h-[350px]">
                 <MarketHeatmap />
              </div>
              <div className="h-[250px] shrink-0">
@@ -58,7 +58,7 @@ export default function Dashboard() {
         </div>
 
         {/* Footer Themes - Fixed Height at bottom */}
-        <div className="shrink-0">
+        <div className="shrink-0 mt-2">
            <TrendingThemes />
         </div>
       </div>
