@@ -104,13 +104,20 @@ export default function MomentumPage() {
       <div className="p-6 space-y-6 bg-[#0B0E14] min-h-screen text-gray-200 font-sans">
         
         {/* Toolbar */}
-        <div className="flex flex-col xl:flex-row gap-4 justify-between items-start xl:items-center p-0">
-          <div className="flex flex-wrap items-center gap-4">
-            <h1 className="text-xl font-bold text-white mr-2">랭킹</h1>
-            
-            <Button variant="ghost" size="icon" className="h-8 w-8 text-yellow-400 hover:text-yellow-300">
-              <Star className="fill-current w-5 h-5" />
-            </Button>
+        <div className="flex flex-col gap-4">
+          <div className="flex flex-col gap-1 mb-2">
+             <h1 className="text-xl font-bold text-white">랭킹 분석</h1>
+             <p className="text-sm text-gray-400">
+               시장 상황과 주가 흐름을 심층 분석하여 상승 잠재력이 높은 종목을 발굴합니다. 
+               AI가 진단한 모멘텀 지표와 시장 대비 상승률을 통해 최적의 투자 기회를 포착하세요.
+             </p>
+          </div>
+
+          <div className="flex flex-col xl:flex-row gap-4 justify-between items-start xl:items-center p-0">
+            <div className="flex flex-wrap items-center gap-4">
+              <Button variant="ghost" size="icon" className="h-8 w-8 text-yellow-400 hover:text-yellow-300">
+                <Star className="fill-current w-5 h-5" />
+              </Button>
 
             <div className="flex bg-black/40 rounded-md p-1 border border-white/10">
               {['1주', '2주', '4주', '6주'].map((label, idx) => (
