@@ -147,7 +147,7 @@ export default function RealTimeStockList() {
       {/* Market Status Summary Footer */}
       <div className="border-t border-border/50 p-4 grid grid-cols-2 gap-4 bg-card/30">
         {/* Advancing Stocks */}
-        <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-br from-red-500/10 to-transparent border border-red-500/30 hover:from-red-500/20 hover:border-red-500/50 transition-all cursor-pointer group shadow-[0_0_15px_rgba(239,68,68,0.05)]">
+        <div className="flex items-center justify-between p-4 rounded-xl animate-flash-red transition-all cursor-pointer group border border-red-500/30">
           <div className="flex flex-col gap-1">
               <span className="text-sm text-red-400 font-bold group-hover:text-red-300 flex items-center gap-2">
                  <Sparkles className="w-4 h-4 text-red-400 animate-pulse fill-red-400/20" />
@@ -165,7 +165,7 @@ export default function RealTimeStockList() {
         </div>
 
         {/* Declining Stocks */}
-        <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/30 hover:from-blue-500/20 hover:border-blue-500/50 transition-all cursor-pointer group shadow-[0_0_15px_rgba(59,130,246,0.05)]">
+        <div className="flex items-center justify-between p-4 rounded-xl animate-flash-blue transition-all cursor-pointer group border border-blue-500/30">
           <div className="flex flex-col gap-1">
               <span className="text-sm text-blue-400 font-bold group-hover:text-blue-300 flex items-center gap-2">
                  <Sparkles className="w-4 h-4 text-blue-400 animate-pulse fill-blue-400/20" />
