@@ -36,18 +36,18 @@ export default function MarketDistribution() {
         <div className="w-full h-full grid grid-cols-2 gap-4">
           {/* Chart 1: Price Distribution */}
           <div className="flex flex-col h-full items-center justify-center">
-            <h3 className="text-xs font-semibold text-center mb-4 text-muted-foreground">
+            <h3 className="text-xs font-semibold text-center mb-2 text-muted-foreground">
               Price Distribution<br/>(Rise/Fall/Flat)
             </h3>
-            <div className="w-full h-[120px] relative">
+            <div className="w-full h-[150px] relative">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={priceDistributionData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={30}
-                    outerRadius={50}
+                    innerRadius={40}
+                    outerRadius={65}
                     paddingAngle={2}
                     dataKey="value"
                     stroke="none"
@@ -66,7 +66,7 @@ export default function MarketDistribution() {
               </ResponsiveContainer>
             </div>
             {/* Legend 1 */}
-            <div className="flex justify-center gap-3 mt-2">
+            <div className="flex justify-center gap-3 mt-1">
                 {priceDistributionData.map((item, i) => (
                     <div key={i} className="flex items-center gap-1.5">
                         <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }} />
@@ -78,18 +78,18 @@ export default function MarketDistribution() {
 
           {/* Chart 2: Investor Volume */}
           <div className="flex flex-col h-full items-center justify-center border-l border-border/30 pl-4">
-             <h3 className="text-xs font-semibold text-center mb-4 text-muted-foreground">
+             <h3 className="text-xs font-semibold text-center mb-2 text-muted-foreground">
               Investor Volume<br/>(Buy/Sell Ratio)
             </h3>
-            <div className="w-full h-[120px] relative">
+            <div className="w-full h-[150px] relative">
               <ResponsiveContainer width="100%" height="100%">
                 <PieChart>
                   <Pie
                     data={investorVolumeData}
                     cx="50%"
                     cy="50%"
-                    innerRadius={30}
-                    outerRadius={50}
+                    innerRadius={40}
+                    outerRadius={65}
                     paddingAngle={2}
                     dataKey="value"
                     stroke="none"
@@ -108,7 +108,7 @@ export default function MarketDistribution() {
               </ResponsiveContainer>
             </div>
             {/* Legend 2 */}
-            <div className="flex justify-center gap-3 mt-2">
+            <div className="flex justify-center gap-3 mt-1">
                 {investorVolumeData.map((item, i) => (
                     <div key={i} className="flex items-center gap-1.5">
                         <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }} />
