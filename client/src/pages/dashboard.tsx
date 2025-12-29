@@ -33,10 +33,10 @@ export default function Dashboard() {
           
           {/* Left Column: Sentiment & Distribution (Stack) */}
           <div className="xl:col-span-3 flex flex-col gap-4 min-h-[550px]">
-            <div className="flex-1 min-h-[300px]">
+            <div className="shrink-0">
               <FearGreedIndex />
             </div>
-            <div className="h-[250px] shrink-0">
+            <div className="flex-1 min-h-[300px]">
               <TrendAnalysisWidget />
             </div>
           </div>
