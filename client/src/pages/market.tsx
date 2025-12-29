@@ -249,14 +249,19 @@ export default function MarketAnalysis() {
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
-      const offset = 100; // Height of sticky header + padding
-      const elementPosition = element.getBoundingClientRect().top;
-      const offsetPosition = elementPosition + window.pageYOffset - offset;
+      // Offset for sticky header
+      const offset = 80;
       
+      // Since the scroll is happening on the WINDOW/BODY (due to DashboardLayout structure changes requested),
+      // we use window.scrollTo or element.scrollIntoView.
+      // However, if we are in a specific container, we need to target that.
+      
+      // Let's stick to the container approach if we want the "toolbar fixed, report scrolls" behavior perfectly.
       const container = document.getElementById('market-content-container');
       if (container) {
+          const elementPosition = element.offsetTop;
           container.scrollTo({
-              top: element.offsetTop - 40,
+              top: elementPosition - 40,
               behavior: "smooth"
           });
       }
@@ -265,10 +270,15 @@ export default function MarketAnalysis() {
 
   return (
     <DashboardLayout>
-      <div className="flex flex-col h-full bg-[#0B0E14] text-foreground relative font-sans">
+      {/* 
+        We want the Toolbar to be fixed at the top, and the content to scroll independently underneath.
+        To achieve this inside DashboardLayout (which might have its own overflow), 
+        we need to ensure this container takes full height and manages its own scrolling.
+      */}
+      <div className="flex flex-col h-[calc(100vh-4rem)] bg-[#0B0E14] text-foreground relative font-sans overflow-hidden">
         
-        {/* Report Toolbar / Navigation */}
-        <div className="sticky top-0 z-30 bg-[#0B0E14]/95 backdrop-blur border-b border-border/50 px-6 py-3 flex items-center justify-between shrink-0 shadow-md">
+        {/* Report Toolbar / Navigation - Fixed at top */}
+        <div className="z-30 bg-[#0B0E14]/95 backdrop-blur border-b border-border/50 px-6 py-3 flex items-center justify-between shrink-0 shadow-md">
            <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 font-mono text-sm text-primary">
                 <span className="font-bold hidden md:inline">STOCKLINK</span>
