@@ -237,18 +237,22 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
              종합 시장 데이터는 강력한 회복 국면을 시사합니다. 공포 & 탐욕 지수는 '탐욕' 구간(65)으로 진입했으며, 반도체 대형주에 대한 외국인의 강한 순매수가 이를 뒷받침하고 있습니다. 코스닥 소형주는 다소 뒤쳐져 있으나, 전반적인 시장의 상승 폭은 확대되고 있습니다.
            </p>
            
-           <div className="grid grid-cols-3 gap-4 border-t border-border/30 pt-6">
+           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-border/30 pt-6">
              <div>
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Sentiment</div>
-               <div className="text-lg font-bold text-green-400">Bullish (강세)</div>
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">MARKET REGIME</div>
+               <div className="text-lg font-bold text-red-400">Risk-Off</div>
              </div>
              <div>
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Volatility</div>
-               <div className="text-lg font-bold text-yellow-500">Moderate (보통)</div>
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">BREADTH HEALTH</div>
+               <div className="text-lg font-bold text-red-400">Broken</div>
              </div>
              <div>
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Top Sector</div>
-               <div className="text-lg font-bold text-white">Tech / AI</div>
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">CAPITAL FLOW</div>
+               <div className="text-lg font-bold text-yellow-500">Small Cap Speculation</div>
+             </div>
+             <div>
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">STRATEGY STANCE</div>
+               <div className="text-lg font-bold text-blue-400">Stay in Cash</div>
              </div>
            </div>
         </div>
