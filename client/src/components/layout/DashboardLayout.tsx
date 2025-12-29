@@ -88,8 +88,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
             
             <div className="hidden sm:flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
               <div className="text-right">
-                <p className="text-sm font-medium leading-none">Alex Morgan</p>
-                <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold mt-1">Pro</p>
+                <p className="text-sm font-medium leading-none mb-1">Alex Morgan</p>
+                <div className="flex justify-end">
+                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-primary/20 text-primary border border-primary/30 leading-none tracking-widest uppercase">
+                        PRO
+                    </span>
+                </div>
               </div>
               <Avatar className="h-8 w-8 border border-border">
                 <AvatarImage src="https://github.com/shadcn.png" />
