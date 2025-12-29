@@ -580,6 +580,19 @@ export default function OntologyPage() {
             
             {/* Right Floating Toolbar */}
             <div className="absolute right-4 top-4 z-30 flex flex-col gap-4">
+                 {/* Chat Trigger - Moved back to toolbar */}
+                 <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1 animate-pulse-subtle border-primary/30">
+                     <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className={cn("h-8 w-8 hover:text-white hover:bg-white/10 rounded transition-colors", isChatOpen ? "text-primary bg-primary/10" : "text-primary")}
+                        onClick={() => setIsChatOpen(!isChatOpen)}
+                        title="AI 분석"
+                     >
+                        <MessageSquare className="w-4 h-4" />
+                     </Button>
+                 </div>
+
                  {/* View Controls Group */}
                  <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1">
                      <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded" title="전체화면">
@@ -610,22 +623,6 @@ export default function OntologyPage() {
                         <MoreHorizontal className="w-4 h-4" />
                      </Button>
                  </div>
-            </div>
-
-            {/* Floating Chat Trigger Button - Separated */}
-            <div className="absolute right-6 bottom-[80px] z-30">
-                <Button 
-                    variant="default" 
-                    size="lg" 
-                    className={cn(
-                        "h-14 w-14 rounded-full shadow-2xl border border-white/10 transition-all duration-300 hover:scale-105", 
-                        isChatOpen ? "bg-primary text-black rotate-90 scale-0 opacity-0" : "bg-[#151921] text-primary hover:bg-[#1f232b]"
-                    )}
-                    onClick={() => setIsChatOpen(true)}
-                    title="AI 분석"
-                >
-                    <MessageSquare className="w-6 h-6" />
-                </Button>
             </div>
 
             {/* AI Chat Panel - NEW */}
