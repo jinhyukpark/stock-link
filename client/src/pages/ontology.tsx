@@ -127,6 +127,13 @@ interface ChatMessage {
     context?: string[];
 }
 
+const suggestedQuestions = [
+    "이 종목들의 향후 전망은?",
+    "최근 상승 이유는 무엇인가요?",
+    "관련된 주요 뉴스를 알려줘",
+    "매수/매도 타이밍 분석해줘"
+];
+
 const ChatPanel = ({ 
     isOpen, 
     onClose, 
@@ -150,13 +157,13 @@ const ChatPanel = ({
         }
     }, [messages]);
 
-    const handleSend = () => {
-        if (!input.trim()) return;
+    const handleSend = (text: string = input) => {
+        if (!text.trim()) return;
         
         const userMsg: ChatMessage = {
             id: Date.now().toString(),
             role: 'user',
-            text: input,
+            text: text,
             context: selectedNodes.map(n => n.label || n.id)
         };
         
@@ -181,32 +188,35 @@ const ChatPanel = ({
     if (!isOpen) return null;
 
     return (
-        <div className="absolute right-4 bottom-[70px] top-20 w-[320px] bg-[#0f1115]/95 backdrop-blur-md border border-white/10 rounded-lg flex flex-col shadow-2xl z-40 animate-in slide-in-from-right-5 fade-in duration-200">
+        <div className="absolute right-4 bottom-[80px] top-20 w-[360px] bg-[#0B0E14]/95 backdrop-blur-xl border border-white/10 rounded-xl flex flex-col shadow-2xl z-40 animate-in slide-in-from-right-5 fade-in duration-200 overflow-hidden">
             {/* Header */}
-            <div className="p-3 border-b border-white/10 flex items-center justify-between bg-white/5">
-                <div className="flex items-center gap-2">
-                    <div className="w-6 h-6 rounded bg-primary/20 flex items-center justify-center">
-                        <Bot className="w-3.5 h-3.5 text-primary" />
+            <div className="p-4 border-b border-white/10 flex items-center justify-between bg-white/5 backdrop-blur-sm">
+                <div className="flex items-center gap-3">
+                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary/20 to-blue-500/20 flex items-center justify-center border border-white/5">
+                        <Bot className="w-4 h-4 text-primary" />
                     </div>
-                    <span className="text-sm font-bold text-gray-200">AI Market Analyst</span>
+                    <div>
+                        <span className="block text-sm font-bold text-white leading-none">AI Market Analyst</span>
+                        <span className="text-[10px] text-gray-400 font-mono mt-1 block">Powered by Gemini</span>
+                    </div>
                 </div>
-                <Button variant="ghost" size="icon" className="h-6 w-6 text-gray-400 hover:text-white" onClick={onClose}>
+                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg" onClick={onClose}>
                     <X className="w-4 h-4" />
                 </Button>
             </div>
 
             {/* Context Area (Selected Nodes) */}
             {selectedNodes.length > 0 && (
-                <div className="p-2 border-b border-white/10 bg-primary/5">
-                    <div className="flex items-center gap-1 mb-1.5 px-1">
-                        <Sparkles className="w-3 h-3 text-primary" />
-                        <span className="text-[10px] font-bold text-primary">선택된 종목 (Context)</span>
+                <div className="px-4 py-3 border-b border-white/5 bg-primary/5">
+                    <div className="flex items-center gap-1.5 mb-2">
+                        <Sparkles className="w-3.5 h-3.5 text-primary" />
+                        <span className="text-[11px] font-bold text-primary">선택된 종목 (Context)</span>
                     </div>
-                    <div className="flex flex-wrap gap-1.5 max-h-[80px] overflow-y-auto">
+                    <div className="flex flex-wrap gap-2 max-h-[100px] overflow-y-auto custom-scrollbar">
                         {selectedNodes.map(node => (
-                            <div key={node.id} className="flex items-center gap-1 bg-primary/10 border border-primary/20 rounded px-2 py-1">
-                                <span className="text-[11px] text-gray-200">{node.label || "Unnamed"}</span>
-                                <button onClick={() => onRemoveNode(node.id)} className="text-gray-500 hover:text-white">
+                            <div key={node.id} className="flex items-center gap-1.5 bg-[#151921] border border-primary/20 rounded-md pl-2.5 pr-1.5 py-1 shadow-sm group">
+                                <span className="text-[11px] font-medium text-gray-200">{node.label || "Unnamed"}</span>
+                                <button onClick={() => onRemoveNode(node.id)} className="text-gray-500 hover:text-red-400 transition-colors p-0.5 rounded hover:bg-white/5">
                                     <X className="w-3 h-3" />
                                 </button>
                             </div>
@@ -216,35 +226,57 @@ const ChatPanel = ({
             )}
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-3 space-y-3" ref={scrollRef}>
+            <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar" ref={scrollRef}>
                 {messages.map((msg) => (
-                    <div key={msg.id} className={cn("flex flex-col gap-1 max-w-[90%]", msg.role === 'user' ? "ml-auto items-end" : "mr-auto items-start")}>
+                    <div key={msg.id} className={cn("flex flex-col gap-1.5 max-w-[85%]", msg.role === 'user' ? "ml-auto items-end" : "mr-auto items-start")}>
                         <div className={cn(
-                            "px-3 py-2 rounded-lg text-xs leading-relaxed",
+                            "px-4 py-2.5 text-xs leading-relaxed shadow-sm",
                             msg.role === 'user' 
-                                ? "bg-primary text-black rounded-tr-none font-medium" 
-                                : "bg-[#1f232b] text-gray-200 rounded-tl-none border border-white/5"
+                                ? "bg-primary text-black rounded-2xl rounded-tr-sm font-medium" 
+                                : "bg-[#1f232b] text-gray-200 rounded-2xl rounded-tl-sm border border-white/5"
                         )}>
                             {msg.text}
                         </div>
+                        <span className="text-[10px] text-gray-600 px-1">
+                            {msg.role === 'assistant' ? 'AI Analyst' : 'You'}
+                        </span>
                     </div>
                 ))}
+                
+                {/* Suggested Questions */}
+                {messages.length === 1 && (
+                    <div className="mt-4 space-y-2">
+                        <p className="text-[10px] text-gray-500 font-medium px-1 mb-2">추천 질문</p>
+                        <div className="flex flex-col gap-2">
+                            {suggestedQuestions.map((q, idx) => (
+                                <button 
+                                    key={idx}
+                                    onClick={() => handleSend(q)}
+                                    className="text-left text-xs text-gray-300 bg-[#151921] hover:bg-[#1f232b] hover:text-white border border-white/5 rounded-lg px-3 py-2.5 transition-all duration-200 flex items-center gap-2 group"
+                                >
+                                    <MessageSquare className="w-3 h-3 text-primary/50 group-hover:text-primary transition-colors" />
+                                    {q}
+                                </button>
+                            ))}
+                        </div>
+                    </div>
+                )}
             </div>
 
             {/* Input */}
-            <div className="p-3 border-t border-white/10 bg-[#0f1115]">
+            <div className="p-4 bg-[#0B0E14] border-t border-white/10">
                 <div className="relative flex items-center gap-2">
                     <Input 
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleSend()}
-                        placeholder={selectedNodes.length > 0 ? "선택된 종목에 대해 질문하세요..." : "AI에게 시장 상황을 물어보세요..."}
-                        className="bg-[#151921] border-white/10 text-xs h-9 pr-9 focus:border-primary/50"
+                        placeholder={selectedNodes.length > 0 ? "선택된 종목에 대해 질문하세요..." : "시장 상황에 대해 물어보세요..."}
+                        className="bg-[#151921] border-white/10 text-xs h-10 pl-4 pr-10 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 rounded-lg transition-all"
                     />
                     <Button 
                         size="icon" 
-                        className="absolute right-1 top-1 h-7 w-7 bg-primary text-black hover:bg-primary/90"
-                        onClick={handleSend}
+                        className="absolute right-1.5 top-1.5 h-7 w-7 bg-primary text-black hover:bg-primary/90 rounded-md transition-all shadow-lg shadow-primary/20"
+                        onClick={() => handleSend()}
                     >
                         <Send className="w-3.5 h-3.5" />
                     </Button>
@@ -546,19 +578,6 @@ export default function OntologyPage() {
             
             {/* Right Floating Toolbar */}
             <div className="absolute right-4 top-4 z-30 flex flex-col gap-4">
-                 {/* AI Chat Trigger - NEW */}
-                 <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1 animate-pulse-subtle border-primary/30">
-                     <Button 
-                        variant="ghost" 
-                        size="icon" 
-                        className={cn("h-8 w-8 hover:text-white hover:bg-white/10 rounded transition-colors", isChatOpen ? "text-primary bg-primary/10" : "text-primary")}
-                        onClick={() => setIsChatOpen(!isChatOpen)}
-                        title="AI 분석"
-                     >
-                        <MessageSquare className="w-4 h-4" />
-                     </Button>
-                 </div>
-
                  {/* View Controls Group */}
                  <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1">
                      <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded" title="전체화면">
@@ -589,6 +608,22 @@ export default function OntologyPage() {
                         <MoreHorizontal className="w-4 h-4" />
                      </Button>
                  </div>
+            </div>
+
+            {/* Floating Chat Trigger Button - Separated */}
+            <div className="absolute right-6 bottom-[80px] z-30">
+                <Button 
+                    variant="default" 
+                    size="lg" 
+                    className={cn(
+                        "h-14 w-14 rounded-full shadow-2xl border border-white/10 transition-all duration-300 hover:scale-105", 
+                        isChatOpen ? "bg-primary text-black rotate-90 scale-0 opacity-0" : "bg-[#151921] text-primary hover:bg-[#1f232b]"
+                    )}
+                    onClick={() => setIsChatOpen(true)}
+                    title="AI 분석"
+                >
+                    <MessageSquare className="w-6 h-6" />
+                </Button>
             </div>
 
             {/* AI Chat Panel - NEW */}
