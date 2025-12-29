@@ -655,9 +655,6 @@ export default function OntologyPage() {
                                         <span className={cn("text-[9px] font-mono", k.trend === 'up' ? "text-red-400" : "text-blue-400")}>
                                             {k.pct}
                                         </span>
-                                        <span className={cn("text-[8px]", k.trend === 'up' ? "text-red-400" : "text-blue-400")}>
-                                            {k.trend === 'up' ? '▲' : '▼'}
-                                        </span>
                                     </div>
                                 </div>
                             ))}
