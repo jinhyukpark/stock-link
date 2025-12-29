@@ -537,7 +537,12 @@ export default function OntologyPage() {
         {/* Main Graph Area */}
         <main className="flex-1 relative bg-black overflow-hidden flex flex-col">
             
-            {/* Top Toolbar overlay */}
+            {/* Fear & Greed Index Widget */}
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none opacity-0">
+                {/* Placeholder for positioning if needed, currently hidden as user wanted it integrated in the graph */}
+            </div>
+
+            {/* Top Toolbar overlay - moved down slightly to make room if needed, or keep as is */}
             <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1 bg-[#151921]/90 backdrop-blur border border-white/10 rounded-full px-2 py-1.5 shadow-xl">
                  <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
                     관계 주식 <span className="text-blue-400 ml-1">테마</span>
@@ -558,6 +563,23 @@ export default function OntologyPage() {
                  <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
                     <RotateCcw className="w-3 h-3 mr-1" /> 종목비교
                  </Button>
+            </div>
+
+            {/* Fear & Greed Gauge - Top Left Floating */}
+            <div className="absolute left-[360px] top-4 z-20 hidden md:block">
+                <div className="bg-[#151921]/80 backdrop-blur border border-white/10 rounded-lg p-2 flex items-center gap-3">
+                    <div className="relative w-16 h-8 overflow-hidden">
+                        <div className="absolute top-0 left-0 w-16 h-16 rounded-full border-4 border-white/10 border-t-red-500 border-r-transparent border-b-transparent border-l-blue-500 transform rotate-[-45deg]"></div>
+                        <div className="absolute bottom-0 left-1/2 w-1 h-4 bg-white origin-bottom transform rotate-[45deg] -translate-x-1/2"></div>
+                    </div>
+                    <div className="flex flex-col">
+                        <span className="text-[10px] text-gray-400 uppercase tracking-wider">Fear & Greed</span>
+                        <div className="flex items-baseline gap-1">
+                            <span className="text-lg font-bold text-red-400 leading-none">75</span>
+                            <span className="text-[10px] font-bold text-red-400">GREED</span>
+                        </div>
+                    </div>
+                </div>
             </div>
 
             {/* Left Floating Toolbar */}
