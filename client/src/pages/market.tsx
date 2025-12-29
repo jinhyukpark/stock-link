@@ -220,25 +220,12 @@ const DescriptionBlock = ({ content }: { content: string }) => (
 const MarketSummaryReport = ({ date }: { date: string }) => (
   <div className="bg-gradient-to-br from-[#12141a] to-[#0B0E14] border border-border/30 rounded-xl mb-12 shadow-2xl overflow-hidden">
     {/* Header Section */}
-    <div className="px-8 py-6 border-b border-border/20 flex justify-between items-center bg-white/5 backdrop-blur-sm">
-      <div className="flex items-center gap-3">
-        <div className="bg-primary/20 p-2 rounded-lg">
-           <FileText className="w-5 h-5 text-primary" />
-        </div>
-        <div>
-           <h3 className="font-display font-bold text-white tracking-wide text-lg">
-             요약 보고서
-           </h3>
-           <p className="text-xs text-muted-foreground font-mono uppercase tracking-widest">Executive Summary</p>
-        </div>
-      </div>
-      <div className="flex items-center gap-2">
-         <span className="relative flex h-2.5 w-2.5">
-            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
-            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
-         </span>
-         <span className="text-xs font-mono text-green-400 font-bold">LIVE ANALYSIS</span>
-      </div>
+    <div className="bg-secondary/30 px-6 py-3 border-b border-border/40 flex justify-between items-center">
+      <h3 className="font-bold text-white uppercase tracking-wider text-sm flex items-center gap-2">
+        <FileText className="w-4 h-4 text-primary" />
+        요약 보고서 (Executive Summary)
+      </h3>
+      <span className="text-xs font-mono text-primary animate-pulse">LIVE ANALYSIS</span>
     </div>
     
     <div className="p-8">
