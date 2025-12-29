@@ -572,7 +572,7 @@ export default function MarketAnalysis() {
                       key={link.id}
                       variant="ghost" 
                       size="sm" 
-                      className="text-xs font-mono text-muted-foreground hover:text-primary hover:bg-primary/10 h-7 px-3"
+                      className="text-xs font-mono text-muted-foreground hover:text-white hover:bg-white/5 h-8 px-4 border border-transparent hover:border-white/10 transition-all rounded-full"
                       onClick={() => scrollToSection(link.id)}
                     >
                       {link.label}
