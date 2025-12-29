@@ -14,6 +14,12 @@ const stockData = [
   { rank: 5, name: "Hyulim Robot", code: "090710", price: "2,980", change: "+28.71%", volume: "743B", isFavorite: true, icon: "H" },
   { rank: 6, name: "KODEX 200", code: "069500", price: "34,720", change: "+2.72%", volume: "695B", isFavorite: false, icon: "K" },
   { rank: 7, name: "Samsung C&T", code: "028260", price: "139,000", change: "+8.68%", volume: "531B", isFavorite: false, icon: "S" },
+  { rank: 8, name: "POSCO Holdings", code: "005490", price: "398,500", change: "-0.88%", volume: "320B", isFavorite: true, icon: "P" },
+  { rank: 9, name: "NAVER", code: "035420", price: "185,400", change: "+1.2%", volume: "245B", isFavorite: false, icon: "N" },
+  { rank: 10, name: "Kakao", code: "035720", price: "48,900", change: "-2.1%", volume: "180B", isFavorite: true, icon: "K" },
+  { rank: 11, name: "LG Energy", code: "373220", price: "382,000", change: "-1.2%", volume: "150B", isFavorite: false, icon: "L" },
+  { rank: 12, name: "Hyundai Motor", code: "005380", price: "245,000", change: "+3.4%", volume: "420B", isFavorite: false, icon: "H" },
+  { rank: 13, name: "Kia Corp", code: "000270", price: "124,500", change: "+2.8%", volume: "310B", isFavorite: false, icon: "K" },
 ];
 
 export default function RealTimeStockList() {
