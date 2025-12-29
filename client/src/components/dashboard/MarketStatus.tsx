@@ -22,7 +22,7 @@ export default function MarketStatus() {
         {/* Advancing Stocks */}
         <div 
           onClick={() => handleCardClick("strong")}
-          className="relative flex items-center justify-between p-4 rounded-xl animate-flash-red transition-all cursor-pointer group border border-red-500/30 bg-card/30 hover:bg-red-500/5 overflow-hidden"
+          className="relative flex items-center justify-between p-4 rounded-xl animate-border-beam-red transition-all cursor-pointer group bg-card/30 hover:bg-red-500/5 overflow-hidden border border-red-500/10"
         >
           {/* Lock Overlay for non-premium */}
           {!isPremium && (
@@ -50,7 +50,7 @@ export default function MarketStatus() {
         {/* Declining Stocks */}
         <div 
           onClick={() => handleCardClick("weak")}
-          className="relative flex items-center justify-between p-4 rounded-xl animate-flash-blue transition-all cursor-pointer group border border-blue-500/30 bg-card/30 hover:bg-blue-500/5 overflow-hidden"
+          className="relative flex items-center justify-between p-4 rounded-xl animate-border-beam-blue transition-all cursor-pointer group bg-card/30 hover:bg-blue-500/5 overflow-hidden border border-blue-500/10"
         >
           {/* Lock Overlay for non-premium */}
           {!isPremium && (
