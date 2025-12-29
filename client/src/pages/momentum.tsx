@@ -119,7 +119,7 @@ export default function MomentumPage() {
                 <Star className="fill-current w-5 h-5" />
               </Button>
 
-            <div className="flex bg-black/40 rounded-md p-1 border border-white/10">
+              <div className="flex bg-black/40 rounded-md p-1 border border-white/10">
               {['1주', '2주', '4주', '6주'].map((label, idx) => (
                 <button
                   key={idx}
