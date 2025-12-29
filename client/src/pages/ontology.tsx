@@ -30,6 +30,8 @@ import {
   X,
   Bot
 } from "lucide-react";
+import FearGreedIndex from "@/components/dashboard/FearGreedIndex";
+import FearGreedIndex from "@/components/dashboard/FearGreedIndex";
 import { useState, useMemo, useRef, useEffect } from "react";
 
 // --- Mock Data ---
@@ -426,100 +428,113 @@ export default function OntologyPage() {
             {/* Sidebar Header */}
             <div className="p-0">
                 <div className="flex border-b border-white/10">
-                    {['종목', '테마', '산업분류', '키워드'].map((tab) => (
+                    {['종목', '테마', '산업분류', '키워드', '시장지수'].map((tab) => (
                         <button 
                             key={tab}
+                            onClick={() => setActiveTab(tab)}
                             className={cn(
-                                "flex-1 py-3 text-xs font-medium transition-colors hover:bg-white/5",
-                                tab === '종목' ? "text-white border-b-2 border-primary" : "text-gray-500"
+                                "flex-1 py-3 text-xs font-medium transition-colors hover:bg-white/5 whitespace-nowrap px-1",
+                                activeTab === tab || (activeTab === "theme" && tab === "종목") ? "text-white border-b-2 border-primary" : "text-gray-500",
+                                tab === "시장지수" && activeTab === "시장지수" ? "text-primary border-primary" : ""
                             )}
                         >
                             {tab}
                         </button>
                     ))}
-                    <button className="px-3 border-l border-white/10 hover:bg-white/5">
+                    <button className="px-2 border-l border-white/10 hover:bg-white/5">
                         <ChevronLeft className="w-4 h-4 text-gray-500" />
                     </button>
                 </div>
                 
-                <div className="p-3 bg-blue-500/10 border-b border-blue-500/20">
-                    <div className="flex items-start gap-2 text-[11px] text-blue-300">
-                        <Info className="w-3.5 h-3.5 mt-0.5 shrink-0" />
-                        <p>실제 거래 시점과 10분 정도의 차이가 있을 수 있습니다.</p>
-                    </div>
-                </div>
+                {/* Conditional Rendering based on Tab */}
+                {activeTab !== '시장지수' && (
+                    <>
+                        <div className="p-3 bg-blue-500/10 border-b border-blue-500/20">
+                            <div className="flex items-start gap-2 text-[11px] text-blue-300">
+                                <Info className="w-3.5 h-3.5 mt-0.5 shrink-0" />
+                                <p>실제 거래 시점과 10분 정도의 차이가 있을 수 있습니다.</p>
+                            </div>
+                        </div>
 
-                <div className="p-3 border-b border-white/10 flex gap-2">
-                    <div className="relative flex-1">
-                        <Input 
-                            placeholder="종목명을 입력해 주세요." 
-                            className="h-8 bg-[#151921] border-white/10 text-xs pl-8 placeholder:text-gray-600 focus:border-white/20 rounded-sm"
-                        />
-                        <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
-                    </div>
-                    <Button variant="outline" size="sm" className="h-8 px-2 bg-[#151921] border-white/10 text-gray-400 hover:text-white rounded-sm">
-                        <Filter className="w-3.5 h-3.5" />
-                        <span className="ml-1 text-xs">등락률</span>
-                        <ChevronDown className="w-3 h-3 ml-1 opacity-50" />
-                    </Button>
-                </div>
+                        <div className="p-3 border-b border-white/10 flex gap-2">
+                            <div className="relative flex-1">
+                                <Input 
+                                    placeholder="종목명을 입력해 주세요." 
+                                    className="h-8 bg-[#151921] border-white/10 text-xs pl-8 placeholder:text-gray-600 focus:border-white/20 rounded-sm"
+                                />
+                                <Search className="absolute left-2.5 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
+                            </div>
+                            <Button variant="outline" size="sm" className="h-8 px-2 bg-[#151921] border-white/10 text-gray-400 hover:text-white rounded-sm">
+                                <Filter className="w-3.5 h-3.5" />
+                                <span className="ml-1 text-xs">등락률</span>
+                                <ChevronDown className="w-3 h-3 ml-1 opacity-50" />
+                            </Button>
+                        </div>
 
-                {/* List Header */}
-                <div className="flex text-[10px] text-gray-500 px-4 py-2 bg-[#0f1115] border-b border-white/5">
-                    <span className="w-8 text-center">순위</span>
-                    <span className="flex-1">종목명</span>
-                    <div className="flex gap-4 text-right">
-                        <span className="w-16">현재가</span>
-                        <span className="w-16">등락률</span>
-                    </div>
-                </div>
+                        {/* List Header */}
+                        <div className="flex text-[10px] text-gray-500 px-4 py-2 bg-[#0f1115] border-b border-white/5">
+                            <span className="w-8 text-center">순위</span>
+                            <span className="flex-1">종목명</span>
+                            <div className="flex gap-4 text-right">
+                                <span className="w-16">현재가</span>
+                                <span className="w-16">등락률</span>
+                            </div>
+                        </div>
+                    </>
+                )}
             </div>
 
-            {/* Stock List */}
+            {/* Sidebar Content */}
             <ScrollArea className="flex-1 bg-[#0B0E14]">
-                <div className="flex flex-col">
-                    {stockList.map((stock) => (
-                        <div key={stock.rank} className="flex items-center px-4 py-2.5 border-b border-white/5 hover:bg-white/5 cursor-pointer group transition-colors">
-                            <span className="w-8 text-center text-xs font-mono text-gray-500">{stock.rank}</span>
-                            <div className="flex-1 flex items-center gap-2 overflow-hidden">
-                                <div className={cn("w-5 h-5 rounded flex items-center justify-center shrink-0", stock.color)}>
-                                    <stock.icon className="w-3 h-3 text-white" />
+                {activeTab === '시장지수' ? (
+                    <div className="p-4">
+                        <FearGreedIndex />
+                    </div>
+                ) : (
+                    <div className="flex flex-col">
+                        {stockList.map((stock) => (
+                            <div key={stock.rank} className="flex items-center px-4 py-2.5 border-b border-white/5 hover:bg-white/5 cursor-pointer group transition-colors">
+                                <span className="w-8 text-center text-xs font-mono text-gray-500">{stock.rank}</span>
+                                <div className="flex-1 flex items-center gap-2 overflow-hidden">
+                                    <div className={cn("w-5 h-5 rounded flex items-center justify-center shrink-0", stock.color)}>
+                                        <stock.icon className="w-3 h-3 text-white" />
+                                    </div>
+                                    <span className="text-xs font-bold text-gray-200 truncate group-hover:text-white">{stock.name}</span>
                                 </div>
-                                <span className="text-xs font-bold text-gray-200 truncate group-hover:text-white">{stock.name}</span>
-                            </div>
-                            <div className="flex gap-4 text-right items-center">
-                                <span className="w-16 text-xs font-mono text-gray-300">{stock.price}원</span>
-                                <div className="w-16 text-right">
-                                    <span className="text-xs font-mono font-bold text-red-400">{stock.change}</span>
-                                    <div className="text-[9px] text-red-500/70 flex justify-end items-center gap-0.5">
-                                        ▲ 1,530
+                                <div className="flex gap-4 text-right items-center">
+                                    <span className="w-16 text-xs font-mono text-gray-300">{stock.price}원</span>
+                                    <div className="w-16 text-right">
+                                        <span className="text-xs font-mono font-bold text-red-400">{stock.change}</span>
+                                        <div className="text-[9px] text-red-500/70 flex justify-end items-center gap-0.5">
+                                            ▲ 1,530
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
-                    {/* Repeat for scroll effect */}
-                    {stockList.map((stock) => (
-                        <div key={`dup-${stock.rank}`} className="flex items-center px-4 py-2.5 border-b border-white/5 hover:bg-white/5 cursor-pointer group transition-colors">
-                            <span className="w-8 text-center text-xs font-mono text-gray-500">{stock.rank + 16}</span>
-                            <div className="flex-1 flex items-center gap-2 overflow-hidden">
-                                <div className={cn("w-5 h-5 rounded flex items-center justify-center shrink-0", stock.color)}>
-                                    <stock.icon className="w-3 h-3 text-white" />
+                        ))}
+                        {/* Repeat for scroll effect */}
+                        {stockList.map((stock) => (
+                            <div key={`dup-${stock.rank}`} className="flex items-center px-4 py-2.5 border-b border-white/5 hover:bg-white/5 cursor-pointer group transition-colors">
+                                <span className="w-8 text-center text-xs font-mono text-gray-500">{stock.rank + 16}</span>
+                                <div className="flex-1 flex items-center gap-2 overflow-hidden">
+                                    <div className={cn("w-5 h-5 rounded flex items-center justify-center shrink-0", stock.color)}>
+                                        <stock.icon className="w-3 h-3 text-white" />
+                                    </div>
+                                    <span className="text-xs font-bold text-gray-200 truncate group-hover:text-white">{stock.name}</span>
                                 </div>
-                                <span className="text-xs font-bold text-gray-200 truncate group-hover:text-white">{stock.name}</span>
-                            </div>
-                            <div className="flex gap-4 text-right items-center">
-                                <span className="w-16 text-xs font-mono text-gray-300">{stock.price}원</span>
-                                <div className="w-16 text-right">
-                                    <span className="text-xs font-mono font-bold text-red-400">{stock.change}</span>
-                                    <div className="text-[9px] text-red-500/70 flex justify-end items-center gap-0.5">
-                                        ▲ 1,530
+                                <div className="flex gap-4 text-right items-center">
+                                    <span className="w-16 text-xs font-mono text-gray-300">{stock.price}원</span>
+                                    <div className="w-16 text-right">
+                                        <span className="text-xs font-mono font-bold text-red-400">{stock.change}</span>
+                                        <div className="text-[9px] text-red-500/70 flex justify-end items-center gap-0.5">
+                                            ▲ 1,530
+                                        </div>
                                     </div>
                                 </div>
                             </div>
-                        </div>
-                    ))}
-                </div>
+                        ))}
+                    </div>
+                )}
             </ScrollArea>
             
             {/* Sidebar Footer */}
@@ -537,7 +552,7 @@ export default function OntologyPage() {
         {/* Main Graph Area */}
         <main className="flex-1 relative bg-black overflow-hidden flex flex-col">
             
-            {/* Fear & Greed Index Widget */}
+            {/* Fear & Greed Index Widget - REMOVED from floating area */}
             <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none opacity-0">
                 {/* Placeholder for positioning if needed, currently hidden as user wanted it integrated in the graph */}
             </div>
@@ -565,23 +580,8 @@ export default function OntologyPage() {
                  </Button>
             </div>
 
-            {/* Fear & Greed Gauge - Top Left Floating */}
-            <div className="absolute left-[360px] top-4 z-20 hidden md:block">
-                <div className="bg-[#151921]/80 backdrop-blur border border-white/10 rounded-lg p-2 flex items-center gap-3">
-                    <div className="relative w-16 h-8 overflow-hidden">
-                        <div className="absolute top-0 left-0 w-16 h-16 rounded-full border-4 border-white/10 border-t-red-500 border-r-transparent border-b-transparent border-l-blue-500 transform rotate-[-45deg]"></div>
-                        <div className="absolute bottom-0 left-1/2 w-1 h-4 bg-white origin-bottom transform rotate-[45deg] -translate-x-1/2"></div>
-                    </div>
-                    <div className="flex flex-col">
-                        <span className="text-[10px] text-gray-400 uppercase tracking-wider">Fear & Greed</span>
-                        <div className="flex items-baseline gap-1">
-                            <span className="text-lg font-bold text-red-400 leading-none">75</span>
-                            <span className="text-[10px] font-bold text-red-400">GREED</span>
-                        </div>
-                    </div>
-                </div>
-            </div>
-
+            {/* Fear & Greed Gauge - Top Left Floating - REMOVED */}
+            
             {/* Left Floating Toolbar */}
             <div className="absolute left-4 top-4 z-30 flex flex-col gap-2">
                  <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1">
