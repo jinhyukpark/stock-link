@@ -24,7 +24,7 @@ export default function MarketHeatmap() {
   const [selectedStock, setSelectedStock] = useState<typeof stocks[0] | null>(null);
 
   const HeatmapContent = ({ expanded = false }) => (
-    <div className={cn("grid gap-1 h-full w-full", expanded ? "grid-cols-6 grid-rows-6" : "grid-cols-4 grid-rows-5")}>
+    <div className={cn("grid gap-1 h-full w-full", expanded ? "grid-cols-6 grid-rows-6" : "grid-cols-4 grid-rows-4")}>
       {/* R1-R3, C1-C2: Samsung (Big Left) */}
       <div 
         onClick={() => expanded && setSelectedStock(stocks[0])}
