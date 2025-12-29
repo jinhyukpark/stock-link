@@ -1,4 +1,4 @@
-import { PieChart, Pie, Cell, ResponsiveContainer } from "recharts";
+import { PieChart, Pie, Cell } from "recharts";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Info } from "lucide-react";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -8,8 +8,12 @@ export default function FearGreedIndex() {
     { name: "Value", value: 75 },
     { name: "Remaining", value: 25 },
   ];
-  const cx = 150;
-  const cy = 150;
+  
+  // Fixed coordinate system for perfect alignment
+  const width = 300;
+  const height = 200;
+  const cx = width / 2;
+  const cy = height * 0.75; // Lower down to make room for half-circle
   const iR = 80;
   const oR = 100;
 
@@ -24,8 +28,8 @@ export default function FearGreedIndex() {
     const sin = Math.sin(-Math.PI / 180 * ang);
     const cos = Math.cos(-Math.PI / 180 * ang);
     const r = 5;
-    const x0 = cx + 5;
-    const y0 = cy + 5;
+    const x0 = cx;
+    const y0 = cy;
     const xba = x0 + r * sin;
     const yba = y0 - r * cos;
     const xbb = x0 - r * sin;
@@ -55,25 +59,26 @@ export default function FearGreedIndex() {
         </TooltipProvider>
       </CardHeader>
       <CardContent>
-        <div className="relative h-[200px] w-full flex items-center justify-center">
-          <ResponsiveContainer width="100%" height="100%">
-            <PieChart>
+        <div className="relative h-[200px] w-full flex items-center justify-center overflow-hidden">
+          {/* Using fixed dimensions to ensure needle aligns with Pie center */}
+          <div className="scale-75 sm:scale-90 md:scale-100 origin-center transition-transform">
+            <PieChart width={width} height={height}>
               <Pie
                 dataKey="value"
                 startAngle={180}
                 endAngle={0}
                 data={data}
-                cx="50%"
-                cy="70%"
-                innerRadius={60}
-                outerRadius={80}
+                cx={cx}
+                cy={cy}
+                innerRadius={iR}
+                outerRadius={oR}
                 fill="#8884d8"
                 stroke="none"
               >
                 <Cell fill="url(#gradientFear)" />
                 <Cell fill="#333" />
               </Pie>
-              {needle(75, data, 150, 140, 60, 80, '#d0d000')} {/* This positioning needs fine tuning based on container but svg is tricky in responsive */}
+              {needle(75, data, cx, cy, iR, oR, '#d0d000')}
               <defs>
                 <linearGradient id="gradientFear" x1="0" y1="0" x2="1" y2="0">
                   <stop offset="0%" stopColor="#ef4444" />
@@ -82,9 +87,9 @@ export default function FearGreedIndex() {
                 </linearGradient>
               </defs>
             </PieChart>
-          </ResponsiveContainer>
+          </div>
           
-          <div className="absolute bottom-4 flex flex-col items-center">
+          <div className="absolute bottom-4 flex flex-col items-center pointer-events-none">
              <span className="text-4xl font-bold font-display text-primary drop-shadow-[0_0_15px_rgba(59,130,246,0.5)]">75</span>
              <span className="text-sm font-medium text-green-400">Greed</span>
           </div>
