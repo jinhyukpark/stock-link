@@ -31,7 +31,6 @@ import {
   Bot
 } from "lucide-react";
 import FearGreedIndex from "@/components/dashboard/FearGreedIndex";
-import FearGreedIndex from "@/components/dashboard/FearGreedIndex";
 import { useState, useMemo, useRef, useEffect } from "react";
 
 // --- Mock Data ---
