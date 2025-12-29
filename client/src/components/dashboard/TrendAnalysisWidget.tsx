@@ -10,17 +10,31 @@ export default function TrendAnalysisWidget() {
   const [selectedTrend, setSelectedTrend] = useState("AI Semiconductors");
 
   const words = [
-    { text: "AI Semiconductors", value: 95, type: "up" },
-    { text: "Low PBR", value: 88, type: "up" },
-    { text: "Secondary Batteries", value: 82, type: "down" },
-    { text: "Medical AI", value: 76, type: "up" },
-    { text: "Crypto ETFs", value: 70, type: "up" },
-    { text: "Hyperclova X", value: 65, type: "neutral" },
-    { text: "Robotics", value: 60, type: "up" },
-    { text: "EV Slowdown", value: 55, type: "down" },
-    { text: "Superconductors", value: 45, type: "down" },
-    { text: "Apple Vision Pro", value: 40, type: "neutral" },
-    { text: "Platform Act", value: 35, type: "neutral" },
+    { text: "AI Semiconductors", value: 98, type: "up" },
+    { text: "Low PBR", value: 92, type: "up" },
+    { text: "Secondary Batteries", value: 85, type: "down" },
+    { text: "Medical AI", value: 78, type: "up" },
+    { text: "Crypto ETFs", value: 72, type: "up" },
+    { text: "Hyperclova X", value: 68, type: "neutral" },
+    { text: "Robotics", value: 65, type: "up" },
+    { text: "EV Slowdown", value: 60, type: "down" },
+    { text: "Superconductors", value: 55, type: "down" },
+    { text: "Apple Vision Pro", value: 50, type: "neutral" },
+    { text: "Platform Act", value: 45, type: "neutral" },
+    { text: "On-Device AI", value: 42, type: "up" },
+    { text: "6G Network", value: 38, type: "up" },
+    { text: "Space X", value: 35, type: "neutral" },
+    { text: "Quantum Computing", value: 32, type: "up" },
+    { text: "HBM3E", value: 88, type: "up" },
+    { text: "Neuromorphic", value: 28, type: "neutral" },
+    { text: "Solid-state Battery", value: 48, type: "up" },
+    { text: "Digital Healthcare", value: 36, type: "up" },
+    { text: "Web 3.0", value: 25, type: "down" },
+    { text: "ESG", value: 30, type: "neutral" },
+    { text: "Metaverse", value: 22, type: "down" },
+    { text: "Autonomous Driving", value: 58, type: "up" },
+    { text: "Generative AI", value: 90, type: "up" },
+    { text: "Cybersecurity", value: 40, type: "up" },
   ];
 
   const stocks = [
@@ -38,26 +52,32 @@ export default function TrendAnalysisWidget() {
         <CardHeader>
           <CardTitle className="text-base font-semibold">Market Trends & Keywords</CardTitle>
         </CardHeader>
-        <CardContent className="flex-1 relative overflow-hidden">
-          <div className="flex flex-wrap items-center justify-center gap-4 h-full content-center p-4">
+        <CardContent className="flex-1 relative overflow-hidden bg-gradient-to-br from-transparent to-black/20">
+          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 h-full content-center p-6">
             {words.map((word, i) => {
-              const size = Math.max(0.8, word.value / 40);
+              // Enhanced size calculation for better visual hierarchy
+              const size = Math.max(0.7, Math.min(2.2, word.value / 35));
+              
               const color = word.type === 'up' 
-                ? 'text-red-400 drop-shadow-[0_0_8px_rgba(248,113,113,0.3)]' 
+                ? 'text-red-400 drop-shadow-[0_0_12px_rgba(248,113,113,0.4)]' 
                 : word.type === 'down' 
-                  ? 'text-blue-400 drop-shadow-[0_0_8px_rgba(96,165,250,0.3)]' 
-                  : 'text-gray-400';
+                  ? 'text-blue-400 drop-shadow-[0_0_12px_rgba(96,165,250,0.4)]' 
+                  : 'text-gray-400 drop-shadow-[0_0_8px_rgba(156,163,175,0.2)]';
               
               const isSelected = selectedTrend === word.text;
+              const opacity = Math.max(0.4, word.value / 120);
               
               return (
                 <span 
                   key={i}
                   onClick={() => setSelectedTrend(word.text)}
-                  style={{ fontSize: `${size}rem` }}
+                  style={{ 
+                      fontSize: `${size}rem`,
+                      opacity: isSelected ? 1 : opacity
+                  }}
                   className={cn(
-                    `font-display font-bold cursor-pointer transition-all duration-200 ${color}`,
-                    isSelected ? "scale-110 underline decoration-2 underline-offset-4" : "hover:scale-105 opacity-70 hover:opacity-100"
+                    `font-display font-bold cursor-pointer transition-all duration-300 ${color} leading-none`,
+                    isSelected ? "scale-110 underline decoration-2 underline-offset-4 z-10" : "hover:scale-110 hover:opacity-100 hover:z-10"
                   )}
                 >
                   {word.text}
