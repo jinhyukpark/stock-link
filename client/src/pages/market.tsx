@@ -269,7 +269,7 @@ const navLinks = [
 export default function MarketAnalysis() {
   const [date, setDate] = useState<string>(dateOptions[0].value);
   const [open, setOpen] = useState(false);
-  const [selectedChart, setSelectedChart] = useState<{ title: string; chart: React.ReactNode; analysis: string } | null>(null);
+  const [selectedChart, setSelectedChart] = useState<{ title: string; description: string; chart: React.ReactNode; analysis: string } | null>(null);
 
   const analysisTexts = {
     fgi: `현재 지수는 65(탐욕)로, 지난달의 중립 구간에서 상승했습니다.
@@ -286,6 +286,14 @@ export default function MarketAnalysis() {
     pam: `코스피의 단기(5일) 기대 수익률(적색 선)이 상승 추세를 보이며 장기 전망을 상회하고 있습니다. 이는 강력한 단기 모멘텀을 확인시켜 줍니다.
     코스닥의 20일 전망은 평탄하여 아직 뚜렷한 장기 추세가 형성되지 않았음을 나타냅니다.
     코스닥이 뚜렷한 방향성을 잡을 때까지는 코스피 단기 매매에 집중하는 것이 유리합니다.`
+  };
+
+  const chartDescriptions = {
+    fgi: "공포 & 탐욕 지수는 모멘텀, 변동성, 옵션 거래량 등을 종합하여 시장 심리를 나타내는 지표입니다. 역발상 지표로 활용되며, 극도의 공포는 과매도 상태를, 극도의 탐욕은 잠재적인 조정 가능성을 시사합니다.",
+    breadth: "시장 등락(Market Breadth)은 주가 상승이 얼마나 광범위하게 나타나는지를 측정합니다. 이동평균선 대비 상승 종목 수를 추적하여 지수 추세의 강도를 검증합니다. 소수의 대형주가 주도하는 랠리보다 다수의 종목이 상승하는 랠리가 더 지속 가능합니다.",
+    dist: "이 히스토그램은 일일 주가 변동폭의 빈도 분포를 보여줍니다. 커널 밀도 추정(KDE) 선은 부드러운 확률 밀도를 나타냅니다. 오른쪽으로 치우친 분포는 긍정적인 모멘텀을, '두터운 꼬리(Fat tail)'는 급격한 변동 가능성이 높음을 의미합니다.",
+    cap: "시가총액 규모(대형, 중형, 소형)별 누적 상승 비율 분석입니다. 이 시각화는 랠리가 블루칩(대형주)에 의해 주도되는지, 아니면 위험 선호 심리가 소형 성장주로 확산되고 있는지(낙수 효과)를 파악하는 데 도움을 줍니다.",
+    pam: "예측 자산 모델(PAM)을 사용하여 향후 5일, 10일, 20일 동안의 시장 기대 수익률을 시뮬레이션합니다. 과거 패턴과 현재 모멘텀을 기반으로 산출되며, 단기 트레이딩 전략 수립에 활용됩니다."
   };
 
   const fgiChart = (
@@ -537,7 +545,7 @@ export default function MarketAnalysis() {
                   <div className="lg:col-span-2">
                     <Card 
                       className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                      onClick={() => setSelectedChart({ title: "Fear & Greed Index History", chart: fgiChart, analysis: analysisTexts.fgi })}
+                      onClick={() => setSelectedChart({ title: "Fear & Greed Index History", description: chartDescriptions.fgi, chart: fgiChart, analysis: analysisTexts.fgi })}
                     >
                       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                           <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -567,7 +575,7 @@ export default function MarketAnalysis() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   <Card 
                     className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                    onClick={() => setSelectedChart({ title: "KOSPI Breadth", chart: kospiBreadthChart, analysis: analysisTexts.breadth })}
+                    onClick={() => setSelectedChart({ title: "KOSPI Breadth", description: chartDescriptions.breadth, chart: kospiBreadthChart, analysis: analysisTexts.breadth })}
                   >
                       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                           <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -582,7 +590,7 @@ export default function MarketAnalysis() {
                   
                   <Card 
                     className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                    onClick={() => setSelectedChart({ title: "KOSDAQ Breadth", chart: kosdaqBreadthChart, analysis: analysisTexts.breadth })}
+                    onClick={() => setSelectedChart({ title: "KOSDAQ Breadth", description: chartDescriptions.breadth, chart: kosdaqBreadthChart, analysis: analysisTexts.breadth })}
                   >
                       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                           <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -613,7 +621,7 @@ export default function MarketAnalysis() {
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <Card 
                          className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                         onClick={() => setSelectedChart({ title: "KOSPI Price Distribution", chart: kospiDistChart, analysis: analysisTexts.dist })}
+                         onClick={() => setSelectedChart({ title: "KOSPI Price Distribution", description: chartDescriptions.dist, chart: kospiDistChart, analysis: analysisTexts.dist })}
                        >
                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                              <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -627,7 +635,7 @@ export default function MarketAnalysis() {
                        </Card>
                        <Card 
                          className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                         onClick={() => setSelectedChart({ title: "KOSDAQ Price Distribution", chart: kosdaqDistChart, analysis: analysisTexts.dist })}
+                         onClick={() => setSelectedChart({ title: "KOSDAQ Price Distribution", description: chartDescriptions.dist, chart: kosdaqDistChart, analysis: analysisTexts.dist })}
                        >
                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                              <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -659,7 +667,7 @@ export default function MarketAnalysis() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <Card 
                       className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                      onClick={() => setSelectedChart({ title: "KOSPI Market Cap Rotation", chart: kospiSizeChart, analysis: analysisTexts.cap })}
+                      onClick={() => setSelectedChart({ title: "KOSPI Market Cap Rotation", description: chartDescriptions.cap, chart: kospiSizeChart, analysis: analysisTexts.cap })}
                     >
                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                              <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -673,7 +681,7 @@ export default function MarketAnalysis() {
                     </Card>
                     <Card 
                       className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                      onClick={() => setSelectedChart({ title: "KOSDAQ Market Cap Rotation", chart: kosdaqSizeChart, analysis: analysisTexts.cap })}
+                      onClick={() => setSelectedChart({ title: "KOSDAQ Market Cap Rotation", description: chartDescriptions.cap, chart: kosdaqSizeChart, analysis: analysisTexts.cap })}
                     >
                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                              <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -703,7 +711,7 @@ export default function MarketAnalysis() {
                   <div className="lg:col-span-2">
                      <Card 
                        className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                       onClick={() => setSelectedChart({ title: "KOSPI Expected Returns (PAM)", chart: pamChart, analysis: analysisTexts.pam })}
+                       onClick={() => setSelectedChart({ title: "KOSPI Expected Returns (PAM)", description: chartDescriptions.pam, chart: pamChart, analysis: analysisTexts.pam })}
                      >
                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                              <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -730,25 +738,27 @@ export default function MarketAnalysis() {
       </div>
       
       <Dialog open={!!selectedChart} onOpenChange={(open) => !open && setSelectedChart(null)}>
-        <DialogContent className="max-w-[90vw] h-[85vh] bg-[#0B0E14] border-border/50 flex flex-col p-8">
-          <DialogHeader className="shrink-0 mb-6">
-            <DialogTitle className="text-3xl font-display font-bold text-white mb-4 flex items-center gap-3">
+        <DialogContent className="max-w-[90vw] h-[85vh] bg-[#0B0E14] border-border/50 flex flex-col p-6 overflow-hidden">
+          <DialogHeader className="shrink-0 mb-4">
+            <DialogTitle className="text-2xl font-display font-bold text-white flex items-center gap-3">
               {selectedChart?.title}
             </DialogTitle>
-            <DialogDescription className="hidden">Chart Detail</DialogDescription>
-            
-            <div className="bg-blue-950/20 border border-blue-500/20 rounded-lg p-5">
-                 <h4 className="text-sm font-bold text-blue-400 mb-2 flex items-center gap-2">
-                   <Sparkles className="w-4 h-4" /> AI Analysis
-                 </h4>
-                 <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line">
-                   {selectedChart?.analysis}
-                 </p>
-            </div>
+            <p className="text-muted-foreground mt-2 text-sm leading-relaxed max-w-4xl font-sans">
+              {selectedChart?.description}
+            </p>
           </DialogHeader>
           
-          <div className="flex-1 w-full min-h-0 bg-[#0B0E14] rounded-lg border border-white/5 p-2 relative overflow-hidden">
+          <div className="flex-1 min-h-0 bg-[#0B0E14] rounded-lg border border-white/5 p-4 relative mb-4">
              {selectedChart?.chart}
+          </div>
+
+          <div className="shrink-0 bg-blue-950/20 border border-blue-500/20 rounded-lg p-4">
+               <h4 className="text-sm font-bold text-blue-400 mb-2 flex items-center gap-2">
+                 <Sparkles className="w-4 h-4" /> AI Analysis
+               </h4>
+               <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line">
+                 {selectedChart?.analysis}
+               </p>
           </div>
         </DialogContent>
       </Dialog>
