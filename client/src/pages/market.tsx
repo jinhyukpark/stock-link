@@ -218,7 +218,7 @@ const DescriptionBlock = ({ content }: { content: string }) => (
 );
 
 const MarketSummaryReport = ({ date }: { date: string }) => (
-  <div className="bg-gradient-to-br from-[#12141a] to-[#0B0E14] border border-[#00ff9d]/50 rounded-xl mb-12 shadow-[0_0_30px_rgba(0,255,157,0.1)] overflow-hidden">
+  <div className="bg-gradient-to-br from-[#12141a] to-[#0B0E14] border border-border/30 rounded-xl mb-12 shadow-2xl overflow-hidden">
     {/* Header Section */}
     <div className="bg-secondary/30 px-6 py-3 border-b border-border/40 flex justify-between items-center">
       <h3 className="font-bold text-white uppercase tracking-wider text-sm flex items-center gap-2">
@@ -623,7 +623,7 @@ export default function MarketAnalysis() {
 
         {/* Main Document Area */}
         <div id="market-content-container" className="flex-1 overflow-y-auto bg-[#050505] p-8">
-          <div className="max-w-5xl mx-auto bg-[#0B0E14] min-h-full border border-border/30 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+          <div className="max-w-5xl mx-auto bg-[#0B0E14] min-h-full border border-[#00ff9d]/50 shadow-[0_0_50px_rgba(0,255,157,0.15)]">
             <div className="p-12 md:p-16 space-y-16">
             
               <ReportHeader date={date} />
