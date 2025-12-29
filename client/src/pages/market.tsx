@@ -256,8 +256,8 @@ export default function MarketAnalysis() {
         </div>
 
         {/* Main Document Area */}
-        <div id="market-content-container" className="flex-1 overflow-y-auto bg-[#050505]">
-          <div className="max-w-5xl mx-auto bg-[#0B0E14] min-h-full border-x border-border/30 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
+        <div id="market-content-container" className="flex-1 overflow-y-auto bg-[#050505] p-8">
+          <div className="max-w-5xl mx-auto bg-[#0B0E14] min-h-full border border-border/30 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
             <div className="p-12 md:p-16 space-y-16">
             
               <ReportHeader />
