@@ -1,10 +1,42 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, ComposedChart, ReferenceLine } from "recharts";
-import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Sparkles, FileText, Calendar, User, ChevronRight } from "lucide-react";
+import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Sparkles, FileText, Calendar, User, Download, CalendarDays, Check, ChevronsUpDown } from "lucide-react";
 import { Button } from "@/components/ui/button";
+import { cn } from "@/lib/utils";
+import {
+  Popover,
+  PopoverContent,
+  PopoverTrigger,
+} from "@/components/ui/popover";
+import {
+  Command,
+  CommandEmpty,
+  CommandGroup,
+  CommandInput,
+  CommandItem,
+  CommandList,
+} from "@/components/ui/command";
+import { useState } from "react";
+import { format } from "date-fns";
 
 // --- Mock Data ---
+
+// Generate last 30 days for date picker
+const generateDates = () => {
+  const dates = [];
+  const today = new Date();
+  for (let i = 0; i < 30; i++) {
+    const date = new Date(today);
+    date.setDate(today.getDate() - i);
+    dates.push({
+      value: format(date, "yyyy-MM-dd"),
+      label: format(date, "MMM dd, yyyy"),
+    });
+  }
+  return dates;
+};
+const dateOptions = generateDates();
 
 // 1. Fear & Greed History
 const fgiHistoryData = Array.from({ length: 30 }, (_, i) => ({
@@ -97,7 +129,7 @@ const CustomTooltip = ({ active, payload, label }: any) => {
 
 // --- Report Components ---
 
-const ReportHeader = () => (
+const ReportHeader = ({ date }: { date: string }) => (
   <div className="border-b-2 border-primary/50 pb-6 mb-12">
     <div className="flex justify-between items-start mb-4">
       <div>
@@ -109,7 +141,7 @@ const ReportHeader = () => (
           Daily Briefing
         </div>
         <div className="text-xs text-muted-foreground font-mono">
-          Ref: MK-2025-12-29-A
+          Ref: MK-{date}-A
         </div>
       </div>
     </div>
@@ -117,7 +149,7 @@ const ReportHeader = () => (
     <div className="grid grid-cols-3 gap-4 text-sm border-t border-border/30 pt-4 font-mono text-muted-foreground">
       <div className="flex items-center gap-2">
         <Calendar className="w-4 h-4" />
-        <span>DEC 29, 2025</span>
+        <span>{format(new Date(date), "MMM dd, yyyy").toUpperCase()}</span>
       </div>
       <div className="flex items-center gap-2">
         <User className="w-4 h-4" />
@@ -161,7 +193,7 @@ const DescriptionBlock = ({ content }: { content: string }) => (
   </p>
 );
 
-const MarketSummaryReport = () => (
+const MarketSummaryReport = ({ date }: { date: string }) => (
   <div className="bg-card border border-border/40 p-0 mb-12 shadow-2xl overflow-hidden">
     <div className="bg-secondary/30 px-6 py-3 border-b border-border/40 flex justify-between items-center">
       <h3 className="font-bold text-white uppercase tracking-wider text-sm flex items-center gap-2">
@@ -211,6 +243,9 @@ const navLinks = [
 ];
 
 export default function MarketAnalysis() {
+  const [date, setDate] = useState<string>(dateOptions[0].value);
+  const [open, setOpen] = useState(false);
+
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
     if (element) {
@@ -234,24 +269,81 @@ export default function MarketAnalysis() {
         
         {/* Report Toolbar / Navigation */}
         <div className="sticky top-0 z-30 bg-[#0B0E14]/95 backdrop-blur border-b border-border/50 px-6 py-3 flex items-center justify-between shrink-0 shadow-md">
-           <div className="flex items-center gap-2 font-mono text-sm text-primary">
-              <span className="font-bold">STOCKLINK</span>
-              <span className="text-muted-foreground">/</span>
-              <span>ANALYSIS_REPORT_V1.0</span>
+           <div className="flex items-center gap-4">
+              <div className="flex items-center gap-2 font-mono text-sm text-primary">
+                <span className="font-bold hidden md:inline">STOCKLINK</span>
+                <span className="text-muted-foreground hidden md:inline">/</span>
+                <span>ANALYSIS_REPORT</span>
+              </div>
+              
+              <div className="h-4 w-px bg-border/50 mx-2 hidden md:block" />
+
+              <Popover open={open} onOpenChange={setOpen}>
+                <PopoverTrigger asChild>
+                  <Button
+                    variant="outline"
+                    role="combobox"
+                    aria-expanded={open}
+                    className="w-[180px] justify-between h-8 text-xs font-mono bg-secondary/20 border-border/40 hover:bg-secondary/40"
+                  >
+                    <CalendarDays className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
+                    {date
+                      ? dateOptions.find((d) => d.value === date)?.label
+                      : "Select date..."}
+                    <ChevronsUpDown className="ml-2 h-3 w-3 shrink-0 opacity-50" />
+                  </Button>
+                </PopoverTrigger>
+                <PopoverContent className="w-[200px] p-0 bg-[#0B0E14] border-border/40">
+                  <Command className="bg-transparent">
+                    <CommandInput placeholder="Search date..." className="h-8 text-xs" />
+                    <CommandList>
+                      <CommandEmpty>No date found.</CommandEmpty>
+                      <CommandGroup>
+                        {dateOptions.map((d) => (
+                          <CommandItem
+                            key={d.value}
+                            value={d.value}
+                            onSelect={(currentValue) => {
+                              setDate(currentValue === date ? "" : currentValue);
+                              setOpen(false);
+                            }}
+                            className="text-xs data-[selected=true]:bg-primary/20"
+                          >
+                            <Check
+                              className={cn(
+                                "mr-2 h-3 w-3",
+                                date === d.value ? "opacity-100" : "opacity-0"
+                              )}
+                            />
+                            {d.label}
+                          </CommandItem>
+                        ))}
+                      </CommandGroup>
+                    </CommandList>
+                  </Command>
+                </PopoverContent>
+              </Popover>
            </div>
            
-           <div className="flex items-center gap-1 overflow-x-auto no-scrollbar">
-              {navLinks.map((link) => (
-                <Button 
-                  key={link.id}
-                  variant="ghost" 
-                  size="sm" 
-                  className="text-xs font-mono text-muted-foreground hover:text-primary hover:bg-primary/10 h-7 px-3"
-                  onClick={() => scrollToSection(link.id)}
-                >
-                  {link.label}
-                </Button>
-              ))}
+           <div className="flex items-center gap-2">
+              <div className="flex items-center gap-1 overflow-x-auto no-scrollbar mr-4 hidden lg:flex">
+                  {navLinks.map((link) => (
+                    <Button 
+                      key={link.id}
+                      variant="ghost" 
+                      size="sm" 
+                      className="text-xs font-mono text-muted-foreground hover:text-primary hover:bg-primary/10 h-7 px-3"
+                      onClick={() => scrollToSection(link.id)}
+                    >
+                      {link.label}
+                    </Button>
+                  ))}
+              </div>
+              
+              <Button size="sm" className="h-8 gap-2 bg-primary text-primary-foreground hover:bg-primary/90 text-xs font-bold">
+                 <Download className="w-3.5 h-3.5" />
+                 <span className="hidden sm:inline">Export PDF</span>
+              </Button>
            </div>
         </div>
 
@@ -260,8 +352,9 @@ export default function MarketAnalysis() {
           <div className="max-w-5xl mx-auto bg-[#0B0E14] min-h-full border border-border/30 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
             <div className="p-12 md:p-16 space-y-16">
             
-              <ReportHeader />
-              <MarketSummaryReport />
+              <ReportHeader date={date} />
+              <MarketSummaryReport date={date} />
+
 
               {/* 1. Fear & Greed Index */}
               <section id="fgi" className="scroll-mt-32">
