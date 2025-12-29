@@ -161,9 +161,9 @@ export default function MomentumPage() {
                 </div>
 
                 {/* Chart & Score Area */}
-                <div className="flex items-end gap-2 p-3 pb-2 min-h-[80px]">
-                  {/* Left: Chart */}
-                  <div className="flex-1 h-14 relative">
+                <div className="flex items-center gap-0 p-3 pb-2 min-h-[80px]">
+                  {/* Left: Chart - Reduced Width */}
+                  <div className="w-[60%] h-14 relative pr-3">
                     <ResponsiveContainer width="100%" height="100%">
                       <AreaChart data={generateChartData(stock.trend as any)}>
                         <defs>
@@ -184,17 +184,21 @@ export default function MomentumPage() {
                     </ResponsiveContainer>
                   </div>
 
-                  {/* Right: AI Score */}
-                  <div className="text-right shrink-0">
-                    <div className="text-[10px] text-blue-400 font-bold mb-0.5">AI점수</div>
+                  {/* Vertical Divider */}
+                  <div className="w-px h-10 bg-white/10 mx-1"></div>
+
+                  {/* Right: AI Score - Expanded Area */}
+                  <div className="flex-1 text-center pl-1">
+                    <div className="text-[9px] text-gray-500 font-bold mb-0.5 tracking-tighter">AI SCORE</div>
                     <div className={`text-3xl font-bold leading-none ${
                       stock.score >= 9 ? 'text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]' :
                       stock.score >= 7 ? 'text-blue-400' :
                       stock.score >= 5 ? 'text-green-400' :
                       stock.score >= 3 ? 'text-yellow-400' : 'text-red-400'
                     }`}>
-                      {stock.score.toFixed(1)}<span className="text-sm text-gray-500 font-normal ml-0.5">/10</span>
+                      {stock.score.toFixed(1)}
                     </div>
+                    <div className="text-[9px] text-gray-600 mt-0.5">/ 10.0</div>
                   </div>
                 </div>
 
