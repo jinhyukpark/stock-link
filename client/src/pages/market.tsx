@@ -140,8 +140,8 @@ const ReportHeader = ({ date }: { date: string }) => (
   <div className="border-b-2 border-primary/50 pb-6 mb-12">
     <div className="flex justify-between items-start mb-4">
       <div>
-        <h1 className="text-4xl font-display font-bold text-white tracking-tight mb-2">MARKET INTELLIGENCE</h1>
-        <p className="text-muted-foreground font-mono text-sm tracking-widest uppercase">퀀트 전략 본부 (Quantitative Strategy Division)</p>
+        <h1 className="text-4xl font-display font-bold text-white tracking-tight mb-2">MARKET INSIGHT INTELLIGENCE</h1>
+        <p className="text-muted-foreground font-mono text-sm tracking-widest uppercase">Stock Link Market Analysis Agent AI</p>
       </div>
       <div className="text-right">
         <div className="bg-primary/10 text-primary px-3 py-1 text-xs font-bold uppercase tracking-wider inline-block mb-2">
