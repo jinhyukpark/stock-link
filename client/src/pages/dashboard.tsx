@@ -27,9 +27,12 @@ export default function Dashboard() {
             <h1 className="text-3xl font-display font-bold tracking-tight text-white mb-1">Market Dashboard</h1>
             <p className="text-muted-foreground">Real-time AI analysis of global markets.</p>
           </div>
-          <div className="flex items-center gap-2">
-             <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-             <span className="text-xs text-green-500 font-medium">Market Open</span>
+          <div className="flex flex-col items-end gap-1">
+             <div className="flex items-center gap-2">
+                <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
+                <span className="text-xs text-green-500 font-medium">Market Open</span>
+             </div>
+             <span className="text-[10px] text-muted-foreground font-mono">Data as of: 2024-12-29 20:55 KST</span>
           </div>
         </div>
 
