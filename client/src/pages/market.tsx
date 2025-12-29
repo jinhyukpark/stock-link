@@ -117,12 +117,12 @@ const pamKosdaq = Array.from({ length: 30 }, (_, i) => ({
 const CustomTooltip = ({ active, payload, label }: any) => {
   if (active && payload && payload.length) {
     return (
-      <div className="bg-white border border-border/50 p-3 rounded-none shadow-xl text-xs font-mono border-l-4 border-l-primary">
-        <p className="font-bold text-slate-900 mb-2 pb-1 border-b border-slate-200">{label}</p>
+      <div className="bg-[#1e293b] border border-border/50 p-3 rounded-none shadow-xl text-xs font-mono border-l-4 border-l-primary">
+        <p className="font-bold text-white mb-2 pb-1 border-b border-white/10">{label}</p>
         {payload.map((entry: any, index: number) => (
           <div key={index} className="flex items-center justify-between gap-4 mb-1">
-            <span className="text-slate-500">{entry.name}</span>
-            <span className="font-bold text-slate-900" style={{ color: entry.stroke || entry.fill }}>
+            <span className="text-gray-400">{entry.name}</span>
+            <span className="font-bold text-white" style={{ color: entry.stroke || entry.fill }}>
               {typeof entry.value === 'number' ? entry.value.toFixed(2) : entry.value}
               {entry.unit}
             </span>
@@ -140,20 +140,20 @@ const ReportHeader = ({ date }: { date: string }) => (
   <div className="border-b-2 border-primary/50 pb-6 mb-12">
     <div className="flex justify-between items-start mb-4">
       <div>
-        <h1 className="text-4xl font-display font-bold text-slate-900 tracking-tight mb-2">MARKET INTELLIGENCE</h1>
-        <p className="text-slate-500 font-mono text-sm tracking-widest uppercase">퀀트 전략 본부 (Quantitative Strategy Division)</p>
+        <h1 className="text-4xl font-display font-bold text-white tracking-tight mb-2">MARKET INTELLIGENCE</h1>
+        <p className="text-muted-foreground font-mono text-sm tracking-widest uppercase">퀀트 전략 본부 (Quantitative Strategy Division)</p>
       </div>
       <div className="text-right">
         <div className="bg-primary/10 text-primary px-3 py-1 text-xs font-bold uppercase tracking-wider inline-block mb-2">
           Daily Briefing
         </div>
-        <div className="text-xs text-slate-500 font-mono">
+        <div className="text-xs text-muted-foreground font-mono">
           Ref: MK-{date}-A
         </div>
       </div>
     </div>
     
-    <div className="grid grid-cols-3 gap-4 text-sm border-t border-border/30 pt-4 font-mono text-slate-500">
+    <div className="grid grid-cols-3 gap-4 text-sm border-t border-border/30 pt-4 font-mono text-muted-foreground">
       <div className="flex items-center gap-2">
         <Calendar className="w-4 h-4" />
         <span>{format(new Date(date), "MMM dd, yyyy").toUpperCase()}</span>
@@ -174,7 +174,7 @@ const SectionHeader = ({ number, title, icon: Icon, description }: { number: str
   <div className="flex items-center gap-4 mb-6 border-b border-border/30 pb-2">
     <span className="text-3xl font-display font-bold text-primary/30">{number}</span>
     <div className="flex-1">
-      <h2 className="text-xl font-bold text-slate-900 flex items-center gap-2 uppercase tracking-wide">
+      <h2 className="text-xl font-bold text-white flex items-center gap-2 uppercase tracking-wide">
         <Icon className="w-5 h-5 text-primary" />
         {title}
         {description && (
@@ -185,7 +185,7 @@ const SectionHeader = ({ number, title, icon: Icon, description }: { number: str
                 <span className="sr-only">Info</span>
               </Button>
             </PopoverTrigger>
-            <PopoverContent className="w-80 p-4 bg-white border-border/50 backdrop-blur-md shadow-xl text-sm leading-relaxed text-slate-600">
+            <PopoverContent className="w-80 p-4 bg-card border-border/50 backdrop-blur-md shadow-xl text-sm leading-relaxed text-muted-foreground">
               {description}
             </PopoverContent>
           </Popover>
@@ -196,15 +196,15 @@ const SectionHeader = ({ number, title, icon: Icon, description }: { number: str
 );
 
 const AnalysisBlock = ({ content }: { content: string }) => (
-  <div className="mb-6 rounded-lg border border-blue-500/30 bg-blue-50 overflow-hidden">
-    <div className="bg-blue-500/10 px-4 py-2 flex items-center gap-2 border-b border-blue-500/20">
-      <Sparkles className="w-4 h-4 text-blue-600" />
-      <h4 className="text-sm font-bold text-blue-600 uppercase tracking-wider font-mono">
+  <div className="mb-6 rounded-lg border border-blue-500/30 bg-blue-900/10 overflow-hidden">
+    <div className="bg-blue-500/20 px-4 py-2 flex items-center gap-2 border-b border-blue-500/20">
+      <Sparkles className="w-4 h-4 text-blue-400" />
+      <h4 className="text-sm font-bold text-blue-400 uppercase tracking-wider font-mono">
         AI Insight
       </h4>
     </div>
     <div className="p-4">
-      <p className="text-sm text-slate-700 leading-relaxed font-sans whitespace-pre-line">
+      <p className="text-sm text-gray-300 leading-relaxed font-sans whitespace-pre-line">
         {content}
       </p>
     </div>
@@ -212,15 +212,15 @@ const AnalysisBlock = ({ content }: { content: string }) => (
 );
 
 const DescriptionBlock = ({ content }: { content: string }) => (
-  <p className="text-sm text-slate-500 mb-6 leading-relaxed border-l-2 border-border/30 pl-4">
+  <p className="text-sm text-muted-foreground mb-6 leading-relaxed border-l-2 border-border/30 pl-4">
     {content}
   </p>
 );
 
 const MarketSummaryReport = ({ date }: { date: string }) => (
-  <div className="bg-white border border-border/40 p-0 mb-12 shadow-sm overflow-hidden">
-    <div className="bg-slate-50 px-6 py-3 border-b border-border/40 flex justify-between items-center">
-      <h3 className="font-bold text-slate-900 uppercase tracking-wider text-sm flex items-center gap-2">
+  <div className="bg-card border border-border/40 p-0 mb-12 shadow-2xl overflow-hidden">
+    <div className="bg-secondary/30 px-6 py-3 border-b border-border/40 flex justify-between items-center">
+      <h3 className="font-bold text-white uppercase tracking-wider text-sm flex items-center gap-2">
         <FileText className="w-4 h-4 text-primary" />
         요약 보고서 (Executive Summary)
       </h3>
@@ -230,25 +230,25 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
     <div className="p-8">
       <div className="flex flex-col md:flex-row gap-8">
         <div className="flex-1">
-           <h4 className="text-2xl font-bold text-slate-900 mb-4 leading-tight">
-             대형주 모멘텀 주도의 <span className="text-green-600">강세장 지속 신호</span> 포착
+           <h4 className="text-2xl font-bold text-white mb-4 leading-tight">
+             대형주 모멘텀 주도의 <span className="text-green-400">강세장 지속 신호</span> 포착
            </h4>
-           <p className="text-slate-600 leading-relaxed mb-6">
+           <p className="text-muted-foreground leading-relaxed mb-6">
              종합 시장 데이터는 강력한 회복 국면을 시사합니다. 공포 & 탐욕 지수는 '탐욕' 구간(65)으로 진입했으며, 반도체 대형주에 대한 외국인의 강한 순매수가 이를 뒷받침하고 있습니다. 코스닥 소형주는 다소 뒤쳐져 있으나, 전반적인 시장의 상승 폭은 확대되고 있습니다.
            </p>
            
            <div className="grid grid-cols-3 gap-4 border-t border-border/30 pt-6">
              <div>
-               <div className="text-[10px] uppercase tracking-widest text-slate-500 mb-1">Sentiment</div>
-               <div className="text-lg font-bold text-green-600">Bullish (강세)</div>
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Sentiment</div>
+               <div className="text-lg font-bold text-green-400">Bullish (강세)</div>
              </div>
              <div>
-               <div className="text-[10px] uppercase tracking-widest text-slate-500 mb-1">Volatility</div>
-               <div className="text-lg font-bold text-yellow-600">Moderate (보통)</div>
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Volatility</div>
+               <div className="text-lg font-bold text-yellow-500">Moderate (보통)</div>
              </div>
              <div>
-               <div className="text-[10px] uppercase tracking-widest text-slate-500 mb-1">Top Sector</div>
-               <div className="text-lg font-bold text-slate-900">Tech / AI</div>
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Top Sector</div>
+               <div className="text-lg font-bold text-white">Tech / AI</div>
              </div>
            </div>
         </div>
@@ -269,7 +269,7 @@ const navLinks = [
 export default function MarketAnalysis() {
   const [date, setDate] = useState<string>(dateOptions[0].value);
   const [open, setOpen] = useState(false);
-  const [selectedChart, setSelectedChart] = useState<{ title: string; chart: React.ReactNode; analysis: string; details?: React.ReactNode } | null>(null);
+  const [selectedChart, setSelectedChart] = useState<{ title: string; chart: React.ReactNode; analysis: string } | null>(null);
 
   const analysisTexts = {
     fgi: `현재 지수는 65(탐욕)로, 지난달의 중립 구간에서 상승했습니다.
@@ -288,127 +288,12 @@ export default function MarketAnalysis() {
     코스닥이 뚜렷한 방향성을 잡을 때까지는 코스피 단기 매매에 집중하는 것이 유리합니다.`
   };
 
-  const fgiDetails = (
-    <div className="mt-4 text-xs text-slate-500 font-mono space-y-2">
-      <div className="flex items-center gap-2 font-bold text-slate-700">
-        <HelpCircle className="w-3.5 h-3.5" />
-        <span>FGI (Fear & Greed Index): 0-100 범위, 높을수록 탐욕, 낮을수록 공포</span>
-      </div>
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pl-5">
-        <div className="flex items-center gap-1.5">
-           <div className="w-2.5 h-0.5 bg-blue-500"></div>
-           <span>파란 점선 (20): 극도 공포 구간 경계</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-           <div className="w-2.5 h-0.5 bg-red-500"></div>
-           <span>빨간 점선 (80): 극도 탐욕 구간 경계</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-           <span className="font-bold text-red-500">W-FGI</span>: 주간 지수
-        </div>
-        <div className="flex items-center gap-1.5">
-           <span className="font-bold text-blue-500">M-FGI</span>: 월간 지수
-        </div>
-      </div>
-    </div>
-  );
-
-  const breadthDetails = (
-    <div className="mt-4 text-xs text-slate-500 font-mono space-y-2">
-      <div className="flex items-center gap-2 font-bold text-slate-700">
-        <HelpCircle className="w-3.5 h-3.5" />
-        <span>Market Breadth: 상승 종목 수 - 시장의 참여도와 건전성을 나타냄</span>
-      </div>
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pl-5">
-        <div className="flex items-center gap-1.5">
-           <div className="w-2.5 h-0.5 bg-red-500"></div>
-           <span>Daily Count: 일일 상승 종목 수</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-           <div className="w-2.5 h-0.5 bg-blue-500"></div>
-           <span>20D MA: 20일 이동평균선 (추세선)</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-           <span className="font-bold text-slate-700">Divergence</span>: 지수 상승 vs 종목 수 감소 = 하락 반전 신호
-        </div>
-      </div>
-    </div>
-  );
-
-  const distDetails = (
-    <div className="mt-4 text-xs text-slate-500 font-mono space-y-2">
-      <div className="flex items-center gap-2 font-bold text-slate-700">
-        <HelpCircle className="w-3.5 h-3.5" />
-        <span>Price Distribution: 일일 등락률 분포 및 밀도 함수</span>
-      </div>
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pl-5">
-        <div className="flex items-center gap-1.5">
-           <div className="w-2.5 h-2.5 bg-blue-500/40"></div>
-           <span>Bar: 빈도수 (Frequency)</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-           <div className="w-2.5 h-0.5 bg-slate-800"></div>
-           <span>Line: KDE (확률 밀도 추정)</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-           <span className="font-bold text-slate-700">Fat Tail</span>: 양쪽 꼬리가 두꺼우면 급등락 가능성 높음
-        </div>
-      </div>
-    </div>
-  );
-
-  const sizeDetails = (
-    <div className="mt-4 text-xs text-slate-500 font-mono space-y-2">
-      <div className="flex items-center gap-2 font-bold text-slate-700">
-        <HelpCircle className="w-3.5 h-3.5" />
-        <span>Market Cap Rotation: 시가총액 규모별 상승 기여도 (누적)</span>
-      </div>
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pl-5">
-        <div className="flex items-center gap-1.5">
-           <div className="w-2.5 h-2.5 bg-green-500/60"></div>
-           <span>Small Cap: 소형주</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-           <div className="w-2.5 h-2.5 bg-blue-500/60"></div>
-           <span>Mid Cap: 중형주</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-           <div className="w-2.5 h-2.5 bg-red-500/60"></div>
-           <span>Large Cap: 대형주 (Blue Chip)</span>
-        </div>
-      </div>
-    </div>
-  );
-
-  const pamDetails = (
-    <div className="mt-4 text-xs text-slate-500 font-mono space-y-2">
-      <div className="flex items-center gap-2 font-bold text-slate-700">
-        <HelpCircle className="w-3.5 h-3.5" />
-        <span>PAM (Predictive Asset Model): 과거 패턴 기반 미래 수익률 예측 시뮬레이션</span>
-      </div>
-      <div className="flex flex-wrap items-center gap-x-6 gap-y-2 pl-5">
-        <div className="flex items-center gap-1.5">
-           <div className="w-2.5 h-0.5 bg-red-500"></div>
-           <span>5 Day: 단기 예측</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-           <div className="w-2.5 h-0.5 bg-green-500"></div>
-           <span>10 Day: 중기 예측</span>
-        </div>
-        <div className="flex items-center gap-1.5">
-           <div className="w-2.5 h-0.5 bg-blue-500"></div>
-           <span>20 Day: 장기 예측</span>
-        </div>
-      </div>
-    </div>
-  );
-
   const fgiChart = (
     <ResponsiveContainer width="100%" height="100%">
       <ComposedChart data={fgiHistoryData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" vertical={true} />
-        <XAxis dataKey="date" stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-        <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} domain={[0, 100]} />
+        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={true} />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} domain={[0, 100]} />
         <Tooltip content={<CustomTooltip />} />
         <ReferenceLine y={80} stroke="#ef4444" strokeDasharray="3 3" label={{ value: 'EXTREME GREED', fill: '#ef4444', fontSize: 9, position: 'insideTopRight' }} />
         <ReferenceLine y={20} stroke="#3b82f6" strokeDasharray="3 3" label={{ value: 'EXTREME FEAR', fill: '#3b82f6', fontSize: 9, position: 'insideBottomRight' }} />
@@ -421,9 +306,9 @@ export default function MarketAnalysis() {
   const kospiBreadthChart = (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={risingStocksKospi}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-        <XAxis dataKey="date" stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-        <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} />
+        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
         <Tooltip content={<CustomTooltip />} />
         <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
         <Line type="step" dataKey="daily" name="Daily Count" stroke="#ef4444" strokeWidth={2} dot={false} />
@@ -436,9 +321,9 @@ export default function MarketAnalysis() {
   const kosdaqBreadthChart = (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={risingStocksKosdaq}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-        <XAxis dataKey="date" stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-        <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} />
+        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
         <Tooltip content={<CustomTooltip />} />
         <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
         <Line type="step" dataKey="daily" name="Daily Count" stroke="#ef4444" strokeWidth={2} dot={false} />
@@ -455,7 +340,7 @@ export default function MarketAnalysis() {
         <YAxis hide />
         <Tooltip content={<CustomTooltip />} />
         <Bar dataKey="count" name="Freq" fill="#3b82f6" opacity={0.4} barSize={4} />
-        <Line type="monotone" dataKey="kde" name="Density" stroke="#1e293b" strokeWidth={1.5} dot={false} />
+        <Line type="monotone" dataKey="kde" name="Density" stroke="#fff" strokeWidth={1.5} dot={false} />
       </ComposedChart>
     </ResponsiveContainer>
   );
@@ -467,7 +352,7 @@ export default function MarketAnalysis() {
         <YAxis hide />
         <Tooltip content={<CustomTooltip />} />
         <Bar dataKey="count" name="Freq" fill="#3b82f6" opacity={0.4} barSize={4} />
-        <Line type="monotone" dataKey="kde" name="Density" stroke="#1e293b" strokeWidth={1.5} dot={false} />
+        <Line type="monotone" dataKey="kde" name="Density" stroke="#fff" strokeWidth={1.5} dot={false} />
       </ComposedChart>
     </ResponsiveContainer>
   );
@@ -475,9 +360,9 @@ export default function MarketAnalysis() {
   const kospiSizeChart = (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart data={risingRatioKospi}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-        <XAxis dataKey="date" stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-        <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} unit="%" />
+        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} unit="%" />
         <Tooltip content={<CustomTooltip />} />
         <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
         <Area type="monotone" dataKey="small" name="Small Cap" stackId="1" stroke="#22c55e" fill="#22c55e" fillOpacity={0.6} />
@@ -490,9 +375,9 @@ export default function MarketAnalysis() {
   const kosdaqSizeChart = (
     <ResponsiveContainer width="100%" height="100%">
       <AreaChart data={risingRatioKosdaq}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-        <XAxis dataKey="date" stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-        <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} unit="%" />
+        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} unit="%" />
         <Tooltip content={<CustomTooltip />} />
         <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
         <Area type="monotone" dataKey="small" name="Small Cap" stackId="1" stroke="#22c55e" fill="#22c55e" fillOpacity={0.6} />
@@ -505,9 +390,9 @@ export default function MarketAnalysis() {
   const pamChart = (
     <ResponsiveContainer width="100%" height="100%">
       <LineChart data={pamKospi}>
-        <CartesianGrid strokeDasharray="3 3" stroke="#e2e8f0" />
-        <XAxis dataKey="date" stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-        <YAxis stroke="#94a3b8" fontSize={10} tickLine={false} axisLine={false} />
+        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
         <Tooltip content={<CustomTooltip />} />
         <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="plainline" />
         <Line type="monotone" dataKey="day5" name="5 Day Projection" stroke="#ef4444" strokeWidth={2} dot={false} />
@@ -546,14 +431,14 @@ export default function MarketAnalysis() {
         To achieve this inside DashboardLayout (which might have its own overflow), 
         we need to ensure this container takes full height and manages its own scrolling.
       */}
-      <div className="flex flex-col h-[calc(100vh-4rem)] bg-white text-slate-900 relative font-sans overflow-hidden">
+      <div className="flex flex-col h-[calc(100vh-4rem)] bg-[#0B0E14] text-foreground relative font-sans overflow-hidden">
         
         {/* Report Toolbar / Navigation - Fixed at top */}
-        <div className="z-30 bg-white/95 backdrop-blur border-b border-border/50 px-6 py-3 flex items-center justify-between shrink-0 shadow-sm">
+        <div className="z-30 bg-[#0B0E14]/95 backdrop-blur border-b border-border/50 px-6 py-3 flex items-center justify-between shrink-0 shadow-md">
            <div className="flex items-center gap-4">
               <div className="flex items-center gap-2 font-mono text-sm text-primary">
                 <span className="font-bold hidden md:inline">STOCKLINK</span>
-                <span className="text-slate-400 hidden md:inline">/</span>
+                <span className="text-muted-foreground hidden md:inline">/</span>
                 <span>ANALYSIS_REPORT</span>
               </div>
               
@@ -565,16 +450,16 @@ export default function MarketAnalysis() {
                     variant="outline"
                     role="combobox"
                     aria-expanded={open}
-                    className="w-[180px] justify-between h-8 text-xs font-mono bg-slate-100 border-border/40 hover:bg-slate-200 text-slate-700"
+                    className="w-[180px] justify-between h-8 text-xs font-mono bg-secondary/20 border-border/40 hover:bg-secondary/40"
                   >
-                    <CalendarDays className="mr-2 h-3.5 w-3.5 text-slate-500" />
+                    <CalendarDays className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
                     {date
                       ? dateOptions.find((d) => d.value === date)?.label
                       : "Select date..."}
                     <ChevronsUpDown className="ml-2 h-3 w-3 shrink-0 opacity-50" />
                   </Button>
                 </PopoverTrigger>
-                <PopoverContent className="w-[200px] p-0 bg-white border-border/40">
+                <PopoverContent className="w-[200px] p-0 bg-[#0B0E14] border-border/40">
                   <Command className="bg-transparent">
                     <CommandInput placeholder="Search date..." className="h-8 text-xs" />
                     <CommandList>
@@ -588,7 +473,7 @@ export default function MarketAnalysis() {
                               setDate(currentValue === date ? "" : currentValue);
                               setOpen(false);
                             }}
-                            className="text-xs data-[selected=true]:bg-primary/10 text-slate-700"
+                            className="text-xs data-[selected=true]:bg-primary/20"
                           >
                             <Check
                               className={cn(
@@ -613,7 +498,7 @@ export default function MarketAnalysis() {
                       key={link.id}
                       variant="ghost" 
                       size="sm" 
-                      className="text-xs font-mono text-slate-500 hover:text-primary hover:bg-primary/10 h-7 px-3"
+                      className="text-xs font-mono text-muted-foreground hover:text-primary hover:bg-primary/10 h-7 px-3"
                       onClick={() => scrollToSection(link.id)}
                     >
                       {link.label}
@@ -629,8 +514,8 @@ export default function MarketAnalysis() {
         </div>
 
         {/* Main Document Area */}
-        <div id="market-content-container" className="flex-1 overflow-y-auto bg-slate-50 p-8">
-          <div className="max-w-5xl mx-auto bg-white min-h-full border border-border/30 shadow-xl">
+        <div id="market-content-container" className="flex-1 overflow-y-auto bg-[#050505] p-8">
+          <div className="max-w-5xl mx-auto bg-[#0B0E14] min-h-full border border-border/30 shadow-[0_0_50px_rgba(0,0,0,0.5)]">
             <div className="p-12 md:p-16 space-y-16">
             
               <ReportHeader date={date} />
@@ -651,11 +536,11 @@ export default function MarketAnalysis() {
                   </div>
                   <div className="lg:col-span-2">
                     <Card 
-                      className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-slate-50 transition-colors group relative"
-                      onClick={() => setSelectedChart({ title: "Fear & Greed Index History", chart: fgiChart, analysis: analysisTexts.fgi, details: fgiDetails })}
+                      className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                      onClick={() => setSelectedChart({ title: "Fear & Greed Index History", chart: fgiChart, analysis: analysisTexts.fgi })}
                     >
                       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                          <Maximize2 className="w-5 h-5 text-slate-400" />
+                          <Maximize2 className="w-5 h-5 text-muted-foreground" />
                       </div>
                       <CardContent className="p-6">
                         <div className="h-[300px] w-full pointer-events-none">
@@ -681,13 +566,13 @@ export default function MarketAnalysis() {
                 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   <Card 
-                    className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-slate-50 transition-colors group relative"
-                    onClick={() => setSelectedChart({ title: "KOSPI Breadth", chart: kospiBreadthChart, analysis: analysisTexts.breadth, details: breadthDetails })}
+                    className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                    onClick={() => setSelectedChart({ title: "KOSPI Breadth", chart: kospiBreadthChart, analysis: analysisTexts.breadth })}
                   >
                       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                          <Maximize2 className="w-5 h-5 text-slate-400" />
+                          <Maximize2 className="w-5 h-5 text-muted-foreground" />
                       </div>
-                      <div className="p-3 border-b border-border/30 bg-slate-100 text-xs font-bold text-center text-slate-500 uppercase tracking-widest">KOSPI Breadth</div>
+                      <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSPI Breadth</div>
                       <CardContent className="p-6">
                           <div className="h-[250px] w-full pointer-events-none">
                               {kospiBreadthChart}
@@ -696,13 +581,13 @@ export default function MarketAnalysis() {
                   </Card>
                   
                   <Card 
-                    className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-slate-50 transition-colors group relative"
-                    onClick={() => setSelectedChart({ title: "KOSDAQ Breadth", chart: kosdaqBreadthChart, analysis: analysisTexts.breadth, details: breadthDetails })}
+                    className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                    onClick={() => setSelectedChart({ title: "KOSDAQ Breadth", chart: kosdaqBreadthChart, analysis: analysisTexts.breadth })}
                   >
                       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                          <Maximize2 className="w-5 h-5 text-slate-400" />
+                          <Maximize2 className="w-5 h-5 text-muted-foreground" />
                       </div>
-                      <div className="p-3 border-b border-border/30 bg-slate-100 text-xs font-bold text-center text-slate-500 uppercase tracking-widest">KOSDAQ Breadth</div>
+                      <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSDAQ Breadth</div>
                       <CardContent className="p-6">
                           <div className="h-[250px] w-full pointer-events-none">
                               {kosdaqBreadthChart}
@@ -727,13 +612,13 @@ export default function MarketAnalysis() {
                   <div className="lg:col-span-2">
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <Card 
-                         className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-slate-50 transition-colors group relative"
-                         onClick={() => setSelectedChart({ title: "KOSPI Price Distribution", chart: kospiDistChart, analysis: analysisTexts.dist, details: distDetails })}
+                         className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                         onClick={() => setSelectedChart({ title: "KOSPI Price Distribution", chart: kospiDistChart, analysis: analysisTexts.dist })}
                        >
                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                             <Maximize2 className="w-5 h-5 text-slate-400" />
+                             <Maximize2 className="w-5 h-5 text-muted-foreground" />
                          </div>
-                         <div className="p-2 border-b border-border/30 bg-slate-100 text-[10px] font-bold text-center text-slate-500 uppercase">KOSPI Dist.</div>
+                         <div className="p-2 border-b border-border/30 bg-secondary/10 text-[10px] font-bold text-center text-muted-foreground uppercase">KOSPI Dist.</div>
                          <CardContent className="p-4">
                             <div className="h-[180px] w-full pointer-events-none">
                                 {kospiDistChart}
@@ -741,13 +626,13 @@ export default function MarketAnalysis() {
                          </CardContent>
                        </Card>
                        <Card 
-                         className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-slate-50 transition-colors group relative"
-                         onClick={() => setSelectedChart({ title: "KOSDAQ Price Distribution", chart: kosdaqDistChart, analysis: analysisTexts.dist, details: distDetails })}
+                         className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                         onClick={() => setSelectedChart({ title: "KOSDAQ Price Distribution", chart: kosdaqDistChart, analysis: analysisTexts.dist })}
                        >
                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                             <Maximize2 className="w-5 h-5 text-slate-400" />
+                             <Maximize2 className="w-5 h-5 text-muted-foreground" />
                          </div>
-                         <div className="p-2 border-b border-border/30 bg-slate-100 text-[10px] font-bold text-center text-slate-500 uppercase">KOSDAQ Dist.</div>
+                         <div className="p-2 border-b border-border/30 bg-secondary/10 text-[10px] font-bold text-center text-muted-foreground uppercase">KOSDAQ Dist.</div>
                          <CardContent className="p-4">
                             <div className="h-[180px] w-full pointer-events-none">
                                 {kosdaqDistChart}
@@ -773,13 +658,13 @@ export default function MarketAnalysis() {
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <Card 
-                      className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-slate-50 transition-colors group relative"
-                      onClick={() => setSelectedChart({ title: "KOSPI Market Cap Rotation", chart: kospiSizeChart, analysis: analysisTexts.cap, details: sizeDetails })}
+                      className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                      onClick={() => setSelectedChart({ title: "KOSPI Market Cap Rotation", chart: kospiSizeChart, analysis: analysisTexts.cap })}
                     >
                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                             <Maximize2 className="w-5 h-5 text-slate-400" />
+                             <Maximize2 className="w-5 h-5 text-muted-foreground" />
                          </div>
-                        <div className="p-3 border-b border-border/30 bg-slate-100 text-xs font-bold text-center text-slate-500 uppercase tracking-widest">KOSPI Segments</div>
+                        <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSPI Segments</div>
                         <CardContent className="p-6">
                             <div className="h-[250px] w-full pointer-events-none">
                                 {kospiSizeChart}
@@ -787,13 +672,13 @@ export default function MarketAnalysis() {
                         </CardContent>
                     </Card>
                     <Card 
-                      className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-slate-50 transition-colors group relative"
-                      onClick={() => setSelectedChart({ title: "KOSDAQ Market Cap Rotation", chart: kosdaqSizeChart, analysis: analysisTexts.cap, details: sizeDetails })}
+                      className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                      onClick={() => setSelectedChart({ title: "KOSDAQ Market Cap Rotation", chart: kosdaqSizeChart, analysis: analysisTexts.cap })}
                     >
                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                             <Maximize2 className="w-5 h-5 text-slate-400" />
+                             <Maximize2 className="w-5 h-5 text-muted-foreground" />
                          </div>
-                        <div className="p-3 border-b border-border/30 bg-slate-100 text-xs font-bold text-center text-slate-500 uppercase tracking-widest">KOSDAQ Segments</div>
+                        <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSDAQ Segments</div>
                         <CardContent className="p-6">
                             <div className="h-[250px] w-full pointer-events-none">
                                 {kosdaqSizeChart}
@@ -817,11 +702,11 @@ export default function MarketAnalysis() {
                   </div>
                   <div className="lg:col-span-2">
                      <Card 
-                       className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-slate-50 transition-colors group relative"
-                       onClick={() => setSelectedChart({ title: "KOSPI Expected Returns (PAM)", chart: pamChart, analysis: analysisTexts.pam, details: pamDetails })}
+                       className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                       onClick={() => setSelectedChart({ title: "KOSPI Expected Returns (PAM)", chart: pamChart, analysis: analysisTexts.pam })}
                      >
                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                             <Maximize2 className="w-5 h-5 text-slate-400" />
+                             <Maximize2 className="w-5 h-5 text-muted-foreground" />
                          </div>
                         <CardContent className="p-6">
                             <div className="h-[300px] w-full pointer-events-none">
@@ -834,7 +719,7 @@ export default function MarketAnalysis() {
               </section>
 
               {/* Footer */}
-              <div className="text-center text-xs font-mono text-slate-400 pt-12">
+              <div className="text-center text-xs font-mono text-muted-foreground pt-12">
                  <p className="mb-2">CONFIDENTIAL - INTERNAL USE ONLY (대외비)</p>
                  <p>본 리포트는 STOCKLINK AI 인텔리전스 엔진에 의해 생성되었습니다 • © 2025 StockLink Inc.</p>
               </div>
@@ -845,36 +730,28 @@ export default function MarketAnalysis() {
       </div>
       
       <Dialog open={!!selectedChart} onOpenChange={(open) => !open && setSelectedChart(null)}>
-        <DialogContent className="max-w-[90vw] h-[85vh] bg-white border-slate-200 flex flex-col p-8">
+        <DialogContent className="max-w-[90vw] h-[85vh] bg-[#0B0E14] border-border/50 flex flex-col p-8">
           <DialogHeader className="shrink-0 mb-6">
-            <DialogTitle className="text-3xl font-display font-bold text-slate-900 mb-4 flex items-center gap-3">
+            <DialogTitle className="text-3xl font-display font-bold text-white mb-4 flex items-center gap-3">
               {selectedChart?.title}
             </DialogTitle>
             <DialogDescription className="hidden">Chart Detail</DialogDescription>
             
-            <div className="bg-blue-50 border border-blue-500/20 rounded-lg p-5">
-                 <h4 className="text-sm font-bold text-blue-600 mb-2 flex items-center gap-2">
+            <div className="bg-blue-950/20 border border-blue-500/20 rounded-lg p-5">
+                 <h4 className="text-sm font-bold text-blue-400 mb-2 flex items-center gap-2">
                    <Sparkles className="w-4 h-4" /> AI Analysis
                  </h4>
-                 <p className="text-sm text-slate-700 leading-relaxed whitespace-pre-line">
+                 <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line">
                    {selectedChart?.analysis}
                  </p>
             </div>
           </DialogHeader>
           
-          <div className="flex-1 w-full min-h-0 bg-white rounded-lg border border-slate-200 p-2 relative overflow-hidden flex flex-col">
-             <div className="flex-1 min-h-0 relative">
-               {selectedChart?.chart}
-             </div>
-             {selectedChart?.details && (
-                <div className="shrink-0 p-4 border-t border-slate-100 bg-slate-50/50 mt-2 rounded-b-lg">
-                    {selectedChart.details}
-                </div>
-             )}
+          <div className="flex-1 w-full min-h-0 bg-[#0B0E14] rounded-lg border border-white/5 p-2 relative overflow-hidden">
+             {selectedChart?.chart}
           </div>
         </DialogContent>
       </Dialog>
-
     </DashboardLayout>
   );
 }
