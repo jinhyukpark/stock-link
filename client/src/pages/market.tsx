@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, ComposedChart, ReferenceLine } from "recharts";
-import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Sparkles, FileText, Calendar, User, Download, CalendarDays, Check, ChevronsUpDown } from "lucide-react";
+import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Sparkles, FileText, Calendar, User, Download, CalendarDays, Check, ChevronsUpDown, HelpCircle } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -163,13 +163,26 @@ const ReportHeader = ({ date }: { date: string }) => (
   </div>
 );
 
-const SectionHeader = ({ number, title, icon: Icon }: { number: string, title: string, icon: any }) => (
+const SectionHeader = ({ number, title, icon: Icon, description }: { number: string, title: string, icon: any, description?: string }) => (
   <div className="flex items-center gap-4 mb-6 border-b border-border/30 pb-2">
     <span className="text-3xl font-display font-bold text-primary/30">{number}</span>
     <div className="flex-1">
       <h2 className="text-xl font-bold text-white flex items-center gap-2 uppercase tracking-wide">
         <Icon className="w-5 h-5 text-primary" />
         {title}
+        {description && (
+          <Popover>
+            <PopoverTrigger asChild>
+              <Button variant="ghost" size="icon" className="h-6 w-6 rounded-full hover:bg-primary/20 ml-1">
+                <HelpCircle className="h-4 w-4 text-muted-foreground" />
+                <span className="sr-only">Info</span>
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent className="w-80 p-4 bg-card border-border/50 backdrop-blur-md shadow-xl text-sm leading-relaxed text-muted-foreground">
+              {description}
+            </PopoverContent>
+          </Popover>
+        )}
       </h2>
     </div>
   </div>
@@ -372,16 +385,18 @@ export default function MarketAnalysis() {
 
               {/* 1. Fear & Greed Index */}
               <section id="fgi" className="scroll-mt-32">
-                <SectionHeader number="01" title="공포 & 탐욕 지수 (Fear & Greed Index)" icon={Zap} />
+                <SectionHeader 
+                  number="01" 
+                  title="공포 & 탐욕 지수 (Fear & Greed Index)" 
+                  icon={Zap} 
+                  description="공포 & 탐욕 지수는 모멘텀, 변동성, 옵션 거래량 등을 종합하여 시장 심리를 나타내는 지표입니다. 역발상 지표로 활용되며, 극도의 공포는 과매도 상태를, 극도의 탐욕은 잠재적인 조정 가능성을 시사합니다."
+                />
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-1">
-                    <DescriptionBlock 
-                      content="공포 & 탐욕 지수는 모멘텀, 변동성, 옵션 거래량 등을 종합하여 시장 심리를 나타내는 지표입니다. 역발상 지표로 활용되며, 극도의 공포는 과매도 상태를, 극도의 탐욕은 잠재적인 조정 가능성을 시사합니다."
-                    />
                     <AnalysisBlock 
-                      analysis={`현재 지수는 65(탐욕)로, 지난달의 중립 구간에서 상승했습니다.
+                      content={`현재 지수는 65(탐욕)로, 지난달의 중립 구간에서 상승했습니다.
                       과거 데이터를 볼 때, '탐욕' 구간에서 주간 평균이 월간 평균을 상향 돌파하면 시장 랠리가 2-3주 더 지속되는 경향이 있습니다.
-                      80(극도 탐욕)을 돌파할 경우 주의가 필요합니다.`}
+                      80(극도 탐욕)을 돌파할 경우 단기 조정에 대비하여 현금 비중을 늘리는 전략이 유효할 수 있습니다.`}
                     />
                   </div>
                   <div className="lg:col-span-2">
@@ -409,13 +424,15 @@ export default function MarketAnalysis() {
 
               {/* 2. Rising Stocks Count */}
               <section id="rising-stocks" className="scroll-mt-32">
-                <SectionHeader number="02" title="시장 등락: 상승 종목 수 (Market Breadth)" icon={TrendingUp} />
+                <SectionHeader 
+                  number="02" 
+                  title="시장 등락: 상승 종목 수 (Market Breadth)" 
+                  icon={TrendingUp}
+                  description="시장 등락(Market Breadth)은 주가 상승이 얼마나 광범위하게 나타나는지를 측정합니다. 이동평균선 대비 상승 종목 수를 추적하여 지수 추세의 강도를 검증합니다. 소수의 대형주가 주도하는 랠리보다 다수의 종목이 상승하는 랠리가 더 지속 가능합니다." 
+                />
                 <div className="grid grid-cols-1 lg:grid-cols-1 gap-8 mb-8">
-                   <DescriptionBlock 
-                      content="시장 등락(Market Breadth)은 주가 상승이 얼마나 광범위하게 나타나는지를 측정합니다. 이동평균선 대비 상승 종목 수를 추적하여 지수 추세의 강도를 검증합니다. 소수의 대형주가 주도하는 랠리보다 다수의 종목이 상승하는 랠리가 더 지속 가능합니다."
-                    />
                    <AnalysisBlock 
-                      analysis={`코스피 상승 종목 수는 지난 5거래일 동안 20일 이동평균선을 지속적으로 상회하며, 폭넓은 상승장을 확인시켜주고 있습니다.
+                      content={`코스피 상승 종목 수는 지난 5거래일 동안 20일 이동평균선을 지속적으로 상회하며, 폭넓은 상승장을 확인시켜주고 있습니다.
                       반면 코스닥은 지수는 상승하지만 상승 종목 수는 감소하는 '괴리(Divergence)' 현상을 보이고 있어, 랠리가 일부 대형주에 집중되고 있음을 시사합니다.`}
                     />
                 </div>
@@ -465,14 +482,16 @@ export default function MarketAnalysis() {
 
               {/* 3. Price Change Distribution */}
               <section id="price-dist" className="scroll-mt-32">
-                <SectionHeader number="03" title="주가 등락률 분포 (Price Volatility Distribution)" icon={BarChart2} />
+                <SectionHeader 
+                  number="03" 
+                  title="주가 등락률 분포 (Price Volatility Distribution)" 
+                  icon={BarChart2}
+                  description="이 히스토그램은 일일 주가 변동폭의 빈도 분포를 보여줍니다. 커널 밀도 추정(KDE) 선은 부드러운 확률 밀도를 나타냅니다. 오른쪽으로 치우친 분포는 긍정적인 모멘텀을, '두터운 꼬리(Fat tail)'는 급격한 변동 가능성이 높음을 의미합니다."
+                />
                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-1">
-                    <DescriptionBlock 
-                      content="이 히스토그램은 일일 주가 변동폭의 빈도 분포를 보여줍니다. 커널 밀도 추정(KDE) 선은 부드러운 확률 밀도를 나타냅니다. 오른쪽으로 치우친 분포는 긍정적인 모멘텀을, '두터운 꼬리(Fat tail)'는 급격한 변동 가능성이 높음을 의미합니다."
-                    />
                     <AnalysisBlock 
-                      analysis={`코스피 분포는 약간 오른쪽(+0.5%)으로 치우쳐 있어, 매도세보다 매수세가 강함을 나타냅니다.
+                      content={`코스피 분포는 약간 오른쪽(+0.5%)으로 치우쳐 있어, 매도세보다 매수세가 강함을 나타냅니다.
                       양의 방향에 나타난 '두터운 꼬리'는 일부 종목이 강한 시세 분출을 하고 있음을 의미합니다.
                       코스닥은 0% 부근에서 좁은 피크를 형성하고 있어, 관망세와 횡보장이 지속되고 있음을 보여줍니다.`}
                     />
@@ -518,13 +537,15 @@ export default function MarketAnalysis() {
 
               {/* 4. Rising Ratio by Market Size */}
               <section id="market-size" className="scroll-mt-32">
-                <SectionHeader number="04" title="섹터 로테이션: 시가총액별 (Market Cap Rotation)" icon={PieChartIcon} />
+                <SectionHeader 
+                  number="04" 
+                  title="섹터 로테이션: 시가총액별 (Market Cap Rotation)" 
+                  icon={PieChartIcon} 
+                  description="시가총액 규모(대형, 중형, 소형)별 누적 상승 비율 분석입니다. 이 시각화는 랠리가 블루칩(대형주)에 의해 주도되는지, 아니면 위험 선호 심리가 소형 성장주로 확산되고 있는지(낙수 효과)를 파악하는 데 도움을 줍니다."
+                />
                 <div className="mb-6">
-                  <DescriptionBlock 
-                    content="시가총액 규모(대형, 중형, 소형)별 누적 상승 비율 분석입니다. 이 시각화는 랠리가 블루칩(대형주)에 의해 주도되는지, 아니면 위험 선호 심리가 소형 성장주로 확산되고 있는지(낙수 효과)를 파악하는 데 도움을 줍니다."
-                  />
                   <AnalysisBlock 
-                    analysis={`지난 3일간 외국인 매수세에 힘입어 대형주(파란색 영역)가 코스피 랠리를 주도해왔습니다.
+                    content={`지난 3일간 외국인 매수세에 힘입어 대형주(파란색 영역)가 코스피 랠리를 주도해왔습니다.
                     코스닥의 소형주들도 상승 탄력을 받기 시작했으며, 이는 '낙수 효과'가 곧 시작될 수 있음을 시사합니다.
                     향후 중형주가 이 격차를 메우며 상승할지 주목해야 합니다.`}
                   />
@@ -574,14 +595,16 @@ export default function MarketAnalysis() {
 
               {/* 5. PAM */}
               <section id="pam" className="scroll-mt-32 pb-12 border-b border-border/30">
-                <SectionHeader number="05" title="기대 수익률 시뮬레이션 (Expected Returns)" icon={Activity} />
+                <SectionHeader 
+                  number="05" 
+                  title="기대 수익률 시뮬레이션 (Expected Returns)" 
+                  icon={Activity} 
+                  description="예측 자산 모델(PAM)을 사용하여 향후 5일, 10일, 20일 동안의 시장 기대 수익률을 시뮬레이션합니다. 과거 패턴과 현재 모멘텀을 기반으로 산출되며, 단기 트레이딩 전략 수립에 활용됩니다."
+                />
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-1">
-                     <DescriptionBlock 
-                       content="예측 자산 모델(PAM)을 사용하여 향후 5일, 10일, 20일 동안의 시장 기대 수익률을 시뮬레이션합니다. 과거 패턴과 현재 모멘텀을 기반으로 산출되며, 단기 트레이딩 전략 수립에 활용됩니다."
-                     />
                      <AnalysisBlock 
-                       analysis={`코스피의 단기(5일) 기대 수익률(적색 선)이 상승 추세를 보이며 장기 전망을 상회하고 있습니다. 이는 강력한 단기 모멘텀을 확인시켜 줍니다.
+                       content={`코스피의 단기(5일) 기대 수익률(적색 선)이 상승 추세를 보이며 장기 전망을 상회하고 있습니다. 이는 강력한 단기 모멘텀을 확인시켜 줍니다.
                        코스닥의 20일 전망은 평탄하여 아직 뚜렷한 장기 추세가 형성되지 않았음을 나타냅니다.
                        코스닥이 뚜렷한 방향성을 잡을 때까지는 코스피 단기 매매에 집중하는 것이 유리합니다.`}
                      />
