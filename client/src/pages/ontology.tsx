@@ -349,44 +349,55 @@ export default function OntologyPage() {
             </div>
 
             {/* Left Floating Toolbar */}
-            <div className="absolute left-4 top-4 z-30 flex flex-col gap-1">
-                 <Button variant="secondary" size="icon" className="h-8 w-8 rounded bg-[#151921]/80 border border-white/10 text-gray-400 hover:text-white">
-                    <Database className="w-4 h-4" />
-                 </Button>
-                 <Button variant="secondary" size="icon" className="h-8 w-8 rounded bg-[#151921]/80 border border-white/10 text-gray-400 hover:text-white">
-                    <RotateCcw className="w-4 h-4" />
-                 </Button>
-                 <Button variant="secondary" size="icon" className="h-8 w-8 rounded bg-[#151921]/80 border border-white/10 text-gray-400 hover:text-white">
-                    <Share2 className="w-4 h-4" />
-                 </Button>
-                 <Button variant="secondary" size="icon" className="h-8 w-8 rounded bg-[#151921]/80 border border-white/10 text-gray-400 hover:text-white">
-                    <Info className="w-4 h-4" />
-                 </Button>
+            <div className="absolute left-4 top-4 z-30 flex flex-col gap-2">
+                 <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1">
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded">
+                        <Database className="w-4 h-4" />
+                     </Button>
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded">
+                        <RotateCcw className="w-4 h-4" />
+                     </Button>
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded">
+                        <Share2 className="w-4 h-4" />
+                     </Button>
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded">
+                        <Info className="w-4 h-4" />
+                     </Button>
+                 </div>
             </div>
             
             {/* Right Floating Toolbar */}
-            <div className="absolute right-4 top-4 z-30 flex flex-col gap-1">
-                 <Button variant="secondary" size="icon" className="h-8 w-8 rounded bg-[#151921]/80 border border-white/10 text-gray-400 hover:text-white">
-                    <Maximize className="w-4 h-4" />
-                 </Button>
-                 <Button variant="secondary" size="icon" className="h-8 w-8 rounded bg-[#151921]/80 border border-white/10 text-gray-400 hover:text-white">
-                    <ZoomIn className="w-4 h-4" />
-                 </Button>
-                 <Button variant="secondary" size="icon" className="h-8 w-8 rounded bg-[#151921]/80 border border-white/10 text-gray-400 hover:text-white">
-                    <ZoomOut className="w-4 h-4" />
-                 </Button>
-                 <Button variant="secondary" size="icon" className="h-8 w-8 rounded bg-[#151921]/80 border border-white/10 text-gray-400 hover:text-white">
-                    <Filter className="w-4 h-4" />
-                 </Button>
-                 <Button variant="secondary" size="icon" className="h-8 w-8 rounded bg-[#151921]/80 border border-white/10 text-gray-400 hover:text-white">
-                    <Settings className="w-4 h-4" />
-                 </Button>
-                 <Button variant="secondary" size="icon" className="h-8 w-8 rounded bg-[#151921]/80 border border-white/10 text-gray-400 hover:text-white">
-                    <Layers className="w-4 h-4" />
-                 </Button>
-                 <Button variant="secondary" size="icon" className="h-8 w-8 rounded bg-[#151921]/80 border border-white/10 text-gray-400 hover:text-white">
-                    <MoreHorizontal className="w-4 h-4" />
-                 </Button>
+            <div className="absolute right-4 top-4 z-30 flex flex-col gap-4">
+                 {/* View Controls Group */}
+                 <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1">
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded" title="전체화면">
+                        <Maximize className="w-4 h-4" />
+                     </Button>
+                     <div className="h-px bg-white/10 my-0.5 mx-1"></div>
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded" title="확대">
+                        <ZoomIn className="w-4 h-4" />
+                     </Button>
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded" title="축소">
+                        <ZoomOut className="w-4 h-4" />
+                     </Button>
+                 </div>
+
+                 {/* Settings Group */}
+                 <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1">
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded" title="필터">
+                        <Filter className="w-4 h-4" />
+                     </Button>
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded" title="레이어">
+                        <Layers className="w-4 h-4" />
+                     </Button>
+                     <div className="h-px bg-white/10 my-0.5 mx-1"></div>
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded" title="설정">
+                        <Settings className="w-4 h-4" />
+                     </Button>
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded" title="더보기">
+                        <MoreHorizontal className="w-4 h-4" />
+                     </Button>
+                 </div>
             </div>
 
             {/* Graph Visualization Layer */}
