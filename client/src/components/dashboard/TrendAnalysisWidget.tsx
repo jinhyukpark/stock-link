@@ -52,40 +52,36 @@ export default function TrendAnalysisWidget() {
         <CardHeader className="py-2 px-4">
           <CardTitle className="text-sm font-semibold">Market Trends & Keywords</CardTitle>
         </CardHeader>
-        <CardContent className="flex-1 relative overflow-hidden bg-gradient-to-br from-transparent to-black/20 p-4">
-          <div className="flex flex-wrap items-center justify-center gap-2 h-full content-center">
+        <CardContent className="flex-1 relative overflow-hidden bg-gradient-to-br from-transparent to-black/20 p-2">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 h-full content-center p-2">
             {words.map((word, i) => {
-              // Calculate bubble size based on value
-              const size = Math.max(3, Math.min(8, word.value / 12));
+              // Enhanced size calculation for better visual hierarchy - Scaled down
+              const size = Math.max(0.6, Math.min(1.8, word.value / 45));
               
-              const colorClass = word.type === 'up' 
-                ? 'bg-red-500/20 text-red-400 border-red-500/30' 
+              const color = word.type === 'up' 
+                ? 'text-red-400 drop-shadow-[0_0_12px_rgba(248,113,113,0.4)]' 
                 : word.type === 'down' 
-                  ? 'bg-blue-500/20 text-blue-400 border-blue-500/30' 
-                  : 'bg-gray-500/20 text-gray-400 border-gray-500/30';
+                  ? 'text-blue-400 drop-shadow-[0_0_12px_rgba(96,165,250,0.4)]' 
+                  : 'text-gray-400 drop-shadow-[0_0_8px_rgba(156,163,175,0.2)]';
               
               const isSelected = selectedTrend === word.text;
-              const opacity = Math.max(0.6, word.value / 100);
+              const opacity = Math.max(0.4, word.value / 120);
               
               return (
-                <div 
+                <span 
                   key={i}
                   onClick={() => setSelectedTrend(word.text)}
                   style={{ 
-                      width: `${size}rem`,
-                      height: `${size}rem`,
+                      fontSize: `${size}rem`,
                       opacity: isSelected ? 1 : opacity
                   }}
                   className={cn(
-                    `rounded-full border flex items-center justify-center text-center cursor-pointer transition-all duration-300 p-1`,
-                    colorClass,
-                    isSelected ? "scale-110 shadow-[0_0_15px_rgba(255,255,255,0.2)] z-10 border-primary" : "hover:scale-105 hover:opacity-100 hover:z-10"
+                    `font-display font-bold cursor-pointer transition-all duration-300 ${color} leading-none`,
+                    isSelected ? "scale-110 underline decoration-2 underline-offset-4 z-10" : "hover:scale-110 hover:opacity-100 hover:z-10"
                   )}
                 >
-                  <span className="text-[0.65rem] font-bold leading-tight break-words px-1">
-                    {word.text}
-                  </span>
-                </div>
+                  {word.text}
+                </span>
               );
             })}
           </div>
