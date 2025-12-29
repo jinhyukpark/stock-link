@@ -67,7 +67,7 @@ export default function MomentumPage() {
       <div className="p-6 space-y-6 bg-[#0B0E14] min-h-screen text-gray-200 font-sans">
         
         {/* Toolbar */}
-        <div className="flex flex-col xl:flex-row gap-4 justify-between items-start xl:items-center bg-[#151921] p-4 rounded-lg border border-white/5">
+        <div className="flex flex-col xl:flex-row gap-4 justify-between items-start xl:items-center p-0">
           <div className="flex flex-wrap items-center gap-4">
             <h1 className="text-xl font-bold text-white mr-2">랭킹</h1>
             
