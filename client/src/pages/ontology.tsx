@@ -441,7 +441,7 @@ export default function OntologyPage() {
             </div>
 
             {/* Bottom Legend Panel */}
-            <div className="absolute bottom-[40px] right-4 z-30 bg-[#0B0E14]/90 backdrop-blur border border-white/10 rounded-lg p-0 w-[240px] overflow-hidden shadow-2xl">
+            <div className="absolute bottom-[60px] right-4 z-30 bg-[#0B0E14]/90 backdrop-blur border border-white/10 rounded-lg p-0 w-[240px] overflow-hidden shadow-2xl">
                  <div className="flex text-[10px] text-gray-400 bg-white/5 px-3 py-1.5 border-b border-white/10">
                     <span className="flex-1">등락률</span>
                     <span className="w-10 text-right">개수</span>
@@ -460,7 +460,7 @@ export default function OntologyPage() {
             </div>
 
             {/* Bottom Timeline Control */}
-            <div className="absolute bottom-0 left-0 right-0 h-[40px] bg-[#0f1115] border-t border-white/10 z-30 flex items-end px-4 pb-1">
+            <div className="absolute bottom-0 left-0 right-0 h-[60px] bg-[#0f1115] border-t border-white/10 z-30 flex items-end px-4 pb-1">
                 <div className="flex-1 flex items-end gap-[2px] h-full pt-2 opacity-50 hover:opacity-100 transition-opacity">
                     {Array.from({ length: 100 }).map((_, i) => (
                         <div 
@@ -477,41 +477,6 @@ export default function OntologyPage() {
         </main>
       </div>
       
-      {/* Bottom Ticker (Consistent with other pages) */}
-      <div className="bg-[#0f1115] border-t border-white/5 h-8 flex items-center px-4 overflow-hidden shrink-0 z-50 relative">
-             <div className="flex gap-8 text-[10px] font-mono whitespace-nowrap animate-ticker text-gray-400">
-                <div className="flex items-center gap-2">
-                   <span>코스피 종합</span>
-                   <span className="text-gray-200 font-bold">2220.56</span>
-                   <span className="text-red-400">▲ 90.88 2.2%</span>
-                </div>
-                <div className="flex items-center gap-2">
-                   <span>코스닥 종합</span>
-                   <span className="text-gray-200 font-bold">932.59</span>
-                   <span className="text-red-400">▲ 12.92 1.4%</span>
-                </div>
-                <div className="flex items-center gap-2">
-                   <span>나스닥 종합</span>
-                   <span className="text-gray-200 font-bold">23450.97</span>
-                   <span className="text-blue-400">▼ 142.13 -0.6%</span>
-                </div>
-                <div className="flex items-center gap-2">
-                   <span>다우 산업</span>
-                   <span className="text-gray-200 font-bold">48710.97</span>
-                   <span className="text-blue-400">▼ 20.19 -0.04%</span>
-                </div>
-                <div className="flex items-center gap-2">
-                   <span>S&P 500</span>
-                   <span className="text-gray-200 font-bold">6900.9</span>
-                   <span className="text-blue-400">▼ 29.04 -0.42%</span>
-                </div>
-                <div className="flex items-center gap-2">
-                   <span>달러환율</span>
-                   <span className="text-gray-200 font-bold">1434.1</span>
-                   <span className="text-blue-400">▼ 8.1 -0.56%</span>
-                </div>
-             </div>
-      </div>
     </DashboardLayout>
   );
 }
