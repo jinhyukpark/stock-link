@@ -64,7 +64,7 @@ export default function FearGreedIndex() {
         <div className="flex flex-col md:flex-row gap-4 items-center">
           {/* Gauge Chart Section */}
           <div className="relative h-[180px] w-full md:w-1/2 flex items-center justify-center">
-            <div className="scale-90 md:scale-100 origin-center transition-transform">
+            <div className="scale-90 md:scale-100 origin-center transition-transform -translate-y-4">
               <PieChart width={width} height={height}>
                 <Pie
                   dataKey="value"
@@ -99,7 +99,7 @@ export default function FearGreedIndex() {
             </div>
 
              {/* Separate Score Display below the gauge */}
-             <div className="absolute -bottom-6 flex flex-col items-center z-20">
+             <div className="absolute bottom-2 flex flex-col items-center z-20">
                  <div className="px-4 py-1 bg-background/80 backdrop-blur-md rounded-full border border-white/10 shadow-lg flex items-center gap-2">
                     <span className="text-2xl font-bold font-display text-white">75</span>
                     <span className="text-xs font-medium text-red-400 uppercase tracking-wider">Greed</span>
