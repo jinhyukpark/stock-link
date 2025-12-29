@@ -61,58 +61,148 @@ const legendItems = [
   { label: "정보없음", color: "bg-gray-700", count: 0, pct: "0%" },
 ];
 
+interface Node {
+  id: string;
+  x: number;
+  y: number;
+  size: number;
+  color: string;
+  label?: string;
+  pulse?: boolean;
+}
+
+interface Link {
+  x1: number;
+  y1: number;
+  x2: number;
+  y2: number;
+  opacity: number;
+}
+
 const GraphNode = ({ x, y, size, color, label, pulse }: { x: string, y: string, size: number, color: string, label?: string, pulse?: boolean }) => (
   <div 
-    className="absolute rounded-full flex items-center justify-center transform -translate-x-1/2 -translate-y-1/2 transition-all duration-1000"
+    className="absolute rounded-full flex items-center justify-center transform -translate-x-1/2 -translate-y-1/2 transition-all duration-1000 group z-20"
     style={{ left: x, top: y, width: size, height: size }}
   >
     {pulse && (
        <div className={cn("absolute inset-0 rounded-full animate-ping opacity-20", color)}></div>
     )}
-    <div className={cn("w-full h-full rounded-full shadow-lg border border-white/20 hover:scale-125 transition-transform cursor-pointer z-10", color)}></div>
+    <div className={cn("w-full h-full rounded-full shadow-lg border border-white/20 hover:scale-125 transition-transform cursor-pointer", color)}></div>
     {label && (
-      <span className="absolute top-full mt-1 text-[10px] text-white/80 whitespace-nowrap bg-black/50 px-1 rounded z-20 pointer-events-none">
+      <span className="absolute top-full mt-2 text-[10px] font-bold text-white whitespace-nowrap bg-black/70 px-2 py-0.5 rounded backdrop-blur-sm z-30 pointer-events-none border border-white/10 group-hover:scale-110 transition-transform">
         {label}
       </span>
     )}
-    {/* Connections */}
-    <svg className="absolute top-1/2 left-1/2 w-[200px] h-[200px] -translate-x-1/2 -translate-y-1/2 pointer-events-none opacity-20 -z-10">
-       <line x1="50%" y1="50%" x2={Math.random() * 100 + "%"} y2={Math.random() * 100 + "%"} stroke="white" strokeWidth="1" />
-       <line x1="50%" y1="50%" x2={Math.random() * 100 + "%"} y2={Math.random() * 100 + "%"} stroke="white" strokeWidth="1" />
-    </svg>
   </div>
 );
 
 export default function OntologyPage() {
   const [activeTab, setActiveTab] = useState("theme"); // theme, industry, keyword
 
-  // Generate random nodes for visual effect
-  const nodes = useMemo(() => {
-    const generated = [];
-    // Center cluster
-    for (let i = 0; i < 20; i++) {
-       generated.push({
-         x: `${50 + (Math.random() - 0.5) * 30}%`,
-         y: `${50 + (Math.random() - 0.5) * 30}%`,
-         size: Math.random() * 30 + 10,
-         color: ["bg-red-500", "bg-orange-400", "bg-blue-400", "bg-yellow-400", "bg-gray-400"][Math.floor(Math.random() * 5)],
-         label: i < 8 ? ["삼성전자", "SK하이닉스", "LG에너지솔루션", "POSCO홀딩스", "NAVER", "카카오", "현대차", "기아"][i] : undefined,
-         pulse: Math.random() > 0.8
-       });
+  // Generate dense, structured graph data
+  const { nodes, links } = useMemo(() => {
+    const nodes: Node[] = [];
+    const links: Link[] = [];
+    
+    // 1. Central "Core" Cluster (Market Leaders) - High Density
+    const coreCount = 15;
+    const coreLabels = ["삼성전자", "SK하이닉스", "LG에너지솔루션", "POSCO홀딩스", "NAVER", "카카오", "현대차", "기아", "LG화학", "삼성SDI", "KB금융", "신한지주", "셀트리온", "삼성바이오로직스", "현대모비스"];
+    
+    for (let i = 0; i < coreCount; i++) {
+        // Spiral distribution for organic core
+        const angle = (i * 0.5) + Math.random() * 0.5;
+        const radius = 8 + i * 0.8; // Tight cluster
+        const x = 50 + Math.cos(angle) * radius;
+        const y = 50 + Math.sin(angle) * radius;
+        
+        nodes.push({
+            id: `core-${i}`,
+            x, y,
+            size: Math.random() * 20 + 20, // Large nodes
+            color: ["bg-red-500", "bg-blue-500", "bg-yellow-400"][Math.floor(Math.random() * 3)],
+            label: coreLabels[i],
+            pulse: true
+        });
+
+        // Interconnect core nodes densely
+        for (let j = 0; j < i; j++) {
+            if (Math.random() > 0.5) { // 50% chance to connect to previous core nodes
+                links.push({
+                    x1: nodes[j].x, y1: nodes[j].y,
+                    x2: x, y2: y,
+                    opacity: 0.3
+                });
+            }
+        }
     }
-    // Outer ring
-    for (let i = 0; i < 150; i++) {
-        const angle = (i / 150) * Math.PI * 2;
-        const radius = 40 + Math.random() * 5; // 40-45% radius
-        generated.push({
-            x: `${50 + Math.cos(angle) * radius}%`,
-            y: `${50 + Math.sin(angle) * radius}%`,
-            size: Math.random() * 8 + 4,
-            color: ["bg-green-400", "bg-green-500/50", "bg-yellow-400/80", "bg-gray-500/50"][Math.floor(Math.random() * 4)],
+
+    // 2. Middle "Sector" Ring - Medium Density
+    const sectorCount = 40;
+    for (let i = 0; i < sectorCount; i++) {
+        const angle = (i / sectorCount) * Math.PI * 2;
+        const radius = 30 + Math.random() * 10; // Mid range
+        const x = 50 + Math.cos(angle) * radius;
+        const y = 50 + Math.sin(angle) * radius;
+        
+        nodes.push({
+            id: `sector-${i}`,
+            x, y,
+            size: Math.random() * 10 + 8,
+            color: ["bg-orange-400", "bg-green-400", "bg-purple-400"][Math.floor(Math.random() * 3)],
             pulse: false
         });
+
+        // Connect to nearest core node
+        const nearestCore = nodes.slice(0, coreCount).reduce((prev, curr) => {
+            const distPrev = Math.hypot(prev.x - x, prev.y - y);
+            const distCurr = Math.hypot(curr.x - x, curr.y - y);
+            return distCurr < distPrev ? curr : prev;
+        });
+        
+        links.push({
+            x1: nearestCore.x, y1: nearestCore.y,
+            x2: x, y2: y,
+            opacity: 0.15
+        });
+        
+        // Connect to neighbor in ring
+        if (i > 0) {
+            links.push({
+                x1: nodes[coreCount + i - 1].x, y1: nodes[coreCount + i - 1].y,
+                x2: x, y2: y,
+                opacity: 0.1
+            });
+        }
     }
-    return generated;
+
+    // 3. Outer "Periphery" Cloud - Low Density but high count
+    const outerCount = 100;
+    for (let i = 0; i < outerCount; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const radius = 45 + Math.random() * 15; // Wide spread, some off screen
+        const x = 50 + Math.cos(angle) * radius;
+        const y = 50 + Math.sin(angle) * radius;
+
+        nodes.push({
+            id: `outer-${i}`,
+            x, y,
+            size: Math.random() * 4 + 2, // Small dots
+            color: "bg-gray-600",
+            pulse: false
+        });
+        
+         // Connect to random sector node
+        const randomSector = nodes[coreCount + Math.floor(Math.random() * sectorCount)];
+        if (Math.random() > 0.7) {
+            links.push({
+                x1: randomSector.x, y1: randomSector.y,
+                x2: x, y2: y,
+                opacity: 0.05
+            });
+        }
+    }
+
+    return { nodes, links };
   }, []);
 
   return (
@@ -307,10 +397,34 @@ export default function OntologyPage() {
                 {/* Central "Sun" Glow */}
                 <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[800px] h-[800px] bg-blue-900/10 rounded-full blur-[100px] pointer-events-none"></div>
 
-                {/* Nodes */}
-                <div className="relative w-full h-full transform scale-90 md:scale-100">
+                {/* SVG Links Layer */}
+                <svg className="absolute inset-0 w-full h-full pointer-events-none z-0">
+                  {links.map((link, i) => (
+                    <line 
+                      key={i}
+                      x1={`${link.x1}%`}
+                      y1={`${link.y1}%`}
+                      x2={`${link.x2}%`}
+                      y2={`${link.y2}%`}
+                      stroke="white"
+                      strokeWidth="1"
+                      strokeOpacity={link.opacity}
+                    />
+                  ))}
+                </svg>
+
+                {/* Nodes Layer */}
+                <div className="relative w-full h-full transform scale-90 md:scale-100 z-10">
                     {nodes.map((node, i) => (
-                        <GraphNode key={i} {...node} />
+                        <GraphNode 
+                            key={i} 
+                            x={`${node.x}%`} 
+                            y={`${node.y}%`} 
+                            size={node.size} 
+                            color={node.color} 
+                            label={node.label}
+                            pulse={node.pulse} 
+                        />
                     ))}
                 </div>
             </div>
