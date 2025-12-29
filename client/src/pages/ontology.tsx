@@ -583,6 +583,25 @@ export default function OntologyPage() {
             
             {/* Left Floating Toolbar */}
             <div className="absolute left-4 top-4 z-30 flex flex-col gap-4">
+                 {/* Original Floating Buttons - Now at top */}
+                 <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1 w-fit">
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded">
+                        <Database className="w-4 h-4" />
+                     </Button>
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded">
+                        <RotateCcw className="w-4 h-4" />
+                     </Button>
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded">
+                        <Share2 className="w-4 h-4" />
+                     </Button>
+                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded">
+                        <Info className="w-4 h-4" />
+                     </Button>
+                 </div>
+            </div>
+
+            {/* Centered Widgets - Left Side */}
+            <div className="absolute left-4 top-1/2 -translate-y-1/2 z-30 flex flex-col gap-4">
                  {/* Mini Market Insights */}
                  <div className="flex flex-col gap-3">
                     {/* Compact Fear & Greed */}
@@ -644,22 +663,6 @@ export default function OntologyPage() {
                             ))}
                         </div>
                     </div>
-                 </div>
-
-                 {/* Original Floating Buttons - Now below widgets */}
-                 <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1 w-fit">
-                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded">
-                        <Database className="w-4 h-4" />
-                     </Button>
-                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded">
-                        <RotateCcw className="w-4 h-4" />
-                     </Button>
-                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded">
-                        <Share2 className="w-4 h-4" />
-                     </Button>
-                     <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded">
-                        <Info className="w-4 h-4" />
-                     </Button>
                  </div>
             </div>
             
