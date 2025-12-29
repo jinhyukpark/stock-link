@@ -3,6 +3,7 @@ import MarketTicker from "@/components/dashboard/MarketTicker";
 import FearGreedIndex from "@/components/dashboard/FearGreedIndex";
 import MarketHeatmap from "@/components/dashboard/MarketHeatmap";
 import TrendAnalysisWidget from "@/components/dashboard/TrendAnalysisWidget";
+import TrendingThemes from "@/components/dashboard/TrendingThemes";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -80,16 +81,7 @@ export default function Dashboard() {
         </div>
 
         {/* Footer Area with Category Cards */}
-        <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
-           {['Semiconductors', 'Secondary Battery', 'AI Software', 'Biotech', 'Automotive', 'Consumer'].map((cat, i) => (
-             <Card key={i} className="bg-card/30 hover:bg-card/60 transition-colors border-border/30 cursor-pointer group">
-               <CardContent className="p-4 flex flex-col items-center justify-center gap-2">
-                 <span className="font-semibold text-sm group-hover:text-primary transition-colors">{cat}</span>
-                 <span className="text-xs text-green-400">+1.2%</span>
-               </CardContent>
-             </Card>
-           ))}
-        </div>
+        <TrendingThemes />
       </div>
     </DashboardLayout>
   );
