@@ -218,43 +218,78 @@ const DescriptionBlock = ({ content }: { content: string }) => (
 );
 
 const MarketSummaryReport = ({ date }: { date: string }) => (
-  <div className="bg-card border border-border/40 p-0 mb-12 shadow-2xl overflow-hidden">
-    <div className="bg-secondary/30 px-6 py-3 border-b border-border/40 flex justify-between items-center">
-      <h3 className="font-bold text-white uppercase tracking-wider text-sm flex items-center gap-2">
-        <FileText className="w-4 h-4 text-primary" />
-        요약 보고서 (Executive Summary)
-      </h3>
-      <span className="text-xs font-mono text-primary animate-pulse">LIVE ANALYSIS</span>
+  <div className="bg-gradient-to-br from-[#12141a] to-[#0B0E14] border border-border/30 rounded-xl mb-12 shadow-2xl overflow-hidden">
+    {/* Header Section */}
+    <div className="px-8 py-6 border-b border-border/20 flex justify-between items-center bg-white/5 backdrop-blur-sm">
+      <div className="flex items-center gap-3">
+        <div className="bg-primary/20 p-2 rounded-lg">
+           <FileText className="w-5 h-5 text-primary" />
+        </div>
+        <div>
+           <h3 className="font-display font-bold text-white tracking-wide text-lg">
+             요약 보고서
+           </h3>
+           <p className="text-xs text-muted-foreground font-mono uppercase tracking-widest">Executive Summary</p>
+        </div>
+      </div>
+      <div className="flex items-center gap-2">
+         <span className="relative flex h-2.5 w-2.5">
+            <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-green-400 opacity-75"></span>
+            <span className="relative inline-flex rounded-full h-2.5 w-2.5 bg-green-500"></span>
+         </span>
+         <span className="text-xs font-mono text-green-400 font-bold">LIVE ANALYSIS</span>
+      </div>
     </div>
     
     <div className="p-8">
-      <div className="flex flex-col md:flex-row gap-8">
-        <div className="flex-1">
-           <h4 className="text-2xl font-bold text-white mb-4 leading-tight">
-             대형주 모멘텀 주도의 <span className="text-green-400">강세장 지속 신호</span> 포착
+      <div className="flex flex-col lg:flex-row gap-12">
+        {/* Main Text Content */}
+        <div className="flex-1 lg:border-r border-border/20 lg:pr-12">
+           <h4 className="text-3xl font-display font-bold text-white mb-6 leading-tight">
+             대형주 모멘텀 주도의 <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">강세장 지속 신호</span> 포착
            </h4>
-           <p className="text-muted-foreground leading-relaxed mb-6">
+           <p className="text-gray-400 leading-relaxed text-lg font-light">
              종합 시장 데이터는 강력한 회복 국면을 시사합니다. 공포 & 탐욕 지수는 '탐욕' 구간(65)으로 진입했으며, 반도체 대형주에 대한 외국인의 강한 순매수가 이를 뒷받침하고 있습니다. 코스닥 소형주는 다소 뒤쳐져 있으나, 전반적인 시장의 상승 폭은 확대되고 있습니다.
            </p>
-           
-           <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-border/30 pt-6">
-             <div>
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">시장 국면 (MARKET REGIME)</div>
-               <div className="text-lg font-bold text-red-400">위험 회피 (Risk-Off)</div>
+        </div>
+
+        {/* Key Metrics Grid */}
+        <div className="lg:w-[45%] grid grid-cols-2 gap-4">
+             <div className="bg-white/5 rounded-lg p-5 border border-white/5 hover:bg-white/10 transition-colors">
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2 font-mono">시장 국면 (REGIME)</div>
+               <div className="text-xl font-bold text-red-400 flex items-center gap-2">
+                 <span className="w-2 h-2 rounded-full bg-red-500"></span>
+                 위험 회피
+               </div>
+               <div className="text-xs text-red-500/70 mt-1 font-mono">Risk-Off</div>
              </div>
-             <div>
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">시장 건전성 (BREADTH)</div>
-               <div className="text-lg font-bold text-red-400">붕괴 (Broken)</div>
+             
+             <div className="bg-white/5 rounded-lg p-5 border border-white/5 hover:bg-white/10 transition-colors">
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2 font-mono">시장 건전성 (BREADTH)</div>
+               <div className="text-xl font-bold text-red-400 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-red-500"></span>
+                  붕괴
+               </div>
+               <div className="text-xs text-red-500/70 mt-1 font-mono">Broken</div>
              </div>
-             <div>
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">자금 흐름 (FLOW)</div>
-               <div className="text-lg font-bold text-yellow-500">소형주 투기</div>
+             
+             <div className="bg-white/5 rounded-lg p-5 border border-white/5 hover:bg-white/10 transition-colors">
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2 font-mono">자금 흐름 (FLOW)</div>
+               <div className="text-xl font-bold text-yellow-500 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-yellow-500"></span>
+                  소형주 투기
+               </div>
+               <div className="text-xs text-yellow-500/70 mt-1 font-mono">Small Cap Speculation</div>
              </div>
-             <div>
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">대응 전략 (STRATEGY)</div>
-               <div className="text-lg font-bold text-blue-400">현금 관망 (Cash)</div>
+             
+             <div className="bg-white/5 rounded-lg p-5 border border-white/5 hover:bg-white/10 transition-colors">
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2 font-mono">대응 전략 (STRATEGY)</div>
+               <div className="text-xl font-bold text-blue-400 flex items-center gap-2">
+                  <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                  현금 관망
+               </div>
+               <div className="text-xs text-blue-500/70 mt-1 font-mono">Stay in Cash</div>
              </div>
-           </div>
         </div>
       </div>
     </div>
