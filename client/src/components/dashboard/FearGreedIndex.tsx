@@ -47,14 +47,14 @@ export default function FearGreedIndex() {
   return (
     <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 flex flex-col">
       <CardHeader className="flex flex-row items-center justify-between space-y-0 pb-2">
-        <CardTitle className="text-base font-semibold">공포 & 탐욕 지수</CardTitle>
+        <CardTitle className="text-base font-semibold">Fear & Greed Index</CardTitle>
         <TooltipProvider>
           <Tooltip>
             <TooltipTrigger>
               <Info className="w-4 h-4 text-muted-foreground" />
             </TooltipTrigger>
             <TooltipContent>
-              <p>시장 심리 지표</p>
+              <p>Market sentiment indicator</p>
             </TooltipContent>
           </Tooltip>
         </TooltipProvider>
@@ -104,10 +104,10 @@ export default function FearGreedIndex() {
           {/* Time-based Indices List */}
           <div className="w-full md:w-1/2 flex flex-col gap-2">
              {[
-               { label: "공포 지수", period: "1주일", val: 28, color: "text-blue-400 border-blue-500/30" },
-               { label: "중립 지수", period: "1달", val: 57, color: "text-purple-400 border-purple-500/30" },
-               { label: "탐욕 지수", period: "3개월", val: 66, color: "text-red-400 border-red-500/30" },
-               { label: "탐욕 지수", period: "6개월", val: 71, color: "text-red-400 border-red-500/30" },
+               { label: "Fear Index", period: "1 Week", val: 28, color: "text-blue-400 border-blue-500/30" },
+               { label: "Neutral Index", period: "1 Month", val: 57, color: "text-purple-400 border-purple-500/30" },
+               { label: "Greed Index", period: "3 Months", val: 66, color: "text-red-400 border-red-500/30" },
+               { label: "Greed Index", period: "6 Months", val: 71, color: "text-red-400 border-red-500/30" },
              ].map((item, i) => (
                <div key={i} className={`flex items-center justify-between p-3 rounded-lg border bg-secondary/20 ${item.color.split(' ')[1]}`}>
                   <div className="flex flex-col">
@@ -130,13 +130,14 @@ export default function FearGreedIndex() {
                  <span className="font-bold font-display italic text-lg">Check Point!</span>
               </div>
               <Button variant="outline" size="sm" className="h-7 text-xs border-primary/30 text-primary hover:bg-primary/10">
-                 자세히보기
+                 View Details
               </Button>
            </div>
            <p className="text-xs text-muted-foreground leading-relaxed">
-             지난 1주일 동안 주식시장의 공포 탐욕지수는 12.65에서 44.76까지 변동하며 총 32.11포인트의 변동폭을 보였습니다. 
-             시작값은 25.38로 공포 구간(29 이하)에 속했으며, 최고값 44.76은 중립 구간(30~69)에 해당합니다. 
-             지수는 초기에는 공포심이 강했으나 중반에 중립 수준으로 올라갔다가 다시 하락하며 변동성을 보였습니다.
+             Over the past week, the stock market's Fear & Greed Index fluctuated between 12.65 and 44.76, showing a total volatility of 32.11 points. 
+             The starting value was 25.38, falling within the Fear range (29 or lower), while the peak of 44.76 corresponded to the Neutral range (30-69). 
+             The index initially showed strong fear but rose to neutral levels mid-week before declining again, demonstrating volatility. 
+             This suggests that market sentiment has shown unstable movements.
            </p>
         </div>
       </CardContent>
