@@ -194,54 +194,54 @@ export default function StockPage() {
 
           {/* Table */}
           <div className="flex-1 overflow-auto px-6 pb-0">
-             <table className="w-full text-xs text-left border-separate border-spacing-0">
+             <table className="w-full text-xs text-left border-separate border-spacing-0 border-l border-t border-white/10">
                <thead className="bg-[#151921] sticky top-0 z-10 text-gray-400 font-medium h-9">
                  <tr>
-                   <th className="px-2 w-10 text-center border-b border-white/10">#</th>
-                   <th className="px-2 border-b border-white/10">종목</th>
-                   <th className="px-2 text-right border-b border-white/10">현재가 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-white/10">등락률 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-white/10">거래량 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-white/10">거래대금 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-white/10">시가총액 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-white/10">PER <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-white/10">PBR <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-white/10">52주 최고가 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-white/10">52주 최저가 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 w-24 text-center border-b border-white/10">미니차트</th>
+                   <th className="px-2 w-10 text-center border-b border-r border-white/10">#</th>
+                   <th className="px-2 border-b border-r border-white/10">종목</th>
+                   <th className="px-2 text-right border-b border-r border-white/10">현재가 <span className="text-[9px]">▼</span></th>
+                   <th className="px-2 text-right border-b border-r border-white/10">등락률 <span className="text-[9px]">▼</span></th>
+                   <th className="px-2 text-right border-b border-r border-white/10">거래량 <span className="text-[9px]">▼</span></th>
+                   <th className="px-2 text-right border-b border-r border-white/10">거래대금 <span className="text-[9px]">▼</span></th>
+                   <th className="px-2 text-right border-b border-r border-white/10">시가총액 <span className="text-[9px]">▼</span></th>
+                   <th className="px-2 text-right border-b border-r border-white/10">PER <span className="text-[9px]">▼</span></th>
+                   <th className="px-2 text-right border-b border-r border-white/10">PBR <span className="text-[9px]">▼</span></th>
+                   <th className="px-2 text-right border-b border-r border-white/10">52주 최고가 <span className="text-[9px]">▼</span></th>
+                   <th className="px-2 text-right border-b border-r border-white/10">52주 최저가 <span className="text-[9px]">▼</span></th>
+                   <th className="px-2 w-24 text-center border-b border-r border-white/10">미니차트</th>
                  </tr>
                </thead>
                <tbody className="divide-y divide-white/5">
                  {stocks.map((stock) => (
                    <tr key={stock.rank} className="hover:bg-white/[0.02] transition-colors group">
-                     <td className="px-2 py-2.5 text-center text-gray-500 font-mono">
+                     <td className="px-2 py-2.5 text-center text-gray-500 font-mono border-r border-white/10 border-b border-white/5">
                        <div className="flex items-center justify-center gap-1">
                          <Star className="w-3 h-3 text-gray-700 hover:text-yellow-400 cursor-pointer" />
                          {stock.rank}
                        </div>
                      </td>
-                     <td className="px-2 py-2.5">
+                     <td className="px-2 py-2.5 border-r border-white/10 border-b border-white/5">
                        <div className="flex items-center gap-2">
                          <div className={`w-1 h-3 rounded-full ${stock.change > 0 ? 'bg-red-500' : 'bg-blue-500'}`} />
                          <span className="text-gray-200 font-bold hover:underline cursor-pointer">{stock.name}</span>
                        </div>
                      </td>
-                     <td className="px-2 py-2.5 text-right font-mono text-gray-300">
+                     <td className="px-2 py-2.5 text-right font-mono text-gray-300 border-r border-white/10 border-b border-white/5">
                        {stock.price.toLocaleString()}
                      </td>
-                     <td className={`px-2 py-2.5 text-right font-mono font-medium ${stock.change > 0 ? 'text-red-400' : 'text-blue-400'}`}>
+                     <td className={`px-2 py-2.5 text-right font-mono font-medium border-r border-white/10 border-b border-white/5 ${stock.change > 0 ? 'text-red-400' : 'text-blue-400'}`}>
                        <div className="flex items-center justify-end gap-1">
                          {stock.change > 0 ? '+' : ''}{stock.change.toFixed(2)}%
                        </div>
                      </td>
-                     <td className="px-2 py-2.5 text-right font-mono text-gray-400">{stock.vol}</td>
-                     <td className="px-2 py-2.5 text-right font-mono text-gray-400">{stock.amt}</td>
-                     <td className="px-2 py-2.5 text-right font-mono text-gray-400">{stock.cap}</td>
-                     <td className={`px-2 py-2.5 text-right font-mono ${stock.per !== '-' ? 'text-red-400' : 'text-gray-600'}`}>{stock.per !== '-' && '+'}{stock.per}%</td>
-                     <td className={`px-2 py-2.5 text-right font-mono ${stock.pbr !== '-' ? 'text-red-400' : 'text-gray-600'}`}>{stock.pbr !== '-' && '+'}{stock.pbr}%</td>
-                     <td className="px-2 py-2.5 text-right font-mono text-gray-400">{Number(stock.high.replace(/,/g,'')).toLocaleString()}</td>
-                     <td className="px-2 py-2.5 text-right font-mono text-gray-400">{Number(stock.low.replace(/,/g,'')).toLocaleString()}</td>
-                     <td className="px-2 py-1 pr-4">
+                     <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{stock.vol}</td>
+                     <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{stock.amt}</td>
+                     <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{stock.cap}</td>
+                     <td className={`px-2 py-2.5 text-right font-mono border-r border-white/10 border-b border-white/5 ${stock.per !== '-' ? 'text-red-400' : 'text-gray-600'}`}>{stock.per !== '-' && '+'}{stock.per}%</td>
+                     <td className={`px-2 py-2.5 text-right font-mono border-r border-white/10 border-b border-white/5 ${stock.pbr !== '-' ? 'text-red-400' : 'text-gray-600'}`}>{stock.pbr !== '-' && '+'}{stock.pbr}%</td>
+                     <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{Number(stock.high.replace(/,/g,'')).toLocaleString()}</td>
+                     <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{Number(stock.low.replace(/,/g,'')).toLocaleString()}</td>
+                     <td className="px-2 py-1 pr-4 border-r border-white/10 border-b border-white/5">
                        <div className="h-8 w-20 ml-auto">
                         <ResponsiveContainer width="100%" height="100%">
                           <AreaChart data={generateSparklineData(stock.trend as any)}>
