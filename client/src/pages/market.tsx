@@ -1,9 +1,16 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, ComposedChart, ReferenceLine } from "recharts";
-import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Sparkles, FileText, Calendar, User, Download, CalendarDays, Check, ChevronsUpDown, HelpCircle } from "lucide-react";
+import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Sparkles, FileText, Calendar, User, Download, CalendarDays, Check, ChevronsUpDown, HelpCircle, Maximize2, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
+import {
+  Dialog,
+  DialogContent,
+  DialogHeader,
+  DialogTitle,
+  DialogDescription,
+} from "@/components/ui/dialog";
 import {
   Popover,
   PopoverContent,
@@ -262,6 +269,138 @@ const navLinks = [
 export default function MarketAnalysis() {
   const [date, setDate] = useState<string>(dateOptions[0].value);
   const [open, setOpen] = useState(false);
+  const [selectedChart, setSelectedChart] = useState<{ title: string; chart: React.ReactNode; analysis: string } | null>(null);
+
+  const analysisTexts = {
+    fgi: `현재 지수는 65(탐욕)로, 지난달의 중립 구간에서 상승했습니다.
+    과거 데이터를 볼 때, '탐욕' 구간에서 주간 평균이 월간 평균을 상향 돌파하면 시장 랠리가 2-3주 더 지속되는 경향이 있습니다.
+    80(극도 탐욕)을 돌파할 경우 단기 조정에 대비하여 현금 비중을 늘리는 전략이 유효할 수 있습니다.`,
+    breadth: `코스피 상승 종목 수는 지난 5거래일 동안 20일 이동평균선을 지속적으로 상회하며, 폭넓은 상승장을 확인시켜주고 있습니다.
+    반면 코스닥은 지수는 상승하지만 상승 종목 수는 감소하는 '괴리(Divergence)' 현상을 보이고 있어, 랠리가 일부 대형주에 집중되고 있음을 시사합니다.`,
+    dist: `코스피 분포는 약간 오른쪽(+0.5%)으로 치우쳐 있어, 매도세보다 매수세가 강함을 나타냅니다.
+    양의 방향에 나타난 '두터운 꼬리'는 일부 종목이 강한 시세 분출을 하고 있음을 의미합니다.
+    코스닥은 0% 부근에서 좁은 피크를 형성하고 있어, 관망세와 횡보장이 지속되고 있음을 보여줍니다.`,
+    cap: `지난 3일간 외국인 매수세에 힘입어 대형주(파란색 영역)가 코스피 랠리를 주도해왔습니다.
+    코스닥의 소형주들도 상승 탄력을 받기 시작했으며, 이는 '낙수 효과'가 곧 시작될 수 있음을 시사합니다.
+    향후 중형주가 이 격차를 메우며 상승할지 주목해야 합니다.`,
+    pam: `코스피의 단기(5일) 기대 수익률(적색 선)이 상승 추세를 보이며 장기 전망을 상회하고 있습니다. 이는 강력한 단기 모멘텀을 확인시켜 줍니다.
+    코스닥의 20일 전망은 평탄하여 아직 뚜렷한 장기 추세가 형성되지 않았음을 나타냅니다.
+    코스닥이 뚜렷한 방향성을 잡을 때까지는 코스피 단기 매매에 집중하는 것이 유리합니다.`
+  };
+
+  const fgiChart = (
+    <ResponsiveContainer width="100%" height="100%">
+      <ComposedChart data={fgiHistoryData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={true} />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} domain={[0, 100]} />
+        <Tooltip content={<CustomTooltip />} />
+        <ReferenceLine y={80} stroke="#ef4444" strokeDasharray="3 3" label={{ value: 'EXTREME GREED', fill: '#ef4444', fontSize: 9, position: 'insideTopRight' }} />
+        <ReferenceLine y={20} stroke="#3b82f6" strokeDasharray="3 3" label={{ value: 'EXTREME FEAR', fill: '#3b82f6', fontSize: 9, position: 'insideBottomRight' }} />
+        <Line type="monotone" dataKey="weekly" name="Weekly FGI" stroke="#ef4444" strokeWidth={2} dot={false} />
+        <Line type="monotone" dataKey="monthly" name="Monthly FGI" stroke="#3b82f6" strokeWidth={2} dot={false} strokeDasharray="5 5" />
+      </ComposedChart>
+    </ResponsiveContainer>
+  );
+
+  const kospiBreadthChart = (
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={risingStocksKospi}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+        <Tooltip content={<CustomTooltip />} />
+        <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
+        <Line type="step" dataKey="daily" name="Daily Count" stroke="#ef4444" strokeWidth={2} dot={false} />
+        <Line type="monotone" dataKey="ma5" name="5D MA" stroke="#f97316" strokeWidth={1} dot={false} strokeDasharray="3 3" />
+        <Line type="monotone" dataKey="ma20" name="20D MA" stroke="#3b82f6" strokeWidth={1} dot={false} />
+      </LineChart>
+    </ResponsiveContainer>
+  );
+
+  const kosdaqBreadthChart = (
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={risingStocksKosdaq}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+        <Tooltip content={<CustomTooltip />} />
+        <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
+        <Line type="step" dataKey="daily" name="Daily Count" stroke="#ef4444" strokeWidth={2} dot={false} />
+        <Line type="monotone" dataKey="ma5" name="5D MA" stroke="#f97316" strokeWidth={1} dot={false} strokeDasharray="3 3" />
+        <Line type="monotone" dataKey="ma20" name="20D MA" stroke="#3b82f6" strokeWidth={1} dot={false} />
+      </LineChart>
+    </ResponsiveContainer>
+  );
+
+  const kospiDistChart = (
+    <ResponsiveContainer width="100%" height="100%">
+      <ComposedChart data={distKospi}>
+        <XAxis dataKey="range" hide />
+        <YAxis hide />
+        <Tooltip content={<CustomTooltip />} />
+        <Bar dataKey="count" name="Freq" fill="#3b82f6" opacity={0.4} barSize={4} />
+        <Line type="monotone" dataKey="kde" name="Density" stroke="#fff" strokeWidth={1.5} dot={false} />
+      </ComposedChart>
+    </ResponsiveContainer>
+  );
+
+  const kosdaqDistChart = (
+    <ResponsiveContainer width="100%" height="100%">
+      <ComposedChart data={distKosdaq}>
+        <XAxis dataKey="range" hide />
+        <YAxis hide />
+        <Tooltip content={<CustomTooltip />} />
+        <Bar dataKey="count" name="Freq" fill="#3b82f6" opacity={0.4} barSize={4} />
+        <Line type="monotone" dataKey="kde" name="Density" stroke="#fff" strokeWidth={1.5} dot={false} />
+      </ComposedChart>
+    </ResponsiveContainer>
+  );
+
+  const kospiSizeChart = (
+    <ResponsiveContainer width="100%" height="100%">
+      <AreaChart data={risingRatioKospi}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} unit="%" />
+        <Tooltip content={<CustomTooltip />} />
+        <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
+        <Area type="monotone" dataKey="small" name="Small Cap" stackId="1" stroke="#22c55e" fill="#22c55e" fillOpacity={0.6} />
+        <Area type="monotone" dataKey="mid" name="Mid Cap" stackId="1" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.6} />
+        <Area type="monotone" dataKey="large" name="Large Cap" stackId="1" stroke="#ef4444" fill="#ef4444" fillOpacity={0.6} />
+      </AreaChart>
+    </ResponsiveContainer>
+  );
+
+  const kosdaqSizeChart = (
+    <ResponsiveContainer width="100%" height="100%">
+      <AreaChart data={risingRatioKosdaq}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} unit="%" />
+        <Tooltip content={<CustomTooltip />} />
+        <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
+        <Area type="monotone" dataKey="small" name="Small Cap" stackId="1" stroke="#22c55e" fill="#22c55e" fillOpacity={0.6} />
+        <Area type="monotone" dataKey="mid" name="Mid Cap" stackId="1" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.6} />
+        <Area type="monotone" dataKey="large" name="Large Cap" stackId="1" stroke="#ef4444" fill="#ef4444" fillOpacity={0.6} />
+      </AreaChart>
+    </ResponsiveContainer>
+  );
+
+  const pamChart = (
+    <ResponsiveContainer width="100%" height="100%">
+      <LineChart data={pamKospi}>
+        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
+        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
+        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
+        <Tooltip content={<CustomTooltip />} />
+        <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="plainline" />
+        <Line type="monotone" dataKey="day5" name="5 Day Projection" stroke="#ef4444" strokeWidth={2} dot={false} />
+        <Line type="monotone" dataKey="day10" name="10 Day Projection" stroke="#22c55e" strokeWidth={2} dot={false} />
+        <Line type="monotone" dataKey="day20" name="20 Day Projection" stroke="#3b82f6" strokeWidth={2} dot={false} />
+      </LineChart>
+    </ResponsiveContainer>
+  );
 
   const scrollToSection = (id: string) => {
     const element = document.getElementById(id);
@@ -393,28 +532,19 @@ export default function MarketAnalysis() {
                 />
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-1">
-                    <AnalysisBlock 
-                      content={`현재 지수는 65(탐욕)로, 지난달의 중립 구간에서 상승했습니다.
-                      과거 데이터를 볼 때, '탐욕' 구간에서 주간 평균이 월간 평균을 상향 돌파하면 시장 랠리가 2-3주 더 지속되는 경향이 있습니다.
-                      80(극도 탐욕)을 돌파할 경우 단기 조정에 대비하여 현금 비중을 늘리는 전략이 유효할 수 있습니다.`}
-                    />
+                    <AnalysisBlock content={analysisTexts.fgi} />
                   </div>
                   <div className="lg:col-span-2">
-                    <Card className="bg-transparent border border-border/30 shadow-none rounded-none">
+                    <Card 
+                      className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                      onClick={() => setSelectedChart({ title: "Fear & Greed Index History", chart: fgiChart, analysis: analysisTexts.fgi })}
+                    >
+                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                          <Maximize2 className="w-5 h-5 text-muted-foreground" />
+                      </div>
                       <CardContent className="p-6">
-                        <div className="h-[300px] w-full">
-                          <ResponsiveContainer width="100%" height="100%">
-                            <ComposedChart data={fgiHistoryData} margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
-                              <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" vertical={true} />
-                              <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-                              <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} domain={[0, 100]} />
-                              <Tooltip content={<CustomTooltip />} />
-                              <ReferenceLine y={80} stroke="#ef4444" strokeDasharray="3 3" label={{ value: 'EXTREME GREED', fill: '#ef4444', fontSize: 9, position: 'insideTopRight' }} />
-                              <ReferenceLine y={20} stroke="#3b82f6" strokeDasharray="3 3" label={{ value: 'EXTREME FEAR', fill: '#3b82f6', fontSize: 9, position: 'insideBottomRight' }} />
-                              <Line type="monotone" dataKey="weekly" name="Weekly FGI" stroke="#ef4444" strokeWidth={2} dot={false} />
-                              <Line type="monotone" dataKey="monthly" name="Monthly FGI" stroke="#3b82f6" strokeWidth={2} dot={false} strokeDasharray="5 5" />
-                            </ComposedChart>
-                          </ResponsiveContainer>
+                        <div className="h-[300px] w-full pointer-events-none">
+                          {fgiChart}
                         </div>
                       </CardContent>
                     </Card>
@@ -431,49 +561,36 @@ export default function MarketAnalysis() {
                   description="시장 등락(Market Breadth)은 주가 상승이 얼마나 광범위하게 나타나는지를 측정합니다. 이동평균선 대비 상승 종목 수를 추적하여 지수 추세의 강도를 검증합니다. 소수의 대형주가 주도하는 랠리보다 다수의 종목이 상승하는 랠리가 더 지속 가능합니다." 
                 />
                 <div className="grid grid-cols-1 lg:grid-cols-1 gap-8 mb-8">
-                   <AnalysisBlock 
-                      content={`코스피 상승 종목 수는 지난 5거래일 동안 20일 이동평균선을 지속적으로 상회하며, 폭넓은 상승장을 확인시켜주고 있습니다.
-                      반면 코스닥은 지수는 상승하지만 상승 종목 수는 감소하는 '괴리(Divergence)' 현상을 보이고 있어, 랠리가 일부 대형주에 집중되고 있음을 시사합니다.`}
-                    />
+                   <AnalysisBlock content={analysisTexts.breadth} />
                 </div>
                 
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  <Card className="bg-transparent border border-border/30 shadow-none rounded-none">
+                  <Card 
+                    className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                    onClick={() => setSelectedChart({ title: "KOSPI Breadth", chart: kospiBreadthChart, analysis: analysisTexts.breadth })}
+                  >
+                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                          <Maximize2 className="w-5 h-5 text-muted-foreground" />
+                      </div>
                       <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSPI Breadth</div>
                       <CardContent className="p-6">
-                          <div className="h-[250px] w-full">
-                              <ResponsiveContainer width="100%" height="100%">
-                                  <LineChart data={risingStocksKospi}>
-                                      <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                                      <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-                                      <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
-                                      <Tooltip content={<CustomTooltip />} />
-                                      <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
-                                      <Line type="step" dataKey="daily" name="Daily Count" stroke="#ef4444" strokeWidth={2} dot={false} />
-                                      <Line type="monotone" dataKey="ma5" name="5D MA" stroke="#f97316" strokeWidth={1} dot={false} strokeDasharray="3 3" />
-                                      <Line type="monotone" dataKey="ma20" name="20D MA" stroke="#3b82f6" strokeWidth={1} dot={false} />
-                                  </LineChart>
-                              </ResponsiveContainer>
+                          <div className="h-[250px] w-full pointer-events-none">
+                              {kospiBreadthChart}
                           </div>
                       </CardContent>
                   </Card>
                   
-                  <Card className="bg-transparent border border-border/30 shadow-none rounded-none">
+                  <Card 
+                    className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                    onClick={() => setSelectedChart({ title: "KOSDAQ Breadth", chart: kosdaqBreadthChart, analysis: analysisTexts.breadth })}
+                  >
+                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                          <Maximize2 className="w-5 h-5 text-muted-foreground" />
+                      </div>
                       <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSDAQ Breadth</div>
                       <CardContent className="p-6">
-                          <div className="h-[250px] w-full">
-                              <ResponsiveContainer width="100%" height="100%">
-                                  <LineChart data={risingStocksKosdaq}>
-                                      <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                                      <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-                                      <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
-                                      <Tooltip content={<CustomTooltip />} />
-                                      <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
-                                      <Line type="step" dataKey="daily" name="Daily Count" stroke="#ef4444" strokeWidth={2} dot={false} />
-                                      <Line type="monotone" dataKey="ma5" name="5D MA" stroke="#f97316" strokeWidth={1} dot={false} strokeDasharray="3 3" />
-                                      <Line type="monotone" dataKey="ma20" name="20D MA" stroke="#3b82f6" strokeWidth={1} dot={false} />
-                                  </LineChart>
-                              </ResponsiveContainer>
+                          <div className="h-[250px] w-full pointer-events-none">
+                              {kosdaqBreadthChart}
                           </div>
                       </CardContent>
                   </Card>
@@ -490,43 +607,35 @@ export default function MarketAnalysis() {
                 />
                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-1">
-                    <AnalysisBlock 
-                      content={`코스피 분포는 약간 오른쪽(+0.5%)으로 치우쳐 있어, 매도세보다 매수세가 강함을 나타냅니다.
-                      양의 방향에 나타난 '두터운 꼬리'는 일부 종목이 강한 시세 분출을 하고 있음을 의미합니다.
-                      코스닥은 0% 부근에서 좁은 피크를 형성하고 있어, 관망세와 횡보장이 지속되고 있음을 보여줍니다.`}
-                    />
+                    <AnalysisBlock content={analysisTexts.dist} />
                   </div>
                   <div className="lg:col-span-2">
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                       <Card className="bg-transparent border border-border/30 shadow-none rounded-none">
+                       <Card 
+                         className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                         onClick={() => setSelectedChart({ title: "KOSPI Price Distribution", chart: kospiDistChart, analysis: analysisTexts.dist })}
+                       >
+                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                             <Maximize2 className="w-5 h-5 text-muted-foreground" />
+                         </div>
                          <div className="p-2 border-b border-border/30 bg-secondary/10 text-[10px] font-bold text-center text-muted-foreground uppercase">KOSPI Dist.</div>
                          <CardContent className="p-4">
-                            <div className="h-[180px] w-full">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <ComposedChart data={distKospi}>
-                                        <XAxis dataKey="range" hide />
-                                        <YAxis hide />
-                                        <Tooltip content={<CustomTooltip />} />
-                                        <Bar dataKey="count" name="Freq" fill="#3b82f6" opacity={0.4} barSize={4} />
-                                        <Line type="monotone" dataKey="kde" name="Density" stroke="#fff" strokeWidth={1.5} dot={false} />
-                                    </ComposedChart>
-                                </ResponsiveContainer>
+                            <div className="h-[180px] w-full pointer-events-none">
+                                {kospiDistChart}
                             </div>
                          </CardContent>
                        </Card>
-                       <Card className="bg-transparent border border-border/30 shadow-none rounded-none">
+                       <Card 
+                         className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                         onClick={() => setSelectedChart({ title: "KOSDAQ Price Distribution", chart: kosdaqDistChart, analysis: analysisTexts.dist })}
+                       >
+                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                             <Maximize2 className="w-5 h-5 text-muted-foreground" />
+                         </div>
                          <div className="p-2 border-b border-border/30 bg-secondary/10 text-[10px] font-bold text-center text-muted-foreground uppercase">KOSDAQ Dist.</div>
                          <CardContent className="p-4">
-                            <div className="h-[180px] w-full">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <ComposedChart data={distKosdaq}>
-                                        <XAxis dataKey="range" hide />
-                                        <YAxis hide />
-                                        <Tooltip content={<CustomTooltip />} />
-                                        <Bar dataKey="count" name="Freq" fill="#3b82f6" opacity={0.4} barSize={4} />
-                                        <Line type="monotone" dataKey="kde" name="Density" stroke="#fff" strokeWidth={1.5} dot={false} />
-                                    </ComposedChart>
-                                </ResponsiveContainer>
+                            <div className="h-[180px] w-full pointer-events-none">
+                                {kosdaqDistChart}
                             </div>
                          </CardContent>
                        </Card>
@@ -544,49 +653,35 @@ export default function MarketAnalysis() {
                   description="시가총액 규모(대형, 중형, 소형)별 누적 상승 비율 분석입니다. 이 시각화는 랠리가 블루칩(대형주)에 의해 주도되는지, 아니면 위험 선호 심리가 소형 성장주로 확산되고 있는지(낙수 효과)를 파악하는 데 도움을 줍니다."
                 />
                 <div className="mb-6">
-                  <AnalysisBlock 
-                    content={`지난 3일간 외국인 매수세에 힘입어 대형주(파란색 영역)가 코스피 랠리를 주도해왔습니다.
-                    코스닥의 소형주들도 상승 탄력을 받기 시작했으며, 이는 '낙수 효과'가 곧 시작될 수 있음을 시사합니다.
-                    향후 중형주가 이 격차를 메우며 상승할지 주목해야 합니다.`}
-                  />
+                  <AnalysisBlock content={analysisTexts.cap} />
                 </div>
                 
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <Card className="bg-transparent border border-border/30 shadow-none rounded-none">
+                    <Card 
+                      className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                      onClick={() => setSelectedChart({ title: "KOSPI Market Cap Rotation", chart: kospiSizeChart, analysis: analysisTexts.cap })}
+                    >
+                        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                             <Maximize2 className="w-5 h-5 text-muted-foreground" />
+                         </div>
                         <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSPI Segments</div>
                         <CardContent className="p-6">
-                            <div className="h-[250px] w-full">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <AreaChart data={risingRatioKospi}>
-                                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                                        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-                                        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} unit="%" />
-                                        <Tooltip content={<CustomTooltip />} />
-                                        <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
-                                        <Area type="monotone" dataKey="small" name="Small Cap" stackId="1" stroke="#22c55e" fill="#22c55e" fillOpacity={0.6} />
-                                        <Area type="monotone" dataKey="mid" name="Mid Cap" stackId="1" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.6} />
-                                        <Area type="monotone" dataKey="large" name="Large Cap" stackId="1" stroke="#ef4444" fill="#ef4444" fillOpacity={0.6} />
-                                    </AreaChart>
-                                </ResponsiveContainer>
+                            <div className="h-[250px] w-full pointer-events-none">
+                                {kospiSizeChart}
                             </div>
                         </CardContent>
                     </Card>
-                    <Card className="bg-transparent border border-border/30 shadow-none rounded-none">
+                    <Card 
+                      className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                      onClick={() => setSelectedChart({ title: "KOSDAQ Market Cap Rotation", chart: kosdaqSizeChart, analysis: analysisTexts.cap })}
+                    >
+                        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                             <Maximize2 className="w-5 h-5 text-muted-foreground" />
+                         </div>
                         <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSDAQ Segments</div>
                         <CardContent className="p-6">
-                            <div className="h-[250px] w-full">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <AreaChart data={risingRatioKosdaq}>
-                                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                                        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-                                        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} unit="%" />
-                                        <Tooltip content={<CustomTooltip />} />
-                                        <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="rect" />
-                                        <Area type="monotone" dataKey="small" name="Small Cap" stackId="1" stroke="#22c55e" fill="#22c55e" fillOpacity={0.6} />
-                                        <Area type="monotone" dataKey="mid" name="Mid Cap" stackId="1" stroke="#3b82f6" fill="#3b82f6" fillOpacity={0.6} />
-                                        <Area type="monotone" dataKey="large" name="Large Cap" stackId="1" stroke="#ef4444" fill="#ef4444" fillOpacity={0.6} />
-                                    </AreaChart>
-                                </ResponsiveContainer>
+                            <div className="h-[250px] w-full pointer-events-none">
+                                {kosdaqSizeChart}
                             </div>
                         </CardContent>
                     </Card>
@@ -603,28 +698,19 @@ export default function MarketAnalysis() {
                 />
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-1">
-                     <AnalysisBlock 
-                       content={`코스피의 단기(5일) 기대 수익률(적색 선)이 상승 추세를 보이며 장기 전망을 상회하고 있습니다. 이는 강력한 단기 모멘텀을 확인시켜 줍니다.
-                       코스닥의 20일 전망은 평탄하여 아직 뚜렷한 장기 추세가 형성되지 않았음을 나타냅니다.
-                       코스닥이 뚜렷한 방향성을 잡을 때까지는 코스피 단기 매매에 집중하는 것이 유리합니다.`}
-                     />
+                     <AnalysisBlock content={analysisTexts.pam} />
                   </div>
                   <div className="lg:col-span-2">
-                     <Card className="bg-transparent border border-border/30 shadow-none rounded-none">
+                     <Card 
+                       className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                       onClick={() => setSelectedChart({ title: "KOSPI Expected Returns (PAM)", chart: pamChart, analysis: analysisTexts.pam })}
+                     >
+                        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                             <Maximize2 className="w-5 h-5 text-muted-foreground" />
+                         </div>
                         <CardContent className="p-6">
-                            <div className="h-[300px] w-full">
-                                <ResponsiveContainer width="100%" height="100%">
-                                    <LineChart data={pamKospi}>
-                                        <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-                                        <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} dy={10} />
-                                        <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
-                                        <Tooltip content={<CustomTooltip />} />
-                                        <Legend wrapperStyle={{ fontSize: '10px', paddingTop: '15px' }} iconType="plainline" />
-                                        <Line type="monotone" dataKey="day5" name="5 Day Projection" stroke="#ef4444" strokeWidth={2} dot={false} />
-                                        <Line type="monotone" dataKey="day10" name="10 Day Projection" stroke="#22c55e" strokeWidth={2} dot={false} />
-                                        <Line type="monotone" dataKey="day20" name="20 Day Projection" stroke="#3b82f6" strokeWidth={2} dot={false} />
-                                    </LineChart>
-                                </ResponsiveContainer>
+                            <div className="h-[300px] w-full pointer-events-none">
+                                {pamChart}
                             </div>
                         </CardContent>
                      </Card>
@@ -642,6 +728,30 @@ export default function MarketAnalysis() {
           </div>
         </div>
       </div>
+      
+      <Dialog open={!!selectedChart} onOpenChange={(open) => !open && setSelectedChart(null)}>
+        <DialogContent className="max-w-4xl bg-[#0B0E14] border-border/50">
+          <DialogHeader>
+            <DialogTitle className="text-2xl font-display font-bold text-white mb-2">{selectedChart?.title}</DialogTitle>
+            <DialogDescription className="hidden">Chart Detail</DialogDescription>
+          </DialogHeader>
+          <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 mt-4">
+            <div className="lg:col-span-2 h-[400px]">
+              {selectedChart?.chart}
+            </div>
+            <div className="lg:col-span-1">
+              <div className="bg-blue-900/10 border border-blue-500/20 rounded-lg p-4 h-full overflow-y-auto">
+                 <h4 className="text-sm font-bold text-blue-400 mb-3 flex items-center gap-2">
+                   <Sparkles className="w-4 h-4" /> AI Analysis
+                 </h4>
+                 <p className="text-sm text-gray-300 leading-relaxed whitespace-pre-line">
+                   {selectedChart?.analysis}
+                 </p>
+              </div>
+            </div>
+          </div>
+        </DialogContent>
+      </Dialog>
     </DashboardLayout>
   );
 }
