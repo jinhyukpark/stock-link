@@ -52,8 +52,19 @@ export default function TrendAnalysisWidget() {
         <CardHeader className="py-2 px-4 shrink-0">
           <CardTitle className="text-sm font-semibold">Market Trends & Keywords</CardTitle>
         </CardHeader>
-        <CardContent className="flex-1 relative overflow-hidden bg-gradient-to-br from-transparent to-black/20 p-2">
-          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 h-full content-center p-2">
+        <CardContent className="flex-1 relative overflow-hidden bg-gradient-to-br from-transparent to-black/20 p-2 flex flex-col">
+          <div className="flex justify-center mb-2 z-10">
+              {/* Legend - Top Center */}
+              <div className="flex items-center gap-2 px-2 py-1 bg-background/40 backdrop-blur rounded-md border border-white/5 shadow-sm">
+                  <span className="text-[10px] text-muted-foreground font-medium">Sentiment</span>
+                  <div className="flex items-center gap-1.5">
+                      <span className="text-[10px] font-bold text-red-400">Negative</span>
+                      <div className="w-16 h-1.5 rounded-full bg-gradient-to-r from-red-500 via-gray-500 to-green-500 opacity-80" />
+                      <span className="text-[10px] font-bold text-green-400">Positive</span>
+                  </div>
+              </div>
+          </div>
+          <div className="flex-1 flex flex-wrap items-center justify-center gap-x-3 gap-y-1 content-center p-2 pb-8">
             {words.map((word, i) => {
               // Enhanced size calculation for better visual hierarchy - Scaled down
               const size = Math.max(0.6, Math.min(1.8, word.value / 45));
@@ -86,18 +97,8 @@ export default function TrendAnalysisWidget() {
               );
             })}
           </div>
-          <div className="absolute bottom-2 right-2 flex flex-col items-end gap-2">
-              {/* Legend */}
-              <div className="flex items-center gap-2 px-2 py-1 bg-background/40 backdrop-blur rounded-md border border-white/5">
-                  <span className="text-[10px] text-muted-foreground font-medium">Sentiment</span>
-                  <div className="flex items-center gap-1.5">
-                      <span className="text-[10px] font-bold text-red-400">Negative</span>
-                      <div className="w-16 h-1.5 rounded-full bg-gradient-to-r from-red-500 via-gray-500 to-green-500 opacity-80" />
-                      <span className="text-[10px] font-bold text-green-400">Positive</span>
-                  </div>
-              </div>
-              
-              <Badge variant="outline" className="bg-background/50 backdrop-blur text-[10px] text-muted-foreground self-end">
+          <div className="absolute bottom-2 right-2">
+              <Badge variant="outline" className="bg-background/50 backdrop-blur text-[10px] text-muted-foreground">
                   Updated: 14:30 KST
               </Badge>
           </div>
