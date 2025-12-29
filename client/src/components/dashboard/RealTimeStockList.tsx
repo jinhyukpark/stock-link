@@ -2,7 +2,7 @@ import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
-import { Star, ChevronRight, Info } from "lucide-react";
+import { Star, ChevronRight, Info, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
@@ -150,8 +150,8 @@ export default function RealTimeStockList() {
         <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-br from-red-500/10 to-transparent border border-red-500/30 hover:from-red-500/20 hover:border-red-500/50 transition-all cursor-pointer group shadow-[0_0_15px_rgba(239,68,68,0.05)]">
           <div className="flex flex-col gap-1">
               <span className="text-sm text-red-400 font-bold group-hover:text-red-300 flex items-center gap-2">
+                 <Sparkles className="w-4 h-4 text-red-400 animate-pulse fill-red-400/20" />
                  Market Strong
-                 <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
               </span>
               <div className="flex items-baseline gap-1.5">
                 <span className="text-3xl font-black text-white font-display tracking-tight">1,248</span>
@@ -168,8 +168,8 @@ export default function RealTimeStockList() {
         <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/30 hover:from-blue-500/20 hover:border-blue-500/50 transition-all cursor-pointer group shadow-[0_0_15px_rgba(59,130,246,0.05)]">
           <div className="flex flex-col gap-1">
               <span className="text-sm text-blue-400 font-bold group-hover:text-blue-300 flex items-center gap-2">
+                 <Sparkles className="w-4 h-4 text-blue-400 animate-pulse fill-blue-400/20" />
                  Market Weak
-                 <div className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />
               </span>
               <div className="flex items-baseline gap-1.5">
                 <span className="text-3xl font-black text-white font-display tracking-tight">892</span>
