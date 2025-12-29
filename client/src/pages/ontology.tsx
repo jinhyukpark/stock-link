@@ -23,9 +23,14 @@ import {
   Zap,
   Factory,
   Car,
-  ShoppingCart
+  ShoppingCart,
+  MessageSquare,
+  Sparkles,
+  Send,
+  X,
+  Bot
 } from "lucide-react";
-import { useState, useMemo } from "react";
+import { useState, useMemo, useRef, useEffect } from "react";
 
 // --- Mock Data ---
 
@@ -79,25 +84,181 @@ interface Link {
   opacity: number;
 }
 
-const GraphNode = ({ x, y, size, color, label, pulse }: { x: string, y: string, size: number, color: string, label?: string, pulse?: boolean }) => (
+const GraphNode = ({ 
+    x, y, size, color, label, pulse, selected, onClick 
+}: { 
+    x: string, y: string, size: number, color: string, label?: string, pulse?: boolean, selected?: boolean, onClick?: () => void 
+}) => (
   <div 
-    className="absolute rounded-full flex items-center justify-center transform -translate-x-1/2 -translate-y-1/2 transition-all duration-1000 group z-20"
+    className={cn(
+        "absolute rounded-full flex items-center justify-center transform -translate-x-1/2 -translate-y-1/2 transition-all duration-300 group z-20 cursor-pointer",
+        selected ? "z-50 scale-125" : ""
+    )}
     style={{ left: x, top: y, width: size, height: size }}
+    onClick={onClick}
   >
-    {pulse && (
+    {pulse && !selected && (
        <div className={cn("absolute inset-0 rounded-full animate-ping opacity-20", color)}></div>
     )}
-    <div className={cn("w-full h-full rounded-full shadow-lg border border-white/20 hover:scale-125 transition-transform cursor-pointer", color)}></div>
+    {selected && (
+       <div className="absolute inset-[-8px] rounded-full border-2 border-primary animate-pulse shadow-[0_0_15px_rgba(59,130,246,0.5)]"></div>
+    )}
+    <div className={cn(
+        "w-full h-full rounded-full shadow-lg border hover:scale-125 transition-transform", 
+        color,
+        selected ? "border-white" : "border-white/20"
+    )}></div>
     {label && (
-      <span className="absolute top-full mt-2 text-[10px] font-bold text-white whitespace-nowrap bg-black/70 px-2 py-0.5 rounded backdrop-blur-sm z-30 pointer-events-none border border-white/10 group-hover:scale-110 transition-transform">
+      <span className={cn(
+          "absolute top-full mt-2 text-[10px] font-bold text-white whitespace-nowrap bg-black/70 px-2 py-0.5 rounded backdrop-blur-sm z-30 pointer-events-none border border-white/10 group-hover:scale-110 transition-transform",
+          selected ? "bg-primary text-black border-primary" : ""
+      )}>
         {label}
       </span>
     )}
   </div>
 );
 
+// --- Chat Components ---
+interface ChatMessage {
+    id: string;
+    role: 'user' | 'assistant';
+    text: string;
+    context?: string[];
+}
+
+const ChatPanel = ({ 
+    isOpen, 
+    onClose, 
+    selectedNodes, 
+    onRemoveNode 
+}: { 
+    isOpen: boolean, 
+    onClose: () => void, 
+    selectedNodes: Node[], 
+    onRemoveNode: (id: string) => void 
+}) => {
+    const [input, setInput] = useState("");
+    const [messages, setMessages] = useState<ChatMessage[]>([
+        { id: '1', role: 'assistant', text: "안녕하세요. AI 시장 분석가입니다. 관심있는 종목을 선택하고 질문해주세요." }
+    ]);
+    const scrollRef = useRef<HTMLDivElement>(null);
+
+    useEffect(() => {
+        if (scrollRef.current) {
+            scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+        }
+    }, [messages]);
+
+    const handleSend = () => {
+        if (!input.trim()) return;
+        
+        const userMsg: ChatMessage = {
+            id: Date.now().toString(),
+            role: 'user',
+            text: input,
+            context: selectedNodes.map(n => n.label || n.id)
+        };
+        
+        setMessages(prev => [...prev, userMsg]);
+        setInput("");
+
+        // Mock AI Response
+        setTimeout(() => {
+            const contextText = userMsg.context && userMsg.context.length > 0 
+                ? `${userMsg.context.join(', ')}에 대해 문의하셨군요. ` 
+                : "";
+            
+            const responseMsg: ChatMessage = {
+                id: (Date.now() + 1).toString(),
+                role: 'assistant',
+                text: `${contextText}현재 해당 종목들은 외국인 매수세가 유입되며 강한 상승 흐름을 보이고 있습니다. 특히 반도체 섹터의 전반적인 호조와 연동되어 긍정적인 모멘텀이 예상됩니다.`
+            };
+            setMessages(prev => [...prev, responseMsg]);
+        }, 1000);
+    };
+
+    if (!isOpen) return null;
+
+    return (
+        <div className="absolute right-4 bottom-[70px] top-20 w-[320px] bg-[#0f1115]/95 backdrop-blur-md border border-white/10 rounded-lg flex flex-col shadow-2xl z-40 animate-in slide-in-from-right-5 fade-in duration-200">
+            {/* Header */}
+            <div className="p-3 border-b border-white/10 flex items-center justify-between bg-white/5">
+                <div className="flex items-center gap-2">
+                    <div className="w-6 h-6 rounded bg-primary/20 flex items-center justify-center">
+                        <Bot className="w-3.5 h-3.5 text-primary" />
+                    </div>
+                    <span className="text-sm font-bold text-gray-200">AI Market Analyst</span>
+                </div>
+                <Button variant="ghost" size="icon" className="h-6 w-6 text-gray-400 hover:text-white" onClick={onClose}>
+                    <X className="w-4 h-4" />
+                </Button>
+            </div>
+
+            {/* Context Area (Selected Nodes) */}
+            {selectedNodes.length > 0 && (
+                <div className="p-2 border-b border-white/10 bg-primary/5">
+                    <div className="flex items-center gap-1 mb-1.5 px-1">
+                        <Sparkles className="w-3 h-3 text-primary" />
+                        <span className="text-[10px] font-bold text-primary">선택된 종목 (Context)</span>
+                    </div>
+                    <div className="flex flex-wrap gap-1.5 max-h-[80px] overflow-y-auto">
+                        {selectedNodes.map(node => (
+                            <div key={node.id} className="flex items-center gap-1 bg-primary/10 border border-primary/20 rounded px-2 py-1">
+                                <span className="text-[11px] text-gray-200">{node.label || "Unnamed"}</span>
+                                <button onClick={() => onRemoveNode(node.id)} className="text-gray-500 hover:text-white">
+                                    <X className="w-3 h-3" />
+                                </button>
+                            </div>
+                        ))}
+                    </div>
+                </div>
+            )}
+
+            {/* Messages */}
+            <div className="flex-1 overflow-y-auto p-3 space-y-3" ref={scrollRef}>
+                {messages.map((msg) => (
+                    <div key={msg.id} className={cn("flex flex-col gap-1 max-w-[90%]", msg.role === 'user' ? "ml-auto items-end" : "mr-auto items-start")}>
+                        <div className={cn(
+                            "px-3 py-2 rounded-lg text-xs leading-relaxed",
+                            msg.role === 'user' 
+                                ? "bg-primary text-black rounded-tr-none font-medium" 
+                                : "bg-[#1f232b] text-gray-200 rounded-tl-none border border-white/5"
+                        )}>
+                            {msg.text}
+                        </div>
+                    </div>
+                ))}
+            </div>
+
+            {/* Input */}
+            <div className="p-3 border-t border-white/10 bg-[#0f1115]">
+                <div className="relative flex items-center gap-2">
+                    <Input 
+                        value={input}
+                        onChange={(e) => setInput(e.target.value)}
+                        onKeyDown={(e) => e.key === 'Enter' && handleSend()}
+                        placeholder={selectedNodes.length > 0 ? "선택된 종목에 대해 질문하세요..." : "AI에게 시장 상황을 물어보세요..."}
+                        className="bg-[#151921] border-white/10 text-xs h-9 pr-9 focus:border-primary/50"
+                    />
+                    <Button 
+                        size="icon" 
+                        className="absolute right-1 top-1 h-7 w-7 bg-primary text-black hover:bg-primary/90"
+                        onClick={handleSend}
+                    >
+                        <Send className="w-3.5 h-3.5" />
+                    </Button>
+                </div>
+            </div>
+        </div>
+    );
+};
+
+
 export default function OntologyPage() {
-  const [activeTab, setActiveTab] = useState("theme"); // theme, industry, keyword
+  const [activeTab, setActiveTab] = useState("theme");
+  const [selectedNodeIds, setSelectedNodeIds] = useState<Set<string>>(new Set());
+  const [isChatOpen, setIsChatOpen] = useState(false);
 
   // Generate dense, structured graph data
   const { nodes, links } = useMemo(() => {
@@ -204,6 +365,23 @@ export default function OntologyPage() {
 
     return { nodes, links };
   }, []);
+
+  const handleNodeClick = (id: string) => {
+    setSelectedNodeIds(prev => {
+        const next = new Set(prev);
+        if (next.has(id)) {
+            next.delete(id);
+        } else {
+            next.add(id);
+            if (!isChatOpen) setIsChatOpen(true);
+        }
+        return next;
+    });
+  };
+
+  const selectedNodes = useMemo(() => 
+    nodes.filter(n => selectedNodeIds.has(n.id)), 
+  [nodes, selectedNodeIds]);
 
   return (
     <DashboardLayout>
@@ -368,6 +546,19 @@ export default function OntologyPage() {
             
             {/* Right Floating Toolbar */}
             <div className="absolute right-4 top-4 z-30 flex flex-col gap-4">
+                 {/* AI Chat Trigger - NEW */}
+                 <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1 animate-pulse-subtle border-primary/30">
+                     <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className={cn("h-8 w-8 hover:text-white hover:bg-white/10 rounded transition-colors", isChatOpen ? "text-primary bg-primary/10" : "text-primary")}
+                        onClick={() => setIsChatOpen(!isChatOpen)}
+                        title="AI 분석"
+                     >
+                        <MessageSquare className="w-4 h-4" />
+                     </Button>
+                 </div>
+
                  {/* View Controls Group */}
                  <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1">
                      <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded" title="전체화면">
@@ -399,6 +590,14 @@ export default function OntologyPage() {
                      </Button>
                  </div>
             </div>
+
+            {/* AI Chat Panel - NEW */}
+            <ChatPanel 
+                isOpen={isChatOpen} 
+                onClose={() => setIsChatOpen(false)}
+                selectedNodes={selectedNodes}
+                onRemoveNode={(id) => handleNodeClick(id)}
+            />
 
             {/* Graph Visualization Layer */}
             <div className="absolute inset-0 z-10 overflow-hidden bg-black">
@@ -434,7 +633,9 @@ export default function OntologyPage() {
                             size={node.size} 
                             color={node.color} 
                             label={node.label}
-                            pulse={node.pulse} 
+                            pulse={node.pulse}
+                            selected={selectedNodeIds.has(node.id)}
+                            onClick={() => handleNodeClick(node.id)}
                         />
                     ))}
                 </div>
