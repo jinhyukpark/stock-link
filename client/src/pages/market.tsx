@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Cell, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, ComposedChart, ReferenceLine } from "recharts";
-import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Info } from "lucide-react";
+import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Info, Sparkles, FileText } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
 // --- Mock Data ---
@@ -111,6 +111,64 @@ const AnalysisDescription = ({ title, description }: { title: string, descriptio
   </div>
 );
 
+const AIAnalysisReport = ({ analysis }: { analysis: string }) => (
+  <div className="bg-blue-500/5 p-4 rounded-lg border border-blue-500/20 mb-4 mt-2">
+    <div className="flex items-start gap-3">
+      <Sparkles className="w-5 h-5 text-blue-400 mt-0.5 shrink-0 fill-blue-400/20" />
+      <div className="flex-1">
+        <h4 className="text-sm font-bold text-blue-400 mb-2 flex items-center gap-2">
+          AI Analysis Report
+          <span className="text-[10px] bg-blue-500/20 text-blue-300 px-1.5 py-0.5 rounded-full font-medium">Auto-generated</span>
+        </h4>
+        <p className="text-sm text-muted-foreground leading-relaxed whitespace-pre-line">{analysis}</p>
+      </div>
+    </div>
+  </div>
+);
+
+const MarketSummaryReport = () => (
+  <div className="bg-gradient-to-br from-card/80 to-secondary/20 border border-border/50 p-6 rounded-xl mb-8 relative overflow-hidden group">
+    <div className="absolute top-0 right-0 p-4 opacity-10 group-hover:opacity-20 transition-opacity">
+      <FileText className="w-32 h-32 text-primary" />
+    </div>
+    <div className="relative z-10">
+      <div className="flex items-center gap-3 mb-4 border-b border-border/30 pb-4">
+        <div className="p-2 rounded-lg bg-primary/10 border border-primary/20">
+          <Sparkles className="w-6 h-6 text-primary fill-primary/20" />
+        </div>
+        <div>
+          <h2 className="text-xl font-bold text-white font-display">Daily Market AI Summary</h2>
+          <p className="text-xs text-muted-foreground">Generated at 2025-12-29 23:45:12</p>
+        </div>
+      </div>
+      <div className="space-y-4">
+        <div>
+          <h3 className="text-sm font-bold text-foreground mb-1">🚀 Market Overview</h3>
+          <p className="text-sm text-muted-foreground leading-relaxed">
+            The market is showing signs of <span className="text-green-400 font-bold">strong recovery</span> driven by large-cap semiconductor stocks. 
+            The Fear & Greed Index has entered the "Greed" territory (65), indicating improving sentiment. 
+            However, small-cap stocks in KOSDAQ are lagging, showing a slight divergence that warrants caution.
+          </p>
+        </div>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-4 pt-2">
+          <div className="bg-background/50 p-3 rounded-lg border border-border/30">
+            <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider block mb-1">Key Driver</span>
+            <span className="text-sm font-semibold text-white">Semiconductor & AI</span>
+          </div>
+          <div className="bg-background/50 p-3 rounded-lg border border-border/30">
+            <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider block mb-1">Risk Factor</span>
+            <span className="text-sm font-semibold text-white">Exch. Rate Volatility</span>
+          </div>
+          <div className="bg-background/50 p-3 rounded-lg border border-border/30">
+            <span className="text-[10px] text-muted-foreground uppercase font-bold tracking-wider block mb-1">Outlook</span>
+            <span className="text-sm font-semibold text-green-400">Bullish Continuation</span>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+);
+
 // --- Navigation Links ---
 const navLinks = [
   { id: "fgi", label: "Fear & Greed", icon: Zap },
@@ -169,13 +227,20 @@ export default function MarketAnalysis() {
            </div>
         </div>
 
-        <div id="market-content-container" className="flex-1 overflow-y-auto p-6 space-y-12 scroll-mt-16">
+        <div id="market-content-container" className="flex-1 overflow-y-auto p-6 space-y-8 scroll-mt-16">
           
+          <MarketSummaryReport />
+
           {/* 1. Fear & Greed Index Chart */}
           <section id="fgi" className="scroll-mt-20">
             <AnalysisDescription 
               title="Market Sentiment Analysis" 
               description="The Fear & Greed Index is a key indicator of market sentiment. Extreme fear can be a buying opportunity, while extreme greed may signal a correction. This chart tracks the weekly and monthly trends to identify potential market turning points."
+            />
+            <AIAnalysisReport 
+              analysis={`Current Index is at 65 (Greed), increasing from last month's neutral zone.
+              Historical data shows that when the weekly average crosses above the monthly average in the 'Greed' zone, the market tends to extend its rally for another 2-3 weeks.
+              Caution is advised if it breaches 80 (Extreme Greed).`}
             />
             <Card className="bg-card/30 backdrop-blur-sm border-border/50">
                 <CardHeader className="py-3 border-b border-border/50">
@@ -208,6 +273,10 @@ export default function MarketAnalysis() {
             <AnalysisDescription 
               title="Market Breadth: Rising Stocks" 
               description="Tracking the number of rising stocks against moving averages helps gauge the underlying strength of a market rally. A healthy market rally is typically supported by an increasing number of rising stocks across the board."
+            />
+            <AIAnalysisReport 
+              analysis={`KOSPI rising stocks count has consistently stayed above the 20-day Moving Average for the past 5 sessions, confirming a broad-based rally.
+              KOSDAQ, however, shows a 'divergence' where the index is rising but the number of rising stocks is decreasing, suggesting the rally is concentrated in a few large-cap stocks.`}
             />
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                 <Card className="bg-card/30 backdrop-blur-sm border-border/50 col-span-1 lg:col-span-2">
@@ -261,6 +330,11 @@ export default function MarketAnalysis() {
               title="Daily Volatility Distribution" 
               description="This histogram and Kernel Density Estimation (KDE) plot show the distribution of daily price changes. A wider spread indicates higher market volatility, while a skew to the right suggests overall positive market momentum."
             />
+            <AIAnalysisReport 
+              analysis={`KOSPI distribution is slightly skewed to the right (+0.5%), indicating buying pressure is stronger than selling.
+              The 'fat tail' on the positive side suggests some stocks are experiencing significant breakouts.
+              KOSDAQ shows a narrower peak around 0%, indicating indecision and consolidation.`}
+            />
             <Card className="bg-card/30 backdrop-blur-sm border-border/50">
                 <CardHeader className="py-3 border-b border-border/50">
                     <CardTitle className="text-sm font-semibold flex items-center gap-2">
@@ -306,6 +380,11 @@ export default function MarketAnalysis() {
             <AnalysisDescription 
               title="Sector Rotation by Market Cap" 
               description="Analyzing the rising ratio by market capitalization (Large, Mid, Small Cap) reveals which segment is leading the market. Divergence between large and small caps can indicate shifts in risk appetite."
+            />
+            <AIAnalysisReport 
+              analysis={`Large-cap stocks (Blue Area) have been leading the KOSPI rally for the last 3 days, driven by foreign inflows.
+              Small-cap stocks in KOSDAQ are starting to pick up momentum, suggesting a 'trickle-down' effect may begin soon.
+              Watch for Mid-cap stocks to bridge the gap in the coming sessions.`}
             />
             <Card className="bg-card/30 backdrop-blur-sm border-border/50">
                 <CardHeader className="py-3 border-b border-border/50">
@@ -354,6 +433,11 @@ export default function MarketAnalysis() {
             <AnalysisDescription 
               title="Projected Market Returns" 
               description="The Projected Annualized Market (PAM) return model estimates potential future returns based on current volatility and trend strength. Higher peaks suggest stronger momentum, while divergence between 5D, 10D, and 20D projections can signal trend reversals."
+            />
+            <AIAnalysisReport 
+              analysis={`The 5-day expected return (Red Line) for KOSPI is trending upwards, outperforming the longer-term projections. This confirms strong short-term momentum.
+              KOSDAQ's 20-day projection remains flat, indicating no clear long-term trend yet.
+              Traders should focus on KOSPI short-term plays while waiting for KOSDAQ to establish a clearer direction.`}
             />
             <Card className="bg-card/30 backdrop-blur-sm border-border/50">
                 <CardHeader className="py-3 border-b border-border/50">
