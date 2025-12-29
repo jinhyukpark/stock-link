@@ -236,7 +236,7 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
              대형주 모멘텀 주도의 <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">강세장 지속 신호</span> 포착
            </h4>
            
-           <div className="border-l-4 border-[#00ff9d] pl-4 py-1 shadow-[0_0_15px_rgba(0,255,157,0.2)]">
+           <div className="border-l-4 border-primary pl-4 py-1">
              <p className="text-gray-400 leading-relaxed text-lg font-light">
                종합 시장 데이터는 강력한 회복 국면을 시사합니다. 공포 & 탐욕 지수는 '탐욕' 구간(65)으로 진입했으며, 반도체 대형주에 대한 외국인의 강한 순매수가 이를 뒷받침하고 있습니다. 코스닥 소형주는 다소 뒤쳐져 있으나, 전반적인 시장의 상승 폭은 확대되고 있습니다.
              </p>
