@@ -4,20 +4,21 @@ import { Maximize2, X, ChevronRight, Zap } from "lucide-react";
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { useState } from "react";
+import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 
 export default function MarketHeatmap() {
   const stocks = [
-    { name: "Samsung Elec", change: 2.14, value: 400, code: "005930" },
-    { name: "SK Hynix", change: 6.84, value: 300, code: "000660" },
-    { name: "LG Energy", change: -1.2, value: 150, code: "373220" },
-    { name: "Samsung Bio", change: 0.5, value: 120, code: "207940" },
-    { name: "Hyundai Motor", change: 3.4, value: 110, code: "005380" },
-    { name: "Kia", change: 2.8, value: 100, code: "000270" },
-    { name: "POSCO", change: -0.8, value: 90, code: "005490" },
-    { name: "NAVER", change: 1.2, value: 85, code: "035420" },
-    { name: "Kakao", change: -2.1, value: 80, code: "035720" },
-    { name: "Celltrion", change: 0.9, value: 75, code: "068270" },
-    { name: "KB Financial", change: 1.5, value: 70, code: "105560" },
+    { name: "Samsung Elec", change: 2.14, value: 400, code: "005930", icon: "S" },
+    { name: "SK Hynix", change: 6.84, value: 300, code: "000660", icon: "SK" },
+    { name: "LG Energy", change: -1.2, value: 150, code: "373220", icon: "L" },
+    { name: "Samsung Bio", change: 0.5, value: 120, code: "207940", icon: "S" },
+    { name: "Hyundai Motor", change: 3.4, value: 110, code: "005380", icon: "H" },
+    { name: "Kia", change: 2.8, value: 100, code: "000270", icon: "K" },
+    { name: "POSCO", change: -0.8, value: 90, code: "005490", icon: "P" },
+    { name: "NAVER", change: 1.2, value: 85, code: "035420", icon: "N" },
+    { name: "Kakao", change: -2.1, value: 80, code: "035720", icon: "K" },
+    { name: "Celltrion", change: 0.9, value: 75, code: "068270", icon: "C" },
+    { name: "KB Financial", change: 1.5, value: 70, code: "105560", icon: "KB" },
   ];
 
   const [selectedStock, setSelectedStock] = useState<typeof stocks[0] | null>(null);
@@ -228,12 +229,19 @@ export default function MarketHeatmap() {
                     {selectedStock ? (
                         <div className="flex flex-col gap-4 animate-in fade-in slide-in-from-bottom-2 duration-300">
                             <div className="flex justify-between items-start">
-                                <div>
-                                    <h2 className="text-2xl font-bold text-white">{selectedStock.name}</h2>
-                                    <p className="text-sm text-muted-foreground font-mono">{selectedStock.code}</p>
+                                <div className="flex items-center gap-3">
+                                    <Avatar className="h-10 w-10">
+                                        <AvatarFallback className="bg-primary/20 text-primary font-bold text-sm">
+                                            {selectedStock.icon}
+                                        </AvatarFallback>
+                                    </Avatar>
+                                    <div>
+                                        <h2 className="text-xl font-bold text-white leading-tight">{selectedStock.name}</h2>
+                                        <p className="text-sm text-muted-foreground font-mono">{selectedStock.code}</p>
+                                    </div>
                                 </div>
                                 <span className={cn(
-                                    "text-xl font-mono font-bold",
+                                    "text-xl font-mono font-bold mt-1",
                                     selectedStock.change > 0 ? "text-red-400" : "text-blue-400"
                                 )}>
                                     {selectedStock.change > 0 ? '+' : ''}{selectedStock.change}%
