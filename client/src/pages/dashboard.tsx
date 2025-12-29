@@ -22,7 +22,7 @@ const chartData = [
 export default function Dashboard() {
   return (
     <DashboardLayout>
-      <div className="flex flex-col h-[calc(100vh-4rem)] gap-4 p-4 overflow-hidden">
+      <div className="flex flex-col h-auto xl:h-[calc(100vh-4rem)] gap-4 p-4 overflow-y-auto xl:overflow-hidden bg-[#0B0E14]">
         {/* Top Header Section - Ultra Compact */}
         <div className="flex justify-between items-center shrink-0 h-10 border-b border-border/40 bg-card/20 backdrop-blur-sm px-1 rounded-t-lg">
           <div className="flex items-center gap-3">
@@ -42,12 +42,12 @@ export default function Dashboard() {
           <MarketTicker />
         </div>
 
-        {/* Main Content Grid - Fills remaining height */}
-        <div className="grid grid-cols-12 gap-4 flex-1 min-h-0">
+        {/* Main Content Grid - Responsive: Stack on mobile/tablet, Grid on XL+ */}
+        <div className="grid grid-cols-1 xl:grid-cols-12 gap-4 flex-1 xl:min-h-0">
           
           {/* Left Column: Sentiment & Distribution (Stack) */}
-          <div className="col-span-3 flex flex-col gap-4 h-full min-h-0">
-            <div className="flex-1 min-h-0 overflow-hidden">
+          <div className="xl:col-span-3 flex flex-col gap-4 xl:h-full min-h-0">
+            <div className="xl:flex-1 h-[300px] xl:h-auto overflow-hidden">
               <FearGreedIndex />
             </div>
             <div className="h-[280px] shrink-0">
@@ -56,13 +56,13 @@ export default function Dashboard() {
           </div>
 
           {/* Middle Column: Stock List */}
-          <div className="col-span-5 h-full min-h-0">
+          <div className="xl:col-span-5 xl:h-full h-[600px] min-h-0">
              <RealTimeStockList />
           </div>
 
           {/* Right Column: Heatmap & Trends (Stack) */}
-          <div className="col-span-4 flex flex-col gap-4 h-full min-h-0">
-             <div className="flex-1 min-h-0">
+          <div className="xl:col-span-4 flex flex-col gap-4 xl:h-full min-h-0">
+             <div className="xl:flex-1 h-[400px] xl:h-auto min-h-0">
                 <MarketHeatmap />
              </div>
              <div className="h-[320px] shrink-0">

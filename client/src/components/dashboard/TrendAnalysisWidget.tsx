@@ -46,9 +46,9 @@ export default function TrendAnalysisWidget() {
   ];
 
   return (
-    <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 flex flex-col md:flex-row overflow-hidden">
+    <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 flex flex-col md:flex-row xl:flex-col 2xl:flex-row overflow-hidden">
       {/* Left Panel: Trend Word Cloud */}
-      <div className="flex-1 border-b md:border-b-0 md:border-r border-border/50 flex flex-col min-h-[300px]">
+      <div className="flex-1 border-b md:border-b-0 md:border-r xl:border-b xl:border-r-0 2xl:border-b-0 2xl:border-r border-border/50 flex flex-col min-h-[160px] md:min-h-[300px] xl:min-h-[160px] 2xl:min-h-[300px]">
         <CardHeader>
           <CardTitle className="text-base font-semibold">Market Trends & Keywords</CardTitle>
         </CardHeader>
