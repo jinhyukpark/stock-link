@@ -38,11 +38,11 @@ export default function Dashboard() {
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto">
           {/* Left Column: Fear & Greed + Chart */}
           <div className="md:col-span-4 flex flex-col gap-6">
-            <div className="h-[350px]">
+            <div className="h-auto">
               <FearGreedIndex />
             </div>
             
-            <Card className="flex-1 bg-card/50 backdrop-blur-sm border-border/50">
+            <Card className="h-[300px] bg-card/50 backdrop-blur-sm border-border/50">
               <CardHeader>
                 <CardTitle className="text-base">KOSPI Intraday</CardTitle>
               </CardHeader>
