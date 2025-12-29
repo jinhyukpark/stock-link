@@ -134,7 +134,7 @@ const ReportHeader = ({ date }: { date: string }) => (
     <div className="flex justify-between items-start mb-4">
       <div>
         <h1 className="text-4xl font-display font-bold text-white tracking-tight mb-2">MARKET INTELLIGENCE</h1>
-        <p className="text-muted-foreground font-mono text-sm tracking-widest uppercase">Quantitative Strategy Division</p>
+        <p className="text-muted-foreground font-mono text-sm tracking-widest uppercase">퀀트 전략 본부 (Quantitative Strategy Division)</p>
       </div>
       <div className="text-right">
         <div className="bg-primary/10 text-primary px-3 py-1 text-xs font-bold uppercase tracking-wider inline-block mb-2">
@@ -198,7 +198,7 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
     <div className="bg-secondary/30 px-6 py-3 border-b border-border/40 flex justify-between items-center">
       <h3 className="font-bold text-white uppercase tracking-wider text-sm flex items-center gap-2">
         <FileText className="w-4 h-4 text-primary" />
-        Executive Summary
+        요약 보고서 (Executive Summary)
       </h3>
       <span className="text-xs font-mono text-primary animate-pulse">LIVE ANALYSIS</span>
     </div>
@@ -207,20 +207,20 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
       <div className="flex flex-col md:flex-row gap-8">
         <div className="flex-1">
            <h4 className="text-2xl font-bold text-white mb-4 leading-tight">
-             Market signals <span className="text-green-400">bullish continuation</span> driven by large-cap momentum.
+             대형주 모멘텀 주도의 <span className="text-green-400">강세장 지속 신호</span> 포착
            </h4>
            <p className="text-muted-foreground leading-relaxed mb-6">
-             The aggregated market data indicates a robust recovery phase. The Fear & Greed Index has shifted into "Greed" territory (65), supported by strong foreign inflows into semiconductor heavyweights. While KOSDAQ small-caps lag slightly, the overall breadth is expanding.
+             종합 시장 데이터는 강력한 회복 국면을 시사합니다. 공포 & 탐욕 지수는 '탐욕' 구간(65)으로 진입했으며, 반도체 대형주에 대한 외국인의 강한 순매수가 이를 뒷받침하고 있습니다. 코스닥 소형주는 다소 뒤쳐져 있으나, 전반적인 시장의 상승 폭은 확대되고 있습니다.
            </p>
            
            <div className="grid grid-cols-3 gap-4 border-t border-border/30 pt-6">
              <div>
                <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Sentiment</div>
-               <div className="text-lg font-bold text-green-400">Bullish</div>
+               <div className="text-lg font-bold text-green-400">Bullish (강세)</div>
              </div>
              <div>
                <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Volatility</div>
-               <div className="text-lg font-bold text-yellow-500">Moderate</div>
+               <div className="text-lg font-bold text-yellow-500">Moderate (보통)</div>
              </div>
              <div>
                <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">Top Sector</div>
@@ -235,11 +235,11 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
 
 // --- Navigation Links ---
 const navLinks = [
-  { id: "fgi", label: "01. Fear & Greed", icon: Zap },
-  { id: "rising-stocks", label: "02. Rising Stocks", icon: TrendingUp },
-  { id: "price-dist", label: "03. Price Dist.", icon: BarChart2 },
-  { id: "market-size", label: "04. Market Size", icon: PieChartIcon },
-  { id: "pam", label: "05. Expected Return", icon: Activity },
+  { id: "fgi", label: "01. 공포 & 탐욕 지수", icon: Zap },
+  { id: "rising-stocks", label: "02. 상승 종목 수", icon: TrendingUp },
+  { id: "price-dist", label: "03. 등락률 분포", icon: BarChart2 },
+  { id: "market-size", label: "04. 시총별 흐름", icon: PieChartIcon },
+  { id: "pam", label: "05. 기대 수익률", icon: Activity },
 ];
 
 export default function MarketAnalysis() {
@@ -368,16 +368,16 @@ export default function MarketAnalysis() {
 
               {/* 1. Fear & Greed Index */}
               <section id="fgi" className="scroll-mt-32">
-                <SectionHeader number="01" title="Fear & Greed Index" icon={Zap} />
+                <SectionHeader number="01" title="공포 & 탐욕 지수 (Fear & Greed Index)" icon={Zap} />
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-1">
                     <DescriptionBlock 
-                      content="The Fear & Greed Index is a composite score of market sentiment derived from momentum, volatility, and options volume. It serves as a contrarian indicator: extreme fear suggests oversold conditions, while extreme greed warns of a potential correction."
+                      content="공포 & 탐욕 지수는 모멘텀, 변동성, 옵션 거래량 등을 종합하여 시장 심리를 나타내는 지표입니다. 역발상 지표로 활용되며, 극도의 공포는 과매도 상태를, 극도의 탐욕은 잠재적인 조정 가능성을 시사합니다."
                     />
                     <AnalysisBlock 
-                      analysis={`Current Index is at 65 (Greed), increasing from last month's neutral zone.
-                      Historical data shows that when the weekly average crosses above the monthly average in the 'Greed' zone, the market tends to extend its rally for another 2-3 weeks.
-                      Caution is advised if it breaches 80 (Extreme Greed).`}
+                      analysis={`현재 지수는 65(탐욕)로, 지난달의 중립 구간에서 상승했습니다.
+                      과거 데이터를 볼 때, '탐욕' 구간에서 주간 평균이 월간 평균을 상향 돌파하면 시장 랠리가 2-3주 더 지속되는 경향이 있습니다.
+                      80(극도 탐욕)을 돌파할 경우 주의가 필요합니다.`}
                     />
                   </div>
                   <div className="lg:col-span-2">
@@ -405,14 +405,14 @@ export default function MarketAnalysis() {
 
               {/* 2. Rising Stocks Count */}
               <section id="rising-stocks" className="scroll-mt-32">
-                <SectionHeader number="02" title="Market Breadth: Rising Stocks" icon={TrendingUp} />
+                <SectionHeader number="02" title="시장 등락: 상승 종목 수 (Market Breadth)" icon={TrendingUp} />
                 <div className="grid grid-cols-1 lg:grid-cols-1 gap-8 mb-8">
                    <DescriptionBlock 
-                      content="Market breadth measures the degree to which price participation is widespread. Tracking the number of rising stocks against their moving averages helps validate the strength of an index trend. A rally supported by broad participation is more sustainable than one driven by a few large caps."
+                      content="시장 등락(Market Breadth)은 주가 상승이 얼마나 광범위하게 나타나는지를 측정합니다. 이동평균선 대비 상승 종목 수를 추적하여 지수 추세의 강도를 검증합니다. 소수의 대형주가 주도하는 랠리보다 다수의 종목이 상승하는 랠리가 더 지속 가능합니다."
                     />
                    <AnalysisBlock 
-                      analysis={`KOSPI rising stocks count has consistently stayed above the 20-day Moving Average for the past 5 sessions, confirming a broad-based rally.
-                      KOSDAQ, however, shows a 'divergence' where the index is rising but the number of rising stocks is decreasing, suggesting the rally is concentrated in a few large-cap stocks.`}
+                      analysis={`코스피 상승 종목 수는 지난 5거래일 동안 20일 이동평균선을 지속적으로 상회하며, 폭넓은 상승장을 확인시켜주고 있습니다.
+                      반면 코스닥은 지수는 상승하지만 상승 종목 수는 감소하는 '괴리(Divergence)' 현상을 보이고 있어, 랠리가 일부 대형주에 집중되고 있음을 시사합니다.`}
                     />
                 </div>
                 
@@ -461,16 +461,16 @@ export default function MarketAnalysis() {
 
               {/* 3. Price Change Distribution */}
               <section id="price-dist" className="scroll-mt-32">
-                <SectionHeader number="03" title="Price Volatility Distribution" icon={BarChart2} />
+                <SectionHeader number="03" title="주가 등락률 분포 (Price Volatility Distribution)" icon={BarChart2} />
                  <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-1">
                     <DescriptionBlock 
-                      content="This histogram displays the frequency distribution of daily price changes. The Kernel Density Estimation (KDE) line provides a smoothed probability density. A skew to the right indicates positive momentum, while 'fat tails' suggest higher probability of extreme moves."
+                      content="이 히스토그램은 일일 주가 변동폭의 빈도 분포를 보여줍니다. 커널 밀도 추정(KDE) 선은 부드러운 확률 밀도를 나타냅니다. 오른쪽으로 치우친 분포는 긍정적인 모멘텀을, '두터운 꼬리(Fat tail)'는 급격한 변동 가능성이 높음을 의미합니다."
                     />
                     <AnalysisBlock 
-                      analysis={`KOSPI distribution is slightly skewed to the right (+0.5%), indicating buying pressure is stronger than selling.
-                      The 'fat tail' on the positive side suggests some stocks are experiencing significant breakouts.
-                      KOSDAQ shows a narrower peak around 0%, indicating indecision and consolidation.`}
+                      analysis={`코스피 분포는 약간 오른쪽(+0.5%)으로 치우쳐 있어, 매도세보다 매수세가 강함을 나타냅니다.
+                      양의 방향에 나타난 '두터운 꼬리'는 일부 종목이 강한 시세 분출을 하고 있음을 의미합니다.
+                      코스닥은 0% 부근에서 좁은 피크를 형성하고 있어, 관망세와 횡보장이 지속되고 있음을 보여줍니다.`}
                     />
                   </div>
                   <div className="lg:col-span-2">
@@ -514,15 +514,15 @@ export default function MarketAnalysis() {
 
               {/* 4. Rising Ratio by Market Size */}
               <section id="market-size" className="scroll-mt-32">
-                <SectionHeader number="04" title="Sector Rotation: Market Cap" icon={PieChartIcon} />
+                <SectionHeader number="04" title="섹터 로테이션: 시가총액별 (Market Cap Rotation)" icon={PieChartIcon} />
                 <div className="mb-6">
                   <DescriptionBlock 
-                    content="Cumulative rising ratio analysis by market capitalization segment (Large, Mid, Small Cap). This visualization helps identify whether a rally is being led by blue chips (Large Cap) or if risk appetite is spreading to smaller growth stocks (Small Cap)."
+                    content="시가총액 규모(대형, 중형, 소형)별 누적 상승 비율 분석입니다. 이 시각화는 랠리가 블루칩(대형주)에 의해 주도되는지, 아니면 위험 선호 심리가 소형 성장주로 확산되고 있는지(낙수 효과)를 파악하는 데 도움을 줍니다."
                   />
                   <AnalysisBlock 
-                    analysis={`Large-cap stocks (Blue Area) have been leading the KOSPI rally for the last 3 days, driven by foreign inflows.
-                    Small-cap stocks in KOSDAQ are starting to pick up momentum, suggesting a 'trickle-down' effect may begin soon.
-                    Watch for Mid-cap stocks to bridge the gap in the coming sessions.`}
+                    analysis={`지난 3일간 외국인 매수세에 힘입어 대형주(파란색 영역)가 코스피 랠리를 주도해왔습니다.
+                    코스닥의 소형주들도 상승 탄력을 받기 시작했으며, 이는 '낙수 효과'가 곧 시작될 수 있음을 시사합니다.
+                    향후 중형주가 이 격차를 메우며 상승할지 주목해야 합니다.`}
                   />
                 </div>
                 
@@ -570,16 +570,16 @@ export default function MarketAnalysis() {
 
               {/* 5. PAM */}
               <section id="pam" className="scroll-mt-32 pb-12 border-b border-border/30">
-                <SectionHeader number="05" title="Expected Returns (PAM Model)" icon={Activity} />
+                <SectionHeader number="05" title="기대 수익률 시뮬레이션 (Expected Returns)" icon={Activity} />
                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
                   <div className="lg:col-span-1">
                      <DescriptionBlock 
-                       content="The Projected Annualized Market (PAM) model forecasts future market returns based on multi-timeframe momentum analysis. It helps visualize the 'slope' of the current trend across 5, 10, and 20-day horizons."
+                       content="예측 자산 모델(PAM)을 사용하여 향후 5일, 10일, 20일 동안의 시장 기대 수익률을 시뮬레이션합니다. 과거 패턴과 현재 모멘텀을 기반으로 산출되며, 단기 트레이딩 전략 수립에 활용됩니다."
                      />
                      <AnalysisBlock 
-                       analysis={`The 5-day expected return (Red Line) for KOSPI is trending upwards, outperforming the longer-term projections. This confirms strong short-term momentum.
-                       KOSDAQ's 20-day projection remains flat, indicating no clear long-term trend yet.
-                       Traders should focus on KOSPI short-term plays while waiting for KOSDAQ to establish a clearer direction.`}
+                       analysis={`코스피의 단기(5일) 기대 수익률(적색 선)이 상승 추세를 보이며 장기 전망을 상회하고 있습니다. 이는 강력한 단기 모멘텀을 확인시켜 줍니다.
+                       코스닥의 20일 전망은 평탄하여 아직 뚜렷한 장기 추세가 형성되지 않았음을 나타냅니다.
+                       코스닥이 뚜렷한 방향성을 잡을 때까지는 코스피 단기 매매에 집중하는 것이 유리합니다.`}
                      />
                   </div>
                   <div className="lg:col-span-2">
@@ -607,8 +607,8 @@ export default function MarketAnalysis() {
 
               {/* Footer */}
               <div className="text-center text-xs font-mono text-muted-foreground pt-12">
-                 <p className="mb-2">CONFIDENTIAL - INTERNAL USE ONLY</p>
-                 <p>Generated by StockLink AI Intelligence Engine • © 2025 StockLink Inc.</p>
+                 <p className="mb-2">CONFIDENTIAL - INTERNAL USE ONLY (대외비)</p>
+                 <p>본 리포트는 STOCKLINK AI 인텔리전스 엔진에 의해 생성되었습니다 • © 2025 StockLink Inc.</p>
               </div>
 
             </div>
