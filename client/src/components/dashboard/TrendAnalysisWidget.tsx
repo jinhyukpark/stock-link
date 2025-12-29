@@ -58,10 +58,11 @@ export default function TrendAnalysisWidget() {
               // Enhanced size calculation for better visual hierarchy - Scaled down
               const size = Math.max(0.6, Math.min(1.8, word.value / 45));
               
+              // Up = Green, Down = Red, Neutral = Gray
               const color = word.type === 'up' 
-                ? 'text-red-400 drop-shadow-[0_0_12px_rgba(248,113,113,0.4)]' 
+                ? 'text-green-400 drop-shadow-[0_0_12px_rgba(74,222,128,0.4)]' 
                 : word.type === 'down' 
-                  ? 'text-blue-400 drop-shadow-[0_0_12px_rgba(96,165,250,0.4)]' 
+                  ? 'text-red-400 drop-shadow-[0_0_12px_rgba(248,113,113,0.4)]' 
                   : 'text-gray-400 drop-shadow-[0_0_8px_rgba(156,163,175,0.2)]';
               
               const isSelected = selectedTrend === word.text;
@@ -85,8 +86,18 @@ export default function TrendAnalysisWidget() {
               );
             })}
           </div>
-          <div className="absolute bottom-2 right-2">
-              <Badge variant="outline" className="bg-background/50 backdrop-blur text-[10px] text-muted-foreground">
+          <div className="absolute bottom-2 right-2 flex flex-col items-end gap-2">
+              {/* Legend */}
+              <div className="flex items-center gap-2 px-2 py-1 bg-background/40 backdrop-blur rounded-md border border-white/5">
+                  <span className="text-[10px] text-muted-foreground font-medium">Sentiment</span>
+                  <div className="flex items-center gap-1.5">
+                      <span className="text-[10px] font-bold text-red-400">Negative</span>
+                      <div className="w-16 h-1.5 rounded-full bg-gradient-to-r from-red-500 via-gray-500 to-green-500 opacity-80" />
+                      <span className="text-[10px] font-bold text-green-400">Positive</span>
+                  </div>
+              </div>
+              
+              <Badge variant="outline" className="bg-background/50 backdrop-blur text-[10px] text-muted-foreground self-end">
                   Updated: 14:30 KST
               </Badge>
           </div>
