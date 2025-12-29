@@ -25,7 +25,7 @@ import {
   CommandList,
 } from "@/components/ui/command";
 import { useState } from "react";
-import { format } from "date-fns";
+import { format, addDays, subDays } from "date-fns";
 
 // --- Mock Data ---
 
@@ -319,6 +319,16 @@ export default function MarketAnalysis() {
   const [date, setDate] = useState<string>(dateOptions[0].value);
   const [open, setOpen] = useState(false);
   const [selectedChart, setSelectedChart] = useState<{ title: string; description: string; chart: React.ReactNode; analysis: string; legend?: React.ReactNode } | null>(null);
+
+  const handlePrevDate = () => {
+    const newDate = subDays(new Date(date), 1);
+    setDate(format(newDate, "yyyy-MM-dd"));
+  };
+
+  const handleNextDate = () => {
+    const newDate = addDays(new Date(date), 1);
+    setDate(format(newDate, "yyyy-MM-dd"));
+  };
 
   const analysisTexts = {
     fgi: `현재 지수는 65(탐욕)로, 지난달의 중립 구간에서 상승했습니다.
@@ -624,7 +634,36 @@ export default function MarketAnalysis() {
         {/* Main Document Area */}
         <div id="market-content-container" className="flex-1 overflow-y-auto bg-[#050505] p-8">
           <div className="max-w-5xl mx-auto bg-[#0B0E14] min-h-full border border-[#00ff9d]/50 shadow-[0_0_50px_rgba(0,255,157,0.15)]">
-            <div className="p-12 md:p-16 space-y-16">
+            <div className="p-12 md:p-16 space-y-16 relative">
+              
+              {/* Report Navigation - Carousel Buttons */}
+              <div className="absolute left-4 top-[88px] -translate-y-1/2 hidden xl:flex flex-col items-center gap-2 z-10">
+                 <Button 
+                   variant="ghost" 
+                   size="icon" 
+                   className="h-12 w-12 rounded-full bg-black/50 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white transition-all"
+                   onClick={handlePrevDate}
+                 >
+                   <ChevronLeft className="w-6 h-6" />
+                 </Button>
+                 <span className="text-[10px] font-mono text-muted-foreground tracking-wider">
+                   {format(subDays(new Date(date), 1), "MMM dd")}
+                 </span>
+              </div>
+
+              <div className="absolute right-4 top-[88px] -translate-y-1/2 hidden xl:flex flex-col items-center gap-2 z-10">
+                 <Button 
+                   variant="ghost" 
+                   size="icon" 
+                   className="h-12 w-12 rounded-full bg-black/50 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white transition-all"
+                   onClick={handleNextDate}
+                 >
+                   <ChevronRight className="w-6 h-6" />
+                 </Button>
+                 <span className="text-[10px] font-mono text-muted-foreground tracking-wider">
+                   {format(addDays(new Date(date), 1), "MMM dd")}
+                 </span>
+              </div>
             
               <ReportHeader date={date} />
               <MarketSummaryReport date={date} />
