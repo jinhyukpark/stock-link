@@ -1,7 +1,7 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
-import { Plug, Bot, Printer, Globe, Tractor, Factory, ArrowUp, ArrowRight } from "lucide-react";
+import { Plug, Bot, Printer, Globe, Tractor, Factory, CircuitBoard, Pill, Rocket, Gamepad, Wind, Car } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 const themes = [
@@ -80,6 +80,84 @@ const themes = [
       { name: "Raon Tech", change: "+29.92%" },
       { name: "Hyulim", change: "+28.71%" },
       { name: "TPC", change: "+19.02%" },
+    ]
+  },
+  {
+    rank: 7,
+    name: "Semiconductors",
+    icon: CircuitBoard,
+    color: "bg-emerald-500",
+    change: "+3.56%",
+    stats: "42 of 64 rising",
+    stocks: [
+      { name: "SK Hynix", change: "+6.84%" },
+      { name: "Samsung Elec", change: "+2.14%" },
+      { name: "Hanmi Semi", change: "+12.4%" },
+    ]
+  },
+  {
+    rank: 8,
+    name: "Bio/Pharma",
+    icon: Pill,
+    color: "bg-teal-500",
+    change: "+2.89%",
+    stats: "31 of 52 rising",
+    stocks: [
+      { name: "Samsung Bio", change: "+1.25%" },
+      { name: "Celltrion", change: "+0.98%" },
+      { name: "Yuhan", change: "+3.42%" },
+    ]
+  },
+  {
+    rank: 9,
+    name: "Defense/Aerospace",
+    icon: Rocket,
+    color: "bg-orange-600",
+    change: "+2.45%",
+    stats: "15 of 22 rising",
+    stocks: [
+      { name: "Hanwha Aero", change: "+4.52%" },
+      { name: "LIG Nex1", change: "+3.18%" },
+      { name: "KAI", change: "+1.75%" },
+    ]
+  },
+  {
+    rank: 10,
+    name: "Gaming/Metaverse",
+    icon: Gamepad,
+    color: "bg-violet-600",
+    change: "+2.12%",
+    stats: "18 of 28 rising",
+    stocks: [
+      { name: "Nexon Games", change: "+5.12%" },
+      { name: "Krafton", change: "+2.84%" },
+      { name: "Netmarble", change: "+1.45%" },
+    ]
+  },
+  {
+    rank: 11,
+    name: "Renewable Energy",
+    icon: Wind,
+    color: "bg-lime-500",
+    change: "+1.87%",
+    stats: "12 of 19 rising",
+    stocks: [
+      { name: "CS Wind", change: "+3.65%" },
+      { name: "Hanwha Sol", change: "+2.15%" },
+      { name: "OCI", change: "+1.34%" },
+    ]
+  },
+  {
+    rank: 12,
+    name: "Autonomous Driving",
+    icon: Car,
+    color: "bg-sky-500",
+    change: "+1.54%",
+    stats: "9 of 14 rising",
+    stocks: [
+      { name: "Hyundai Mobis", change: "+2.45%" },
+      { name: "Mando", change: "+1.87%" },
+      { name: "LG Innotek", change: "+1.23%" },
     ]
   }
 ];
