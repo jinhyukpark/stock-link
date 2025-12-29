@@ -108,9 +108,18 @@ export default function MomentumPage() {
         
         {/* Toolbar */}
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-4 mb-2 min-h-[40px]">
+          <div className="flex items-center gap-4 mb-2">
              {!showDescription && (
-                <h1 className="text-xl font-bold text-white whitespace-nowrap animate-in fade-in zoom-in duration-300">모멘텀 분석</h1>
+               <div className="flex items-center gap-2 animate-in fade-in zoom-in duration-300">
+                  <h1 className="text-xl font-bold text-white whitespace-nowrap">모멘텀 분석</h1>
+                  <button 
+                    onClick={() => setShowDescription(true)}
+                    className="text-gray-600 hover:text-blue-400 transition-colors p-1"
+                    title="설명 보기"
+                  >
+                    <Info className="w-4 h-4" />
+                  </button>
+               </div>
              )}
              {showDescription && (
                <div className="flex items-center gap-3 bg-blue-950/30 border border-blue-800/30 rounded-lg px-4 py-2 text-sm text-blue-100 animate-in fade-in slide-in-from-left-4 duration-300">
