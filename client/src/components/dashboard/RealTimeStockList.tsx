@@ -147,32 +147,38 @@ export default function RealTimeStockList() {
       {/* Market Status Summary Footer */}
       <div className="border-t border-border/50 p-4 grid grid-cols-2 gap-4 bg-card/30">
         {/* Advancing Stocks */}
-        <div className="flex items-center justify-between p-3 rounded-lg bg-red-500/5 border border-red-500/20 hover:bg-red-500/10 transition-colors cursor-pointer group">
-          <div className="flex flex-col">
-              <span className="text-xs text-red-400/80 font-medium mb-1 group-hover:text-red-400">Market Strong</span>
-              <div className="flex items-baseline gap-1">
-                <span className="text-xl font-bold text-white font-mono">1,248</span>
-                <span className="text-[10px] text-red-400">Stocks</span>
+        <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-br from-red-500/10 to-transparent border border-red-500/30 hover:from-red-500/20 hover:border-red-500/50 transition-all cursor-pointer group shadow-[0_0_15px_rgba(239,68,68,0.05)]">
+          <div className="flex flex-col gap-1">
+              <span className="text-sm text-red-400 font-bold group-hover:text-red-300 flex items-center gap-2">
+                 Market Strong
+                 <div className="w-1.5 h-1.5 rounded-full bg-red-500 animate-pulse" />
+              </span>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl font-black text-white font-display tracking-tight">1,248</span>
+                <span className="text-xs text-red-400/80 font-medium">Stocks</span>
               </div>
           </div>
-          <div className="flex flex-col items-end">
-              <span className="text-[10px] text-muted-foreground mb-1">Avg Change</span>
-              <span className="text-sm font-bold text-red-400 font-mono">+4.2%</span>
+          <div className="flex flex-col items-end justify-center bg-red-500/10 px-3 py-2 rounded-lg border border-red-500/20">
+              <span className="text-[10px] text-red-300/80 uppercase tracking-wider font-semibold mb-0.5">Avg Change</span>
+              <span className="text-xl font-black text-red-400 font-mono">+4.2%</span>
           </div>
         </div>
 
         {/* Declining Stocks */}
-        <div className="flex items-center justify-between p-3 rounded-lg bg-blue-500/5 border border-blue-500/20 hover:bg-blue-500/10 transition-colors cursor-pointer group">
-          <div className="flex flex-col">
-              <span className="text-xs text-blue-400/80 font-medium mb-1 group-hover:text-blue-400">Market Weak</span>
-              <div className="flex items-baseline gap-1">
-                <span className="text-xl font-bold text-white font-mono">892</span>
-                <span className="text-[10px] text-blue-400">Stocks</span>
+        <div className="flex items-center justify-between p-4 rounded-xl bg-gradient-to-br from-blue-500/10 to-transparent border border-blue-500/30 hover:from-blue-500/20 hover:border-blue-500/50 transition-all cursor-pointer group shadow-[0_0_15px_rgba(59,130,246,0.05)]">
+          <div className="flex flex-col gap-1">
+              <span className="text-sm text-blue-400 font-bold group-hover:text-blue-300 flex items-center gap-2">
+                 Market Weak
+                 <div className="w-1.5 h-1.5 rounded-full bg-blue-500/50" />
+              </span>
+              <div className="flex items-baseline gap-1.5">
+                <span className="text-3xl font-black text-white font-display tracking-tight">892</span>
+                <span className="text-xs text-blue-400/80 font-medium">Stocks</span>
               </div>
           </div>
-          <div className="flex flex-col items-end">
-              <span className="text-[10px] text-muted-foreground mb-1">Avg Change</span>
-              <span className="text-sm font-bold text-blue-400 font-mono">-2.1%</span>
+          <div className="flex flex-col items-end justify-center bg-blue-500/10 px-3 py-2 rounded-lg border border-blue-500/20">
+              <span className="text-[10px] text-blue-300/80 uppercase tracking-wider font-semibold mb-0.5">Avg Change</span>
+              <span className="text-xl font-black text-blue-400 font-mono">-2.1%</span>
           </div>
         </div>
       </div>
