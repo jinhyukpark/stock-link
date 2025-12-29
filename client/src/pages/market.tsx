@@ -804,14 +804,24 @@ export default function MarketAnalysis() {
       </div>
       
       <Dialog open={!!selectedChart} onOpenChange={(open) => !open && setSelectedChart(null)}>
-        <DialogContent className="max-w-[95vw] h-[90vh] bg-[#0B0E14] border-border/50 flex flex-col p-0 overflow-hidden sm:max-w-[90vw] lg:max-w-[1400px]">
-          <div className="flex-1 flex flex-col p-6 relative">
-             <Button variant="ghost" size="icon" className="absolute left-2 top-1/2 -translate-y-1/2 z-50 h-12 w-12 rounded-full bg-black/50 hover:bg-black/80 border border-white/10 text-white" onClick={handlePrev}>
-                <ChevronLeft className="w-8 h-8" />
+        <DialogContent className="max-w-[95vw] h-[90vh] bg-[#0B0E14] border-border/50 flex flex-col p-0 overflow-visible sm:max-w-[90vw] lg:max-w-[1400px]">
+          
+          <Button variant="ghost" size="icon" className="absolute -left-16 top-1/2 -translate-y-1/2 z-50 h-12 w-12 rounded-full bg-black/50 hover:bg-black/80 border border-white/10 text-white hidden xl:flex" onClick={handlePrev}>
+             <ChevronLeft className="w-8 h-8" />
+          </Button>
+          
+          <Button variant="ghost" size="icon" className="absolute -right-16 top-1/2 -translate-y-1/2 z-50 h-12 w-12 rounded-full bg-black/50 hover:bg-black/80 border border-white/10 text-white hidden xl:flex" onClick={handleNext}>
+             <ChevronRight className="w-8 h-8" />
+          </Button>
+
+          <div className="flex-1 flex flex-col p-6 relative overflow-hidden">
+             {/* Mobile/Tablet Arrows (Inside) */}
+             <Button variant="ghost" size="icon" className="absolute left-2 top-1/2 -translate-y-1/2 z-50 h-10 w-10 rounded-full bg-black/50 hover:bg-black/80 border border-white/10 text-white xl:hidden" onClick={handlePrev}>
+                <ChevronLeft className="w-6 h-6" />
              </Button>
              
-             <Button variant="ghost" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 z-50 h-12 w-12 rounded-full bg-black/50 hover:bg-black/80 border border-white/10 text-white" onClick={handleNext}>
-                <ChevronRight className="w-8 h-8" />
+             <Button variant="ghost" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 z-50 h-10 w-10 rounded-full bg-black/50 hover:bg-black/80 border border-white/10 text-white xl:hidden" onClick={handleNext}>
+                <ChevronRight className="w-6 h-6" />
              </Button>
              
             <DialogHeader className="shrink-0 mb-4 px-8">
