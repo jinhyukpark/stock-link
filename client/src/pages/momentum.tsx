@@ -220,55 +220,62 @@ export default function MomentumPage() {
                 {/* AI Score (Removed) */}
                 
                 {/* Metrics Grid */}
-                <div className="grid grid-cols-3 border-t border-white/5 text-[9px]">
-                  {/* Column 1 */}
-                  <div className="border-r border-white/5 p-2 bg-white/[0.02]">
-                    <div className="text-gray-400 mb-1 text-center">시장대비 상승률</div>
-                    <div className="flex justify-between text-gray-500 mb-0.5 px-1">
-                      <span>10일</span>
-                      <span>20일</span>
-                    </div>
-                    <div className="flex justify-between font-mono font-medium px-1">
-                      <span className={stock.market_rel_10 > 0 ? 'text-red-400' : 'text-blue-400'}>
-                        {stock.market_rel_10 > 0 ? '+' : ''}{stock.market_rel_10}%
-                      </span>
-                      <span className={stock.market_rel_20 > 0 ? 'text-red-400' : 'text-blue-400'}>
-                        {stock.market_rel_20 > 0 ? '+' : ''}{stock.market_rel_20}%
-                      </span>
-                    </div>
+                <div>
+                  {/* Headers (Dark) */}
+                  <div className="grid grid-cols-3 border-t border-white/5 text-[9px] bg-[#1a1f2b]">
+                    <div className="py-1.5 text-center text-gray-400 border-r border-white/5">시장대비 상승률</div>
+                    <div className="py-1.5 text-center text-gray-400 border-r border-white/5">10일간 주가 강도</div>
+                    <div className="py-1.5 text-center text-gray-400">20일간 주가 강도</div>
                   </div>
 
-                  {/* Column 2 */}
-                  <div className="border-r border-white/5 p-2 bg-white/[0.02]">
-                    <div className="text-gray-400 mb-1 text-center">10일간 주가 강도</div>
-                    <div className="flex justify-between text-gray-500 mb-0.5 px-1">
-                      <span>상승 탄력</span>
-                      <span>하락 방어</span>
+                  {/* Values (White) */}
+                  <div className="grid grid-cols-3 text-[10px] bg-white rounded-b-lg">
+                    {/* Column 1 */}
+                    <div className="p-2 border-r border-gray-100">
+                      <div className="flex justify-around text-gray-500 mb-1">
+                        <span>10일</span>
+                        <span>20일</span>
+                      </div>
+                      <div className="flex justify-around font-bold">
+                        <span className={stock.market_rel_10 > 0 ? 'text-red-500' : 'text-blue-500'}>
+                          {stock.market_rel_10 > 0 ? '+' : ''}{stock.market_rel_10}%
+                        </span>
+                        <span className={stock.market_rel_20 > 0 ? 'text-red-500' : 'text-blue-500'}>
+                          {stock.market_rel_20 > 0 ? '+' : ''}{stock.market_rel_20}%
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex justify-between font-mono font-medium px-1">
-                      <span className={stock.strength_10_up > 0 ? 'text-red-400' : 'text-blue-400'}>
-                        {stock.strength_10_up > 0 ? '+' : ''}{stock.strength_10_up}%
-                      </span>
-                      <span className={stock.strength_10_down > 0 ? 'text-red-400' : 'text-blue-400'}>
-                        {stock.strength_10_down > 0 ? '+' : ''}{stock.strength_10_down}%
-                      </span>
-                    </div>
-                  </div>
 
-                  {/* Column 3 */}
-                  <div className="p-2 bg-white/[0.02]">
-                    <div className="text-gray-400 mb-1 text-center">20일간 주가 강도</div>
-                    <div className="flex justify-between text-gray-500 mb-0.5 px-1">
-                      <span>상승 탄력</span>
-                      <span>하락 방어</span>
+                    {/* Column 2 */}
+                    <div className="p-2 border-r border-gray-100">
+                      <div className="flex justify-around text-gray-500 mb-1">
+                        <span>상승 탄력</span>
+                        <span>하락 방어</span>
+                      </div>
+                      <div className="flex justify-around font-bold">
+                        <span className={stock.strength_10_up > 0 ? 'text-red-500' : 'text-blue-500'}>
+                          {stock.strength_10_up > 0 ? '+' : ''}{stock.strength_10_up}%
+                        </span>
+                        <span className={stock.strength_10_down > 0 ? 'text-red-500' : 'text-blue-500'}>
+                          {stock.strength_10_down > 0 ? '+' : ''}{stock.strength_10_down}%
+                        </span>
+                      </div>
                     </div>
-                    <div className="flex justify-between font-mono font-medium px-1">
-                      <span className={stock.strength_20_up > 0 ? 'text-red-400' : 'text-blue-400'}>
-                         {stock.strength_20_up > 0 ? '+' : ''}{stock.strength_20_up}%
-                      </span>
-                      <span className={stock.strength_20_down > 0 ? 'text-red-400' : 'text-blue-400'}>
-                         {stock.strength_20_down > 0 ? '+' : ''}{stock.strength_20_down}%
-                      </span>
+
+                    {/* Column 3 */}
+                    <div className="p-2">
+                      <div className="flex justify-around text-gray-500 mb-1">
+                        <span>상승 탄력</span>
+                        <span>하락 방어</span>
+                      </div>
+                      <div className="flex justify-around font-bold">
+                        <span className={stock.strength_20_up > 0 ? 'text-red-500' : 'text-blue-500'}>
+                           {stock.strength_20_up > 0 ? '+' : ''}{stock.strength_20_up}%
+                        </span>
+                        <span className={stock.strength_20_down > 0 ? 'text-red-500' : 'text-blue-500'}>
+                           {stock.strength_20_down > 0 ? '+' : ''}{stock.strength_20_down}%
+                        </span>
+                      </div>
                     </div>
                   </div>
                 </div>
