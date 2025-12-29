@@ -108,12 +108,15 @@ export default function MomentumPage() {
         
         {/* Toolbar */}
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-4 mb-2">
-             <h1 className="text-xl font-bold text-white whitespace-nowrap">모멘텀 분석</h1>
+          <div className="flex items-center gap-4 mb-2 min-h-[40px]">
+             {!showDescription && (
+                <h1 className="text-xl font-bold text-white whitespace-nowrap animate-in fade-in zoom-in duration-300">모멘텀 분석</h1>
+             )}
              {showDescription && (
                <div className="flex items-center gap-3 bg-blue-950/30 border border-blue-800/30 rounded-lg px-4 py-2 text-sm text-blue-100 animate-in fade-in slide-in-from-left-4 duration-300">
                  <Info className="w-4 h-4 text-blue-400 shrink-0" />
-                 <span className="text-gray-300">
+                 <span className="font-bold text-blue-200 whitespace-nowrap">모멘텀 분석?</span>
+                 <span className="text-gray-300 border-l border-blue-800/50 pl-3">
                    시장 상황과 주가 흐름을 심층 분석하여 상승 잠재력이 높은 종목을 발굴합니다. 
                    AI가 진단한 모멘텀 지표와 시장 대비 상승률을 통해 최적의 투자 기회를 포착하세요.
                  </span>
