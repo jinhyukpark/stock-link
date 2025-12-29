@@ -26,7 +26,7 @@ export default function Dashboard() {
         {/* Top Header Section - Ultra Compact */}
         <div className="flex justify-between items-center shrink-0 h-10 border-b border-border/40 bg-card/20 backdrop-blur-sm px-1 rounded-t-lg">
           <div className="flex items-center gap-3">
-             <span className="text-sm font-display font-bold text-white tracking-wider">StockLink</span>
+             <span className="text-sm font-display font-bold text-white tracking-wider">Dashboard</span>
           </div>
           <div className="flex items-center gap-3">
              <div className="flex items-center gap-1.5 px-2 py-0.5 bg-green-500/10 rounded-full border border-green-500/20">
