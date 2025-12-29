@@ -245,40 +245,52 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
 
         {/* Key Metrics Grid */}
         <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4">
-             <div className="bg-white/5 rounded-lg p-5 border border-white/5 hover:bg-white/10 transition-colors">
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2 font-mono">시장 국면 (REGIME)</div>
-               <div className="text-xl font-bold text-red-400 flex items-center gap-2">
-                 <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                 위험 회피
+             <div className="bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors overflow-hidden group">
+               <div className="bg-white/5 px-4 py-3 border-b border-white/5 group-hover:bg-white/10 transition-colors">
+                 <div className="font-bold text-gray-200 text-sm tracking-wide">시장 국면</div>
                </div>
-               <div className="text-xs text-red-500/70 mt-1 font-mono">Risk-Off</div>
+               <div className="p-5">
+                 <div className="text-xl font-bold text-red-400 flex items-center gap-2">
+                   <span className="w-2 h-2 rounded-full bg-red-500"></span>
+                   위험 회피
+                 </div>
+               </div>
              </div>
              
-             <div className="bg-white/5 rounded-lg p-5 border border-white/5 hover:bg-white/10 transition-colors">
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2 font-mono">시장 건전성 (BREADTH)</div>
-               <div className="text-xl font-bold text-red-400 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-red-500"></span>
-                  붕괴
+             <div className="bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors overflow-hidden group">
+               <div className="bg-white/5 px-4 py-3 border-b border-white/5 group-hover:bg-white/10 transition-colors">
+                 <div className="font-bold text-gray-200 text-sm tracking-wide">시장 건전성</div>
                </div>
-               <div className="text-xs text-red-500/70 mt-1 font-mono">Broken</div>
+               <div className="p-5">
+                 <div className="text-xl font-bold text-red-400 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-red-500"></span>
+                    붕괴
+                 </div>
+               </div>
              </div>
              
-             <div className="bg-white/5 rounded-lg p-5 border border-white/5 hover:bg-white/10 transition-colors">
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2 font-mono">자금 흐름 (FLOW)</div>
-               <div className="text-xl font-bold text-yellow-500 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-yellow-500"></span>
-                  소형주 투기
+             <div className="bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors overflow-hidden group">
+               <div className="bg-white/5 px-4 py-3 border-b border-white/5 group-hover:bg-white/10 transition-colors">
+                 <div className="font-bold text-gray-200 text-sm tracking-wide">자금 흐름</div>
                </div>
-               <div className="text-xs text-yellow-500/70 mt-1 font-mono">Small Cap Speculation</div>
+               <div className="p-5">
+                 <div className="text-xl font-bold text-yellow-500 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-yellow-500"></span>
+                    소형주 투기
+                 </div>
+               </div>
              </div>
              
-             <div className="bg-white/5 rounded-lg p-5 border border-white/5 hover:bg-white/10 transition-colors">
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2 font-mono">대응 전략 (STRATEGY)</div>
-               <div className="text-xl font-bold text-blue-400 flex items-center gap-2">
-                  <span className="w-2 h-2 rounded-full bg-blue-500"></span>
-                  현금 관망
+             <div className="bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors overflow-hidden group">
+               <div className="bg-white/5 px-4 py-3 border-b border-white/5 group-hover:bg-white/10 transition-colors">
+                 <div className="font-bold text-gray-200 text-sm tracking-wide">대응 전략</div>
                </div>
-               <div className="text-xs text-blue-500/70 mt-1 font-mono">Stay in Cash</div>
+               <div className="p-5">
+                 <div className="text-xl font-bold text-blue-400 flex items-center gap-2">
+                    <span className="w-2 h-2 rounded-full bg-blue-500"></span>
+                    현금 관망
+                 </div>
+               </div>
              </div>
         </div>
       </div>
