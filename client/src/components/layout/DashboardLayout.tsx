@@ -1,12 +1,15 @@
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, LineChart, PieChart, Newspaper, Users, Settings, LogOut, Search, Bell } from "lucide-react";
+import { LayoutDashboard, LineChart, PieChart, Newspaper, Users, Settings, LogOut, Search, Bell, Menu } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import { useState } from "react";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
   const [location] = useLocation();
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false);
 
   const navItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/" },
@@ -16,84 +19,111 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     { icon: Users, label: "Community", href: "/community" },
   ];
 
+  const NavContent = ({ className, vertical = false }: { className?: string, vertical?: boolean }) => (
+    <nav className={cn("flex gap-1", vertical ? "flex-col" : "items-center", className)}>
+      {navItems.map((item) => {
+        const isActive = location === item.href;
+        return (
+          <Link key={item.href} href={item.href}>
+            <a className={cn(
+              "flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-200 text-sm font-medium",
+              isActive 
+                ? "bg-primary text-primary-foreground shadow-[0_0_15px_rgba(59,130,246,0.5)]" 
+                : "text-muted-foreground hover:text-foreground hover:bg-secondary/50",
+              vertical && "w-full justify-start rounded-lg px-4 py-3"
+            )}>
+              <item.icon className={cn("w-4 h-4", isActive ? "text-white" : "text-muted-foreground")} />
+              <span>{item.label}</span>
+            </a>
+          </Link>
+        );
+      })}
+    </nav>
+  );
+
   return (
-    <div className="min-h-screen bg-background text-foreground flex font-sans">
-      {/* Sidebar */}
-      <aside className="w-64 border-r border-border bg-sidebar flex flex-col fixed h-full z-20 hidden md:flex">
-        <div className="p-6 border-b border-sidebar-border">
+    <div className="min-h-screen bg-background text-foreground flex flex-col font-sans">
+      {/* Header */}
+      <header className="h-16 border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-50 px-6 flex items-center justify-between">
+        {/* Left: Logo & Search */}
+        <div className="flex items-center gap-8">
           <div className="flex items-center gap-2">
             <div className="w-8 h-8 rounded-lg bg-primary/20 flex items-center justify-center">
               <LineChart className="w-5 h-5 text-primary" />
             </div>
-            <span className="text-xl font-bold font-display tracking-tight text-sidebar-foreground">
+            <span className="text-xl font-bold font-display tracking-tight hidden md:block">
               StockLink<span className="text-primary text-xs align-top ml-1">BETA</span>
             </span>
           </div>
-        </div>
 
-        <nav className="flex-1 p-4 space-y-2">
-          {navItems.map((item) => {
-            const isActive = location === item.href;
-            return (
-              <Link key={item.href} href={item.href}>
-                <a className={cn(
-                  "flex items-center gap-3 px-4 py-3 rounded-lg transition-all duration-200 group",
-                  isActive 
-                    ? "bg-sidebar-primary text-sidebar-primary-foreground shadow-[0_0_20px_rgba(59,130,246,0.3)]" 
-                    : "text-muted-foreground hover:bg-sidebar-accent hover:text-sidebar-accent-foreground"
-                )}>
-                  <item.icon className={cn("w-5 h-5", isActive ? "text-white" : "text-muted-foreground group-hover:text-sidebar-accent-foreground")} />
-                  <span className="font-medium">{item.label}</span>
-                </a>
-              </Link>
-            );
-          })}
-        </nav>
-
-        <div className="p-4 border-t border-sidebar-border space-y-2">
-          <Button variant="ghost" className="w-full justify-start text-muted-foreground hover:text-foreground">
-            <Settings className="w-5 h-5 mr-3" />
-            Settings
-          </Button>
-          <Button variant="ghost" className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10">
-            <LogOut className="w-5 h-5 mr-3" />
-            Logout
-          </Button>
-        </div>
-      </aside>
-
-      {/* Main Content */}
-      <main className="flex-1 md:ml-64 flex flex-col min-h-screen">
-        {/* Header */}
-        <header className="h-16 border-b border-border bg-background/80 backdrop-blur-md sticky top-0 z-10 px-6 flex items-center justify-between">
-          <div className="flex-1 max-w-xl relative">
+          <div className="relative hidden md:block w-64">
             <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
             <Input 
-              placeholder="Search specific stocks, ETFs, news..." 
-              className="pl-10 bg-secondary/50 border-transparent focus:bg-background transition-all"
+              placeholder="Search..." 
+              className="pl-9 h-9 bg-secondary/50 border-transparent focus:bg-background transition-all text-sm rounded-full"
             />
           </div>
+        </div>
 
-          <div className="flex items-center gap-4 ml-4">
-            <Button variant="ghost" size="icon" className="relative text-muted-foreground hover:text-foreground">
+        {/* Right: Navigation & User */}
+        <div className="flex items-center gap-4">
+          {/* Desktop Navigation */}
+          <div className="hidden md:block mr-4">
+             <NavContent />
+          </div>
+
+          <div className="flex items-center gap-3 pl-4 border-l border-border/50">
+            <Button variant="ghost" size="icon" className="relative text-muted-foreground hover:text-foreground h-9 w-9">
               <Bell className="w-5 h-5" />
               <span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full animate-pulse" />
             </Button>
-            <div className="h-6 w-px bg-border" />
-            <div className="flex items-center gap-3">
-              <div className="text-right hidden sm:block">
-                <p className="text-sm font-medium">Alex Morgan</p>
-                <p className="text-xs text-muted-foreground">Pro Member</p>
+            
+            <div className="hidden sm:flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+              <div className="text-right">
+                <p className="text-sm font-medium leading-none">Alex Morgan</p>
+                <p className="text-[10px] text-muted-foreground uppercase tracking-wider font-bold mt-1">Pro</p>
               </div>
-              <Avatar className="h-9 w-9 border border-border">
+              <Avatar className="h-8 w-8 border border-border">
                 <AvatarImage src="https://github.com/shadcn.png" />
                 <AvatarFallback>AM</AvatarFallback>
               </Avatar>
             </div>
-          </div>
-        </header>
 
-        <div className="p-6 md:p-8 space-y-8 animate-in fade-in duration-500">
+            {/* Mobile Menu Trigger */}
+            <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
+              <SheetTrigger asChild>
+                <Button variant="ghost" size="icon" className="md:hidden">
+                  <Menu className="w-5 h-5" />
+                </Button>
+              </SheetTrigger>
+              <SheetContent side="right" className="w-[300px] border-l border-border bg-background/95 backdrop-blur-xl">
+                 <div className="flex flex-col gap-6 mt-6">
+                    <div className="px-2 mb-4">
+                      <span className="text-xl font-bold font-display tracking-tight">
+                        StockLink
+                      </span>
+                    </div>
+                    <NavContent vertical />
+                    <div className="border-t border-border pt-6 space-y-2">
+                      <Button variant="ghost" className="w-full justify-start text-muted-foreground hover:text-foreground">
+                        <Settings className="w-4 h-4 mr-3" />
+                        Settings
+                      </Button>
+                      <Button variant="ghost" className="w-full justify-start text-destructive hover:text-destructive hover:bg-destructive/10">
+                        <LogOut className="w-4 h-4 mr-3" />
+                        Logout
+                      </Button>
+                    </div>
+                 </div>
+              </SheetContent>
+            </Sheet>
+          </div>
+        </div>
+      </header>
+
+      {/* Main Content */}
+      <main className="flex-1 flex flex-col min-h-0 overflow-hidden">
+        <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-8 animate-in fade-in duration-500">
           {children}
         </div>
       </main>
