@@ -318,7 +318,7 @@ const navLinks = [
 export default function MarketAnalysis() {
   const [date, setDate] = useState<string>(dateOptions[0].value);
   const [open, setOpen] = useState(false);
-  const [selectedChart, setSelectedChart] = useState<{ title: string; description: string; chart: React.ReactNode; analysis: string } | null>(null);
+  const [selectedChart, setSelectedChart] = useState<{ title: string; description: string; chart: React.ReactNode; analysis: string; legend?: React.ReactNode } | null>(null);
 
   const analysisTexts = {
     fgi: `현재 지수는 65(탐욕)로, 지난달의 중립 구간에서 상승했습니다.
@@ -459,8 +459,42 @@ export default function MarketAnalysis() {
     </ResponsiveContainer>
   );
 
+  const FgiLegend = () => (
+    <div className="mt-4 p-4 bg-black/40 rounded-lg border border-white/5 text-xs font-mono text-muted-foreground space-y-2">
+      <div className="flex items-center gap-2 text-white">
+        <HelpCircle className="w-3 h-3 text-primary" />
+        <span className="font-bold">FGI (Fear & Greed Index):</span>
+        <span className="text-gray-400">0-100 범위, 높을수록 탐욕, 낮을수록 공포</span>
+      </div>
+      <div className="flex items-center gap-4">
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+          <span className="text-blue-400 font-bold">파란 선 (40):</span>
+          <span className="text-gray-400">공포 구간 경계</span>
+        </div>
+        <div className="w-px h-3 bg-white/10"></div>
+        <div className="flex items-center gap-2">
+          <div className="w-2 h-2 rounded-full bg-red-500"></div>
+          <span className="text-red-400 font-bold">빨간 선 (70):</span>
+          <span className="text-gray-400">탐욕 구간 경계</span>
+        </div>
+      </div>
+      <div className="pt-2 border-t border-white/5 text-[10px] text-gray-500 flex flex-wrap gap-x-3 gap-y-1">
+        <span><strong className="text-gray-400">KSI:</strong> 한국 주식 지수</span>
+        <span className="text-white/10">|</span>
+        <span><strong className="text-gray-400">CI:</strong> 신용대차 지수</span>
+        <span className="text-white/10">|</span>
+        <span><strong className="text-gray-400">VI:</strong> 거래량 지수</span>
+        <span className="text-white/10">|</span>
+        <span><strong className="text-gray-400">KMI:</strong> 한국 주식 모멘텀 지수</span>
+        <span className="text-white/10">|</span>
+        <span><strong className="text-gray-400">PI:</strong> 개인순매수지수</span>
+      </div>
+    </div>
+  );
+
   const allCharts = [
-    { id: 'fgi', title: "공포 & 탐욕 지수", description: chartDescriptions.fgi, chart: fgiChart, analysis: analysisTexts.fgi },
+    { id: 'fgi', title: "공포 & 탐욕 지수", description: chartDescriptions.fgi, chart: fgiChart, analysis: analysisTexts.fgi, legend: <FgiLegend /> },
     { id: 'kospiBreadth', title: "KOSPI 상승 종목 수", description: chartDescriptions.breadth, chart: kospiBreadthChart, analysis: analysisTexts.breadth },
     { id: 'kosdaqBreadth', title: "KOSDAQ 상승 종목 수", description: chartDescriptions.breadth, chart: kosdaqBreadthChart, analysis: analysisTexts.breadth },
     { id: 'kospiDist', title: "KOSPI 등락률 분포", description: chartDescriptions.dist, chart: kospiDistChart, analysis: analysisTexts.dist },
@@ -855,8 +889,11 @@ export default function MarketAnalysis() {
                 </p>
             </DialogHeader>
             
-            <div className="flex-1 min-h-0 bg-[#0B0E14] rounded-lg border border-white/5 p-4 relative mb-4 mx-8">
-                {selectedChart?.chart}
+            <div className="flex-1 min-h-0 bg-[#0B0E14] rounded-lg border border-white/5 p-4 relative mb-4 mx-8 flex flex-col">
+                <div className="flex-1 min-h-0 w-full">
+                    {selectedChart?.chart}
+                </div>
+                {selectedChart?.legend}
             </div>
 
             <div className="shrink-0 bg-blue-950/20 border border-blue-500/20 rounded-lg p-4 mx-8">
