@@ -63,7 +63,7 @@ export default function FearGreedIndex() {
       <CardContent className="flex-1 flex flex-col gap-6">
         <div className="flex flex-col md:flex-row gap-4 items-center">
           {/* Gauge Chart Section */}
-          <div className="relative h-[180px] w-full md:w-1/2 flex items-center justify-center overflow-hidden">
+          <div className="relative h-[220px] w-full md:w-1/2 flex items-center justify-center overflow-hidden">
             <div className="scale-75 sm:scale-90 md:scale-100 origin-center transition-transform">
               <PieChart width={width} height={height}>
                 <Pie
@@ -92,13 +92,19 @@ export default function FearGreedIndex() {
               </PieChart>
             </div>
             
-            <div className="absolute bottom-6 flex flex-col items-center pointer-events-none">
-              <span className="text-4xl font-bold font-display text-white drop-shadow-[0_0_15px_rgba(255,255,255,0.3)]">75</span>
+            {/* Chart Labels Overlay */}
+             <div className="absolute inset-x-0 bottom-[60px] flex justify-between px-10 pointer-events-none">
+              <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest text-center leading-tight">Extreme<br/>Fear</span>
+              <span className="text-[10px] font-bold text-red-400 uppercase tracking-widest text-center leading-tight">Extreme<br/>Greed</span>
             </div>
-            <div className="absolute bottom-0 w-full flex justify-between px-8 text-[10px] font-medium text-muted-foreground uppercase">
-              <span className="text-blue-400">Extreme<br/>Fear</span>
-              <span className="text-red-400 text-right">Extreme<br/>Greed</span>
-            </div>
+
+             {/* Separate Score Display below the gauge */}
+             <div className="absolute bottom-2 flex flex-col items-center">
+                 <div className="px-4 py-1 bg-background/50 backdrop-blur-md rounded-full border border-white/10 shadow-lg">
+                    <span className="text-2xl font-bold font-display text-white mr-2">75</span>
+                    <span className="text-xs font-medium text-red-400 uppercase tracking-wider">Greed</span>
+                 </div>
+             </div>
           </div>
 
           {/* Time-based Indices List */}
