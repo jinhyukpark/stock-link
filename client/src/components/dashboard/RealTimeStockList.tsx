@@ -7,19 +7,19 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const stockData = [
-  { rank: 1, name: "SK Hynix", code: "000660", price: "164,000", change: "+6.84%", volume: "2.6T", isFavorite: true, icon: "SK" },
-  { rank: 2, name: "Samsung Elec", code: "005930", price: "72,500", change: "+2.14%", volume: "1.2T", isFavorite: true, icon: "S" },
-  { rank: 3, name: "Wonik Holdings", code: "030530", price: "4,750", change: "+19.08%", volume: "89B", isFavorite: true, icon: "W" },
-  { rank: 4, name: "KODEX Leverage", code: "122630", price: "17,540", change: "+5.4%", volume: "767B", isFavorite: false, icon: "K" },
-  { rank: 5, name: "Hyulim Robot", code: "090710", price: "2,980", change: "+28.71%", volume: "743B", isFavorite: true, icon: "H" },
-  { rank: 6, name: "KODEX 200", code: "069500", price: "34,720", change: "+2.72%", volume: "695B", isFavorite: false, icon: "K" },
-  { rank: 7, name: "Samsung C&T", code: "028260", price: "139,000", change: "+8.68%", volume: "531B", isFavorite: false, icon: "S" },
-  { rank: 8, name: "POSCO Holdings", code: "005490", price: "398,500", change: "-0.88%", volume: "320B", isFavorite: true, icon: "P" },
-  { rank: 9, name: "NAVER", code: "035420", price: "185,400", change: "+1.2%", volume: "245B", isFavorite: false, icon: "N" },
-  { rank: 10, name: "Kakao", code: "035720", price: "48,900", change: "-2.1%", volume: "180B", isFavorite: true, icon: "K" },
-  { rank: 11, name: "LG Energy", code: "373220", price: "382,000", change: "-1.2%", volume: "150B", isFavorite: false, icon: "L" },
-  { rank: 12, name: "Hyundai Motor", code: "005380", price: "245,000", change: "+3.4%", volume: "420B", isFavorite: false, icon: "H" },
-  { rank: 13, name: "Kia Corp", code: "000270", price: "124,500", change: "+2.8%", volume: "310B", isFavorite: false, icon: "K" },
+  { rank: 1, name: "SK Hynix", code: "000660", price: "164,000", change: "+6.84%", volume: "2.6T", isFavorite: true, icon: "SK", aiScore: 9.2 },
+  { rank: 2, name: "Samsung Elec", code: "005930", price: "72,500", change: "+2.14%", volume: "1.2T", isFavorite: true, icon: "S", aiScore: 8.5 },
+  { rank: 3, name: "Wonik Holdings", code: "030530", price: "4,750", change: "+19.08%", volume: "89B", isFavorite: true, icon: "W", aiScore: 9.8 },
+  { rank: 4, name: "KODEX Leverage", code: "122630", price: "17,540", change: "+5.4%", volume: "767B", isFavorite: false, icon: "K", aiScore: 7.4 },
+  { rank: 5, name: "Hyulim Robot", code: "090710", price: "2,980", change: "+28.71%", volume: "743B", isFavorite: true, icon: "H", aiScore: 9.5 },
+  { rank: 6, name: "KODEX 200", code: "069500", price: "34,720", change: "+2.72%", volume: "695B", isFavorite: false, icon: "K", aiScore: 6.8 },
+  { rank: 7, name: "Samsung C&T", code: "028260", price: "139,000", change: "+8.68%", volume: "531B", isFavorite: false, icon: "S", aiScore: 8.1 },
+  { rank: 8, name: "POSCO Holdings", code: "005490", price: "398,500", change: "-0.88%", volume: "320B", isFavorite: true, icon: "P", aiScore: 4.2 },
+  { rank: 9, name: "NAVER", code: "035420", price: "185,400", change: "+1.2%", volume: "245B", isFavorite: false, icon: "N", aiScore: 6.5 },
+  { rank: 10, name: "Kakao", code: "035720", price: "48,900", change: "-2.1%", volume: "180B", isFavorite: true, icon: "K", aiScore: 3.8 },
+  { rank: 11, name: "LG Energy", code: "373220", price: "382,000", change: "-1.2%", volume: "150B", isFavorite: false, icon: "L", aiScore: 5.1 },
+  { rank: 12, name: "Hyundai Motor", code: "005380", price: "245,000", change: "+3.4%", volume: "420B", isFavorite: false, icon: "H", aiScore: 7.9 },
+  { rank: 13, name: "Kia Corp", code: "000270", price: "124,500", change: "+2.8%", volume: "310B", isFavorite: false, icon: "K", aiScore: 7.6 },
 ];
 
 export default function RealTimeStockList() {
@@ -69,9 +69,10 @@ export default function RealTimeStockList() {
             {/* Table Header */}
             <div className="grid grid-cols-12 gap-4 px-6 py-2 text-xs text-muted-foreground border-b border-border/50 sticky top-0 bg-[#0B0E14]/95 backdrop-blur z-10">
                <div className="col-span-5 md:col-span-4">Stock</div>
-               <div className="col-span-3 md:col-span-3 text-right">Price</div>
+               <div className="col-span-2 md:col-span-2 text-right">Price</div>
                <div className="col-span-2 md:col-span-2 text-right">Change</div>
-               <div className="col-span-2 md:col-span-3 text-right">Volume</div>
+               <div className="hidden md:block col-span-2 text-right">Volume</div>
+               <div className="col-span-3 md:col-span-2 text-right">AI Score</div>
             </div>
             
             {/* Table Body */}
@@ -94,7 +95,7 @@ export default function RealTimeStockList() {
                      </div>
                      
                      {/* Price Column */}
-                     <div className="col-span-3 md:col-span-3 text-right font-mono font-medium">
+                     <div className="col-span-2 md:col-span-2 text-right font-mono font-medium">
                         {stock.price}
                      </div>
                      
@@ -109,8 +110,27 @@ export default function RealTimeStockList() {
                      </div>
                      
                      {/* Volume Column */}
-                     <div className="col-span-2 md:col-span-3 text-right text-muted-foreground text-xs font-mono hidden sm:block">
+                     <div className="hidden md:block col-span-2 text-right text-muted-foreground text-xs font-mono">
                         {stock.volume}
+                     </div>
+
+                     {/* AI Score Column */}
+                     <div className="col-span-3 md:col-span-2 text-right">
+                        <div className="flex items-center justify-end gap-2">
+                           <div className="h-1.5 w-12 bg-secondary rounded-full overflow-hidden hidden sm:block">
+                              <div 
+                                 className={cn("h-full rounded-full", stock.aiScore >= 7 ? "bg-primary" : stock.aiScore >= 4 ? "bg-yellow-500" : "bg-muted-foreground")} 
+                                 style={{ width: `${(stock.aiScore / 10) * 100}%` }}
+                              />
+                           </div>
+                           <span className={cn(
+                              "font-mono font-bold text-sm",
+                              stock.aiScore >= 8 ? "text-primary drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" : 
+                              stock.aiScore >= 5 ? "text-foreground" : "text-muted-foreground"
+                           )}>
+                              {stock.aiScore}
+                           </span>
+                        </div>
                      </div>
                   </div>
                ))}
