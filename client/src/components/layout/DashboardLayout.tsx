@@ -122,8 +122,8 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       </header>
 
       {/* Main Content */}
-      <main className="flex-1 flex flex-col min-h-0 overflow-hidden">
-        <div className="flex-1 overflow-y-auto p-6 md:p-8 space-y-8 animate-in fade-in duration-500">
+      <main className="flex-1 flex flex-col min-h-0 overflow-hidden bg-[#0B0E14]">
+        <div className="flex-1 overflow-y-auto">
           {children}
         </div>
       </main>

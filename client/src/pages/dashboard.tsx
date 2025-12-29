@@ -7,7 +7,6 @@ import MarketHeatmap from "@/components/dashboard/MarketHeatmap";
 import TrendAnalysisWidget from "@/components/dashboard/TrendAnalysisWidget";
 import TrendingThemes from "@/components/dashboard/TrendingThemes";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
 const chartData = [
@@ -23,13 +22,14 @@ const chartData = [
 export default function Dashboard() {
   return (
     <DashboardLayout>
-      <div className="space-y-6">
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-end gap-4">
+      <div className="flex flex-col h-[calc(100vh-4rem)] gap-4 p-4 overflow-hidden">
+        {/* Top Header Section - Compact */}
+        <div className="flex justify-between items-end shrink-0">
           <div>
-            <h1 className="text-3xl font-display font-bold tracking-tight text-white mb-1">Market Dashboard</h1>
-            <p className="text-muted-foreground">Real-time AI analysis of global markets.</p>
+            <h1 className="text-2xl font-display font-bold tracking-tight text-white mb-0.5">Market Dashboard</h1>
+            <p className="text-sm text-muted-foreground">Real-time AI analysis of global markets.</p>
           </div>
-          <div className="flex flex-col items-end gap-1">
+          <div className="flex flex-col items-end gap-0.5">
              <div className="flex items-center gap-2">
                 <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
                 <span className="text-xs text-green-500 font-medium">Market Open</span>
@@ -38,40 +38,44 @@ export default function Dashboard() {
           </div>
         </div>
 
-        <MarketTicker />
+        {/* Ticker - Compact */}
+        <div className="shrink-0">
+          <MarketTicker />
+        </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto">
-          {/* Left Column: Fear & Greed + Chart */}
-          <div className="md:col-span-3 flex flex-col gap-6">
-            <div className="h-auto">
+        {/* Main Content Grid - Fills remaining height */}
+        <div className="grid grid-cols-12 gap-4 flex-1 min-h-0">
+          
+          {/* Left Column: Sentiment & Distribution (Stack) */}
+          <div className="col-span-3 flex flex-col gap-4 h-full min-h-0">
+            <div className="flex-1 min-h-0 overflow-hidden">
               <FearGreedIndex />
             </div>
-            
-            <MarketDistribution />
+            <div className="h-[280px] shrink-0">
+              <MarketDistribution />
+            </div>
           </div>
 
-          {/* Middle Column: Real-time List */}
-          <div className="md:col-span-5 flex flex-col gap-6">
-             <div className="h-full min-h-[500px]">
-               <RealTimeStockList />
-             </div>
+          {/* Middle Column: Stock List */}
+          <div className="col-span-5 h-full min-h-0">
+             <RealTimeStockList />
           </div>
 
-          {/* Right Column: Market Heatmap (Matrix) */}
-          <div className="md:col-span-4 flex flex-col gap-6">
-             <div className="h-full min-h-[500px]">
+          {/* Right Column: Heatmap & Trends (Stack) */}
+          <div className="col-span-4 flex flex-col gap-4 h-full min-h-0">
+             <div className="flex-1 min-h-0">
                 <MarketHeatmap />
              </div>
+             <div className="h-[320px] shrink-0">
+                <TrendAnalysisWidget />
+             </div>
           </div>
         </div>
 
-        {/* Trend Analysis Section */}
-        <div className="h-[350px]">
-           <TrendAnalysisWidget />
+        {/* Footer Themes - Fixed Height at bottom */}
+        <div className="shrink-0">
+           <TrendingThemes />
         </div>
-
-        {/* Footer Area with Category Cards */}
-        <TrendingThemes />
       </div>
     </DashboardLayout>
   );
