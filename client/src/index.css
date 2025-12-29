@@ -202,6 +202,23 @@
   border-color: transparent !important; /* Hide original border */
 }
 
+.animate-border-beam-blue::before {
+  content: "";
+  position: absolute;
+  inset: 0;
+  border-radius: inherit;
+  padding: 1.5px; /* Beam width */
+  background: conic-gradient(from var(--beam-angle), transparent 20%, #3b82f6 80%, #ffffff 100%, transparent);
+  -webkit-mask: 
+     linear-gradient(#fff 0 0) content-box, 
+     linear-gradient(#fff 0 0);
+  -webkit-mask-composite: xor;
+  mask-composite: exclude;
+  pointer-events: none;
+  animation: beam-rotate 2s linear infinite;
+  filter: drop-shadow(0 0 4px #3b82f6);
+}
+
 
 /* Ticker Animation */
 @keyframes scroll {
