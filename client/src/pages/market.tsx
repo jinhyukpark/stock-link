@@ -645,7 +645,7 @@ export default function MarketAnalysis() {
                   <div className="lg:col-span-2">
                     <Card 
                       className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                      onClick={() => setSelectedChart({ title: "Fear & Greed Index History", description: chartDescriptions.fgi, chart: fgiChart, analysis: analysisTexts.fgi })}
+                      onClick={() => setSelectedChart(allCharts.find(c => c.id === 'fgi')!)}
                     >
                       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                           <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -675,7 +675,7 @@ export default function MarketAnalysis() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
                   <Card 
                     className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                    onClick={() => setSelectedChart({ title: "KOSPI Breadth", description: chartDescriptions.breadth, chart: kospiBreadthChart, analysis: analysisTexts.breadth })}
+                    onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kospiBreadth')!)}
                   >
                       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                           <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -690,7 +690,7 @@ export default function MarketAnalysis() {
                   
                   <Card 
                     className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                    onClick={() => setSelectedChart({ title: "KOSDAQ Breadth", description: chartDescriptions.breadth, chart: kosdaqBreadthChart, analysis: analysisTexts.breadth })}
+                    onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kosdaqBreadth')!)}
                   >
                       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                           <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -721,7 +721,7 @@ export default function MarketAnalysis() {
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
                        <Card 
                          className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                         onClick={() => setSelectedChart({ title: "KOSPI Price Distribution", description: chartDescriptions.dist, chart: kospiDistChart, analysis: analysisTexts.dist })}
+                         onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kospiDist')!)}
                        >
                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                              <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -735,7 +735,7 @@ export default function MarketAnalysis() {
                        </Card>
                        <Card 
                          className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                         onClick={() => setSelectedChart({ title: "KOSDAQ Price Distribution", description: chartDescriptions.dist, chart: kosdaqDistChart, analysis: analysisTexts.dist })}
+                         onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kosdaqDist')!)}
                        >
                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                              <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -767,7 +767,7 @@ export default function MarketAnalysis() {
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                     <Card 
                       className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                      onClick={() => setSelectedChart({ title: "KOSPI Market Cap Rotation", description: chartDescriptions.cap, chart: kospiSizeChart, analysis: analysisTexts.cap })}
+                      onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kospiCap')!)}
                     >
                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                              <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -781,7 +781,7 @@ export default function MarketAnalysis() {
                     </Card>
                     <Card 
                       className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                      onClick={() => setSelectedChart({ title: "KOSDAQ Market Cap Rotation", description: chartDescriptions.cap, chart: kosdaqSizeChart, analysis: analysisTexts.cap })}
+                      onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kosdaqCap')!)}
                     >
                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                              <Maximize2 className="w-5 h-5 text-muted-foreground" />
@@ -811,7 +811,7 @@ export default function MarketAnalysis() {
                   <div className="lg:col-span-2">
                      <Card 
                        className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                       onClick={() => setSelectedChart({ title: "KOSPI Expected Returns (PAM)", description: chartDescriptions.pam, chart: pamChart, analysis: analysisTexts.pam })}
+                       onClick={() => setSelectedChart(allCharts.find(c => c.id === 'pam')!)}
                      >
                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                              <Maximize2 className="w-5 h-5 text-muted-foreground" />
