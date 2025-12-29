@@ -188,36 +188,39 @@ const ChatPanel = ({
     if (!isOpen) return null;
 
     return (
-        <div className="absolute right-4 bottom-[80px] top-20 w-[360px] bg-[#0B0E14]/95 backdrop-blur-xl border border-white/10 rounded-xl flex flex-col shadow-2xl z-40 animate-in slide-in-from-right-5 fade-in duration-200 overflow-hidden">
+        <div className="absolute right-0 top-0 bottom-0 w-[420px] bg-[#0B0E14]/95 backdrop-blur-xl border-l border-white/10 flex flex-col shadow-2xl z-40 animate-in slide-in-from-right duration-300">
             {/* Header */}
-            <div className="p-4 border-b border-white/10 flex items-center justify-between bg-white/5 backdrop-blur-sm">
+            <div className="p-5 border-b border-white/10 flex items-center justify-between bg-white/5 backdrop-blur-sm shrink-0">
                 <div className="flex items-center gap-3">
-                    <div className="w-8 h-8 rounded-lg bg-gradient-to-br from-primary/20 to-blue-500/20 flex items-center justify-center border border-white/5">
-                        <Bot className="w-4 h-4 text-primary" />
+                    <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-blue-500/20 flex items-center justify-center border border-white/5 shadow-inner">
+                        <Bot className="w-5 h-5 text-primary" />
                     </div>
                     <div>
-                        <span className="block text-sm font-bold text-white leading-none">AI Market Analyst</span>
-                        <span className="text-[10px] text-gray-400 font-mono mt-1 block">Powered by Gemini</span>
+                        <span className="block text-base font-bold text-white leading-none">AI Market Analyst</span>
+                        <span className="text-[11px] text-gray-400 font-mono mt-1.5 block flex items-center gap-1">
+                            <span className="w-1.5 h-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                            Powered by Gemini
+                        </span>
                     </div>
                 </div>
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg" onClick={onClose}>
-                    <X className="w-4 h-4" />
+                <Button variant="ghost" size="icon" className="h-9 w-9 text-gray-400 hover:text-white hover:bg-white/10 rounded-lg" onClick={onClose}>
+                    <X className="w-5 h-5" />
                 </Button>
             </div>
 
             {/* Context Area (Selected Nodes) */}
             {selectedNodes.length > 0 && (
-                <div className="px-4 py-3 border-b border-white/5 bg-primary/5">
-                    <div className="flex items-center gap-1.5 mb-2">
-                        <Sparkles className="w-3.5 h-3.5 text-primary" />
-                        <span className="text-[11px] font-bold text-primary">선택된 종목 (Context)</span>
+                <div className="px-5 py-4 border-b border-white/5 bg-primary/5 shrink-0">
+                    <div className="flex items-center gap-2 mb-3">
+                        <Sparkles className="w-4 h-4 text-primary" />
+                        <span className="text-xs font-bold text-primary">선택된 종목 (Context)</span>
                     </div>
-                    <div className="flex flex-wrap gap-2 max-h-[100px] overflow-y-auto custom-scrollbar">
+                    <div className="flex flex-wrap gap-2 max-h-[120px] overflow-y-auto custom-scrollbar">
                         {selectedNodes.map(node => (
-                            <div key={node.id} className="flex items-center gap-1.5 bg-[#151921] border border-primary/20 rounded-md pl-2.5 pr-1.5 py-1 shadow-sm group">
-                                <span className="text-[11px] font-medium text-gray-200">{node.label || "Unnamed"}</span>
+                            <div key={node.id} className="flex items-center gap-2 bg-[#151921] border border-primary/30 rounded-lg pl-3 pr-2 py-1.5 shadow-sm group hover:border-primary/60 transition-colors">
+                                <span className="text-xs font-medium text-gray-200">{node.label || "Unnamed"}</span>
                                 <button onClick={() => onRemoveNode(node.id)} className="text-gray-500 hover:text-red-400 transition-colors p-0.5 rounded hover:bg-white/5">
-                                    <X className="w-3 h-3" />
+                                    <X className="w-3.5 h-3.5" />
                                 </button>
                             </div>
                         ))}
@@ -226,18 +229,18 @@ const ChatPanel = ({
             )}
 
             {/* Messages */}
-            <div className="flex-1 overflow-y-auto p-4 space-y-4 custom-scrollbar" ref={scrollRef}>
+            <div className="flex-1 overflow-y-auto p-5 space-y-6 custom-scrollbar" ref={scrollRef}>
                 {messages.map((msg) => (
-                    <div key={msg.id} className={cn("flex flex-col gap-1.5 max-w-[85%]", msg.role === 'user' ? "ml-auto items-end" : "mr-auto items-start")}>
+                    <div key={msg.id} className={cn("flex flex-col gap-2 max-w-[90%]", msg.role === 'user' ? "ml-auto items-end" : "mr-auto items-start")}>
                         <div className={cn(
-                            "px-4 py-2.5 text-xs leading-relaxed shadow-sm",
+                            "px-5 py-3.5 text-sm leading-relaxed shadow-md",
                             msg.role === 'user' 
-                                ? "bg-primary text-black rounded-2xl rounded-tr-sm font-medium" 
+                                ? "bg-primary text-black rounded-2xl rounded-tr-sm font-semibold" 
                                 : "bg-[#1f232b] text-gray-200 rounded-2xl rounded-tl-sm border border-white/5"
                         )}>
                             {msg.text}
                         </div>
-                        <span className="text-[10px] text-gray-600 px-1">
+                        <span className="text-[11px] text-gray-600 px-1 font-medium">
                             {msg.role === 'assistant' ? 'AI Analyst' : 'You'}
                         </span>
                     </div>
@@ -245,16 +248,16 @@ const ChatPanel = ({
                 
                 {/* Suggested Questions */}
                 {messages.length === 1 && (
-                    <div className="mt-4 space-y-2">
-                        <p className="text-[10px] text-gray-500 font-medium px-1 mb-2">추천 질문</p>
-                        <div className="flex flex-col gap-2">
+                    <div className="mt-8 space-y-3">
+                        <p className="text-xs text-gray-500 font-semibold px-1 mb-2">추천 질문</p>
+                        <div className="flex flex-col gap-2.5">
                             {suggestedQuestions.map((q, idx) => (
                                 <button 
                                     key={idx}
                                     onClick={() => handleSend(q)}
-                                    className="text-left text-xs text-gray-300 bg-[#151921] hover:bg-[#1f232b] hover:text-white border border-white/5 rounded-lg px-3 py-2.5 transition-all duration-200 flex items-center gap-2 group"
+                                    className="text-left text-sm text-gray-300 bg-[#151921] hover:bg-[#1f232b] hover:text-white border border-white/5 rounded-xl px-4 py-3.5 transition-all duration-200 flex items-center gap-3 group hover:border-primary/30 hover:shadow-lg hover:translate-x-1"
                                 >
-                                    <MessageSquare className="w-3 h-3 text-primary/50 group-hover:text-primary transition-colors" />
+                                    <MessageSquare className="w-4 h-4 text-primary/50 group-hover:text-primary transition-colors" />
                                     {q}
                                 </button>
                             ))}
@@ -264,21 +267,21 @@ const ChatPanel = ({
             </div>
 
             {/* Input */}
-            <div className="p-4 bg-[#0B0E14] border-t border-white/10">
+            <div className="p-5 bg-[#0B0E14] border-t border-white/10 shrink-0">
                 <div className="relative flex items-center gap-2">
                     <Input 
                         value={input}
                         onChange={(e) => setInput(e.target.value)}
                         onKeyDown={(e) => e.key === 'Enter' && handleSend()}
                         placeholder={selectedNodes.length > 0 ? "선택된 종목에 대해 질문하세요..." : "시장 상황에 대해 물어보세요..."}
-                        className="bg-[#151921] border-white/10 text-xs h-10 pl-4 pr-10 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 rounded-lg transition-all"
+                        className="bg-[#151921] border-white/10 text-sm h-12 pl-5 pr-12 focus:border-primary/50 focus:ring-1 focus:ring-primary/20 rounded-xl transition-all shadow-inner"
                     />
                     <Button 
                         size="icon" 
-                        className="absolute right-1.5 top-1.5 h-7 w-7 bg-primary text-black hover:bg-primary/90 rounded-md transition-all shadow-lg shadow-primary/20"
+                        className="absolute right-2 top-2 h-8 w-8 bg-primary text-black hover:bg-primary/90 rounded-lg transition-all shadow-lg shadow-primary/20"
                         onClick={() => handleSend()}
                     >
-                        <Send className="w-3.5 h-3.5" />
+                        <Send className="w-4 h-4" />
                     </Button>
                 </div>
             </div>
