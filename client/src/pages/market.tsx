@@ -239,20 +239,20 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
            
            <div className="grid grid-cols-2 md:grid-cols-4 gap-4 border-t border-border/30 pt-6">
              <div>
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">MARKET REGIME</div>
-               <div className="text-lg font-bold text-red-400">Risk-Off</div>
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">시장 국면 (MARKET REGIME)</div>
+               <div className="text-lg font-bold text-red-400">위험 회피 (Risk-Off)</div>
              </div>
              <div>
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">BREADTH HEALTH</div>
-               <div className="text-lg font-bold text-red-400">Broken</div>
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">시장 건전성 (BREADTH)</div>
+               <div className="text-lg font-bold text-red-400">붕괴 (Broken)</div>
              </div>
              <div>
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">CAPITAL FLOW</div>
-               <div className="text-lg font-bold text-yellow-500">Small Cap Speculation</div>
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">자금 흐름 (FLOW)</div>
+               <div className="text-lg font-bold text-yellow-500">소형주 투기</div>
              </div>
              <div>
-               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">STRATEGY STANCE</div>
-               <div className="text-lg font-bold text-blue-400">Stay in Cash</div>
+               <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-1">대응 전략 (STRATEGY)</div>
+               <div className="text-lg font-bold text-blue-400">현금 관망 (Cash)</div>
              </div>
            </div>
         </div>
