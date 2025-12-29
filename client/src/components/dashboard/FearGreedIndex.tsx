@@ -63,8 +63,8 @@ export default function FearGreedIndex() {
       <CardContent className="flex-1 flex flex-col gap-6">
         <div className="flex flex-col md:flex-row gap-4 items-center">
           {/* Gauge Chart Section */}
-          <div className="relative h-[220px] w-full md:w-1/2 flex items-center justify-center overflow-hidden">
-            <div className="scale-75 sm:scale-90 md:scale-100 origin-center transition-transform">
+          <div className="relative h-[160px] w-full md:w-1/2 flex items-center justify-center overflow-hidden">
+            <div className="scale-75 sm:scale-90 md:scale-90 origin-center transition-transform">
               <PieChart width={width} height={height}>
                 <Pie
                   dataKey="value"
@@ -108,19 +108,19 @@ export default function FearGreedIndex() {
           </div>
 
           {/* Time-based Indices List */}
-          <div className="w-full md:w-1/2 flex flex-col gap-2">
+          <div className="w-full md:w-1/2 flex flex-col gap-1.5">
              {[
                { label: "Fear Index", period: "1 Week", val: 28, color: "text-blue-400 border-blue-500/30" },
                { label: "Neutral Index", period: "1 Month", val: 57, color: "text-purple-400 border-purple-500/30" },
                { label: "Greed Index", period: "3 Months", val: 66, color: "text-red-400 border-red-500/30" },
                { label: "Greed Index", period: "6 Months", val: 71, color: "text-red-400 border-red-500/30" },
              ].map((item, i) => (
-               <div key={i} className={`flex items-center justify-between p-3 rounded-lg border bg-secondary/20 ${item.color.split(' ')[1]}`}>
+               <div key={i} className={`flex items-center justify-between p-2 rounded-lg border bg-secondary/20 ${item.color.split(' ')[1]}`}>
                   <div className="flex flex-col">
-                    <span className={`text-sm font-bold ${item.color.split(' ')[0]}`}>{item.label}</span>
-                    <span className="text-xs text-muted-foreground">{item.period}</span>
+                    <span className={`text-xs font-bold ${item.color.split(' ')[0]}`}>{item.label}</span>
+                    <span className="text-[10px] text-muted-foreground">{item.period}</span>
                   </div>
-                  <div className={`w-8 h-8 rounded-full border-2 flex items-center justify-center text-xs font-bold ${item.color}`}>
+                  <div className={`w-7 h-7 rounded-full border-2 flex items-center justify-center text-[10px] font-bold ${item.color}`}>
                      {item.val}
                   </div>
                </div>
@@ -129,7 +129,7 @@ export default function FearGreedIndex() {
         </div>
 
         {/* Check Point Section */}
-        <div className="bg-secondary/10 border border-border/50 rounded-lg p-4 space-y-3">
+        <div className="bg-secondary/10 border border-border/50 rounded-lg p-3 space-y-2">
            <div className="flex items-center justify-between">
               <div className="flex items-center gap-2">
                  <Check className="w-5 h-5 text-primary" />
