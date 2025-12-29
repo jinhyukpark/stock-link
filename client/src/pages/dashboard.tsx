@@ -50,7 +50,7 @@ export default function Dashboard() {
           {/* Right Column: Heatmap & Trends (Stack) */}
           <div className="xl:col-span-5 flex flex-col gap-4 min-h-[550px]">
              <MarketStatus />
-             <div className="h-[280px] shrink-0">
+             <div className="flex-1 min-h-[560px] shrink-0">
                 <MarketHeatmap />
              </div>
              <div className="h-[250px] shrink-0">
