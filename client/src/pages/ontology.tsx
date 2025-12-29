@@ -615,11 +615,11 @@ export default function OntologyPage() {
                         </div>
                         <div className="flex flex-col gap-2">
                             {[
-                                { rank: 1, text: "반도체", count: 1242, trend: "up" },
-                                { rank: 2, text: "2차전지", count: 893, trend: "down" },
-                                { rank: 3, text: "AI", count: 756, trend: "up" },
-                                { rank: 4, text: "초전도체", count: 512, trend: "up" },
-                                { rank: 5, text: "바이오", count: 489, trend: "down" }
+                                { rank: 1, text: "반도체", count: 42, pct: "+3.5%", trend: "up" },
+                                { rank: 2, text: "2차전지", count: 28, pct: "-1.2%", trend: "down" },
+                                { rank: 3, text: "AI", count: 35, pct: "+5.1%", trend: "up" },
+                                { rank: 4, text: "초전도체", count: 12, pct: "+12.4%", trend: "up" },
+                                { rank: 5, text: "바이오", count: 24, pct: "-0.5%", trend: "down" }
                             ].map((k) => (
                                 <div key={k.rank} className="flex items-center justify-between group cursor-pointer">
                                     <div className="flex items-center gap-2">
@@ -627,11 +627,19 @@ export default function OntologyPage() {
                                             "w-3.5 h-3.5 flex items-center justify-center text-[9px] font-bold rounded shadow-inner",
                                             k.rank <= 3 ? "bg-primary/20 text-primary border border-primary/30" : "bg-white/5 text-gray-500"
                                         )}>{k.rank}</span>
-                                        <span className="text-[11px] text-gray-300 group-hover:text-white transition-colors">{k.text}</span>
+                                        <span className="text-[11px] text-gray-300 group-hover:text-white transition-colors">
+                                            {k.text} 
+                                            <span className="text-[9px] text-gray-500 font-normal ml-1">({k.count})</span>
+                                        </span>
                                     </div>
-                                    <span className={cn("text-[9px]", k.trend === 'up' ? "text-red-400" : "text-blue-400")}>
-                                        {k.trend === 'up' ? '▲' : '▼'}
-                                    </span>
+                                    <div className="flex items-center gap-1">
+                                        <span className={cn("text-[9px] font-mono", k.trend === 'up' ? "text-red-400" : "text-blue-400")}>
+                                            {k.pct}
+                                        </span>
+                                        <span className={cn("text-[8px]", k.trend === 'up' ? "text-red-400" : "text-blue-400")}>
+                                            {k.trend === 'up' ? '▲' : '▼'}
+                                        </span>
+                                    </div>
                                 </div>
                             ))}
                         </div>
