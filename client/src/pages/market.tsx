@@ -638,32 +638,27 @@ export default function MarketAnalysis() {
           {/* Or we can position them absolute relative to this container if we want them to scroll with content, but "centered" usually implies viewport centering */}
           {/* Given the user request "outside the glow box... in the center", let's place them fixed on the sides of the viewport, vertically centered */}
           
-          <div className="fixed left-8 top-1/2 -translate-y-1/2 hidden xl:flex flex-col items-center gap-2 z-50">
+          {/* Report Navigation - Toolbar */}
+          <div className="max-w-5xl mx-auto mb-6 flex justify-end items-center gap-4 px-4 sm:px-0 z-10 relative">
              <Button 
-               variant="ghost" 
-               size="icon" 
-               className="h-14 w-14 rounded-full bg-black/50 hover:bg-primary/20 border border-white/10 text-white/70 hover:text-primary transition-all backdrop-blur-sm"
+               variant="outline" 
+               size="sm" 
+               className="h-10 gap-2 bg-black/40 border-white/10 hover:bg-white/5 text-muted-foreground hover:text-white rounded-full pl-2 pr-4 transition-all"
                onClick={handlePrevDate}
              >
-               <ChevronLeft className="w-8 h-8" />
+               <div className="bg-white/10 p-1 rounded-full"><ChevronLeft className="w-4 h-4" /></div>
+               <span className="font-mono text-xs">{format(subDays(new Date(date), 1), "MM.dd")}</span>
              </Button>
-             <span className="text-xs font-mono text-muted-foreground tracking-wider bg-black/80 px-2 py-1 rounded border border-white/5">
-               {format(subDays(new Date(date), 1), "MMM dd")}
-             </span>
-          </div>
 
-          <div className="fixed right-8 top-1/2 -translate-y-1/2 hidden xl:flex flex-col items-center gap-2 z-50">
              <Button 
-               variant="ghost" 
-               size="icon" 
-               className="h-14 w-14 rounded-full bg-black/50 hover:bg-primary/20 border border-white/10 text-white/70 hover:text-primary transition-all backdrop-blur-sm"
+               variant="outline" 
+               size="sm" 
+               className="h-10 gap-2 bg-black/40 border-white/10 hover:bg-white/5 text-muted-foreground hover:text-white rounded-full pl-4 pr-2 transition-all"
                onClick={handleNextDate}
              >
-               <ChevronRight className="w-8 h-8" />
+               <span className="font-mono text-xs">{format(addDays(new Date(date), 1), "MM.dd")}</span>
+               <div className="bg-white/10 p-1 rounded-full"><ChevronRight className="w-4 h-4" /></div>
              </Button>
-             <span className="text-xs font-mono text-muted-foreground tracking-wider bg-black/80 px-2 py-1 rounded border border-white/5">
-               {format(addDays(new Date(date), 1), "MMM dd")}
-             </span>
           </div>
 
           <div className="max-w-5xl mx-auto bg-[#0B0E14] min-h-full border border-[#00ff9d]/50 shadow-[0_0_50px_rgba(0,255,157,0.15)] relative">
