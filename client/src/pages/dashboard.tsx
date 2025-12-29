@@ -2,8 +2,7 @@ import DashboardLayout from "@/components/layout/DashboardLayout";
 import MarketTicker from "@/components/dashboard/MarketTicker";
 import FearGreedIndex from "@/components/dashboard/FearGreedIndex";
 import MarketHeatmap from "@/components/dashboard/MarketHeatmap";
-import TrendWordCloud from "@/components/dashboard/TrendWordCloud";
-import RelatedStocks from "@/components/dashboard/RelatedStocks";
+import TrendAnalysisWidget from "@/components/dashboard/TrendAnalysisWidget";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
@@ -74,9 +73,8 @@ export default function Dashboard() {
                <MarketHeatmap />
              </div>
 
-             <div className="grid grid-cols-1 md:grid-cols-2 gap-6 h-[350px]">
-                <TrendWordCloud />
-                <RelatedStocks />
+             <div className="h-[350px]">
+                <TrendAnalysisWidget />
              </div>
           </div>
         </div>
