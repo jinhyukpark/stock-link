@@ -93,7 +93,7 @@ export default function FearGreedIndex() {
             </div>
             
             {/* Chart Labels Overlay */}
-             <div className="absolute inset-x-0 bottom-[60px] flex justify-between px-10 pointer-events-none">
+             <div className="absolute inset-x-0 bottom-[40px] flex justify-between px-6 pointer-events-none">
               <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest text-center leading-tight">Extreme<br/>Fear</span>
               <span className="text-[10px] font-bold text-red-400 uppercase tracking-widest text-center leading-tight">Extreme<br/>Greed</span>
             </div>
