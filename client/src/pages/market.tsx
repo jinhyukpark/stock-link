@@ -217,7 +217,44 @@ const DescriptionBlock = ({ content }: { content: string }) => (
   </p>
 );
 
-const MarketSummaryReport = ({ date }: { date: string }) => (
+const summaryVariants = [
+  {
+    title: (<span>대형주 모멘텀 주도의 <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">강세장 지속 신호</span> 포착</span>),
+    content: "종합 시장 데이터는 강력한 회복 국면을 시사합니다. 공포 & 탐욕 지수는 '탐욕' 구간(65)으로 진입했으며, 반도체 대형주에 대한 외국인의 강한 순매수가 이를 뒷받침하고 있습니다. 코스닥 소형주는 다소 뒤쳐져 있으나, 전반적인 시장의 상승 폭은 확대되고 있습니다.",
+    metrics: [
+      { label: "시장 국면", value: "위험 회피", icon: Gauge, color: "text-red-400" },
+      { label: "시장 건전성", value: "붕괴", icon: Activity, color: "text-red-400" },
+      { label: "자금 흐름", value: "소형주 투기", icon: ArrowRightLeft, color: "text-yellow-500" },
+      { label: "대응 전략", value: "현금 관망", icon: Target, color: "text-blue-400" }
+    ]
+  },
+  {
+    title: (<span>단기 과열 우려 속 <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-orange-500">숨고르기 장세</span> 진입</span>),
+    content: "지수가 단기간 급등함에 따라 차익 실현 매물이 출회되고 있습니다. 기술적 지표들은 과매수 구간에 진입하였으며, 변동성 지수가 소폭 상승하고 있어 리스크 관리가 필요한 시점입니다. 현금 비중을 확대하고 보수적인 접근이 유효합니다.",
+    metrics: [
+      { label: "시장 국면", value: "과열권", icon: Gauge, color: "text-red-500" },
+      { label: "시장 건전성", value: "주의", icon: Activity, color: "text-yellow-500" },
+      { label: "자금 흐름", value: "순환매", icon: ArrowRightLeft, color: "text-blue-400" },
+      { label: "대응 전략", value: "비중 축소", icon: Target, color: "text-red-400" }
+    ]
+  },
+  {
+    title: (<span>저가 매수세 유입으로 인한 <span className="text-transparent bg-clip-text bg-gradient-to-r from-blue-400 to-cyan-500">기술적 반등</span> 시도</span>),
+    content: "최근 하락에 따른 저가 매수세가 유입되며 지수가 반등을 시도하고 있습니다. 다만, 거래량이 수반되지 않은 반등은 신뢰도가 낮으므로 보수적인 접근이 필요합니다. 확실한 추세 전환 신호가 나올 때까지 관망하는 것이 좋습니다.",
+    metrics: [
+      { label: "시장 국면", value: "침체", icon: Gauge, color: "text-blue-500" },
+      { label: "시장 건전성", value: "약세", icon: Activity, color: "text-blue-400" },
+      { label: "자금 흐름", value: "자금 이탈", icon: ArrowRightLeft, color: "text-red-400" },
+      { label: "대응 전략", value: "분할 매수", icon: Target, color: "text-green-400" }
+    ]
+  }
+];
+
+const MarketSummaryReport = ({ date }: { date: string }) => {
+  const dayIndex = new Date(date).getDate() % 3;
+  const data = summaryVariants[dayIndex];
+
+  return (
   <div className="bg-gradient-to-br from-[#12141a] to-[#0B0E14] border border-border/30 rounded-xl mb-12 shadow-2xl overflow-hidden">
     {/* Header Section */}
     <div className="bg-secondary/30 px-6 py-3 border-b border-border/40 flex justify-between items-center">
@@ -233,78 +270,38 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
         {/* Main Text Content */}
         <div className="flex-1 pb-8 border-b border-border/20">
            <h4 className="text-3xl font-display font-bold text-white mb-6 leading-tight">
-             대형주 모멘텀 주도의 <span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">강세장 지속 신호</span> 포착
+             {data.title}
            </h4>
            
            <div className="border-l-4 border-primary pl-4 py-1">
              <p className="text-gray-400 leading-relaxed text-lg font-light">
-               종합 시장 데이터는 강력한 회복 국면을 시사합니다. 공포 & 탐욕 지수는 '탐욕' 구간(65)으로 진입했으며, 반도체 대형주에 대한 외국인의 강한 순매수가 이를 뒷받침하고 있습니다. 코스닥 소형주는 다소 뒤쳐져 있으나, 전반적인 시장의 상승 폭은 확대되고 있습니다.
+               {data.content}
              </p>
            </div>
         </div>
 
         {/* Key Metrics Grid */}
         <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4">
-             <div className="bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors overflow-hidden group">
-               <div className="bg-white/5 px-4 py-3 border-b border-white/5 group-hover:bg-white/10 transition-colors">
-                 <div className="flex items-center gap-2">
-                   <Gauge className="w-4 h-4 text-red-400" />
-                   <div className="font-bold text-gray-200 text-sm tracking-wide">시장 국면</div>
+             {data.metrics.map((metric, idx) => (
+               <div key={idx} className="bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors overflow-hidden group">
+                 <div className="bg-white/5 px-4 py-3 border-b border-white/5 group-hover:bg-white/10 transition-colors">
+                   <div className="flex items-center gap-2">
+                     <metric.icon className={`w-4 h-4 ${metric.color}`} />
+                     <div className="font-bold text-gray-200 text-sm tracking-wide">{metric.label}</div>
+                   </div>
+                 </div>
+                 <div className="p-5">
+                   <div className={`text-xl font-bold ${metric.color} flex items-center gap-2`}>
+                     {metric.value}
+                   </div>
                  </div>
                </div>
-               <div className="p-5">
-                 <div className="text-xl font-bold text-red-400 flex items-center gap-2">
-                   위험 회피
-                 </div>
-               </div>
-             </div>
-             
-             <div className="bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors overflow-hidden group">
-               <div className="bg-white/5 px-4 py-3 border-b border-white/5 group-hover:bg-white/10 transition-colors">
-                 <div className="flex items-center gap-2">
-                   <Activity className="w-4 h-4 text-red-400" />
-                   <div className="font-bold text-gray-200 text-sm tracking-wide">시장 건전성</div>
-                 </div>
-               </div>
-               <div className="p-5">
-                 <div className="text-xl font-bold text-red-400 flex items-center gap-2">
-                    붕괴
-                 </div>
-               </div>
-             </div>
-             
-             <div className="bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors overflow-hidden group">
-               <div className="bg-white/5 px-4 py-3 border-b border-white/5 group-hover:bg-white/10 transition-colors">
-                 <div className="flex items-center gap-2">
-                   <ArrowRightLeft className="w-4 h-4 text-yellow-500" />
-                   <div className="font-bold text-gray-200 text-sm tracking-wide">자금 흐름</div>
-                 </div>
-               </div>
-               <div className="p-5">
-                 <div className="text-xl font-bold text-yellow-500 flex items-center gap-2">
-                    소형주 투기
-                 </div>
-               </div>
-             </div>
-             
-             <div className="bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors overflow-hidden group">
-               <div className="bg-white/5 px-4 py-3 border-b border-white/5 group-hover:bg-white/10 transition-colors">
-                 <div className="flex items-center gap-2">
-                   <Target className="w-4 h-4 text-blue-400" />
-                   <div className="font-bold text-gray-200 text-sm tracking-wide">대응 전략</div>
-                 </div>
-               </div>
-               <div className="p-5">
-                 <div className="text-xl font-bold text-blue-400 flex items-center gap-2">
-                    현금 관망
-                 </div>
-               </div>
-             </div>
+             ))}
         </div>
       </div>
     </div>
   </div>
-);
+)};
 
 // --- Navigation Links ---
 const navLinks = [
@@ -572,7 +569,7 @@ export default function MarketAnalysis() {
                   >
                     <CalendarDays className="mr-2 h-3.5 w-3.5 text-muted-foreground" />
                     {date
-                      ? dateOptions.find((d) => d.value === date)?.label
+                      ? format(new Date(date), "MMM dd, yyyy")
                       : "Select date..."}
                     <ChevronsUpDown className="ml-2 h-3 w-3 shrink-0 opacity-50" />
                   </Button>
