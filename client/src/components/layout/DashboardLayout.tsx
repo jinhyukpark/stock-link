@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, LineChart, PieChart, Newspaper, Users, Settings, LogOut, Search, Bell, Menu } from "lucide-react";
+import { LayoutDashboard, LineChart, PieChart, Newspaper, Users, Settings, LogOut, Search, Bell, Menu, Network } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -16,6 +16,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
     { icon: LineChart, label: "Stock", href: "/stock" },
     { icon: PieChart, label: "Momentum", href: "/analysis" },
     { icon: Newspaper, label: "Market", href: "/market" },
+    { icon: Network, label: "Ontology", href: "/ontology" },
     { icon: Users, label: "Community", href: "/community" },
   ];
 
