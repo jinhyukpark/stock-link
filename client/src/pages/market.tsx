@@ -838,7 +838,7 @@ export default function MarketAnalysis() {
       </div>
       
       <Dialog open={!!selectedChart} onOpenChange={(open) => !open && setSelectedChart(null)}>
-        <DialogContent className="max-w-[95vw] h-[90vh] bg-[#0B0E14] border-border/50 flex flex-col p-0 overflow-visible sm:max-w-[90vw] lg:max-w-[1600px]">
+        <DialogContent className="max-w-[95vw] h-[90vh] bg-[#0B0E14] border-border/50 flex flex-col p-0 overflow-visible sm:max-w-[90vw] lg:max-w-[80vw] w-full">
           
           <Button variant="ghost" size="icon" className="absolute -left-16 top-1/2 -translate-y-1/2 z-50 h-12 w-12 rounded-full bg-black/50 hover:bg-black/80 border border-white/10 text-white hidden xl:flex" onClick={handlePrev}>
              <ChevronLeft className="w-8 h-8" />
