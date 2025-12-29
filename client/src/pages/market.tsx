@@ -838,7 +838,10 @@ export default function MarketAnalysis() {
                             )}
                             onClick={() => setSelectedChart(item)}
                         >
-                            <span className="text-[10px] font-bold font-mono tracking-tight uppercase">{item.title.split('(')[0].replace('History', '').replace('Distribution', 'Dist.').replace('Rotation', 'Rot.').trim()}</span>
+                            <span className="text-[10px] font-bold font-mono tracking-tight uppercase">
+                                <span className="opacity-50 mr-1.5">{String(idx + 1).padStart(2, '0')}.</span>
+                                {item.title.split('(')[0].replace('History', '').replace('Distribution', 'Dist.').replace('Rotation', 'Rot.').trim()}
+                            </span>
                         </Button>
                     ))}
                 </div>
