@@ -6,6 +6,7 @@ import RealTimeStockList from "@/components/dashboard/RealTimeStockList";
 import MarketHeatmap from "@/components/dashboard/MarketHeatmap";
 import TrendAnalysisWidget from "@/components/dashboard/TrendAnalysisWidget";
 import TrendingThemes from "@/components/dashboard/TrendingThemes";
+import MarketStatus from "@/components/dashboard/MarketStatus";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Area, AreaChart, ResponsiveContainer, Tooltip, XAxis, YAxis } from "recharts";
 
@@ -42,8 +43,11 @@ export default function Dashboard() {
           </div>
 
           {/* Middle Column: Stock List */}
-          <div className="xl:col-span-5 min-h-[600px]">
-             <RealTimeStockList />
+          <div className="xl:col-span-5 flex flex-col gap-4 min-h-[600px]">
+             <MarketStatus />
+             <div className="flex-1">
+                <RealTimeStockList />
+             </div>
           </div>
 
           {/* Right Column: Heatmap & Trends (Stack) */}
