@@ -631,39 +631,43 @@ export default function MarketAnalysis() {
            </div>
         </div>
 
-        {/* Main Document Area */}
-        <div id="market-content-container" className="flex-1 overflow-y-auto bg-[#050505] p-8">
-          <div className="max-w-5xl mx-auto bg-[#0B0E14] min-h-full border border-[#00ff9d]/50 shadow-[0_0_50px_rgba(0,255,157,0.15)]">
-            <div className="p-12 md:p-16 space-y-16 relative">
-              
-              {/* Report Navigation - Carousel Buttons */}
-              <div className="absolute left-4 top-[88px] -translate-y-1/2 hidden xl:flex flex-col items-center gap-2 z-10">
-                 <Button 
-                   variant="ghost" 
-                   size="icon" 
-                   className="h-12 w-12 rounded-full bg-black/50 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white transition-all"
-                   onClick={handlePrevDate}
-                 >
-                   <ChevronLeft className="w-6 h-6" />
-                 </Button>
-                 <span className="text-[10px] font-mono text-muted-foreground tracking-wider">
-                   {format(subDays(new Date(date), 1), "MMM dd")}
-                 </span>
-              </div>
+        <div id="market-content-container" className="flex-1 overflow-y-auto bg-[#050505] p-8 relative">
+          
+          {/* Report Navigation - Floating Buttons */}
+          {/* We position these fixed relative to the viewport to ensure they stay centered on screen regardless of scroll */}
+          {/* Or we can position them absolute relative to this container if we want them to scroll with content, but "centered" usually implies viewport centering */}
+          {/* Given the user request "outside the glow box... in the center", let's place them fixed on the sides of the viewport, vertically centered */}
+          
+          <div className="fixed left-8 top-1/2 -translate-y-1/2 hidden xl:flex flex-col items-center gap-2 z-50">
+             <Button 
+               variant="ghost" 
+               size="icon" 
+               className="h-14 w-14 rounded-full bg-black/50 hover:bg-primary/20 border border-white/10 text-white/70 hover:text-primary transition-all backdrop-blur-sm"
+               onClick={handlePrevDate}
+             >
+               <ChevronLeft className="w-8 h-8" />
+             </Button>
+             <span className="text-xs font-mono text-muted-foreground tracking-wider bg-black/80 px-2 py-1 rounded border border-white/5">
+               {format(subDays(new Date(date), 1), "MMM dd")}
+             </span>
+          </div>
 
-              <div className="absolute right-4 top-[88px] -translate-y-1/2 hidden xl:flex flex-col items-center gap-2 z-10">
-                 <Button 
-                   variant="ghost" 
-                   size="icon" 
-                   className="h-12 w-12 rounded-full bg-black/50 hover:bg-white/10 border border-white/10 text-white/70 hover:text-white transition-all"
-                   onClick={handleNextDate}
-                 >
-                   <ChevronRight className="w-6 h-6" />
-                 </Button>
-                 <span className="text-[10px] font-mono text-muted-foreground tracking-wider">
-                   {format(addDays(new Date(date), 1), "MMM dd")}
-                 </span>
-              </div>
+          <div className="fixed right-8 top-1/2 -translate-y-1/2 hidden xl:flex flex-col items-center gap-2 z-50">
+             <Button 
+               variant="ghost" 
+               size="icon" 
+               className="h-14 w-14 rounded-full bg-black/50 hover:bg-primary/20 border border-white/10 text-white/70 hover:text-primary transition-all backdrop-blur-sm"
+               onClick={handleNextDate}
+             >
+               <ChevronRight className="w-8 h-8" />
+             </Button>
+             <span className="text-xs font-mono text-muted-foreground tracking-wider bg-black/80 px-2 py-1 rounded border border-white/5">
+               {format(addDays(new Date(date), 1), "MMM dd")}
+             </span>
+          </div>
+
+          <div className="max-w-5xl mx-auto bg-[#0B0E14] min-h-full border border-[#00ff9d]/50 shadow-[0_0_50px_rgba(0,255,157,0.15)] relative">
+            <div className="p-12 md:p-16 space-y-16">
             
               <ReportHeader date={date} />
               <MarketSummaryReport date={date} />
