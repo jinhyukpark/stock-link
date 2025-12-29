@@ -50,7 +50,7 @@ export default function Dashboard() {
             <div className="xl:flex-1 h-[300px] xl:h-auto overflow-hidden">
               <FearGreedIndex />
             </div>
-            <div className="h-[280px] shrink-0">
+            <div className="h-[320px] shrink-0">
               <MarketDistribution />
             </div>
           </div>

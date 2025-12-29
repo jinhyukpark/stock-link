@@ -31,7 +31,7 @@ const CustomLabel = ({ cx, cy, midAngle, innerRadius, outerRadius, percent, inde
 
 export default function MarketDistribution() {
   return (
-    <Card className="h-[300px] bg-card/50 backdrop-blur-sm border-border/50">
+    <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50">
       <CardContent className="p-4 h-full flex items-center justify-center">
         <div className="w-full h-full grid grid-cols-2 gap-4">
           {/* Chart 1: Price Distribution */}
