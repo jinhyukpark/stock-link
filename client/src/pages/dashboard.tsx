@@ -23,18 +23,17 @@ export default function Dashboard() {
   return (
     <DashboardLayout>
       <div className="flex flex-col h-[calc(100vh-4rem)] gap-4 p-4 overflow-hidden">
-        {/* Top Header Section - Compact */}
-        <div className="flex justify-between items-end shrink-0">
-          <div>
-            <h1 className="text-2xl font-display font-bold tracking-tight text-white mb-0.5">Market Dashboard</h1>
-            <p className="text-sm text-muted-foreground">Real-time AI analysis of global markets.</p>
+        {/* Top Header Section - Ultra Compact */}
+        <div className="flex justify-between items-center shrink-0 h-10 border-b border-border/40 bg-card/20 backdrop-blur-sm px-1 rounded-t-lg">
+          <div className="flex items-center gap-3">
+             <span className="text-sm font-display font-bold text-white tracking-wider">StockLink</span>
           </div>
-          <div className="flex flex-col items-end gap-0.5">
-             <div className="flex items-center gap-2">
-                <span className="flex h-2 w-2 rounded-full bg-green-500 animate-pulse"></span>
-                <span className="text-xs text-green-500 font-medium">Market Open</span>
+          <div className="flex items-center gap-3">
+             <div className="flex items-center gap-1.5 px-2 py-0.5 bg-green-500/10 rounded-full border border-green-500/20">
+                <span className="flex h-1.5 w-1.5 rounded-full bg-green-500 animate-pulse"></span>
+                <span className="text-[10px] text-green-500 font-bold uppercase">Open</span>
              </div>
-             <span className="text-[10px] text-muted-foreground font-mono">Data as of: 2024-12-29 20:55 KST</span>
+             <span className="text-[10px] font-mono text-muted-foreground/80">2024-12-29 20:55 KST</span>
           </div>
         </div>
 
