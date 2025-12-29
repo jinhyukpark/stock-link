@@ -823,6 +823,26 @@ export default function MarketAnalysis() {
              <Button variant="ghost" size="icon" className="absolute right-2 top-1/2 -translate-y-1/2 z-50 h-10 w-10 rounded-full bg-black/50 hover:bg-black/80 border border-white/10 text-white xl:hidden" onClick={handleNext}>
                 <ChevronRight className="w-6 h-6" />
              </Button>
+
+             <div className="shrink-0 mb-6 flex justify-center w-full">
+                <div className="flex gap-2">
+                    {allCharts.map((item, idx) => (
+                        <Button 
+                            key={idx} 
+                            variant="ghost" 
+                            className={cn(
+                                "w-12 h-10 p-0 rounded-md border transition-all flex items-center justify-center",
+                                currentIndex === idx 
+                                    ? "bg-primary/20 text-primary border-primary/50 shadow-[0_0_10px_rgba(34,197,94,0.2)]" 
+                                    : "bg-secondary/10 text-muted-foreground border-transparent hover:bg-secondary/30 hover:text-white"
+                            )}
+                            onClick={() => setSelectedChart(item)}
+                        >
+                            <span className="text-xs font-bold font-mono">{idx + 1}</span>
+                        </Button>
+                    ))}
+                </div>
+            </div>
              
             <DialogHeader className="shrink-0 mb-4 px-8">
                 <div className="flex items-center justify-between">
@@ -848,26 +868,6 @@ export default function MarketAnalysis() {
                 </p>
             </div>
             
-             <div className="shrink-0 mt-4 px-8 pt-4 border-t border-border/20 overflow-x-auto">
-                <div className="flex gap-2 pb-2">
-                    {allCharts.map((item, idx) => (
-                        <Button 
-                            key={idx} 
-                            variant="ghost" 
-                            size="sm" 
-                            className={cn(
-                                "text-xs h-8 px-3 whitespace-nowrap border transition-all",
-                                currentIndex === idx 
-                                    ? "bg-primary/20 text-primary border-primary/50" 
-                                    : "bg-secondary/10 text-muted-foreground border-transparent hover:bg-secondary/30 hover:text-white"
-                            )}
-                            onClick={() => setSelectedChart(item)}
-                        >
-                            {idx + 1}. {item.title.split('(')[0].trim()}
-                        </Button>
-                    ))}
-                </div>
-            </div>
           </div>
         </DialogContent>
       </Dialog>
