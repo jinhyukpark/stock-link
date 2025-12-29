@@ -160,26 +160,37 @@ export default function MomentumPage() {
                   </Button>
                 </div>
 
-                {/* Chart Area */}
-                <div className="h-24 w-full relative">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={generateChartData(stock.trend as any)}>
-                      <defs>
-                        <linearGradient id={`grad_${stock.id}`} x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0.3}/>
-                          <stop offset="95%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0}/>
-                        </linearGradient>
-                      </defs>
-                      <Area 
-                        type="monotone" 
-                        dataKey="value" 
-                        stroke={stock.change > 0 ? "#ef4444" : "#3b82f6"} 
-                        fill={`url(#grad_${stock.id})`} 
-                        strokeWidth={1.5}
-                      />
-                      <YAxis domain={['dataMin', 'dataMax']} hide />
-                    </AreaChart>
-                  </ResponsiveContainer>
+                {/* Chart & Score Area */}
+                <div className="flex items-end gap-2 p-3 pb-2 min-h-[80px]">
+                  {/* Left: Chart */}
+                  <div className="flex-1 h-14 relative">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={generateChartData(stock.trend as any)}>
+                        <defs>
+                          <linearGradient id={`grad_${stock.id}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0}/>
+                          </linearGradient>
+                        </defs>
+                        <Area 
+                          type="monotone" 
+                          dataKey="value" 
+                          stroke={stock.change > 0 ? "#ef4444" : "#3b82f6"} 
+                          fill={`url(#grad_${stock.id})`} 
+                          strokeWidth={1.5}
+                        />
+                        <YAxis domain={['dataMin', 'dataMax']} hide />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+
+                  {/* Right: AI Score */}
+                  <div className="text-right shrink-0">
+                    <div className="text-[9px] text-blue-400 font-bold mb-0.5">AI점수</div>
+                    <div className="text-xl font-bold text-white leading-none">
+                      {stock.score.toFixed(1)}<span className="text-sm text-gray-500 font-normal">/10</span>
+                    </div>
+                  </div>
                 </div>
 
                 {/* Price Info */}
@@ -197,29 +208,8 @@ export default function MomentumPage() {
                   </div>
                 </div>
 
-                {/* AI Score */}
-                <div className="p-3 bg-black/20">
-                  <div className="flex justify-between items-end mb-1">
-                    <span className="text-[10px] text-blue-400 font-bold">AI점수 <span className="text-gray-500 font-normal">(1주 이내)</span></span>
-                    <div className="text-right">
-                      <div className="text-[9px] text-gray-500 mb-0.5">12월26일 기준</div>
-                      <div className="text-xl font-bold text-white leading-none">
-                        {stock.score.toFixed(1)}<span className="text-sm text-gray-500 font-normal">/10</span>
-                      </div>
-                    </div>
-                  </div>
-                  
-                  {/* Score Bar */}
-                  <div className="h-1.5 w-full bg-gray-800 rounded-full mt-2 relative overflow-hidden">
-                    <div className="absolute inset-y-0 left-0 w-full bg-gradient-to-r from-blue-600 via-purple-500 to-red-500" />
-                  </div>
-                  <div className="flex justify-between mt-1 text-[9px] text-gray-600 font-mono">
-                    <span>0</span>
-                    <span>5</span>
-                    <span>10</span>
-                  </div>
-                </div>
-
+                {/* AI Score (Removed) */}
+                
                 {/* Metrics Grid */}
                 <div className="grid grid-cols-3 border-t border-white/5 text-[9px]">
                   {/* Column 1 */}
