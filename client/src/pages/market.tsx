@@ -242,9 +242,9 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
     </div>
     
     <div className="p-8">
-      <div className="flex flex-col lg:flex-row gap-12">
+      <div className="flex flex-col gap-8">
         {/* Main Text Content */}
-        <div className="flex-1 lg:border-r border-border/20 lg:pr-12">
+        <div className="flex-1 pb-8 border-b border-border/20">
            <h4 className="text-3xl font-display font-bold text-white mb-6 leading-tight">
              대형주 모멘텀 주도의 <br/><span className="text-transparent bg-clip-text bg-gradient-to-r from-green-400 to-emerald-500">강세장 지속 신호</span> 포착
            </h4>
@@ -254,7 +254,7 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
         </div>
 
         {/* Key Metrics Grid */}
-        <div className="lg:w-[45%] grid grid-cols-2 gap-4">
+        <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4">
              <div className="bg-white/5 rounded-lg p-5 border border-white/5 hover:bg-white/10 transition-colors">
                <div className="text-[10px] uppercase tracking-widest text-muted-foreground mb-2 font-mono">시장 국면 (REGIME)</div>
                <div className="text-xl font-bold text-red-400 flex items-center gap-2">
