@@ -128,8 +128,6 @@ export default function MomentumPage() {
           )}
 
           <div className="flex flex-col xl:flex-row gap-4 justify-between items-start xl:items-center p-0">
-
-          <div className="flex flex-col xl:flex-row gap-4 justify-between items-start xl:items-center p-0">
             <div className="flex flex-wrap items-center gap-4">
               <Button variant="ghost" size="icon" className="h-8 w-8 text-yellow-400 hover:text-yellow-300">
                 <Star className="fill-current w-5 h-5" />
