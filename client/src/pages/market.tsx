@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, ComposedChart, ReferenceLine } from "recharts";
-import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Sparkles, FileText, Calendar, User, Download, CalendarDays, Check, ChevronsUpDown, HelpCircle, Maximize2, X } from "lucide-react";
+import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Sparkles, FileText, Calendar, User, Download, CalendarDays, Check, ChevronsUpDown, HelpCircle, Maximize2, X, Gauge, ArrowRightLeft, Target } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -247,11 +247,13 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
         <div className="w-full grid grid-cols-2 lg:grid-cols-4 gap-4">
              <div className="bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors overflow-hidden group">
                <div className="bg-white/5 px-4 py-3 border-b border-white/5 group-hover:bg-white/10 transition-colors">
-                 <div className="font-bold text-gray-200 text-sm tracking-wide">시장 국면</div>
+                 <div className="flex items-center gap-2">
+                   <Gauge className="w-4 h-4 text-red-400" />
+                   <div className="font-bold text-gray-200 text-sm tracking-wide">시장 국면</div>
+                 </div>
                </div>
                <div className="p-5">
                  <div className="text-xl font-bold text-red-400 flex items-center gap-2">
-                   <span className="w-2 h-2 rounded-full bg-red-500"></span>
                    위험 회피
                  </div>
                </div>
@@ -259,11 +261,13 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
              
              <div className="bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors overflow-hidden group">
                <div className="bg-white/5 px-4 py-3 border-b border-white/5 group-hover:bg-white/10 transition-colors">
-                 <div className="font-bold text-gray-200 text-sm tracking-wide">시장 건전성</div>
+                 <div className="flex items-center gap-2">
+                   <Activity className="w-4 h-4 text-red-400" />
+                   <div className="font-bold text-gray-200 text-sm tracking-wide">시장 건전성</div>
+                 </div>
                </div>
                <div className="p-5">
                  <div className="text-xl font-bold text-red-400 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-red-500"></span>
                     붕괴
                  </div>
                </div>
@@ -271,11 +275,13 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
              
              <div className="bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors overflow-hidden group">
                <div className="bg-white/5 px-4 py-3 border-b border-white/5 group-hover:bg-white/10 transition-colors">
-                 <div className="font-bold text-gray-200 text-sm tracking-wide">자금 흐름</div>
+                 <div className="flex items-center gap-2">
+                   <ArrowRightLeft className="w-4 h-4 text-yellow-500" />
+                   <div className="font-bold text-gray-200 text-sm tracking-wide">자금 흐름</div>
+                 </div>
                </div>
                <div className="p-5">
                  <div className="text-xl font-bold text-yellow-500 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-yellow-500"></span>
                     소형주 투기
                  </div>
                </div>
@@ -283,11 +289,13 @@ const MarketSummaryReport = ({ date }: { date: string }) => (
              
              <div className="bg-white/5 rounded-lg border border-white/5 hover:bg-white/10 transition-colors overflow-hidden group">
                <div className="bg-white/5 px-4 py-3 border-b border-white/5 group-hover:bg-white/10 transition-colors">
-                 <div className="font-bold text-gray-200 text-sm tracking-wide">대응 전략</div>
+                 <div className="flex items-center gap-2">
+                   <Target className="w-4 h-4 text-blue-400" />
+                   <div className="font-bold text-gray-200 text-sm tracking-wide">대응 전략</div>
+                 </div>
                </div>
                <div className="p-5">
                  <div className="text-xl font-bold text-blue-400 flex items-center gap-2">
-                    <span className="w-2 h-2 rounded-full bg-blue-500"></span>
                     현금 관망
                  </div>
                </div>
