@@ -1,6 +1,7 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import MarketTicker from "@/components/dashboard/MarketTicker";
 import FearGreedIndex from "@/components/dashboard/FearGreedIndex";
+import MarketDistribution from "@/components/dashboard/MarketDistribution";
 import RealTimeStockList from "@/components/dashboard/RealTimeStockList";
 import MarketHeatmap from "@/components/dashboard/MarketHeatmap";
 import TrendAnalysisWidget from "@/components/dashboard/TrendAnalysisWidget";
@@ -46,30 +47,7 @@ export default function Dashboard() {
               <FearGreedIndex />
             </div>
             
-            <Card className="h-[300px] bg-card/50 backdrop-blur-sm border-border/50">
-              <CardHeader>
-                <CardTitle className="text-base">KOSPI Intraday</CardTitle>
-              </CardHeader>
-              <CardContent className="h-[200px]">
-                <ResponsiveContainer width="100%" height="100%">
-                  <AreaChart data={chartData}>
-                    <defs>
-                      <linearGradient id="colorValue" x1="0" y1="0" x2="0" y2="1">
-                        <stop offset="5%" stopColor="#ef4444" stopOpacity={0.3}/>
-                        <stop offset="95%" stopColor="#ef4444" stopOpacity={0}/>
-                      </linearGradient>
-                    </defs>
-                    <XAxis dataKey="time" hide />
-                    <YAxis domain={['auto', 'auto']} hide />
-                    <Tooltip 
-                      contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px' }}
-                      itemStyle={{ color: '#fff' }}
-                    />
-                    <Area type="monotone" dataKey="value" stroke="#ef4444" strokeWidth={2} fillOpacity={1} fill="url(#colorValue)" />
-                  </AreaChart>
-                </ResponsiveContainer>
-              </CardContent>
-            </Card>
+            <MarketDistribution />
           </div>
 
           {/* Middle Column: Real-time List */}
