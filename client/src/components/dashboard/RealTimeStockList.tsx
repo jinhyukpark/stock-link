@@ -61,7 +61,7 @@ export default function RealTimeStockList() {
       <CardContent className="p-0 flex-1 overflow-auto">
          <div className="w-full text-sm">
             {/* Table Header */}
-            <div className="grid grid-cols-12 gap-4 px-6 py-2 text-xs text-muted-foreground border-b border-border/50">
+            <div className="grid grid-cols-12 gap-4 px-6 py-2 text-xs text-muted-foreground border-b border-border/50 sticky top-0 bg-[#0B0E14]/95 backdrop-blur z-10">
                <div className="col-span-5 md:col-span-4">Stock</div>
                <div className="col-span-3 md:col-span-3 text-right">Price</div>
                <div className="col-span-2 md:col-span-2 text-right">Change</div>
@@ -117,6 +117,39 @@ export default function RealTimeStockList() {
             </div>
          </div>
       </CardContent>
+
+      {/* Market Status Summary Footer */}
+      <div className="border-t border-border/50 p-4 grid grid-cols-2 gap-4 bg-card/30">
+        {/* Advancing Stocks */}
+        <div className="flex items-center justify-between p-3 rounded-lg bg-red-500/5 border border-red-500/20 hover:bg-red-500/10 transition-colors cursor-pointer group">
+          <div className="flex flex-col">
+              <span className="text-xs text-red-400/80 font-medium mb-1 group-hover:text-red-400">Market Strong</span>
+              <div className="flex items-baseline gap-1">
+                <span className="text-xl font-bold text-white font-mono">1,248</span>
+                <span className="text-[10px] text-red-400">Stocks</span>
+              </div>
+          </div>
+          <div className="flex flex-col items-end">
+              <span className="text-[10px] text-muted-foreground mb-1">Avg Change</span>
+              <span className="text-sm font-bold text-red-400 font-mono">+4.2%</span>
+          </div>
+        </div>
+
+        {/* Declining Stocks */}
+        <div className="flex items-center justify-between p-3 rounded-lg bg-blue-500/5 border border-blue-500/20 hover:bg-blue-500/10 transition-colors cursor-pointer group">
+          <div className="flex flex-col">
+              <span className="text-xs text-blue-400/80 font-medium mb-1 group-hover:text-blue-400">Market Weak</span>
+              <div className="flex items-baseline gap-1">
+                <span className="text-xl font-bold text-white font-mono">892</span>
+                <span className="text-[10px] text-blue-400">Stocks</span>
+              </div>
+          </div>
+          <div className="flex flex-col items-end">
+              <span className="text-[10px] text-muted-foreground mb-1">Avg Change</span>
+              <span className="text-sm font-bold text-blue-400 font-mono">-2.1%</span>
+          </div>
+        </div>
+      </div>
     </Card>
   );
 }
