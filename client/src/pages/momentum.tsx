@@ -108,21 +108,9 @@ export default function MomentumPage() {
         
         {/* Toolbar */}
         <div className="flex flex-col gap-4">
-          <div className="flex items-center gap-4 mb-2">
-             {!showDescription && (
-               <div className="flex items-center gap-2 animate-in fade-in zoom-in duration-300">
-                  <h1 className="text-xl font-bold text-white whitespace-nowrap">모멘텀 분석</h1>
-                  <button 
-                    onClick={() => setShowDescription(true)}
-                    className="text-gray-600 hover:text-blue-400 transition-colors p-1"
-                    title="설명 보기"
-                  >
-                    <Info className="w-4 h-4" />
-                  </button>
-               </div>
-             )}
-             {showDescription && (
-               <div className="flex items-center gap-3 bg-blue-950/30 border border-blue-800/30 rounded-lg px-4 py-2 text-sm text-blue-100 animate-in fade-in slide-in-from-left-4 duration-300">
+          {showDescription && (
+            <div className="flex items-center gap-4 mb-2 animate-in fade-in slide-in-from-top-2 duration-300">
+               <div className="flex items-center gap-3 bg-blue-950/30 border border-blue-800/30 rounded-lg px-4 py-2 text-sm text-blue-100 w-full">
                  <Info className="w-4 h-4 text-blue-400 shrink-0" />
                  <span className="font-bold text-blue-200 whitespace-nowrap">모멘텀 분석?</span>
                  <span className="text-gray-300 border-l border-blue-800/50 pl-3">
@@ -131,13 +119,15 @@ export default function MomentumPage() {
                  </span>
                  <button 
                    onClick={() => setShowDescription(false)}
-                   className="ml-2 p-1 hover:bg-blue-900/30 rounded-md transition-colors text-blue-400 hover:text-blue-200"
+                   className="ml-auto p-1 hover:bg-blue-900/30 rounded-md transition-colors text-blue-400 hover:text-blue-200"
                  >
                    <X className="w-3 h-3" />
                  </button>
                </div>
-             )}
-          </div>
+            </div>
+          )}
+
+          <div className="flex flex-col xl:flex-row gap-4 justify-between items-start xl:items-center p-0">
 
           <div className="flex flex-col xl:flex-row gap-4 justify-between items-start xl:items-center p-0">
             <div className="flex flex-wrap items-center gap-4">
