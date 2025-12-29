@@ -7,12 +7,14 @@ import NotFound from "@/pages/not-found";
 import Dashboard from "@/pages/dashboard";
 
 import MarketAnalysis from "@/pages/market";
+import MomentumPage from "@/pages/momentum";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Dashboard} />
       <Route path="/market" component={MarketAnalysis} />
+      <Route path="/analysis" component={MomentumPage} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
