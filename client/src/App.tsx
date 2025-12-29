@@ -8,11 +8,13 @@ import Dashboard from "@/pages/dashboard";
 
 import MarketAnalysis from "@/pages/market";
 import MomentumPage from "@/pages/momentum";
+import StockPage from "@/pages/stock";
 
 function Router() {
   return (
     <Switch>
       <Route path="/" component={Dashboard} />
+      <Route path="/stock" component={StockPage} />
       <Route path="/market" component={MarketAnalysis} />
       <Route path="/analysis" component={MomentumPage} />
       {/* Fallback to 404 */}
