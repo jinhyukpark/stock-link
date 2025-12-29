@@ -460,14 +460,14 @@ export default function MarketAnalysis() {
   );
 
   const allCharts = [
-    { id: 'fgi', title: "Fear & Greed Index History", description: chartDescriptions.fgi, chart: fgiChart, analysis: analysisTexts.fgi },
-    { id: 'kospiBreadth', title: "KOSPI Breadth", description: chartDescriptions.breadth, chart: kospiBreadthChart, analysis: analysisTexts.breadth },
-    { id: 'kosdaqBreadth', title: "KOSDAQ Breadth", description: chartDescriptions.breadth, chart: kosdaqBreadthChart, analysis: analysisTexts.breadth },
-    { id: 'kospiDist', title: "KOSPI Price Distribution", description: chartDescriptions.dist, chart: kospiDistChart, analysis: analysisTexts.dist },
-    { id: 'kosdaqDist', title: "KOSDAQ Price Distribution", description: chartDescriptions.dist, chart: kosdaqDistChart, analysis: analysisTexts.dist },
-    { id: 'kospiCap', title: "KOSPI Market Cap Rotation", description: chartDescriptions.cap, chart: kospiSizeChart, analysis: analysisTexts.cap },
-    { id: 'kosdaqCap', title: "KOSDAQ Market Cap Rotation", description: chartDescriptions.cap, chart: kosdaqSizeChart, analysis: analysisTexts.cap },
-    { id: 'pam', title: "KOSPI Expected Returns (PAM)", description: chartDescriptions.pam, chart: pamChart, analysis: analysisTexts.pam },
+    { id: 'fgi', title: "공포 & 탐욕 지수", description: chartDescriptions.fgi, chart: fgiChart, analysis: analysisTexts.fgi },
+    { id: 'kospiBreadth', title: "KOSPI 상승 종목 수", description: chartDescriptions.breadth, chart: kospiBreadthChart, analysis: analysisTexts.breadth },
+    { id: 'kosdaqBreadth', title: "KOSDAQ 상승 종목 수", description: chartDescriptions.breadth, chart: kosdaqBreadthChart, analysis: analysisTexts.breadth },
+    { id: 'kospiDist', title: "KOSPI 등락률 분포", description: chartDescriptions.dist, chart: kospiDistChart, analysis: analysisTexts.dist },
+    { id: 'kosdaqDist', title: "KOSDAQ 등락률 분포", description: chartDescriptions.dist, chart: kosdaqDistChart, analysis: analysisTexts.dist },
+    { id: 'kospiCap', title: "KOSPI 시총별 흐름", description: chartDescriptions.cap, chart: kospiSizeChart, analysis: analysisTexts.cap },
+    { id: 'kosdaqCap', title: "KOSDAQ 시총별 흐름", description: chartDescriptions.cap, chart: kosdaqSizeChart, analysis: analysisTexts.cap },
+    { id: 'pam', title: "KOSPI 기대 수익률 (PAM)", description: chartDescriptions.pam, chart: pamChart, analysis: analysisTexts.pam },
   ];
 
   const currentIndex = selectedChart ? allCharts.findIndex(c => c.title === selectedChart.title) : -1;
@@ -838,7 +838,7 @@ export default function MarketAnalysis() {
                             )}
                             onClick={() => setSelectedChart(item)}
                         >
-                            <span className="text-[10px] font-bold font-mono tracking-tight uppercase">{item.title.split('(')[0].replace('History', '').replace('Distribution', 'Dist.').replace('Rotation', 'Rot.').trim()}</span>
+                            <span className="text-[10px] font-bold font-mono tracking-tight uppercase">{item.title.split('(')[0].trim()}</span>
                         </Button>
                     ))}
                 </div>
