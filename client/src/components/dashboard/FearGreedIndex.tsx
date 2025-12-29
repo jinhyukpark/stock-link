@@ -63,8 +63,8 @@ export default function FearGreedIndex() {
       <CardContent className="flex-1 flex flex-col gap-6">
         <div className="flex flex-col md:flex-row gap-4 items-center">
           {/* Gauge Chart Section */}
-          <div className="relative h-[180px] w-full md:w-1/2 flex items-center justify-center">
-            <div className="scale-90 md:scale-100 origin-center transition-transform -translate-y-4">
+          <div className="relative h-[220px] w-full md:w-1/2 flex justify-center">
+            <div className="scale-90 md:scale-100 origin-center transition-transform mt-2">
               <PieChart width={width} height={height}>
                 <Pie
                   dataKey="value"
@@ -93,7 +93,7 @@ export default function FearGreedIndex() {
             </div>
             
             {/* Chart Labels Overlay */}
-             <div className="absolute inset-x-0 bottom-[40px] flex justify-between px-6 pointer-events-none">
+             <div className="absolute inset-x-0 top-[155px] flex justify-between px-6 pointer-events-none">
               <span className="text-[10px] font-bold text-blue-400 uppercase tracking-widest text-center leading-tight">Extreme<br/>Fear</span>
               <span className="text-[10px] font-bold text-red-400 uppercase tracking-widest text-center leading-tight">Extreme<br/>Greed</span>
             </div>
