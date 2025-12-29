@@ -48,15 +48,15 @@ export default function TrendAnalysisWidget() {
   return (
     <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 flex flex-col md:flex-row xl:flex-col 2xl:flex-row overflow-hidden">
       {/* Left Panel: Trend Word Cloud */}
-      <div className="flex-1 border-b md:border-b-0 md:border-r xl:border-b xl:border-r-0 2xl:border-b-0 2xl:border-r border-border/50 flex flex-col min-h-[160px] md:min-h-[300px] xl:min-h-[160px] 2xl:min-h-[300px]">
-        <CardHeader>
-          <CardTitle className="text-base font-semibold">Market Trends & Keywords</CardTitle>
+      <div className="flex-1 border-b md:border-b-0 md:border-r xl:border-b xl:border-r-0 2xl:border-b-0 2xl:border-r border-border/50 flex flex-col min-h-[140px] md:min-h-[220px] xl:min-h-[140px] 2xl:min-h-[220px]">
+        <CardHeader className="py-2 px-4">
+          <CardTitle className="text-sm font-semibold">Market Trends & Keywords</CardTitle>
         </CardHeader>
-        <CardContent className="flex-1 relative overflow-hidden bg-gradient-to-br from-transparent to-black/20">
-          <div className="flex flex-wrap items-center justify-center gap-x-6 gap-y-3 h-full content-center p-6">
+        <CardContent className="flex-1 relative overflow-hidden bg-gradient-to-br from-transparent to-black/20 p-2">
+          <div className="flex flex-wrap items-center justify-center gap-x-3 gap-y-1 h-full content-center p-2">
             {words.map((word, i) => {
-              // Enhanced size calculation for better visual hierarchy
-              const size = Math.max(0.7, Math.min(2.2, word.value / 35));
+              // Enhanced size calculation for better visual hierarchy - Scaled down
+              const size = Math.max(0.6, Math.min(1.8, word.value / 45));
               
               const color = word.type === 'up' 
                 ? 'text-red-400 drop-shadow-[0_0_12px_rgba(248,113,113,0.4)]' 

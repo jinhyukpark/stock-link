@@ -36,7 +36,7 @@ export default function Dashboard() {
             <div className="xl:flex-1 h-[300px] xl:h-auto overflow-hidden">
               <FearGreedIndex />
             </div>
-            <div className="h-[320px] shrink-0">
+            <div className="h-[250px] shrink-0">
               <MarketDistribution />
             </div>
           </div>
@@ -51,7 +51,7 @@ export default function Dashboard() {
              <div className="xl:flex-1 h-[400px] xl:h-auto min-h-0">
                 <MarketHeatmap />
              </div>
-             <div className="h-[320px] shrink-0">
+             <div className="h-[250px] shrink-0">
                 <TrendAnalysisWidget />
              </div>
           </div>
