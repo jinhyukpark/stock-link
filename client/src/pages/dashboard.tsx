@@ -43,12 +43,12 @@ export default function Dashboard() {
           </div>
 
           {/* Middle Column: Stock List */}
-          <div className="xl:col-span-5 min-h-[600px]">
+          <div className="xl:col-span-4 min-h-[600px]">
              <RealTimeStockList />
           </div>
 
           {/* Right Column: Heatmap & Trends (Stack) */}
-          <div className="xl:col-span-4 flex flex-col gap-4 min-h-[550px]">
+          <div className="xl:col-span-5 flex flex-col gap-4 min-h-[550px]">
              <MarketStatus />
              <div className="flex-1 min-h-[300px]">
                 <MarketHeatmap />
