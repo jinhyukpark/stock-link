@@ -914,6 +914,12 @@ export default function MarketAnalysis() {
             </div>
              
             <DialogHeader className="shrink-0 mb-4 px-8">
+                <div className="flex items-center gap-2 mb-2">
+                   <div className="bg-primary/20 p-1.5 rounded-md">
+                     <BarChart2 className="w-4 h-4 text-primary" />
+                   </div>
+                   <span className="text-sm font-bold text-primary uppercase tracking-widest font-mono">차트 상세 분석 (Chart Detail Analysis)</span>
+                </div>
                 <div className="flex items-center justify-between">
                     <DialogTitle className="text-2xl font-display font-bold text-white flex items-center gap-3">
                     {selectedChart?.title}
