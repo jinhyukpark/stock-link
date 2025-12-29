@@ -35,86 +35,92 @@ export default function MarketDistribution() {
       <CardContent className="p-4 h-full flex items-center justify-center">
         <div className="w-full h-full grid grid-cols-2 gap-4">
           {/* Chart 1: Price Distribution */}
-          <div className="flex flex-col h-full items-center justify-center">
-            <h3 className="text-xs font-semibold text-center mb-2 text-muted-foreground">
+          <div className="flex flex-col h-full">
+            <h3 className="text-xs font-semibold text-center mb-2 text-muted-foreground shrink-0">
               Price Distribution<br/>(Rise/Fall/Flat)
             </h3>
-            <div className="w-full h-[200px] relative">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={priceDistributionData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={50}
-                    outerRadius={80}
-                    paddingAngle={2}
-                    dataKey="value"
-                    stroke="none"
-                    labelLine={false}
-                    label={CustomLabel}
-                  >
-                    {priceDistributionData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+            <div className="flex-1 flex items-center min-h-0">
+                {/* Legend Left */}
+                <div className="flex flex-col justify-center gap-2 pr-2 shrink-0">
+                    {priceDistributionData.map((item, i) => (
+                        <div key={i} className="flex items-center gap-1.5">
+                            <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
+                            <span className="text-[10px] text-muted-foreground whitespace-nowrap">{item.name}</span>
+                        </div>
                     ))}
-                  </Pie>
-                  <Tooltip 
-                      contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
-                      itemStyle={{ color: '#fff' }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-            {/* Legend 1 */}
-            <div className="flex justify-center gap-3 mt-1">
-                {priceDistributionData.map((item, i) => (
-                    <div key={i} className="flex items-center gap-1.5">
-                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }} />
-                        <span className="text-[10px] text-muted-foreground">{item.name}</span>
-                    </div>
-                ))}
+                </div>
+                {/* Chart Right */}
+                <div className="flex-1 h-full relative min-h-[120px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={priceDistributionData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={35}
+                        outerRadius={55}
+                        paddingAngle={2}
+                        dataKey="value"
+                        stroke="none"
+                        labelLine={false}
+                        label={CustomLabel}
+                      >
+                        {priceDistributionData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                      <Tooltip 
+                          contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
+                          itemStyle={{ color: '#fff' }}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
             </div>
           </div>
 
           {/* Chart 2: Investor Volume */}
-          <div className="flex flex-col h-full items-center justify-center border-l border-border/30 pl-4">
-             <h3 className="text-xs font-semibold text-center mb-2 text-muted-foreground">
+          <div className="flex flex-col h-full border-l border-border/30 pl-4">
+             <h3 className="text-xs font-semibold text-center mb-2 text-muted-foreground shrink-0">
               Investor Volume<br/>(Buy/Sell Ratio)
             </h3>
-            <div className="w-full h-[200px] relative">
-              <ResponsiveContainer width="100%" height="100%">
-                <PieChart>
-                  <Pie
-                    data={investorVolumeData}
-                    cx="50%"
-                    cy="50%"
-                    innerRadius={50}
-                    outerRadius={80}
-                    paddingAngle={2}
-                    dataKey="value"
-                    stroke="none"
-                    labelLine={false}
-                    label={CustomLabel}
-                  >
-                    {investorVolumeData.map((entry, index) => (
-                      <Cell key={`cell-${index}`} fill={entry.color} />
+            <div className="flex-1 flex items-center min-h-0">
+                {/* Legend Left */}
+                <div className="flex flex-col justify-center gap-2 pr-2 shrink-0">
+                    {investorVolumeData.map((item, i) => (
+                        <div key={i} className="flex items-center gap-1.5">
+                            <div className="w-2 h-2 rounded-full shrink-0" style={{ backgroundColor: item.color }} />
+                            <span className="text-[10px] text-muted-foreground whitespace-nowrap">{item.name}</span>
+                        </div>
                     ))}
-                  </Pie>
-                   <Tooltip 
-                      contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
-                      itemStyle={{ color: '#fff' }}
-                  />
-                </PieChart>
-              </ResponsiveContainer>
-            </div>
-            {/* Legend 2 */}
-            <div className="flex justify-center gap-3 mt-1">
-                {investorVolumeData.map((item, i) => (
-                    <div key={i} className="flex items-center gap-1.5">
-                        <div className="w-2 h-2 rounded-full" style={{ backgroundColor: item.color }} />
-                        <span className="text-[10px] text-muted-foreground">{item.name}</span>
-                    </div>
-                ))}
+                </div>
+                {/* Chart Right */}
+                <div className="flex-1 h-full relative min-h-[120px]">
+                  <ResponsiveContainer width="100%" height="100%">
+                    <PieChart>
+                      <Pie
+                        data={investorVolumeData}
+                        cx="50%"
+                        cy="50%"
+                        innerRadius={35}
+                        outerRadius={55}
+                        paddingAngle={2}
+                        dataKey="value"
+                        stroke="none"
+                        labelLine={false}
+                        label={CustomLabel}
+                      >
+                        {investorVolumeData.map((entry, index) => (
+                          <Cell key={`cell-${index}`} fill={entry.color} />
+                        ))}
+                      </Pie>
+                       <Tooltip 
+                          contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
+                          itemStyle={{ color: '#fff' }}
+                      />
+                    </PieChart>
+                  </ResponsiveContainer>
+                </div>
             </div>
           </div>
         </div>
