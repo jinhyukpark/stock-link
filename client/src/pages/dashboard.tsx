@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import MarketTicker from "@/components/dashboard/MarketTicker";
 import FearGreedIndex from "@/components/dashboard/FearGreedIndex";
-import MarketHeatmap from "@/components/dashboard/MarketHeatmap";
+import RealTimeStockList from "@/components/dashboard/RealTimeStockList";
 import TrendAnalysisWidget from "@/components/dashboard/TrendAnalysisWidget";
 import TrendingThemes from "@/components/dashboard/TrendingThemes";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
@@ -37,7 +37,7 @@ export default function Dashboard() {
 
         <div className="grid grid-cols-1 md:grid-cols-12 gap-6 h-auto">
           {/* Left Column: Fear & Greed + Chart */}
-          <div className="md:col-span-4 flex flex-col gap-6">
+          <div className="md:col-span-3 flex flex-col gap-6">
             <div className="h-auto">
               <FearGreedIndex />
             </div>
@@ -68,10 +68,10 @@ export default function Dashboard() {
             </Card>
           </div>
 
-          {/* Middle/Right Column: Heatmap + Trends */}
-          <div className="md:col-span-8 flex flex-col gap-6">
-             <div className="h-[350px]">
-               <MarketHeatmap />
+          {/* Middle/Right Column: Real-time List + Trends */}
+          <div className="md:col-span-9 flex flex-col gap-6">
+             <div className="h-[500px]">
+               <RealTimeStockList />
              </div>
 
              <div className="h-[350px]">
