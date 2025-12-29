@@ -37,7 +37,7 @@ export default function Dashboard() {
               <FearGreedIndex />
             </div>
             <div className="h-[250px] shrink-0">
-              <MarketDistribution />
+              <TrendAnalysisWidget />
             </div>
           </div>
 
@@ -52,7 +52,7 @@ export default function Dashboard() {
                 <MarketHeatmap />
              </div>
              <div className="h-[250px] shrink-0">
-                <TrendAnalysisWidget />
+                <MarketDistribution />
              </div>
           </div>
         </div>
