@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useRef, useEffect } from "react";
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -11,12 +11,7 @@ import {
   Download, 
   LayoutGrid, 
   List, 
-  ChevronLeft, 
-  ChevronRight,
-  ChevronsLeft,
-  ChevronsRight,
-  TrendingUp,
-  TrendingDown
+  Loader2
 } from "lucide-react";
 import {
   Select,
@@ -43,7 +38,7 @@ const generateChartData = (trend: 'up' | 'down' | 'mixed') => {
   return data;
 };
 
-const mockStocks = [
+const initialMockStocks = [
   { id: "043260", name: "성호전자", price: 7850, change: 1.16, score: 9.8, trend: 'up', market_rel_10: 4.45, market_rel_20: 6.49, strength_10_up: 5.13, strength_10_down: 3.76, strength_20_up: 10.30, strength_20_down: 0.69 },
   { id: "329180", name: "HD현대중공업", price: 512000, change: -1.35, score: 6.5, trend: 'down', market_rel_10: -0.89, market_rel_20: -0.53, strength_10_up: 0.07, strength_10_down: -2.11, strength_20_up: 0.02, strength_20_down: -1.09 },
   { id: "049630", name: "재영솔루텍", price: 4160, change: 21.99, score: 9.2, trend: 'up', market_rel_10: 3.15, market_rel_20: 4.54, strength_10_up: 4.97, strength_10_down: 1.32, strength_20_up: 5.05, strength_20_down: 3.79 },
@@ -61,6 +56,48 @@ const mockStocks = [
 export default function MomentumPage() {
   const [period, setPeriod] = useState("1w");
   const [viewMode, setViewMode] = useState<'grid' | 'list'>('grid');
+  const [stocks, setStocks] = useState(initialMockStocks);
+  const [isLoading, setIsLoading] = useState(false);
+  const loaderRef = useRef(null);
+
+  // Infinite Scroll Implementation
+  useEffect(() => {
+    const observer = new IntersectionObserver(
+      (entries) => {
+        if (entries[0].isIntersecting && !isLoading) {
+          loadMoreStocks();
+        }
+      },
+      { threshold: 0.1 }
+    );
+
+    if (loaderRef.current) {
+      observer.observe(loaderRef.current);
+    }
+
+    return () => {
+      if (loaderRef.current) {
+        observer.unobserve(loaderRef.current);
+      }
+    };
+  }, [isLoading, stocks]);
+
+  const loadMoreStocks = () => {
+    setIsLoading(true);
+    // Simulate network delay
+    setTimeout(() => {
+      // Create duplicates with new IDs to simulate more data
+      const newStocks = initialMockStocks.map(s => ({
+        ...s,
+        id: String(Number(s.id) + stocks.length), // simple unique id generation
+        price: s.price + Math.floor(Math.random() * 1000 - 500), // slight price variation
+        score: Math.max(0, Math.min(10, s.score + (Math.random() * 2 - 1))) // slight score variation
+      }));
+      
+      setStocks(prev => [...prev, ...newStocks]);
+      setIsLoading(false);
+    }, 1000);
+  };
 
   return (
     <DashboardLayout>
@@ -146,7 +183,7 @@ export default function MomentumPage() {
 
         {/* Stock Grid */}
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-          {mockStocks.map((stock) => (
+          {stocks.map((stock) => (
             <Card key={stock.id} className="bg-[#151921] border-white/5 shadow-lg hover:border-white/10 transition-colors group">
               <CardContent className="p-0">
                 {/* Header */}
@@ -217,8 +254,6 @@ export default function MomentumPage() {
                   </div>
                 </div>
 
-                {/* AI Score (Removed) */}
-                
                 {/* Metrics Grid */}
                 <div>
                   {/* Headers (Dark) */}
@@ -284,34 +319,14 @@ export default function MomentumPage() {
           ))}
         </div>
 
-        {/* Pagination */}
-        <div className="flex justify-center mt-8 pb-8">
-            <div className="flex items-center gap-1">
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-500" disabled>
-                    <ChevronsLeft className="w-4 h-4" />
-                </Button>
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-500" disabled>
-                    <ChevronLeft className="w-4 h-4" />
-                </Button>
-                
-                {[1, 2, 3, 4, 5].map(page => (
-                    <Button 
-                        key={page} 
-                        variant="ghost" 
-                        size="sm" 
-                        className={`h-8 w-8 font-mono text-xs ${page === 1 ? 'bg-primary text-primary-foreground' : 'text-gray-400 hover:text-white'}`}
-                    >
-                        {page}
-                    </Button>
-                ))}
-
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white">
-                    <ChevronRight className="w-4 h-4" />
-                </Button>
-                <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white">
-                    <ChevronsRight className="w-4 h-4" />
-                </Button>
+        {/* Loading Indicator for Infinite Scroll */}
+        <div ref={loaderRef} className="flex justify-center py-8">
+          {isLoading && (
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <Loader2 className="w-6 h-6 animate-spin text-primary" />
+              <span className="text-sm">Loading more stocks...</span>
             </div>
+          )}
         </div>
 
       </div>
