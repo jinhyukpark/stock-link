@@ -28,7 +28,8 @@ import {
   Sparkles,
   Send,
   X,
-  Bot
+  Bot,
+  ArrowLeftRight
 } from "lucide-react";
 import FearGreedIndex from "@/components/dashboard/FearGreedIndex";
 import { useState, useMemo, useRef, useEffect } from "react";
@@ -613,8 +614,8 @@ export default function OntologyPage() {
                 
                 {/* Main Toolbar (Expandable) */}
                 <div className={cn(
-                    "flex items-center gap-1 bg-[#151921]/90 backdrop-blur border border-white/10 rounded-full px-2 py-1.5 shadow-xl transition-all duration-300 ease-in-out relative overflow-hidden",
-                    isSearchExpanded ? "w-[400px]" : "w-auto"
+                    "flex items-center gap-1 bg-[#151921]/90 backdrop-blur border border-white/10 rounded-full px-2 py-1.5 shadow-xl transition-all duration-300 ease-in-out relative",
+                    isSearchExpanded ? "w-[400px] overflow-hidden" : "w-auto"
                 )}>
                      {/* Toolbar Items - Hidden when search expanded */}
                      <div className={cn(
@@ -642,7 +643,7 @@ export default function OntologyPage() {
                      {/* Expandable Search Bar */}
                      <div 
                         className={cn(
-                            "relative flex items-center h-7 transition-all duration-300 ease-in-out rounded-full overflow-hidden",
+                            "relative flex items-center h-7 transition-all duration-300 ease-in-out rounded-full overflow-hidden shrink-0",
                             isSearchExpanded ? "w-full bg-white/5 pl-2" : "w-8 hover:bg-white/5 cursor-pointer justify-center"
                         )}
                         onClick={() => {
@@ -652,7 +653,7 @@ export default function OntologyPage() {
                             }
                         }}
                      >
-                        <div className={cn("flex items-center pointer-events-none", isSearchExpanded ? "absolute left-2" : "")}>
+                        <div className={cn("flex items-center pointer-events-none z-10", isSearchExpanded ? "absolute left-2" : "")}>
                             <Search className={cn("w-3.5 h-3.5 transition-colors", isSearchExpanded ? "text-primary" : "text-gray-400")} />
                         </div>
                         <input 
@@ -676,7 +677,7 @@ export default function OntologyPage() {
                     className="h-[42px] w-[42px] bg-[#151921]/90 backdrop-blur border border-white/10 rounded-full shadow-xl hover:bg-white/10 hover:text-white text-gray-400 shrink-0"
                     title="종목비교"
                 >
-                    <RotateCcw className="w-4 h-4" />
+                    <ArrowLeftRight className="w-4 h-4" />
                 </Button>
             </div>
 
