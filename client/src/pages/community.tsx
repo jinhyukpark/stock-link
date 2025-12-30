@@ -838,7 +838,7 @@ export default function CommunityPage() {
 
           {/* Banner Ad */}
           <div className="p-4 bg-[#030304] border-t border-white/5">
-             <div className="relative rounded-xl overflow-hidden group cursor-pointer aspect-[4/5] w-full">
+             <div className="relative rounded-xl overflow-hidden group cursor-pointer aspect-[4/5] w-full border border-white/10 hover:border-yellow-500/50 hover:shadow-[0_0_15px_rgba(234,179,8,0.2)] transition-all duration-300">
                 <img src={proBannerImage} alt="Upgrade to Pro" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
                 <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-5">
                    <div className="text-xl font-bold text-yellow-400 mb-1 flex items-center gap-2">
