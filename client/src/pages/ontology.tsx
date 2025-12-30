@@ -884,7 +884,7 @@ export default function OntologyPage() {
             </div>
 
             {/* Bottom Legend Panel */}
-            <div className="absolute bottom-[72px] right-4 z-30 bg-[#0B0E14]/90 backdrop-blur border border-white/10 rounded-lg p-0 w-[240px] overflow-hidden shadow-2xl">
+            <div className="absolute bottom-[100px] right-4 z-30 bg-[#0B0E14]/90 backdrop-blur border border-white/10 rounded-lg p-0 w-[240px] overflow-hidden shadow-2xl">
                  <div className="flex text-[10px] text-gray-400 bg-white/5 px-3 py-1.5 border-b border-white/10">
                     <span className="flex-1">등락률</span>
                     <span className="w-10 text-right">개수</span>
@@ -902,28 +902,8 @@ export default function OntologyPage() {
                  </div>
             </div>
 
-            {/* Floating Market Indices above Timeline */}
-            <div className="absolute bottom-[72px] left-1/2 -translate-x-1/2 z-30 flex gap-3">
-                {[
-                    { name: "KOSPI", value: "2,612.43", change: "+0.85%", up: true },
-                    { name: "KOSDAQ", value: "859.21", change: "-0.23%", up: false },
-                    { name: "KOSPI 200", value: "351.42", change: "+1.12%", up: true },
-                    { name: "USD/KRW", value: "1,315.50", change: "-0.15%", up: false }
-                ].map((idx, i) => (
-                    <div key={i} className="bg-[#151921]/90 backdrop-blur border border-white/10 rounded-full px-4 py-2 shadow-lg flex items-center gap-3">
-                        <span className="text-xs font-bold text-gray-300">{idx.name}</span>
-                        <div className="flex items-center gap-2">
-                            <span className="text-sm font-mono font-bold text-white">{idx.value}</span>
-                            <span className={cn("text-xs font-mono", idx.up ? "text-red-400" : "text-blue-400")}>
-                                {idx.change}
-                            </span>
-                        </div>
-                    </div>
-                ))}
-            </div>
-
             {/* Bottom Timeline Control */}
-            <div className="absolute bottom-0 left-0 right-0 h-[60px] bg-[#0f1115] border-t border-white/10 z-30 flex items-end px-4 pb-1">
+            <div className="absolute bottom-[36px] left-0 right-0 h-[60px] bg-[#0f1115]/80 backdrop-blur-sm border-t border-white/5 z-20 flex items-end px-4 pb-1 transition-all duration-300">
                 <div className="flex-1 flex items-end gap-[2px] h-full pt-2 opacity-50 hover:opacity-100 transition-opacity">
                     {Array.from({ length: 100 }).map((_, i) => (
                         <div 
@@ -934,7 +914,35 @@ export default function OntologyPage() {
                     ))}
                 </div>
                 {/* Scroll Handle */}
-                <div className="absolute bottom-0 left-[20%] right-[20%] h-1 bg-primary cursor-col-resize rounded-full"></div>
+                <div className="absolute bottom-0 left-[20%] right-[20%] h-1 bg-primary cursor-col-resize rounded-full shadow-[0_0_10px_rgba(34,211,238,0.5)]"></div>
+            </div>
+
+            {/* Bottom Stock Ticker (Marquee) */}
+            <div className="absolute bottom-0 left-0 right-0 h-[36px] bg-[#050505] border-t border-white/10 z-30 flex items-center overflow-hidden whitespace-nowrap">
+                <div className="flex items-center animate-marquee hover:pause">
+                    {/* Duplicate items for seamless scroll */}
+                    {[...Array(4)].map((_, groupIdx) => (
+                        <div key={groupIdx} className="flex items-center">
+                            {[
+                                { name: "KOSPI", value: "2,612.43", change: "+0.85%", up: true },
+                                { name: "KOSDAQ", value: "859.21", change: "-0.23%", up: false },
+                                { name: "KOSPI 200", value: "351.42", change: "+1.12%", up: true },
+                                { name: "USD/KRW", value: "1,315.50", change: "-0.15%", up: false },
+                                { name: "WTI", value: "72.45", change: "+1.20%", up: true },
+                                { name: "Bitcoin", value: "43,250", change: "-1.50%", up: false },
+                                { name: "Gold", value: "2,050.10", change: "+0.30%", up: true },
+                            ].map((idx, i) => (
+                                <div key={`${groupIdx}-${i}`} className="flex items-center gap-2 px-6 border-r border-white/5 last:border-r-0">
+                                    <span className="text-[11px] font-bold text-gray-400">{idx.name}</span>
+                                    <span className="text-[11px] font-mono font-bold text-gray-200">{idx.value}</span>
+                                    <span className={cn("text-[10px] font-mono flex items-center", idx.up ? "text-red-400" : "text-blue-400")}>
+                                        {idx.up ? "▲" : "▼"} {idx.change.replace(/[+-]/, "")}
+                                    </span>
+                                </div>
+                            ))}
+                        </div>
+                    ))}
+                </div>
             </div>
 
         </main>
