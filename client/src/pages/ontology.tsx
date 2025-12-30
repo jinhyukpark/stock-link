@@ -634,8 +634,8 @@ export default function OntologyPage() {
                      {/* Expandable Search Bar */}
                      <div 
                         className={cn(
-                            "relative flex items-center h-7 transition-all duration-300 ease-in-out rounded-full overflow-hidden shrink-0",
-                            isSearchExpanded ? "w-full bg-white/5 pl-2" : "w-8 hover:bg-white/5 cursor-pointer justify-center"
+                            "relative flex items-center h-7 transition-all duration-300 ease-in-out rounded-full shrink-0",
+                            isSearchExpanded ? "w-full bg-white/5 pl-2 overflow-hidden" : "w-8 hover:bg-white/5 cursor-pointer justify-center"
                         )}
                         onClick={() => {
                             if (!isSearchExpanded) {
@@ -644,8 +644,8 @@ export default function OntologyPage() {
                             }
                         }}
                      >
-                        <div className={cn("flex items-center pointer-events-none z-10", isSearchExpanded ? "absolute left-2" : "")}>
-                            <Search className={cn("w-3.5 h-3.5 transition-colors", isSearchExpanded ? "text-primary" : "text-gray-400")} />
+                        <div className={cn("flex items-center justify-center pointer-events-none z-10", isSearchExpanded ? "absolute left-2" : "w-full h-full")}>
+                            <Search className={cn("w-4 h-4 transition-colors", isSearchExpanded ? "text-primary" : "text-gray-400")} />
                         </div>
                         <input 
                             id="ontology-search-input"
