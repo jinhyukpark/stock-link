@@ -635,7 +635,7 @@ export default function OntologyPage() {
                      <div 
                         className={cn(
                             "relative flex items-center h-7 transition-all duration-300 ease-in-out rounded-full shrink-0",
-                            isSearchExpanded ? "w-full bg-white/5 pl-2 overflow-hidden" : "w-8 hover:bg-white/5 cursor-pointer justify-center"
+                            isSearchExpanded ? "flex-1 bg-white/5" : "w-8 hover:bg-white/5 cursor-pointer"
                         )}
                         onClick={() => {
                             if (!isSearchExpanded) {
@@ -644,7 +644,10 @@ export default function OntologyPage() {
                             }
                         }}
                      >
-                        <div className={cn("flex items-center justify-center pointer-events-none z-10", isSearchExpanded ? "absolute left-2" : "w-full h-full")}>
+                        <div className={cn(
+                            "absolute z-10 pointer-events-none flex items-center justify-center transition-all duration-300", 
+                            isSearchExpanded ? "left-2.5 w-4 h-4" : "inset-0 w-full h-full"
+                        )}>
                             <Search className={cn("w-4 h-4 transition-colors", isSearchExpanded ? "text-primary" : "text-gray-400")} />
                         </div>
                         <input 
@@ -652,8 +655,8 @@ export default function OntologyPage() {
                             type="text" 
                             placeholder="관계망 내 검색..." 
                             className={cn(
-                                "w-full h-full bg-transparent border-none outline-none text-xs text-white pl-8 pr-2 transition-opacity duration-300 placeholder:text-gray-500",
-                                isSearchExpanded ? "opacity-100" : "opacity-0 w-0 pointer-events-none"
+                                "w-full h-full bg-transparent border-none outline-none text-xs text-white transition-all duration-300 placeholder:text-gray-500 rounded-full",
+                                isSearchExpanded ? "pl-9 pr-3 opacity-100" : "w-0 pl-0 pr-0 opacity-0 pointer-events-none"
                             )}
                             onBlur={() => setIsSearchExpanded(false)}
                             onClick={(e) => e.stopPropagation()} 
