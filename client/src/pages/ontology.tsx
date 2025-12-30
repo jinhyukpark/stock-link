@@ -296,6 +296,7 @@ export default function OntologyPage() {
   const [selectedNodeIds, setSelectedNodeIds] = useState<Set<string>>(new Set());
   const [isChatOpen, setIsChatOpen] = useState(false);
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
+  const [isSearchExpanded, setIsSearchExpanded] = useState(false);
 
   // Generate dense, structured graph data
   const { nodes, links } = useMemo(() => {
@@ -567,37 +568,61 @@ export default function OntologyPage() {
             </div>
 
             {/* Top Toolbar overlay - moved down slightly to make room if needed, or keep as is */}
-            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1 bg-[#151921]/90 backdrop-blur border border-white/10 rounded-full px-2 py-1.5 shadow-xl">
-                 <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
-                    관계 주식 <span className="text-blue-400 ml-1">테마</span>
-                 </Button>
-                 <div className="w-px h-3 bg-white/10"></div>
-                 <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
-                    종목수 <span className="text-blue-400 ml-1">628</span>
-                 </Button>
-                 <div className="w-px h-3 bg-white/10"></div>
-                 <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
-                    관계수 <span className="text-blue-400 ml-1">351</span>
-                 </Button>
-                 <div className="w-px h-3 bg-white/10"></div>
-                 <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
-                    평균지수 <span className="text-red-400 ml-1">0.03%</span>
-                 </Button>
-                 <div className="w-px h-3 bg-white/10"></div>
-                 <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
-                    <RotateCcw className="w-3 h-3 mr-1" /> 종목비교
-                 </Button>
+            <div className={cn(
+                "absolute top-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1 bg-[#151921]/90 backdrop-blur border border-white/10 rounded-full px-2 py-1.5 shadow-xl transition-all duration-300 ease-in-out",
+                isSearchExpanded ? "w-[400px] justify-between pl-3" : ""
+            )}>
+                 <div className={cn(
+                    "flex items-center gap-1 transition-all duration-300 overflow-hidden whitespace-nowrap",
+                    isSearchExpanded ? "w-0 opacity-0 scale-95" : "w-auto opacity-100 scale-100"
+                 )}>
+                     <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
+                        관계 주식 <span className="text-blue-400 ml-1">테마</span>
+                     </Button>
+                     <div className="w-px h-3 bg-white/10"></div>
+                     <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
+                        종목수 <span className="text-blue-400 ml-1">628</span>
+                     </Button>
+                     <div className="w-px h-3 bg-white/10"></div>
+                     <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
+                        관계수 <span className="text-blue-400 ml-1">351</span>
+                     </Button>
+                     <div className="w-px h-3 bg-white/10"></div>
+                     <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
+                        평균지수 <span className="text-red-400 ml-1">0.03%</span>
+                     </Button>
+                     <div className="w-px h-3 bg-white/10"></div>
+                     <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
+                        <RotateCcw className="w-3 h-3 mr-1" /> 종목비교
+                     </Button>
+                     <div className="w-px h-3 bg-white/10"></div>
+                 </div>
                  
                  {/* Expandable Search Bar */}
-                 <div className="w-px h-3 bg-white/10"></div>
-                 <div className="relative group flex items-center h-7 transition-all duration-300 ease-in-out w-8 hover:w-48 bg-transparent hover:bg-white/5 rounded-full overflow-hidden">
+                 <div 
+                    className={cn(
+                        "relative flex items-center h-7 transition-all duration-300 ease-in-out rounded-full overflow-hidden",
+                        isSearchExpanded ? "w-full bg-white/5" : "w-8 hover:bg-white/5"
+                    )}
+                    onMouseEnter={() => setIsSearchExpanded(true)}
+                    onMouseLeave={(e) => {
+                        if (document.activeElement !== e.currentTarget.querySelector('input')) {
+                            setIsSearchExpanded(false);
+                        }
+                    }}
+                 >
                     <div className="absolute left-2 flex items-center pointer-events-none">
-                        <Search className="w-3.5 h-3.5 text-gray-400 group-hover:text-primary transition-colors" />
+                        <Search className={cn("w-3.5 h-3.5 transition-colors", isSearchExpanded ? "text-primary" : "text-gray-400")} />
                     </div>
                     <input 
                         type="text" 
                         placeholder="관계망 내 검색..." 
-                        className="w-full h-full bg-transparent border-none outline-none text-xs text-white pl-8 pr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 placeholder:text-gray-500"
+                        className={cn(
+                            "w-full h-full bg-transparent border-none outline-none text-xs text-white pl-8 pr-2 transition-opacity duration-300 placeholder:text-gray-500",
+                            isSearchExpanded ? "opacity-100" : "opacity-0 cursor-pointer"
+                        )}
+                        onFocus={() => setIsSearchExpanded(true)}
+                        onBlur={() => setIsSearchExpanded(false)}
                     />
                  </div>
             </div>
