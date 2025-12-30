@@ -712,32 +712,32 @@ export default function OntologyPage() {
                  {/* Mini Market Insights */}
                  <div className="flex flex-col gap-3">
                     {/* Compact Fear & Greed */}
-                    <div className="bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg p-3 shadow-lg w-[180px]">
+                    <div className="bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg p-3 shadow-lg w-[180px] xl:w-[260px] transition-all duration-300">
                         <div className="flex items-center justify-between mb-2">
-                            <span className="text-[10px] text-gray-400 font-bold uppercase tracking-wider">Greed Index</span>
-                            <span className="text-[10px] text-red-400 font-bold">GREED</span>
+                            <span className="text-[10px] xl:text-xs text-gray-400 font-bold uppercase tracking-wider">Greed Index</span>
+                            <span className="text-[10px] xl:text-xs text-red-400 font-bold">GREED</span>
                         </div>
-                        <div className="flex items-end gap-2">
-                             <div className="relative w-12 h-12 flex items-center justify-center">
+                        <div className="flex items-end gap-2 xl:gap-4">
+                             <div className="relative w-12 h-12 xl:w-16 xl:h-16 flex items-center justify-center transition-all duration-300">
                                 {/* Simple CSS Gauge */}
                                 <svg className="w-full h-full -rotate-90" viewBox="0 0 36 36">
                                     <path className="text-gray-700" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3" />
                                     <path className="text-red-500" strokeDasharray="75, 100" d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="currentColor" strokeWidth="3" />
                                 </svg>
-                                <span className="absolute text-sm font-bold text-white">75</span>
+                                <span className="absolute text-sm xl:text-lg font-bold text-white transition-all duration-300">75</span>
                              </div>
                              <div className="flex flex-col pb-1">
-                                <span className="text-[9px] text-gray-500">전일대비</span>
-                                <span className="text-[10px] text-red-400 font-bold">▲ 2.5</span>
+                                <span className="text-[9px] xl:text-[11px] text-gray-500 transition-all duration-300">전일대비</span>
+                                <span className="text-[10px] xl:text-xs text-red-400 font-bold transition-all duration-300">▲ 2.5</span>
                              </div>
                         </div>
                     </div>
 
                     {/* Today's Theme Ranking */}
-                    <div className="bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg p-3 shadow-lg w-[180px]">
+                    <div className="bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg p-3 shadow-lg w-[180px] xl:w-[260px] transition-all duration-300">
                         <div className="flex items-center gap-2 mb-3 border-b border-white/5 pb-2">
-                            <Layers className="w-3.5 h-3.5 text-primary" />
-                            <span className="text-[11px] font-bold text-gray-200">오늘의 테마 순위</span>
+                            <Layers className="w-3.5 h-3.5 xl:w-4 xl:h-4 text-primary transition-all duration-300" />
+                            <span className="text-[11px] xl:text-sm font-bold text-gray-200 transition-all duration-300">오늘의 테마 순위</span>
                         </div>
                         <div className="flex flex-col gap-2">
                             {[
@@ -750,16 +750,16 @@ export default function OntologyPage() {
                                 <div key={k.rank} className="flex items-center justify-between group cursor-pointer">
                                     <div className="flex items-center gap-2">
                                         <span className={cn(
-                                            "w-3.5 h-3.5 flex items-center justify-center text-[9px] font-bold rounded shadow-inner",
+                                            "w-3.5 h-3.5 xl:w-5 xl:h-5 flex items-center justify-center text-[9px] xl:text-[11px] font-bold rounded shadow-inner transition-all duration-300",
                                             k.rank <= 3 ? "bg-primary/20 text-primary border border-primary/30" : "bg-white/5 text-gray-500"
                                         )}>{k.rank}</span>
-                                        <span className="text-[11px] text-gray-300 group-hover:text-white transition-colors">
+                                        <span className="text-[11px] xl:text-sm text-gray-300 group-hover:text-white transition-colors">
                                             {k.text} 
-                                            <span className="text-[9px] text-gray-500 font-normal ml-1">({k.count})</span>
+                                            <span className="text-[9px] xl:text-[11px] text-gray-500 font-normal ml-1 transition-all duration-300">({k.count})</span>
                                         </span>
                                     </div>
                                     <div className="flex items-center gap-1">
-                                        <span className={cn("text-[9px] font-mono", k.trend === 'up' ? "text-red-400" : "text-blue-400")}>
+                                        <span className={cn("text-[9px] xl:text-[11px] font-mono transition-all duration-300", k.trend === 'up' ? "text-red-400" : "text-blue-400")}>
                                             {k.pct}
                                         </span>
                                     </div>
@@ -769,14 +769,14 @@ export default function OntologyPage() {
                     </div>
 
                     {/* Today's Keywords - New Data */}
-                    <div className="bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg p-3 shadow-lg w-[180px]">
+                    <div className="bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg p-3 shadow-lg w-[180px] xl:w-[260px] transition-all duration-300">
                         <div className="flex items-center gap-2 mb-3 border-b border-white/5 pb-2">
-                            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
-                            <span className="text-[11px] font-bold text-gray-200">실시간 급상승 키워드</span>
+                            <Sparkles className="w-3.5 h-3.5 xl:w-4 xl:h-4 text-blue-400 transition-all duration-300" />
+                            <span className="text-[11px] xl:text-sm font-bold text-gray-200 transition-all duration-300">실시간 급상승 키워드</span>
                         </div>
                         <div className="flex flex-wrap gap-1.5">
                             {["HBM3", "리튬", "상온초전도", "알츠하이머", "NPU", "온디바이스AI", "로봇"].map((keyword, idx) => (
-                                <span key={idx} className="px-2 py-1 bg-white/5 hover:bg-white/10 text-[10px] text-gray-300 rounded border border-white/5 cursor-pointer transition-colors">
+                                <span key={idx} className="px-2 py-1 bg-white/5 hover:bg-white/10 text-[10px] xl:text-xs text-gray-300 rounded border border-white/5 cursor-pointer transition-colors">
                                     #{keyword}
                                 </span>
                             ))}
