@@ -82,7 +82,7 @@ import {
 import stockAnalysisImage from '@assets/stock_images/stock_market_analysi_5b45eee1.jpg';
 import globalMacroImage from '@assets/generated_images/global_economy_visualization_with_world_map_and_data_streams.png';
 import quantStrategyImage from '@assets/generated_images/quantitative_trading_visualization_with_code_and_algorithms.png';
-import proBannerImage from '@assets/generated_images/stocklink_pro_advertisement_banner.png';
+import proBannerImage from '@assets/generated_images/stocklink_pro_vertical_advertisement_banner.png';
 
 // --- Mock Data ---
 
@@ -837,15 +837,19 @@ export default function CommunityPage() {
           </ScrollArea>
 
           {/* Banner Ad */}
-          <div className="p-3 bg-[#030304] border-t border-white/5">
-             <div className="relative rounded-lg overflow-hidden group cursor-pointer h-16">
+          <div className="p-4 bg-[#030304] border-t border-white/5">
+             <div className="relative rounded-xl overflow-hidden group cursor-pointer aspect-[4/5] w-full">
                 <img src={proBannerImage} alt="Upgrade to Pro" className="w-full h-full object-cover opacity-80 group-hover:opacity-100 transition-opacity" />
-                <div className="absolute inset-0 bg-gradient-to-r from-black/80 via-black/40 to-transparent flex flex-col justify-center px-3">
-                   <div className="text-xs font-bold text-yellow-400 mb-0.5 flex items-center gap-1">
-                      <Crown className="w-3 h-3 fill-yellow-400" />
+                <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-black/20 to-transparent flex flex-col justify-end p-5">
+                   <div className="text-xl font-bold text-yellow-400 mb-1 flex items-center gap-2">
+                      <Crown className="w-5 h-5 fill-yellow-400" />
                       PREMIUM
                    </div>
-                   <div className="text-[10px] text-gray-300">AI 실시간 매매신호 구독</div>
+                   <div className="text-xs text-gray-300 font-medium">AI 실시간 매매신호와<br/>고급 차트 분석을 구독하세요</div>
+                   
+                   <div className="mt-3 w-full py-2 bg-yellow-500/20 hover:bg-yellow-500/30 border border-yellow-500/50 rounded text-center text-xs font-bold text-yellow-400 transition-colors">
+                      지금 시작하기
+                   </div>
                 </div>
              </div>
           </div>
