@@ -919,7 +919,7 @@ export default function OntologyPage() {
 
             {/* Bottom Stock Ticker (Marquee) */}
             <div className="absolute bottom-0 left-0 right-0 h-[36px] bg-[#050505] border-t border-white/10 z-30 flex items-center overflow-hidden whitespace-nowrap">
-                <div className="flex items-center animate-marquee hover:pause">
+                <div className="flex items-center animate-scroll">
                     {/* Duplicate items for seamless scroll */}
                     {[...Array(4)].map((_, groupIdx) => (
                         <div key={groupIdx} className="flex items-center">
