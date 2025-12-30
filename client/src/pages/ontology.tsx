@@ -592,22 +592,19 @@ export default function OntologyPage() {
                         평균지수 <span className="text-red-400 ml-1">0.03%</span>
                      </Button>
                      <div className="w-px h-3 bg-white/10"></div>
-                     <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
-                        <RotateCcw className="w-3 h-3 mr-1" /> 종목비교
-                     </Button>
-                     <div className="w-px h-3 bg-white/10"></div>
                  </div>
                  
                  {/* Expandable Search Bar */}
                  <div 
                     className={cn(
                         "relative flex items-center h-7 transition-all duration-300 ease-in-out rounded-full overflow-hidden",
-                        isSearchExpanded ? "w-full bg-white/5" : "w-8 hover:bg-white/5"
+                        isSearchExpanded ? "w-full bg-white/5" : "w-8 hover:bg-white/5 cursor-pointer"
                     )}
-                    onMouseEnter={() => setIsSearchExpanded(true)}
-                    onMouseLeave={(e) => {
-                        if (document.activeElement !== e.currentTarget.querySelector('input')) {
-                            setIsSearchExpanded(false);
+                    onClick={() => {
+                        if (!isSearchExpanded) {
+                            setIsSearchExpanded(true);
+                            // Need to defer focus slightly to let the input render/expand
+                            setTimeout(() => document.getElementById('ontology-search-input')?.focus(), 100);
                         }
                     }}
                  >
@@ -615,16 +612,29 @@ export default function OntologyPage() {
                         <Search className={cn("w-3.5 h-3.5 transition-colors", isSearchExpanded ? "text-primary" : "text-gray-400")} />
                     </div>
                     <input 
+                        id="ontology-search-input"
                         type="text" 
                         placeholder="관계망 내 검색..." 
                         className={cn(
                             "w-full h-full bg-transparent border-none outline-none text-xs text-white pl-8 pr-2 transition-opacity duration-300 placeholder:text-gray-500",
-                            isSearchExpanded ? "opacity-100" : "opacity-0 cursor-pointer"
+                            isSearchExpanded ? "opacity-100" : "opacity-0 cursor-pointer pointer-events-none"
                         )}
-                        onFocus={() => setIsSearchExpanded(true)}
                         onBlur={() => setIsSearchExpanded(false)}
+                        onClick={(e) => e.stopPropagation()} 
                     />
                  </div>
+            </div>
+
+            {/* Separated Stock Comparison Button */}
+            <div className="absolute top-4 left-1/2 ml-[210px] -translate-x-0 z-30 transition-all duration-300 ease-in-out">
+                 <Button 
+                    variant="ghost" 
+                    size="sm" 
+                    className="h-[34px] w-[34px] p-0 bg-[#151921]/90 backdrop-blur border border-white/10 rounded-full shadow-xl hover:bg-white/10 hover:text-white text-gray-400"
+                    title="종목비교"
+                 >
+                    <RotateCcw className="w-4 h-4" />
+                 </Button>
             </div>
 
             {/* Fear & Greed Gauge - Top Left Floating - REMOVED */}
