@@ -70,9 +70,51 @@ import { Switch } from "@/components/ui/switch";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 
+import {
+  Carousel,
+  CarouselContent,
+  CarouselItem,
+  CarouselNext,
+  CarouselPrevious,
+} from "@/components/ui/carousel";
+
 import stockAnalysisImage from '@assets/stock_images/stock_market_analysi_5b45eee1.jpg';
 
 // --- Mock Data ---
+
+const featuredCommunities: Community[] = [
+  {
+    id: '1',
+    name: 'StockLink Official',
+    description: '공식 StockLink 커뮤니티입니다. 공지사항과 일반적인 토론이 이루어집니다.',
+    members: 12540,
+    online: 1240,
+    image: stockAnalysisImage,
+    tags: ['Official', 'General', 'News'],
+    isFavorite: false
+  },
+  {
+    id: 'featured-2',
+    name: 'Global Macro Insight',
+    description: '전 세계 거시경제 흐름과 주요 지표를 심층 분석하는 프리미엄 커뮤니티입니다.',
+    members: 8900,
+    online: 450,
+    image: 'https://images.unsplash.com/photo-1611974765270-ca1258634369?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    tags: ['Global', 'Macro', 'Premium'],
+    isFavorite: false
+  },
+  {
+    id: 'featured-3',
+    name: 'Quant Strategy Lab',
+    description: '데이터 기반 퀀트 투자 전략을 연구하고 백테스팅 결과를 공유합니다.',
+    members: 3200,
+    online: 210,
+    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    tags: ['Quant', 'Data', 'Strategy'],
+    isFavorite: false
+  }
+];
+
 
 type UserStatus = 'online' | 'idle' | 'dnd' | 'offline';
 
@@ -395,45 +437,52 @@ const CommunityDiscovery = ({
 
           {activeTab === 'all' && (
             <>
-              {/* Featured Banner */}
-              <div className="relative rounded-2xl overflow-hidden mb-12 border border-white/10 group cursor-pointer" onClick={() => onJoin(communities[0])}>
-                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
-                <img 
-                  src={communities[0].image} 
-                  className="w-full h-[300px] object-cover transition-transform duration-700 group-hover:scale-105" 
-                  alt="Featured" 
-                />
-                <div className="absolute bottom-0 left-0 p-8 z-20 max-w-2xl">
-                  <div className="flex items-center gap-2 mb-4">
-                    <Badge className="bg-primary text-primary-foreground hover:bg-primary/90">추천 커뮤니티</Badge>
-                    {communities[0].isFavorite && (
-                      <Badge variant="secondary" className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20 gap-1">
-                        <Star className="w-3 h-3 fill-current" /> 즐겨찾기됨
-                      </Badge>
-                    )}
-                  </div>
-                  <h2 className="text-4xl font-bold text-white mb-2">{communities[0].name}</h2>
-                  <p className="text-gray-200 text-lg mb-6">
-                    {communities[0].description}
-                  </p>
-                  <div className="flex items-center gap-3">
-                    <Button size="lg" className="bg-white text-black hover:bg-gray-200">
-                      <Users className="w-4 h-4 mr-2" /> 입장하기
-                    </Button>
-                    <Button 
-                      size="lg" 
-                      variant="outline" 
-                      className="bg-black/20 border-white/20 text-white hover:bg-white/10"
-                      onClick={(e) => {
-                        e.stopPropagation();
-                        onToggleFavorite(communities[0].id);
-                      }}
-                    >
-                      <Star className={cn("w-4 h-4 mr-2", communities[0].isFavorite && "fill-yellow-500 text-yellow-500")} /> 
-                      {communities[0].isFavorite ? "즐겨찾기 해제" : "즐겨찾기"}
-                    </Button>
-                  </div>
-                </div>
+              {/* Featured Carousel */}
+              <div className="mb-12">
+                <Carousel className="w-full" opts={{ loop: true }}>
+                  <CarouselContent>
+                    {featuredCommunities.map((featured) => (
+                      <CarouselItem key={featured.id}>
+                        <div className="relative rounded-2xl overflow-hidden border border-white/10 group cursor-pointer" onClick={() => onJoin(featured)}>
+                          <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
+                          <img 
+                            src={featured.image} 
+                            className="w-full h-[300px] object-cover transition-transform duration-700 group-hover:scale-105" 
+                            alt={featured.name} 
+                          />
+                          <div className="absolute bottom-0 left-0 p-8 z-20 max-w-2xl">
+                            <div className="flex items-center gap-2 mb-4">
+                              <Badge className="bg-primary text-primary-foreground hover:bg-primary/90">추천 커뮤니티</Badge>
+                            </div>
+                            <h2 className="text-4xl font-bold text-white mb-2">{featured.name}</h2>
+                            <p className="text-gray-200 text-lg mb-6">
+                              {featured.description}
+                            </p>
+                            <div className="flex items-center gap-3">
+                              <Button size="lg" className="bg-white text-black hover:bg-gray-200">
+                                <Users className="w-4 h-4 mr-2" /> 입장하기
+                              </Button>
+                              <Button 
+                                size="lg" 
+                                variant="outline" 
+                                className="bg-black/20 border-white/20 text-white hover:bg-white/10"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onToggleFavorite(featured.id);
+                                }}
+                              >
+                                <Star className="w-4 h-4 mr-2" /> 
+                                즐겨찾기 등록
+                              </Button>
+                            </div>
+                          </div>
+                        </div>
+                      </CarouselItem>
+                    ))}
+                  </CarouselContent>
+                  <CarouselPrevious className="left-4 bg-black/50 border-white/10 hover:bg-black/70 text-white" />
+                  <CarouselNext className="right-4 bg-black/50 border-white/10 hover:bg-black/70 text-white" />
+                </Carousel>
               </div>
 
               {/* Categories */}
