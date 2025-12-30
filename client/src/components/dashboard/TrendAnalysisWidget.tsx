@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { ArrowUpRight, ArrowDownRight, ChevronRight, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
+import { motion } from "framer-motion";
 
 export default function TrendAnalysisWidget() {
   const [selectedTrend, setSelectedTrend] = useState("AI Semiconductors");
@@ -80,12 +81,19 @@ export default function TrendAnalysisWidget() {
               const opacity = Math.max(0.4, word.value / 120);
               
               return (
-                <span 
+                <motion.span 
                   key={i}
+                  initial={{ opacity: 0, scale: 0.5, y: 10 }}
+                  animate={{ opacity: isSelected ? 1 : opacity, scale: 1, y: 0 }}
+                  transition={{ 
+                    duration: 0.5, 
+                    delay: i * 0.03,
+                    type: "spring",
+                    stiffness: 100 
+                  }}
                   onClick={() => setSelectedTrend(word.text)}
                   style={{ 
                       fontSize: `${size}rem`,
-                      opacity: isSelected ? 1 : opacity
                   }}
                   className={cn(
                     `font-display font-bold cursor-pointer transition-all duration-300 ${color} leading-none`,
@@ -93,7 +101,7 @@ export default function TrendAnalysisWidget() {
                   )}
                 >
                   {word.text}
-                </span>
+                </motion.span>
               );
             })}
           </div>
