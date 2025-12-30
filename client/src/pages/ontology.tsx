@@ -589,16 +589,7 @@ export default function OntologyPage() {
                 )}
             </ScrollArea>
             
-            {/* Sidebar Footer */}
-             <div className="p-3 bg-[#0f1115] border-t border-white/10">
-                 <div className="flex items-center gap-2 mb-2">
-                     <span className="bg-primary/20 text-primary text-[10px] font-bold px-1.5 py-0.5 rounded">Beta</span>
-                     <span className="text-[10px] text-gray-400">현재 베타 버전에서는 10분 지연 주식 정보를 제공합니다.</span>
-                 </div>
-                 <div className="text-[10px] text-gray-600 font-mono">
-                     (12-29 22:11 KST)
-                 </div>
-             </div>
+            {/* Sidebar Footer - REMOVED per user request */}
         </aside>
 
         {/* Main Graph Area */}
