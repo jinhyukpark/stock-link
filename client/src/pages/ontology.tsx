@@ -686,7 +686,7 @@ export default function OntologyPage() {
             {/* Show Sidebar Trigger - Visible when Sidebar is hidden */}
             {!isSidebarOpen && (
                 <button 
-                    className="absolute left-0 top-14 z-40 bg-[#151921]/90 backdrop-blur border border-white/10 border-l-0 rounded-r-lg p-1.5 shadow-lg text-gray-400 hover:text-white hover:bg-white/10 transition-all hover:pl-2"
+                    className="absolute left-0 top-[160px] z-50 bg-[#151921]/90 backdrop-blur border border-white/10 border-l-0 rounded-r-lg p-1.5 shadow-lg text-gray-400 hover:text-white hover:bg-white/10 transition-all hover:pl-2"
                     onClick={() => setIsSidebarOpen(true)}
                     title="사이드바 보이기"
                 >
