@@ -911,6 +911,26 @@ export default function OntologyPage() {
                  </div>
             </div>
 
+            {/* Floating Market Indices above Timeline */}
+            <div className="absolute bottom-[72px] left-1/2 -translate-x-1/2 z-30 flex gap-3">
+                {[
+                    { name: "KOSPI", value: "2,612.43", change: "+0.85%", up: true },
+                    { name: "KOSDAQ", value: "859.21", change: "-0.23%", up: false },
+                    { name: "KOSPI 200", value: "351.42", change: "+1.12%", up: true },
+                    { name: "USD/KRW", value: "1,315.50", change: "-0.15%", up: false }
+                ].map((idx, i) => (
+                    <div key={i} className="bg-[#151921]/90 backdrop-blur border border-white/10 rounded-full px-4 py-2 shadow-lg flex items-center gap-3">
+                        <span className="text-xs font-bold text-gray-300">{idx.name}</span>
+                        <div className="flex items-center gap-2">
+                            <span className="text-sm font-mono font-bold text-white">{idx.value}</span>
+                            <span className={cn("text-xs font-mono", idx.up ? "text-red-400" : "text-blue-400")}>
+                                {idx.change}
+                            </span>
+                        </div>
+                    </div>
+                ))}
+            </div>
+
             {/* Bottom Timeline Control */}
             <div className="absolute bottom-0 left-0 right-0 h-[60px] bg-[#0f1115] border-t border-white/10 z-30 flex items-end px-4 pb-1">
                 <div className="flex-1 flex items-end gap-[2px] h-full pt-2 opacity-50 hover:opacity-100 transition-opacity">
