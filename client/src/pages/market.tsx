@@ -733,11 +733,11 @@ export default function MarketAnalysis() {
                   icon={TrendingUp}
                   description="시장 등락(Market Breadth)은 주가 상승이 얼마나 광범위하게 나타나는지를 측정합니다. 이동평균선 대비 상승 종목 수를 추적하여 지수 추세의 강도를 검증합니다. 소수의 대형주가 주도하는 랠리보다 다수의 종목이 상승하는 랠리가 더 지속 가능합니다." 
                 />
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-8">
-                   <div className="lg:col-span-1 h-full">
-                      <AnalysisBlock content={analysisTexts.breadth} className="h-full mb-0" />
+                <div className="flex flex-col gap-6 mb-8">
+                   <div className="w-full">
+                      <AnalysisBlock content={analysisTexts.breadth} className="mb-0" />
                    </div>
-                   <div className="lg:col-span-2 h-full">
+                   <div className="w-full">
                       {/* Placeholder or consolidated chart if any, but layout was vertical stack before. 
                           Wait, the original code had:
                           <div className="grid grid-cols-1 lg:grid-cols-1 gap-8 mb-8">
@@ -803,11 +803,11 @@ export default function MarketAnalysis() {
                   icon={BarChart2}
                   description="이 히스토그램은 일일 주가 변동폭의 빈도 분포를 보여줍니다. 커널 밀도 추정(KDE) 선은 부드러운 확률 밀도를 나타냅니다. 오른쪽으로 치우친 분포는 긍정적인 모멘텀을, '두터운 꼬리(Fat tail)'는 급격한 변동 가능성이 높음을 의미합니다."
                 />
-                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
-                  <div className="lg:col-span-1 h-full">
-                    <AnalysisBlock content={analysisTexts.dist} className="h-full mb-0" />
+                 <div className="flex flex-col gap-6 mb-8">
+                  <div className="w-full">
+                    <AnalysisBlock content={analysisTexts.dist} className="mb-0" />
                   </div>
-                  <div className="lg:col-span-2 h-full">
+                  <div className="w-full">
                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
                        <Card 
                          className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative h-full flex flex-col"
