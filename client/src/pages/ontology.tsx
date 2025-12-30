@@ -893,7 +893,7 @@ export default function OntologyPage() {
                     <span className="w-10 text-right">개수</span>
                     <span className="w-12 text-right">비율(%)</span>
                  </div>
-                 <div className="p-1">
+                 <div className="px-1 pt-1 pb-2">
                     {legendItems.map((item, idx) => (
                         <div key={idx} className="flex items-center text-[10px] px-2 py-1 hover:bg-white/5 rounded cursor-pointer">
                             <div className={cn("w-2 h-2 rounded-full mr-2", item.color)}></div>
