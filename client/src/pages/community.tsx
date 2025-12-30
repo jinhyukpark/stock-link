@@ -32,7 +32,9 @@ import {
   Vote,
   BarChart2,
   Megaphone,
-  CheckCircle2
+  Globe,
+  TrendingUp,
+  Activity
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -64,10 +66,69 @@ import { Label } from "@/components/ui/label";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Switch } from "@/components/ui/switch";
 import { format } from "date-fns";
+import { motion } from "framer-motion";
 
 // --- Mock Data ---
 
 type UserStatus = 'online' | 'idle' | 'dnd' | 'offline';
+
+interface Community {
+  id: string;
+  name: string;
+  description: string;
+  members: number;
+  online: number;
+  image: string;
+  tags: string[];
+}
+
+const mockCommunities: Community[] = [
+  {
+    id: '1',
+    name: 'StockLink Official',
+    description: '공식 StockLink 커뮤니티입니다. 공지사항과 일반적인 토론이 이루어집니다.',
+    members: 12540,
+    online: 1240,
+    image: 'https://images.unsplash.com/photo-1611974765270-ca1258634369?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    tags: ['Official', 'General', 'News']
+  },
+  {
+    id: '2',
+    name: '단타 스캘핑 연구소',
+    description: '초단타 매매 기법을 공유하고 실시간으로 타점을 분석하는 방입니다.',
+    members: 3420,
+    online: 850,
+    image: 'https://images.unsplash.com/photo-1642543492481-44e81e3914a7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    tags: ['Trading', 'Scalping', 'High Risk']
+  },
+  {
+    id: '3',
+    name: '장기투자 가치투자',
+    description: '10년 뒤를 바라보는 가치투자자들의 모임. 재무제표 분석 위주.',
+    members: 8900,
+    online: 420,
+    image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    tags: ['Long-term', 'Value', 'Analysis']
+  },
+  {
+    id: '4',
+    name: '비트코인 & 알트코인',
+    description: '암호화폐 시장 분석 및 정보 공유. 24시간 잠들지 않는 곳.',
+    members: 15600,
+    online: 3200,
+    image: 'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    tags: ['Crypto', 'Bitcoin', 'Altcoins']
+  },
+  {
+    id: '5',
+    name: '미국주식 나스닥',
+    description: '애플, 테슬라, 엔비디아 등 미국 우량주 투자 토론.',
+    members: 5600,
+    online: 150,
+    image: 'https://images.unsplash.com/photo-1640340434855-6084b1f4901c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    tags: ['US Stock', 'Nasdaq', 'Tech']
+  }
+];
 
 interface User {
   id: string;
@@ -224,7 +285,113 @@ const PollCard = ({ poll, onVote, userRole }: { poll: Poll, onVote: (pollId: str
   );
 };
 
+const CommunityDiscovery = ({ onJoin }: { onJoin: (community: Community) => void }) => {
+  return (
+    <div className="flex-1 flex flex-col bg-[#0B0E14] overflow-hidden">
+      {/* Discovery Header */}
+      <div className="h-16 px-8 flex items-center justify-between border-b border-white/5 bg-[#0B0E14]/50 backdrop-blur sticky top-0 z-10">
+        <div>
+          <h1 className="text-xl font-bold text-white flex items-center gap-2">
+            <Globe className="w-6 h-6 text-primary" />
+            커뮤니티 탐색
+          </h1>
+          <p className="text-sm text-gray-400">관심 있는 주식/투자 커뮤니티를 찾아보세요.</p>
+        </div>
+        <div className="relative w-72">
+          <Input 
+            placeholder="커뮤니티 검색..." 
+            className="bg-[#151921] border-white/10 pl-10 text-gray-200"
+          />
+          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
+        </div>
+      </div>
+
+      <ScrollArea className="flex-1 p-8">
+        <div className="max-w-6xl mx-auto">
+          {/* Featured Banner */}
+          <div className="relative rounded-2xl overflow-hidden mb-12 border border-white/10 group cursor-pointer" onClick={() => onJoin(mockCommunities[0])}>
+            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
+            <img 
+              src="https://images.unsplash.com/photo-1611974765270-ca1258634369?w=1600&auto=format&fit=crop&q=80" 
+              className="w-full h-[300px] object-cover transition-transform duration-700 group-hover:scale-105" 
+              alt="Featured" 
+            />
+            <div className="absolute bottom-0 left-0 p-8 z-20 max-w-2xl">
+              <Badge className="mb-4 bg-primary text-primary-foreground hover:bg-primary/90">추천 커뮤니티</Badge>
+              <h2 className="text-4xl font-bold text-white mb-2">StockLink Official</h2>
+              <p className="text-gray-200 text-lg mb-6">
+                가장 빠르고 정확한 주식 시장 정보를 공유하는 공식 커뮤니티입니다. 
+                전문가의 분석 리포트와 실시간 뉴스 속보를 받아보세요.
+              </p>
+              <Button size="lg" className="bg-white text-black hover:bg-gray-200">
+                <Users className="w-4 h-4 mr-2" /> 입장하기
+              </Button>
+            </div>
+          </div>
+
+          {/* Categories */}
+          <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+            <TrendingUp className="w-5 h-5 text-green-400" />
+            인기 커뮤니티
+          </h3>
+
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+            {mockCommunities.slice(1).map((community) => (
+              <motion.div 
+                key={community.id}
+                initial={{ opacity: 0, y: 20 }}
+                animate={{ opacity: 1, y: 0 }}
+                className="bg-[#151921] border border-white/5 rounded-xl overflow-hidden hover:border-primary/50 transition-all duration-300 group flex flex-col"
+              >
+                <div className="h-32 overflow-hidden relative">
+                  <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
+                  <img 
+                    src={community.image} 
+                    alt={community.name}
+                    className="w-full h-full object-cover transition-transform duration-500 group-hover:scale-110"
+                  />
+                </div>
+                <div className="p-5 flex-1 flex flex-col">
+                  <div className="flex justify-between items-start mb-2">
+                    <h4 className="font-bold text-lg text-white group-hover:text-primary transition-colors">{community.name}</h4>
+                  </div>
+                  <p className="text-sm text-gray-400 mb-4 line-clamp-2 flex-1">
+                    {community.description}
+                  </p>
+                  
+                  <div className="flex flex-wrap gap-1.5 mb-4">
+                    {community.tags.map(tag => (
+                      <span key={tag} className="text-[10px] px-2 py-0.5 rounded-full bg-white/5 text-gray-400 border border-white/5">
+                        {tag}
+                      </span>
+                    ))}
+                  </div>
+
+                  <div className="flex items-center justify-between pt-4 border-t border-white/5">
+                    <div className="flex items-center gap-3 text-xs text-gray-500">
+                      <span className="flex items-center gap-1">
+                        <Users className="w-3.5 h-3.5" /> {community.members.toLocaleString()}
+                      </span>
+                      <span className="flex items-center gap-1 text-green-500">
+                        <Activity className="w-3.5 h-3.5" /> {community.online.toLocaleString()}
+                      </span>
+                    </div>
+                    <Button size="sm" onClick={() => onJoin(community)} className="bg-white/10 hover:bg-white/20 text-white border-none">
+                      입장하기
+                    </Button>
+                  </div>
+                </div>
+              </motion.div>
+            ))}
+          </div>
+        </div>
+      </ScrollArea>
+    </div>
+  );
+};
+
 export default function CommunityPage() {
+  const [viewMode, setViewMode] = useState<'chat' | 'discovery'>('chat');
   const [selectedChannelId, setSelectedChannelId] = useState('3');
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [polls, setPolls] = useState<Poll[]>(initialPolls);
@@ -235,6 +402,19 @@ export default function CommunityPage() {
   const [isInviteModalOpen, setIsInviteModalOpen] = useState(false);
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
+
+  // If in discovery mode, render discovery component
+  if (viewMode === 'discovery') {
+    return (
+      <DashboardLayout>
+        <CommunityDiscovery onJoin={(community) => {
+          // In a real app, this would join the server. For now, we just switch back to chat.
+          // Optionally update the server name/context here
+          setViewMode('chat');
+        }} />
+      </DashboardLayout>
+    );
+  }
 
   const selectedChannel = mockChannels.find(c => c.id === selectedChannelId) || mockChannels[0];
 
@@ -319,6 +499,13 @@ export default function CommunityPage() {
                    </DropdownMenuItem>
                    <DropdownMenuItem className="focus:bg-primary/20 focus:text-primary cursor-pointer">
                       <Plus className="mr-2 h-4 w-4" /> 채널 만들기
+                   </DropdownMenuItem>
+                   <DropdownMenuSeparator className="bg-white/10" />
+                   <DropdownMenuItem 
+                      className="focus:bg-red-500/20 focus:text-red-400 text-red-400 cursor-pointer"
+                      onClick={() => setViewMode('discovery')}
+                   >
+                      <LogOut className="mr-2 h-4 w-4" /> 서버 나가기
                    </DropdownMenuItem>
                  </DropdownMenuContent>
                </DropdownMenu>
