@@ -408,6 +408,8 @@ const CommunityDiscovery = ({
   const [current, setCurrent] = useState(0);
   const [count, setCount] = useState(0);
 
+  const [showDescription, setShowDescription] = useState(true);
+
   useEffect(() => {
     if (!api) {
       return;
@@ -430,6 +432,26 @@ const CommunityDiscovery = ({
     <div className="flex-1 flex flex-col bg-[#0B0E14] overflow-hidden">
       <ScrollArea className="flex-1 p-8">
         <div className="max-w-6xl mx-auto">
+          
+          {showDescription && (
+            <div className="flex items-center gap-4 mb-6 animate-in fade-in slide-in-from-top-2 duration-300">
+               <div className="flex items-center gap-3 bg-blue-950/30 border border-blue-800/30 rounded-lg px-4 py-2 text-sm text-blue-100 w-full">
+                 <Globe className="w-4 h-4 text-blue-400 shrink-0" />
+                 <span className="font-bold text-blue-200 whitespace-nowrap">커뮤니티 탐색?</span>
+                 <span className="text-gray-300 border-l border-blue-800/50 pl-3">
+                   관심 있는 주식/투자 커뮤니티를 찾아보고, 다양한 투자자들과 인사이트를 공유하며 함께 성장하세요.
+                 </span>
+                 <button 
+                   onClick={() => setShowDescription(false)}
+                   className="ml-auto p-1 hover:bg-blue-900/30 rounded-md transition-colors text-blue-400 hover:text-blue-200"
+                   aria-label="Close description"
+                 >
+                   <X className="w-3 h-3" />
+                 </button>
+               </div>
+            </div>
+          )}
+
           {/* Tabs & Search */}
           <div className="flex items-center justify-between gap-4 mb-8">
             <div className="flex items-center gap-4">
