@@ -887,7 +887,7 @@ export default function OntologyPage() {
             </div>
 
             {/* Bottom Legend Panel */}
-            <div className="absolute bottom-[100px] right-4 z-30 bg-[#0B0E14]/90 backdrop-blur border border-white/10 rounded-lg p-0 w-[240px] overflow-hidden shadow-2xl">
+            <div className="absolute bottom-[140px] right-4 z-30 bg-[#0B0E14]/90 backdrop-blur border border-white/10 rounded-lg p-0 w-[240px] overflow-hidden shadow-2xl">
                  <div className="flex text-[10px] text-gray-400 bg-white/5 px-3 py-1.5 border-b border-white/10">
                     <span className="flex-1">등락률</span>
                     <span className="w-10 text-right">개수</span>
