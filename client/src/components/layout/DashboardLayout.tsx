@@ -1,10 +1,18 @@
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, LineChart, PieChart, Newspaper, Users, Settings, LogOut, Search, Bell, Menu, Network } from "lucide-react";
+import { LayoutDashboard, LineChart, PieChart, Newspaper, Users, Settings, LogOut, Search, Bell, Menu, Network, User, CreditCard, Lock, Crown } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Sheet, SheetContent, SheetTrigger } from "@/components/ui/sheet";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuItem,
+  DropdownMenuLabel,
+  DropdownMenuSeparator,
+  DropdownMenuTrigger,
+} from "@/components/ui/dropdown-menu";
 import { useState } from "react";
 
 export default function DashboardLayout({ children }: { children: React.ReactNode }) {
@@ -87,20 +95,62 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
               <span className="absolute top-2 right-2 w-2 h-2 bg-primary rounded-full animate-pulse" />
             </Button>
             
-            <div className="hidden sm:flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
-              <div className="text-right">
-                <p className="text-sm font-medium leading-none mb-1">Alex Morgan</p>
-                <div className="flex justify-end">
-                    <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-primary/20 text-primary border border-primary/30 leading-none tracking-widest uppercase">
-                        PRO
-                    </span>
+            <DropdownMenu>
+              <DropdownMenuTrigger asChild>
+                <div className="hidden sm:flex items-center gap-3 cursor-pointer hover:opacity-80 transition-opacity">
+                  <div className="text-right">
+                    <p className="text-sm font-medium leading-none mb-1">Alex Morgan</p>
+                    <div className="flex justify-end">
+                        <span className="text-[9px] font-bold px-1.5 py-0.5 rounded bg-primary/20 text-primary border border-primary/30 leading-none tracking-widest uppercase">
+                            PRO
+                        </span>
+                    </div>
+                  </div>
+                  <Avatar className="h-8 w-8 border border-border">
+                    <AvatarImage src="https://github.com/shadcn.png" />
+                    <AvatarFallback>AM</AvatarFallback>
+                  </Avatar>
                 </div>
-              </div>
-              <Avatar className="h-8 w-8 border border-border">
-                <AvatarImage src="https://github.com/shadcn.png" />
-                <AvatarFallback>AM</AvatarFallback>
-              </Avatar>
-            </div>
+              </DropdownMenuTrigger>
+              <DropdownMenuContent className="w-56 bg-[#0B0E14] border-white/10 text-white" align="end" forceMount>
+                <DropdownMenuLabel className="font-normal">
+                  <div className="flex flex-col space-y-1">
+                    <p className="text-sm font-medium leading-none">Alex Morgan</p>
+                    <p className="text-xs leading-none text-gray-400">alex.morgan@stocklink.com</p>
+                  </div>
+                </DropdownMenuLabel>
+                <DropdownMenuSeparator className="bg-white/10" />
+                <Link href="/mypage">
+                  <DropdownMenuItem className="focus:bg-white/10 focus:text-white cursor-pointer group">
+                    <User className="mr-2 h-4 w-4 text-gray-400 group-hover:text-white" />
+                    <span>내 정보</span>
+                  </DropdownMenuItem>
+                </Link>
+                <Link href="/mypage">
+                  <DropdownMenuItem className="focus:bg-white/10 focus:text-white cursor-pointer group">
+                    <CreditCard className="mr-2 h-4 w-4 text-gray-400 group-hover:text-white" />
+                    <span>결제 내역</span>
+                  </DropdownMenuItem>
+                </Link>
+                <Link href="/mypage">
+                  <DropdownMenuItem className="focus:bg-white/10 focus:text-white cursor-pointer group">
+                    <Crown className="mr-2 h-4 w-4 text-yellow-500 group-hover:text-yellow-400" />
+                    <span>구독 관리</span>
+                  </DropdownMenuItem>
+                </Link>
+                <DropdownMenuSeparator className="bg-white/10" />
+                <Link href="/mypage">
+                  <DropdownMenuItem className="focus:bg-white/10 focus:text-white cursor-pointer group">
+                    <Settings className="mr-2 h-4 w-4 text-gray-400 group-hover:text-white" />
+                    <span>설정</span>
+                  </DropdownMenuItem>
+                </Link>
+                <DropdownMenuItem className="focus:bg-red-500/10 focus:text-red-400 text-red-400 cursor-pointer">
+                  <LogOut className="mr-2 h-4 w-4" />
+                  <span>로그아웃</span>
+                </DropdownMenuItem>
+              </DropdownMenuContent>
+            </DropdownMenu>
 
             {/* Mobile Menu Trigger */}
             <Sheet open={isMobileMenuOpen} onOpenChange={setIsMobileMenuOpen}>
