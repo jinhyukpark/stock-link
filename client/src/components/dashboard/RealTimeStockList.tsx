@@ -115,18 +115,29 @@ export default function RealTimeStockList() {
                      </div>
 
                      {/* AI Score Column */}
-                     <div className="col-span-3 md:col-span-2 text-right">
-                        <div className="flex items-center justify-end gap-2">
-                           <div className="h-1.5 w-12 bg-secondary rounded-full overflow-hidden hidden sm:block">
+                     <div className="col-span-3 md:col-span-2 flex items-center justify-end">
+                        <div className={cn(
+                           "flex items-center justify-between gap-3 py-1 px-2.5 rounded-lg border w-full max-w-[110px] backdrop-blur-sm transition-all",
+                           stock.aiScore >= 9.0 ? "bg-blue-500/10 border-blue-500/30 shadow-[0_0_10px_rgba(59,130,246,0.1)]" :
+                           stock.aiScore >= 7.0 ? "bg-primary/10 border-primary/20" :
+                           stock.aiScore >= 5.0 ? "bg-yellow-500/5 border-yellow-500/10" :
+                           "bg-muted/10 border-white/5"
+                        )}>
+                           <div className="h-1.5 flex-1 bg-black/40 rounded-full overflow-hidden hidden sm:block max-w-[40px]">
                               <div 
-                                 className={cn("h-full rounded-full", stock.aiScore >= 7 ? "bg-primary" : stock.aiScore >= 4 ? "bg-yellow-500" : "bg-muted-foreground")} 
+                                 className={cn("h-full rounded-full", 
+                                    stock.aiScore >= 9.0 ? "bg-blue-400" :
+                                    stock.aiScore >= 7.0 ? "bg-primary" : 
+                                    stock.aiScore >= 5.0 ? "bg-yellow-500" : "bg-muted-foreground"
+                                 )} 
                                  style={{ width: `${(stock.aiScore / 10) * 100}%` }}
                               />
                            </div>
                            <span className={cn(
-                              "font-mono font-bold text-sm",
-                              stock.aiScore >= 8 ? "text-primary drop-shadow-[0_0_8px_rgba(59,130,246,0.5)]" : 
-                              stock.aiScore >= 5 ? "text-foreground" : "text-muted-foreground"
+                              "font-mono font-bold text-sm ml-auto",
+                              stock.aiScore >= 9.0 ? "text-blue-400" :
+                              stock.aiScore >= 7.0 ? "text-primary" : 
+                              stock.aiScore >= 5.0 ? "text-yellow-500" : "text-muted-foreground"
                            )}>
                               {stock.aiScore}
                            </span>
