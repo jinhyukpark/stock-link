@@ -587,6 +587,19 @@ export default function OntologyPage() {
                  <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
                     <RotateCcw className="w-3 h-3 mr-1" /> 종목비교
                  </Button>
+                 
+                 {/* Expandable Search Bar */}
+                 <div className="w-px h-3 bg-white/10"></div>
+                 <div className="relative group flex items-center h-7 transition-all duration-300 ease-in-out w-8 hover:w-48 bg-transparent hover:bg-white/5 rounded-full overflow-hidden">
+                    <div className="absolute left-2 flex items-center pointer-events-none">
+                        <Search className="w-3.5 h-3.5 text-gray-400 group-hover:text-primary transition-colors" />
+                    </div>
+                    <input 
+                        type="text" 
+                        placeholder="관계망 내 검색..." 
+                        className="w-full h-full bg-transparent border-none outline-none text-xs text-white pl-8 pr-2 opacity-0 group-hover:opacity-100 transition-opacity duration-300 placeholder:text-gray-500"
+                    />
+                 </div>
             </div>
 
             {/* Fear & Greed Gauge - Top Left Floating - REMOVED */}
