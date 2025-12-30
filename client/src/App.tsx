@@ -10,6 +10,7 @@ import MarketAnalysis from "@/pages/market";
 import MomentumPage from "@/pages/momentum";
 import StockPage from "@/pages/stock";
 import OntologyPage from "@/pages/ontology";
+import CommunityPage from "@/pages/community";
 
 function Router() {
   return (
@@ -19,6 +20,7 @@ function Router() {
       <Route path="/market" component={MarketAnalysis} />
       <Route path="/ontology" component={OntologyPage} />
       <Route path="/analysis" component={MomentumPage} />
+      <Route path="/community" component={CommunityPage} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>
