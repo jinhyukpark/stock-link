@@ -82,7 +82,7 @@ import {
 import stockAnalysisImage from '@assets/stock_images/stock_market_analysi_5b45eee1.jpg';
 import globalMacroImage from '@assets/generated_images/global_economy_visualization_with_world_map_and_data_streams.png';
 import quantStrategyImage from '@assets/generated_images/quantitative_trading_visualization_with_code_and_algorithms.png';
-import proBannerImage from '@assets/generated_images/stocklink_pro_vertical_advertisement_banner.png';
+import proBannerImage from '@assets/generated_images/ai_expert_investor_analyzing_financial_data.png';
 
 // --- Mock Data ---
 
