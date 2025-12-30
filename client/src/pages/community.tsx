@@ -497,59 +497,55 @@ const CommunityDiscovery = ({
                             className="w-full h-[300px] object-cover transition-transform duration-700 group-hover:scale-105" 
                             alt={featured.name} 
                           />
-                          <div className="absolute bottom-0 left-0 p-8 z-20 max-w-2xl w-full">
-                            <div className="flex items-center gap-2 mb-2">
+                          <div className="absolute bottom-0 left-0 p-8 z-20 max-w-3xl w-full">
+                            {/* Top Row: Tag & Member Count */}
+                            <div className="flex items-center gap-3 mb-3">
                               <Badge className="bg-primary text-primary-foreground hover:bg-primary/90">추천 커뮤니티</Badge>
+                              <div className="w-px h-3 bg-white/20" />
+                              <div className="flex items-center gap-1.5 text-white/90">
+                                <Users className="w-3.5 h-3.5 text-primary" />
+                                <span className="text-sm font-medium">현재 {featured.members.toLocaleString()}명 참여중</span>
+                              </div>
                             </div>
                             
-                            {/* Leader Info & Title */}
-                            <div className="flex items-end gap-4 mb-2">
+                            {/* Title & Leader Row */}
+                            <div className="flex items-center gap-4 mb-3">
+                                <h2 className="text-4xl font-bold text-white leading-none">{featured.name}</h2>
                                 {featured.leader && (
-                                    <div className="flex flex-col gap-1 mb-1">
-                                        <span className="text-[10px] text-gray-400 font-medium">Community Lead</span>
-                                        <div className="flex items-center gap-2 bg-black/40 backdrop-blur-sm px-2 py-1 rounded-full border border-white/10">
-                                            <Avatar className="w-5 h-5 border border-white/20">
+                                    <div className="flex items-center gap-2 bg-white/10 backdrop-blur-md px-3 py-1 rounded-full border border-white/10">
+                                        <span className="text-[10px] text-primary font-bold tracking-wider">LEAD</span>
+                                        <div className="w-px h-3 bg-white/20" />
+                                        <div className="flex items-center gap-2">
+                                            <Avatar className="w-4 h-4 border border-white/20">
                                                 <AvatarImage src={featured.leader.avatar} />
                                                 <AvatarFallback>{featured.leader.name[0]}</AvatarFallback>
                                             </Avatar>
-                                            <span className="text-xs text-gray-200 font-medium pr-1">{featured.leader.name}</span>
+                                            <span className="text-xs text-white font-medium">{featured.leader.name}</span>
                                         </div>
                                     </div>
                                 )}
                             </div>
 
-                            <h2 className="text-4xl font-bold text-white mb-2">{featured.name}</h2>
-                            <p className="text-gray-200 text-lg mb-6 line-clamp-2">
+                            <p className="text-gray-200 text-lg mb-8 line-clamp-2 max-w-2xl">
                               {featured.description}
                             </p>
                             
-                            <div className="flex items-center justify-between w-full pr-8">
-                                <div className="flex items-center gap-3">
-                                  <Button size="lg" className="bg-white text-black hover:bg-gray-200">
-                                    <Users className="w-4 h-4 mr-2" /> 입장하기
-                                  </Button>
-                                  <Button 
-                                    size="lg" 
-                                    variant="outline" 
-                                    className="bg-black/20 border-white/20 text-white hover:bg-white/10"
-                                    onClick={(e) => {
-                                      e.stopPropagation();
-                                      onToggleFavorite(featured.id);
-                                    }}
-                                  >
-                                    <Star className="w-4 h-4 mr-2" /> 
-                                    즐겨찾기 등록
-                                  </Button>
-                                </div>
-
-                                <div className="flex flex-col items-end gap-1">
-                                    <span className="text-xs text-gray-400 font-medium">현재 참여중인 팀원</span>
-                                    <div className="flex items-center gap-2 bg-black/40 backdrop-blur-sm px-3 py-1.5 rounded-lg border border-white/10">
-                                        <Users className="w-4 h-4 text-primary" />
-                                        <span className="text-lg font-bold text-white tabular-nums">{featured.members.toLocaleString()}</span>
-                                        <span className="text-xs text-gray-400">명</span>
-                                    </div>
-                                </div>
+                            <div className="flex items-center gap-3">
+                              <Button size="lg" className="bg-white text-black hover:bg-gray-200 font-bold h-12 px-8">
+                                <Users className="w-4 h-4 mr-2" /> 입장하기
+                              </Button>
+                              <Button 
+                                size="lg" 
+                                variant="outline" 
+                                className="bg-black/20 border-white/20 text-white hover:bg-white/10 h-12 px-6 backdrop-blur-sm"
+                                onClick={(e) => {
+                                  e.stopPropagation();
+                                  onToggleFavorite(featured.id);
+                                }}
+                              >
+                                <Star className="w-4 h-4 mr-2" /> 
+                                즐겨찾기 등록
+                              </Button>
                             </div>
                           </div>
                         </div>
