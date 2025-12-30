@@ -12,6 +12,7 @@ import StockPage from "@/pages/stock";
 import OntologyPage from "@/pages/ontology";
 import CommunityPage from "@/pages/community";
 import MyPage from "@/pages/mypage";
+import SocialPage from "@/pages/social";
 
 function Router() {
   return (
@@ -19,6 +20,7 @@ function Router() {
       <Route path="/" component={Dashboard} />
       <Route path="/stock" component={StockPage} />
       <Route path="/market" component={MarketAnalysis} />
+      <Route path="/social" component={SocialPage} />
       <Route path="/ontology" component={OntologyPage} />
       <Route path="/analysis" component={MomentumPage} />
       <Route path="/community" component={CommunityPage} />
