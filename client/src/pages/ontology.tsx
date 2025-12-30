@@ -626,11 +626,11 @@ export default function OntologyPage() {
                         </div>
                     </div>
 
-                    {/* Today's Keywords */}
+                    {/* Today's Theme Ranking */}
                     <div className="bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg p-3 shadow-lg w-[180px]">
                         <div className="flex items-center gap-2 mb-3 border-b border-white/5 pb-2">
-                            <Sparkles className="w-3.5 h-3.5 text-primary" />
-                            <span className="text-[11px] font-bold text-gray-200">Today's Keyword</span>
+                            <Layers className="w-3.5 h-3.5 text-primary" />
+                            <span className="text-[11px] font-bold text-gray-200">오늘의 테마 순위</span>
                         </div>
                         <div className="flex flex-col gap-2">
                             {[
@@ -657,6 +657,21 @@ export default function OntologyPage() {
                                         </span>
                                     </div>
                                 </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* Today's Keywords - New Data */}
+                    <div className="bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg p-3 shadow-lg w-[180px]">
+                        <div className="flex items-center gap-2 mb-3 border-b border-white/5 pb-2">
+                            <Sparkles className="w-3.5 h-3.5 text-blue-400" />
+                            <span className="text-[11px] font-bold text-gray-200">실시간 급상승 키워드</span>
+                        </div>
+                        <div className="flex flex-wrap gap-1.5">
+                            {["HBM3", "리튬", "상온초전도", "알츠하이머", "NPU", "온디바이스AI", "로봇"].map((keyword, idx) => (
+                                <span key={idx} className="px-2 py-1 bg-white/5 hover:bg-white/10 text-[10px] text-gray-300 rounded border border-white/5 cursor-pointer transition-colors">
+                                    #{keyword}
+                                </span>
                             ))}
                         </div>
                     </div>
