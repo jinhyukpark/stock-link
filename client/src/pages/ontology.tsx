@@ -608,74 +608,76 @@ export default function OntologyPage() {
                 {/* Placeholder for positioning if needed, currently hidden as user wanted it integrated in the graph */}
             </div>
 
-            {/* Top Toolbar overlay - moved down slightly to make room if needed, or keep as is */}
-            <div className={cn(
-                "absolute top-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-1 bg-[#151921]/90 backdrop-blur border border-white/10 rounded-full px-2 py-1.5 shadow-xl transition-all duration-300 ease-in-out",
-                isSearchExpanded ? "w-[400px] justify-between pl-3" : ""
-            )}>
-                 <div className={cn(
-                    "flex items-center gap-1 transition-all duration-300 overflow-hidden whitespace-nowrap",
-                    isSearchExpanded ? "w-0 opacity-0 scale-95" : "w-auto opacity-100 scale-100"
-                 )}>
-                     <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
-                        관계 주식 <span className="text-blue-400 ml-1">테마</span>
-                     </Button>
-                     <div className="w-px h-3 bg-white/10"></div>
-                     <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
-                        종목수 <span className="text-blue-400 ml-1">628</span>
-                     </Button>
-                     <div className="w-px h-3 bg-white/10"></div>
-                     <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
-                        관계수 <span className="text-blue-400 ml-1">351</span>
-                     </Button>
-                     <div className="w-px h-3 bg-white/10"></div>
-                     <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
-                        평균지수 <span className="text-red-400 ml-1">0.03%</span>
-                     </Button>
-                     <div className="w-px h-3 bg-white/10"></div>
-                 </div>
-                 
-                 {/* Expandable Search Bar */}
-                 <div 
-                    className={cn(
-                        "relative flex items-center h-7 transition-all duration-300 ease-in-out rounded-full overflow-hidden",
-                        isSearchExpanded ? "w-full bg-white/5" : "w-8 hover:bg-white/5 cursor-pointer"
-                    )}
-                    onClick={() => {
-                        if (!isSearchExpanded) {
-                            setIsSearchExpanded(true);
-                            // Need to defer focus slightly to let the input render/expand
-                            setTimeout(() => document.getElementById('ontology-search-input')?.focus(), 100);
-                        }
-                    }}
-                 >
-                    <div className="absolute left-2 flex items-center pointer-events-none">
-                        <Search className={cn("w-3.5 h-3.5 transition-colors", isSearchExpanded ? "text-primary" : "text-gray-400")} />
-                    </div>
-                    <input 
-                        id="ontology-search-input"
-                        type="text" 
-                        placeholder="관계망 내 검색..." 
+            {/* Top Toolbar Wrapper - Centered */}
+            <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 flex items-center gap-2">
+                
+                {/* Main Toolbar (Expandable) */}
+                <div className={cn(
+                    "flex items-center gap-1 bg-[#151921]/90 backdrop-blur border border-white/10 rounded-full px-2 py-1.5 shadow-xl transition-all duration-300 ease-in-out relative overflow-hidden",
+                    isSearchExpanded ? "w-[400px]" : "w-auto"
+                )}>
+                     {/* Toolbar Items - Hidden when search expanded */}
+                     <div className={cn(
+                        "flex items-center gap-1 transition-all duration-300 whitespace-nowrap overflow-hidden",
+                        isSearchExpanded ? "w-0 opacity-0 pointer-events-none" : "w-auto opacity-100"
+                     )}>
+                         <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
+                            관계 주식 <span className="text-blue-400 ml-1">테마</span>
+                         </Button>
+                         <div className="w-px h-3 bg-white/10 shrink-0"></div>
+                         <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
+                            종목수 <span className="text-blue-400 ml-1">628</span>
+                         </Button>
+                         <div className="w-px h-3 bg-white/10 shrink-0"></div>
+                         <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
+                            관계수 <span className="text-blue-400 ml-1">351</span>
+                         </Button>
+                         <div className="w-px h-3 bg-white/10 shrink-0"></div>
+                         <Button variant="ghost" size="sm" className="h-7 text-xs text-gray-400 hover:text-white hover:bg-white/10 rounded-full px-3">
+                            평균지수 <span className="text-red-400 ml-1">0.03%</span>
+                         </Button>
+                         <div className="w-px h-3 bg-white/10 shrink-0"></div>
+                     </div>
+                     
+                     {/* Expandable Search Bar */}
+                     <div 
                         className={cn(
-                            "w-full h-full bg-transparent border-none outline-none text-xs text-white pl-8 pr-2 transition-opacity duration-300 placeholder:text-gray-500",
-                            isSearchExpanded ? "opacity-100" : "opacity-0 cursor-pointer pointer-events-none"
+                            "relative flex items-center h-7 transition-all duration-300 ease-in-out rounded-full overflow-hidden",
+                            isSearchExpanded ? "w-full bg-white/5 pl-2" : "w-8 hover:bg-white/5 cursor-pointer justify-center"
                         )}
-                        onBlur={() => setIsSearchExpanded(false)}
-                        onClick={(e) => e.stopPropagation()} 
-                    />
-                 </div>
-            </div>
+                        onClick={() => {
+                            if (!isSearchExpanded) {
+                                setIsSearchExpanded(true);
+                                setTimeout(() => document.getElementById('ontology-search-input')?.focus(), 100);
+                            }
+                        }}
+                     >
+                        <div className={cn("flex items-center pointer-events-none", isSearchExpanded ? "absolute left-2" : "")}>
+                            <Search className={cn("w-3.5 h-3.5 transition-colors", isSearchExpanded ? "text-primary" : "text-gray-400")} />
+                        </div>
+                        <input 
+                            id="ontology-search-input"
+                            type="text" 
+                            placeholder="관계망 내 검색..." 
+                            className={cn(
+                                "w-full h-full bg-transparent border-none outline-none text-xs text-white pl-8 pr-2 transition-opacity duration-300 placeholder:text-gray-500",
+                                isSearchExpanded ? "opacity-100" : "opacity-0 w-0 pointer-events-none"
+                            )}
+                            onBlur={() => setIsSearchExpanded(false)}
+                            onClick={(e) => e.stopPropagation()} 
+                        />
+                     </div>
+                </div>
 
-            {/* Separated Stock Comparison Button */}
-            <div className="absolute top-4 left-1/2 ml-[210px] -translate-x-0 z-30 transition-all duration-300 ease-in-out">
-                 <Button 
+                {/* Separated Stock Comparison Button */}
+                <Button 
                     variant="ghost" 
-                    size="sm" 
-                    className="h-[34px] w-[34px] p-0 bg-[#151921]/90 backdrop-blur border border-white/10 rounded-full shadow-xl hover:bg-white/10 hover:text-white text-gray-400"
+                    size="icon" 
+                    className="h-[42px] w-[42px] bg-[#151921]/90 backdrop-blur border border-white/10 rounded-full shadow-xl hover:bg-white/10 hover:text-white text-gray-400 shrink-0"
                     title="종목비교"
-                 >
+                >
                     <RotateCcw className="w-4 h-4" />
-                 </Button>
+                </Button>
             </div>
 
             {/* Fear & Greed Gauge - Top Left Floating - REMOVED */}
