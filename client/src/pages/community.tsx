@@ -68,6 +68,8 @@ import { Switch } from "@/components/ui/switch";
 import { format } from "date-fns";
 import { motion } from "framer-motion";
 
+import stockAnalysisImage from '@assets/stock_images/stock_market_analysi_5b45eee1.jpg';
+
 // --- Mock Data ---
 
 type UserStatus = 'online' | 'idle' | 'dnd' | 'offline';
@@ -89,7 +91,7 @@ const mockCommunities: Community[] = [
     description: '공식 StockLink 커뮤니티입니다. 공지사항과 일반적인 토론이 이루어집니다.',
     members: 12540,
     online: 1240,
-    image: 'https://images.unsplash.com/photo-1611974765270-ca1258634369?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    image: stockAnalysisImage,
     tags: ['Official', 'General', 'News']
   },
   {
@@ -127,6 +129,42 @@ const mockCommunities: Community[] = [
     online: 150,
     image: 'https://images.unsplash.com/photo-1640340434855-6084b1f4901c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
     tags: ['US Stock', 'Nasdaq', 'Tech']
+  },
+  {
+    id: '6',
+    name: '부동산 경매',
+    description: '부동산 경매 정보 공유 및 권리 분석 토론.',
+    members: 2100,
+    online: 80,
+    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    tags: ['Real Estate', 'Auction']
+  },
+  {
+    id: '7',
+    name: '차트 기술적 분석',
+    description: '엘리어트 파동, 보조지표 등 차트 분석 기법 연구.',
+    members: 4500,
+    online: 600,
+    image: 'https://images.unsplash.com/photo-1611974765270-ca1258634369?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    tags: ['Chart', 'Analysis', 'Technical']
+  },
+  {
+    id: '8',
+    name: '배당주 투자',
+    description: '매달 월세받는 배당 포트폴리오 만들기.',
+    members: 6200,
+    online: 300,
+    image: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    tags: ['Dividend', 'Passive Income']
+  },
+  {
+    id: '9',
+    name: '공모주 청약',
+    description: '따상 기원! 신규 상장주 청약 정보 공유.',
+    members: 3800,
+    online: 1200,
+    image: 'https://images.unsplash.com/photo-1611974765270-ca1258634369?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    tags: ['IPO', 'New Listing']
   }
 ];
 
@@ -312,7 +350,7 @@ const CommunityDiscovery = ({ onJoin }: { onJoin: (community: Community) => void
           <div className="relative rounded-2xl overflow-hidden mb-12 border border-white/10 group cursor-pointer" onClick={() => onJoin(mockCommunities[0])}>
             <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
             <img 
-              src="https://images.unsplash.com/photo-1611974765270-ca1258634369?w=1600&auto=format&fit=crop&q=80" 
+              src={stockAnalysisImage} 
               className="w-full h-[300px] object-cover transition-transform duration-700 group-hover:scale-105" 
               alt="Featured" 
             />
@@ -335,7 +373,7 @@ const CommunityDiscovery = ({ onJoin }: { onJoin: (community: Community) => void
             인기 커뮤니티
           </h3>
 
-          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+          <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
             {mockCommunities.slice(1).map((community) => (
               <motion.div 
                 key={community.id}
