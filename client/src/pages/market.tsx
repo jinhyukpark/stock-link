@@ -1,7 +1,7 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
 import { Card, CardContent } from "@/components/ui/card";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, ComposedChart, ReferenceLine } from "recharts";
-import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Sparkles, FileText, Calendar, User, Download, CalendarDays, Check, ChevronsUpDown, HelpCircle, Maximize2, X, Gauge, ArrowRightLeft, Target, ChevronLeft, ChevronRight, LayoutGrid } from "lucide-react";
+import { Activity, TrendingUp, BarChart2, PieChart as PieChartIcon, Zap, Sparkles, FileText, Calendar, User, Download, CalendarDays, Check, ChevronsUpDown, HelpCircle, Maximize2, X, Gauge, ArrowRightLeft, Target, ChevronLeft, ChevronRight, LayoutGrid, Info } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -316,6 +316,7 @@ export default function MarketAnalysis() {
   const [date, setDate] = useState<string>(dateOptions[0].value);
   const [open, setOpen] = useState(false);
   const [selectedChart, setSelectedChart] = useState<{ title: string; description: string; chart: React.ReactNode; analysis: string; legend?: React.ReactNode } | null>(null);
+  const [showDescription, setShowDescription] = useState(true);
 
   const handlePrevDate = () => {
     const newDate = subDays(new Date(date), 1);
@@ -548,6 +549,16 @@ export default function MarketAnalysis() {
       */}
       <div className="flex flex-col h-[calc(100vh-4rem)] bg-[#0B0E14] text-foreground relative font-sans overflow-hidden">
         
+        {/* Page Description Banner - Added here inside the flex container, above the toolbar or content? 
+            The user wants it at the top of the details page. 
+            If I put it inside the scrollable content container, it will scroll with content.
+            If I put it above the toolbar, it might look like a global alert.
+            The user said "like the alert in momentum detail". 
+            In momentum.tsx, it's inside the main container, above the toolbar.
+            
+            Let's place it inside the content container "market-content-container", at the very top.
+        */}
+
         {/* Report Toolbar / Navigation - Fixed at top */}
         <div className="z-30 bg-[#0B0E14]/95 backdrop-blur border-b border-border/50 px-6 py-3 flex items-center justify-between shrink-0 shadow-md">
            <div className="flex items-center gap-4">
@@ -630,6 +641,25 @@ export default function MarketAnalysis() {
 
         <div id="market-content-container" className="flex-1 overflow-y-auto bg-[#050505] p-8 relative">
           
+          {/* Page Description Banner */}
+          {showDescription && (
+            <div className="flex items-center gap-4 mb-6 animate-in fade-in slide-in-from-top-2 duration-300 max-w-5xl mx-auto">
+               <div className="flex items-center gap-3 bg-blue-950/30 border border-blue-800/30 rounded-lg px-4 py-3 text-sm text-blue-100 w-full shadow-sm backdrop-blur-sm">
+                 <Info className="w-4 h-4 text-blue-400 shrink-0" />
+                 <span className="font-bold text-blue-200 whitespace-nowrap">마켓 분석?</span>
+                 <span className="text-gray-300 border-l border-blue-800/50 pl-3 leading-relaxed">
+                   시장 전반의 주요 지표와 AI 분석 리포트를 통해 시장의 흐름과 투자 심리를 심층적으로 파악할 수 있습니다.
+                 </span>
+                 <button 
+                   onClick={() => setShowDescription(false)}
+                   className="ml-auto p-1 hover:bg-blue-900/30 rounded-md transition-colors text-blue-400 hover:text-blue-200"
+                 >
+                   <X className="w-3.5 h-3.5" />
+                 </button>
+               </div>
+            </div>
+          )}
+
           {/* Report Navigation - Floating Buttons */}
           {/* We position these fixed relative to the viewport to ensure they stay centered on screen regardless of scroll */}
           {/* Or we can position them absolute relative to this container if we want them to scroll with content, but "centered" usually implies viewport centering */}

@@ -295,7 +295,6 @@ export default function OntologyPage() {
   const [activeTab, setActiveTab] = useState("theme");
   const [selectedNodeIds, setSelectedNodeIds] = useState<Set<string>>(new Set());
   const [isChatOpen, setIsChatOpen] = useState(false);
-  const [showInfoBanner, setShowInfoBanner] = useState(true);
 
   // Generate dense, structured graph data
   const { nodes, links } = useMemo(() => {
@@ -552,27 +551,6 @@ export default function OntologyPage() {
         {/* Main Graph Area */}
         <main className="flex-1 relative bg-black overflow-hidden flex flex-col">
             
-            {/* Info Banner */}
-            {showInfoBanner && (
-                <div className="relative z-40 bg-blue-950/40 border-b border-blue-800/30 px-4 py-2 flex items-center justify-between backdrop-blur-md">
-                    <div className="flex items-center gap-3 text-xs md:text-sm">
-                        <div className="flex items-center gap-1.5 font-bold text-blue-400 shrink-0">
-                            <Info className="w-3.5 h-3.5" />
-                            <span>마켓 맵?</span>
-                        </div>
-                        <p className="text-gray-300 text-[11px] md:text-xs truncate">
-                           시장 내 종목들의 유기적 관계와 수급 흐름을 시각화하여 주도 테마와 소외주를 입체적으로 분석합니다.
-                        </p>
-                    </div>
-                    <button 
-                        onClick={() => setShowInfoBanner(false)}
-                        className="text-gray-400 hover:text-white transition-colors p-1 hover:bg-white/10 rounded"
-                    >
-                        <X className="w-3.5 h-3.5" />
-                    </button>
-                </div>
-            )}
-
             {/* Fear & Greed Index Widget - REMOVED from floating area */}
             <div className="absolute top-4 left-1/2 -translate-x-1/2 z-30 pointer-events-none opacity-0">
                 {/* Placeholder for positioning if needed, currently hidden as user wanted it integrated in the graph */}
