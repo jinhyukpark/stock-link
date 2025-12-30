@@ -34,7 +34,9 @@ import {
   Megaphone,
   Globe,
   TrendingUp,
-  Activity
+  Activity,
+  Star,
+  Filter
 } from "lucide-react";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -82,6 +84,7 @@ interface Community {
   online: number;
   image: string;
   tags: string[];
+  isFavorite?: boolean;
 }
 
 const mockCommunities: Community[] = [
@@ -92,7 +95,8 @@ const mockCommunities: Community[] = [
     members: 12540,
     online: 1240,
     image: stockAnalysisImage,
-    tags: ['Official', 'General', 'News']
+    tags: ['Official', 'General', 'News'],
+    isFavorite: true
   },
   {
     id: '2',
@@ -101,7 +105,8 @@ const mockCommunities: Community[] = [
     members: 3420,
     online: 850,
     image: 'https://images.unsplash.com/photo-1642543492481-44e81e3914a7?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
-    tags: ['Trading', 'Scalping', 'High Risk']
+    tags: ['Trading', 'Scalping', 'High Risk'],
+    isFavorite: false
   },
   {
     id: '3',
@@ -110,7 +115,8 @@ const mockCommunities: Community[] = [
     members: 8900,
     online: 420,
     image: 'https://images.unsplash.com/photo-1590283603385-17ffb3a7f29f?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
-    tags: ['Long-term', 'Value', 'Analysis']
+    tags: ['Long-term', 'Value', 'Analysis'],
+    isFavorite: false
   },
   {
     id: '4',
@@ -119,7 +125,8 @@ const mockCommunities: Community[] = [
     members: 15600,
     online: 3200,
     image: 'https://images.unsplash.com/photo-1518546305927-5a555bb7020d?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
-    tags: ['Crypto', 'Bitcoin', 'Altcoins']
+    tags: ['Crypto', 'Bitcoin', 'Altcoins'],
+    isFavorite: true
   },
   {
     id: '5',
@@ -128,7 +135,8 @@ const mockCommunities: Community[] = [
     members: 5600,
     online: 150,
     image: 'https://images.unsplash.com/photo-1640340434855-6084b1f4901c?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
-    tags: ['US Stock', 'Nasdaq', 'Tech']
+    tags: ['US Stock', 'Nasdaq', 'Tech'],
+    isFavorite: false
   },
   {
     id: '6',
@@ -137,7 +145,8 @@ const mockCommunities: Community[] = [
     members: 2100,
     online: 80,
     image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
-    tags: ['Real Estate', 'Auction']
+    tags: ['Real Estate', 'Auction'],
+    isFavorite: false
   },
   {
     id: '7',
@@ -146,7 +155,8 @@ const mockCommunities: Community[] = [
     members: 4500,
     online: 600,
     image: 'https://images.unsplash.com/photo-1611974765270-ca1258634369?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
-    tags: ['Chart', 'Analysis', 'Technical']
+    tags: ['Chart', 'Analysis', 'Technical'],
+    isFavorite: false
   },
   {
     id: '8',
@@ -155,7 +165,8 @@ const mockCommunities: Community[] = [
     members: 6200,
     online: 300,
     image: 'https://images.unsplash.com/photo-1579621970563-ebec7560ff3e?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
-    tags: ['Dividend', 'Passive Income']
+    tags: ['Dividend', 'Passive Income'],
+    isFavorite: false
   },
   {
     id: '9',
@@ -164,7 +175,8 @@ const mockCommunities: Community[] = [
     members: 3800,
     online: 1200,
     image: 'https://images.unsplash.com/photo-1611974765270-ca1258634369?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
-    tags: ['IPO', 'New Listing']
+    tags: ['IPO', 'New Listing'],
+    isFavorite: false
   }
 ];
 
@@ -323,7 +335,22 @@ const PollCard = ({ poll, onVote, userRole }: { poll: Poll, onVote: (pollId: str
   );
 };
 
-const CommunityDiscovery = ({ onJoin }: { onJoin: (community: Community) => void }) => {
+const CommunityDiscovery = ({ 
+  communities, 
+  onJoin,
+  onToggleFavorite
+}: { 
+  communities: Community[], 
+  onJoin: (community: Community) => void,
+  onToggleFavorite: (id: string) => void 
+}) => {
+  const [activeTab, setActiveTab] = useState<'all' | 'favorites'>('all');
+
+  const filteredCommunities = communities.filter(c => {
+    if (activeTab === 'favorites') return c.isFavorite;
+    return true;
+  });
+
   return (
     <div className="flex-1 flex flex-col bg-[#0B0E14] overflow-hidden">
       {/* Discovery Header */}
@@ -346,41 +373,96 @@ const CommunityDiscovery = ({ onJoin }: { onJoin: (community: Community) => void
 
       <ScrollArea className="flex-1 p-8">
         <div className="max-w-6xl mx-auto">
-          {/* Featured Banner */}
-          <div className="relative rounded-2xl overflow-hidden mb-12 border border-white/10 group cursor-pointer" onClick={() => onJoin(mockCommunities[0])}>
-            <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
-            <img 
-              src={stockAnalysisImage} 
-              className="w-full h-[300px] object-cover transition-transform duration-700 group-hover:scale-105" 
-              alt="Featured" 
-            />
-            <div className="absolute bottom-0 left-0 p-8 z-20 max-w-2xl">
-              <Badge className="mb-4 bg-primary text-primary-foreground hover:bg-primary/90">추천 커뮤니티</Badge>
-              <h2 className="text-4xl font-bold text-white mb-2">StockLink Official</h2>
-              <p className="text-gray-200 text-lg mb-6">
-                가장 빠르고 정확한 주식 시장 정보를 공유하는 공식 커뮤니티입니다. 
-                전문가의 분석 리포트와 실시간 뉴스 속보를 받아보세요.
-              </p>
-              <Button size="lg" className="bg-white text-black hover:bg-gray-200">
-                <Users className="w-4 h-4 mr-2" /> 입장하기
-              </Button>
-            </div>
+          {/* Tabs */}
+          <div className="flex items-center gap-4 mb-8">
+            <Button 
+              variant={activeTab === 'all' ? "default" : "outline"}
+              onClick={() => setActiveTab('all')}
+              className={cn("gap-2", activeTab !== 'all' && "border-white/10 text-gray-400 hover:text-white hover:bg-white/5")}
+            >
+              <Globe className="w-4 h-4" />
+              전체 커뮤니티
+            </Button>
+            <Button 
+              variant={activeTab === 'favorites' ? "default" : "outline"}
+              onClick={() => setActiveTab('favorites')}
+              className={cn("gap-2", activeTab !== 'favorites' && "border-white/10 text-gray-400 hover:text-white hover:bg-white/5")}
+            >
+              <Star className={cn("w-4 h-4", activeTab === 'favorites' && "fill-current")} />
+              즐겨찾기
+            </Button>
           </div>
 
-          {/* Categories */}
-          <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
-            <TrendingUp className="w-5 h-5 text-green-400" />
-            인기 커뮤니티
-          </h3>
+          {activeTab === 'all' && (
+            <>
+              {/* Featured Banner */}
+              <div className="relative rounded-2xl overflow-hidden mb-12 border border-white/10 group cursor-pointer" onClick={() => onJoin(communities[0])}>
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-black/50 to-transparent z-10" />
+                <img 
+                  src={communities[0].image} 
+                  className="w-full h-[300px] object-cover transition-transform duration-700 group-hover:scale-105" 
+                  alt="Featured" 
+                />
+                <div className="absolute bottom-0 left-0 p-8 z-20 max-w-2xl">
+                  <div className="flex items-center gap-2 mb-4">
+                    <Badge className="bg-primary text-primary-foreground hover:bg-primary/90">추천 커뮤니티</Badge>
+                    {communities[0].isFavorite && (
+                      <Badge variant="secondary" className="bg-yellow-500/10 text-yellow-500 border-yellow-500/20 gap-1">
+                        <Star className="w-3 h-3 fill-current" /> 즐겨찾기됨
+                      </Badge>
+                    )}
+                  </div>
+                  <h2 className="text-4xl font-bold text-white mb-2">{communities[0].name}</h2>
+                  <p className="text-gray-200 text-lg mb-6">
+                    {communities[0].description}
+                  </p>
+                  <div className="flex items-center gap-3">
+                    <Button size="lg" className="bg-white text-black hover:bg-gray-200">
+                      <Users className="w-4 h-4 mr-2" /> 입장하기
+                    </Button>
+                    <Button 
+                      size="lg" 
+                      variant="outline" 
+                      className="bg-black/20 border-white/20 text-white hover:bg-white/10"
+                      onClick={(e) => {
+                        e.stopPropagation();
+                        onToggleFavorite(communities[0].id);
+                      }}
+                    >
+                      <Star className={cn("w-4 h-4 mr-2", communities[0].isFavorite && "fill-yellow-500 text-yellow-500")} /> 
+                      {communities[0].isFavorite ? "즐겨찾기 해제" : "즐겨찾기"}
+                    </Button>
+                  </div>
+                </div>
+              </div>
+
+              {/* Categories */}
+              <h3 className="text-xl font-bold text-white mb-6 flex items-center gap-2">
+                <TrendingUp className="w-5 h-5 text-green-400" />
+                인기 커뮤니티
+              </h3>
+            </>
+          )}
 
           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6">
-            {mockCommunities.slice(1).map((community) => (
+            {(activeTab === 'all' ? filteredCommunities.slice(1) : filteredCommunities).map((community) => (
               <motion.div 
                 key={community.id}
                 initial={{ opacity: 0, y: 20 }}
                 animate={{ opacity: 1, y: 0 }}
-                className="bg-[#151921] border border-white/5 rounded-xl overflow-hidden hover:border-primary/50 transition-all duration-300 group flex flex-col"
+                className="bg-[#151921] border border-white/5 rounded-xl overflow-hidden hover:border-primary/50 transition-all duration-300 group flex flex-col relative"
               >
+                {/* Favorite Button Overlay */}
+                <button 
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    onToggleFavorite(community.id);
+                  }}
+                  className="absolute top-3 right-3 z-20 p-2 rounded-full bg-black/50 backdrop-blur hover:bg-black/70 transition-colors"
+                >
+                  <Star className={cn("w-4 h-4", community.isFavorite ? "fill-yellow-500 text-yellow-500" : "text-gray-300")} />
+                </button>
+
                 <div className="h-32 overflow-hidden relative">
                   <div className="absolute inset-0 bg-black/20 group-hover:bg-transparent transition-colors z-10" />
                   <img 
@@ -421,6 +503,17 @@ const CommunityDiscovery = ({ onJoin }: { onJoin: (community: Community) => void
                 </div>
               </motion.div>
             ))}
+            
+            {activeTab === 'favorites' && filteredCommunities.length === 0 && (
+              <div className="col-span-full flex flex-col items-center justify-center py-20 text-gray-500 border border-dashed border-white/10 rounded-xl">
+                <Star className="w-12 h-12 mb-4 opacity-20" />
+                <p className="text-lg font-medium">즐겨찾기한 커뮤니티가 없습니다</p>
+                <p className="text-sm">관심 있는 커뮤니티의 별 아이콘을 눌러 추가해보세요.</p>
+                <Button variant="link" onClick={() => setActiveTab('all')} className="text-primary mt-2">
+                  커뮤니티 둘러보기
+                </Button>
+              </div>
+            )}
           </div>
         </div>
       </ScrollArea>
@@ -429,7 +522,8 @@ const CommunityDiscovery = ({ onJoin }: { onJoin: (community: Community) => void
 };
 
 export default function CommunityPage() {
-  const [viewMode, setViewMode] = useState<'chat' | 'discovery'>('chat');
+  const [viewMode, setViewMode] = useState<'chat' | 'discovery'>('discovery');
+  const [communities, setCommunities] = useState<Community[]>(mockCommunities);
   const [selectedChannelId, setSelectedChannelId] = useState('3');
   const [messages, setMessages] = useState<Message[]>(initialMessages);
   const [polls, setPolls] = useState<Poll[]>(initialPolls);
@@ -449,15 +543,25 @@ export default function CommunityPage() {
     }
   }, [messages, selectedChannelId]);
 
+  const toggleFavorite = (id: string) => {
+    setCommunities(prev => prev.map(c => 
+      c.id === id ? { ...c, isFavorite: !c.isFavorite } : c
+    ));
+  };
+
   // If in discovery mode, render discovery component
   if (viewMode === 'discovery') {
     return (
       <DashboardLayout>
-        <CommunityDiscovery onJoin={(community) => {
-          // In a real app, this would join the server. For now, we just switch back to chat.
-          // Optionally update the server name/context here
-          setViewMode('chat');
-        }} />
+        <CommunityDiscovery 
+          communities={communities}
+          onJoin={(community) => {
+            // In a real app, this would join the server. For now, we just switch back to chat.
+            // Optionally update the server name/context here
+            setViewMode('chat');
+          }} 
+          onToggleFavorite={toggleFavorite}
+        />
       </DashboardLayout>
     );
   }
