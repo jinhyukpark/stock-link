@@ -887,19 +887,19 @@ export default function OntologyPage() {
             </div>
 
             {/* Bottom Legend Panel */}
-            <div className="absolute bottom-[140px] right-4 z-30 bg-[#0B0E14]/90 backdrop-blur border border-white/10 rounded-lg p-0 w-[240px] overflow-hidden shadow-2xl">
-                 <div className="flex text-[10px] text-gray-400 bg-white/5 px-3 py-1.5 border-b border-white/10">
+            <div className="absolute bottom-[140px] right-4 z-30 bg-[#0B0E14]/90 backdrop-blur border border-white/10 rounded-lg p-0 w-[240px] xl:w-[320px] overflow-hidden shadow-2xl transition-all duration-300">
+                 <div className="flex text-[10px] xl:text-xs text-gray-400 bg-white/5 px-3 py-1.5 xl:px-4 xl:py-2 border-b border-white/10 transition-all duration-300">
                     <span className="flex-1">등락률</span>
-                    <span className="w-10 text-right">개수</span>
-                    <span className="w-12 text-right">비율(%)</span>
+                    <span className="w-10 xl:w-14 text-right transition-all duration-300">개수</span>
+                    <span className="w-12 xl:w-16 text-right transition-all duration-300">비율(%)</span>
                  </div>
-                 <div className="px-1 pt-1 pb-2">
+                 <div className="px-1 pt-1 pb-2 xl:p-2">
                     {legendItems.map((item, idx) => (
-                        <div key={idx} className="flex items-center text-[10px] px-2 py-1 hover:bg-white/5 rounded cursor-pointer">
-                            <div className={cn("w-2 h-2 rounded-full mr-2", item.color)}></div>
+                        <div key={idx} className="flex items-center text-[10px] xl:text-xs px-2 py-1 hover:bg-white/5 rounded cursor-pointer transition-all duration-300">
+                            <div className={cn("w-2 h-2 xl:w-2.5 xl:h-2.5 rounded-full mr-2 xl:mr-3 transition-all duration-300", item.color)}></div>
                             <span className="flex-1 text-gray-300 truncate">{item.label}</span>
-                            <span className="w-10 text-right text-gray-400">{item.count}</span>
-                            <span className="w-12 text-right text-gray-500 font-mono">{item.pct}</span>
+                            <span className="w-10 xl:w-14 text-right text-gray-400 transition-all duration-300">{item.count}</span>
+                            <span className="w-12 xl:w-16 text-right text-gray-500 font-mono transition-all duration-300">{item.pct}</span>
                         </div>
                     ))}
                  </div>
