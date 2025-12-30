@@ -80,256 +80,318 @@ export default function MyPage() {
             </CardContent>
           </Card>
 
-          {/* Right Content Area */}
-          <div className="flex-1">
-            <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full">
-              <TabsList className="w-full justify-start h-auto p-1 bg-[#151921] border border-white/5 overflow-x-auto flex-nowrap">
-                <TabsTrigger value="profile" className="flex-1 min-w-[100px] gap-2 data-[state=active]:bg-primary data-[state=active]:text-black">
-                  <User className="w-4 h-4" /> 내 정보
-                </TabsTrigger>
-                <TabsTrigger value="password" className="flex-1 min-w-[120px] gap-2 data-[state=active]:bg-primary data-[state=active]:text-black">
-                  <Lock className="w-4 h-4" /> 비밀번호 변경
-                </TabsTrigger>
-                <TabsTrigger value="notifications" className="flex-1 min-w-[100px] gap-2 data-[state=active]:bg-primary data-[state=active]:text-black">
-                  <Bell className="w-4 h-4" /> 알림 설정
-                </TabsTrigger>
-                <TabsTrigger value="billing" className="flex-1 min-w-[100px] gap-2 data-[state=active]:bg-primary data-[state=active]:text-black">
-                  <CreditCard className="w-4 h-4" /> 결제 내역
-                </TabsTrigger>
-                <TabsTrigger value="subscription" className="flex-1 min-w-[100px] gap-2 data-[state=active]:bg-primary data-[state=active]:text-black">
-                  <Crown className="w-4 h-4" /> 구독 관리
-                </TabsTrigger>
-              </TabsList>
+            {/* Right Content Area */}
+            <div className="flex-1 min-w-0">
+                <div className="bg-[#151921] border border-white/10 rounded-xl overflow-hidden min-h-[600px] flex flex-col">
+                    <Tabs value={activeTab} onValueChange={setActiveTab} className="w-full flex-1 flex flex-col">
+                        <div className="border-b border-white/10 bg-[#0B0E14]/30">
+                            <TabsList className="w-full justify-start h-auto p-0 bg-transparent border-none overflow-x-auto flex-nowrap">
+                                <TabsTrigger 
+                                    value="profile" 
+                                    className="flex-1 min-w-[100px] gap-2 py-4 rounded-none border-b-2 border-transparent data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:border-primary data-[state=active]:shadow-none transition-all hover:text-white"
+                                >
+                                    <User className="w-4 h-4" /> 내 정보
+                                </TabsTrigger>
+                                <TabsTrigger 
+                                    value="password" 
+                                    className="flex-1 min-w-[120px] gap-2 py-4 rounded-none border-b-2 border-transparent data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:border-primary data-[state=active]:shadow-none transition-all hover:text-white"
+                                >
+                                    <Lock className="w-4 h-4" /> 비밀번호 변경
+                                </TabsTrigger>
+                                <TabsTrigger 
+                                    value="notifications" 
+                                    className="flex-1 min-w-[100px] gap-2 py-4 rounded-none border-b-2 border-transparent data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:border-primary data-[state=active]:shadow-none transition-all hover:text-white"
+                                >
+                                    <Bell className="w-4 h-4" /> 알림 설정
+                                </TabsTrigger>
+                                <TabsTrigger 
+                                    value="billing" 
+                                    className="flex-1 min-w-[100px] gap-2 py-4 rounded-none border-b-2 border-transparent data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:border-primary data-[state=active]:shadow-none transition-all hover:text-white"
+                                >
+                                    <CreditCard className="w-4 h-4" /> 결제 내역
+                                </TabsTrigger>
+                                <TabsTrigger 
+                                    value="subscription" 
+                                    className="flex-1 min-w-[100px] gap-2 py-4 rounded-none border-b-2 border-transparent data-[state=active]:bg-transparent data-[state=active]:text-primary data-[state=active]:border-primary data-[state=active]:shadow-none transition-all hover:text-white"
+                                >
+                                    <Crown className="w-4 h-4" /> 구독 관리
+                                </TabsTrigger>
+                            </TabsList>
+                        </div>
 
-              <div className="mt-6">
-                {/* 1. Profile Info */}
-                <TabsContent value="profile" className="space-y-6">
-                  <Card className="bg-[#151921] border-white/10">
-                    <CardHeader>
-                      <CardTitle className="text-lg font-bold text-white">기본 정보</CardTitle>
-                      <CardDescription>서비스에서 사용되는 기본 프로필 정보입니다.</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4">
-                      <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
-                        <div className="space-y-2">
-                          <Label htmlFor="name" className="text-gray-300">이름</Label>
-                          <Input id="name" defaultValue="Alex Morgan" className="bg-[#0B0E14] border-white/10 text-white" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="email" className="text-gray-300">이메일</Label>
-                          <Input id="email" defaultValue="alex.morgan@stocklink.com" disabled className="bg-[#0B0E14]/50 border-white/5 text-gray-500" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="phone" className="text-gray-300">연락처</Label>
-                          <Input id="phone" defaultValue="+82 10-1234-5678" className="bg-[#0B0E14] border-white/10 text-white" />
-                        </div>
-                        <div className="space-y-2">
-                          <Label htmlFor="job" className="text-gray-300">직업 / 소속</Label>
-                          <Input id="job" defaultValue="Professional Trader" className="bg-[#0B0E14] border-white/10 text-white" />
-                        </div>
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="bio" className="text-gray-300">자기소개</Label>
-                        <Input id="bio" defaultValue="퀀트 투자와 알고리즘 트레이딩에 관심이 많습니다." className="bg-[#0B0E14] border-white/10 text-white" />
-                      </div>
-                    </CardContent>
-                    <CardFooter className="flex justify-end border-t border-white/5 pt-6">
-                      <Button className="bg-primary text-black hover:bg-primary/90">변경사항 저장</Button>
-                    </CardFooter>
-                  </Card>
-                </TabsContent>
+                        <div className="p-6 md:p-8 flex-1">
+                            {/* 1. Profile Info */}
+                            <TabsContent value="profile" className="mt-0 space-y-6 h-full animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                <div>
+                                    <h2 className="text-xl font-bold text-white mb-1">기본 정보</h2>
+                                    <p className="text-sm text-gray-400 mb-6">서비스에서 사용되는 기본 프로필 정보입니다.</p>
+                                    
+                                    <div className="space-y-6 max-w-2xl">
+                                        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                            <div className="space-y-2">
+                                                <Label htmlFor="name" className="text-gray-300">이름</Label>
+                                                <Input id="name" defaultValue="Alex Morgan" className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="email" className="text-gray-300">이메일</Label>
+                                                <Input id="email" defaultValue="alex.morgan@stocklink.com" disabled className="bg-[#0B0E14]/50 border-white/5 text-gray-500 h-11" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="phone" className="text-gray-300">연락처</Label>
+                                                <Input id="phone" defaultValue="+82 10-1234-5678" className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="job" className="text-gray-300">직업 / 소속</Label>
+                                                <Input id="job" defaultValue="Professional Trader" className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                            </div>
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="bio" className="text-gray-300">자기소개</Label>
+                                            <Input id="bio" defaultValue="퀀트 투자와 알고리즘 트레이딩에 관심이 많습니다." className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                        </div>
+                                        
+                                        <div className="pt-4 flex justify-end">
+                                            <Button size="lg" className="bg-primary text-black hover:bg-primary/90 font-bold px-8">변경사항 저장</Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </TabsContent>
 
-                {/* 2. Change Password */}
-                <TabsContent value="password">
-                  <Card className="bg-[#151921] border-white/10">
-                    <CardHeader>
-                      <CardTitle className="text-lg font-bold text-white">비밀번호 변경</CardTitle>
-                      <CardDescription>계정 보안을 위해 주기적으로 비밀번호를 변경해주세요.</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-4 max-w-md">
-                      <div className="space-y-2">
-                        <Label htmlFor="current-pw" className="text-gray-300">현재 비밀번호</Label>
-                        <Input id="current-pw" type="password" placeholder="현재 비밀번호 입력" className="bg-[#0B0E14] border-white/10 text-white" />
-                      </div>
-                      <Separator className="bg-white/5 my-2" />
-                      <div className="space-y-2">
-                        <Label htmlFor="new-pw" className="text-gray-300">새 비밀번호</Label>
-                        <Input id="new-pw" type="password" placeholder="8자 이상 입력" className="bg-[#0B0E14] border-white/10 text-white" />
-                      </div>
-                      <div className="space-y-2">
-                        <Label htmlFor="confirm-pw" className="text-gray-300">새 비밀번호 확인</Label>
-                        <Input id="confirm-pw" type="password" placeholder="새 비밀번호 다시 입력" className="bg-[#0B0E14] border-white/10 text-white" />
-                      </div>
-                    </CardContent>
-                    <CardFooter className="flex justify-end border-t border-white/5 pt-6">
-                      <Button className="bg-white text-black hover:bg-gray-200">비밀번호 업데이트</Button>
-                    </CardFooter>
-                  </Card>
-                </TabsContent>
+                            {/* 2. Change Password */}
+                            <TabsContent value="password" className="mt-0 h-full animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                <div>
+                                    <h2 className="text-xl font-bold text-white mb-1">비밀번호 변경</h2>
+                                    <p className="text-sm text-gray-400 mb-6">계정 보안을 위해 주기적으로 비밀번호를 변경해주세요.</p>
+                                    
+                                    <div className="space-y-5 max-w-md">
+                                        <div className="space-y-2">
+                                            <Label htmlFor="current-pw" className="text-gray-300">현재 비밀번호</Label>
+                                            <Input id="current-pw" type="password" placeholder="현재 비밀번호 입력" className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                        </div>
+                                        <Separator className="bg-white/5 my-2" />
+                                        <div className="space-y-2">
+                                            <Label htmlFor="new-pw" className="text-gray-300">새 비밀번호</Label>
+                                            <Input id="new-pw" type="password" placeholder="8자 이상 입력" className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                        </div>
+                                        <div className="space-y-2">
+                                            <Label htmlFor="confirm-pw" className="text-gray-300">새 비밀번호 확인</Label>
+                                            <Input id="confirm-pw" type="password" placeholder="새 비밀번호 다시 입력" className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                        </div>
+                                        
+                                        <div className="pt-4 flex justify-end">
+                                            <Button size="lg" className="bg-white text-black hover:bg-gray-200 font-bold px-8">비밀번호 업데이트</Button>
+                                        </div>
+                                    </div>
+                                </div>
+                            </TabsContent>
 
-                {/* 3. Notification Settings */}
-                <TabsContent value="notifications">
-                  <Card className="bg-[#151921] border-white/10">
-                    <CardHeader>
-                      <CardTitle className="text-lg font-bold text-white">알림 설정</CardTitle>
-                      <CardDescription>원하는 알림만 선택해서 받아보세요.</CardDescription>
-                    </CardHeader>
-                    <CardContent className="space-y-6">
-                      <div className="space-y-4">
-                        <h3 className="text-sm font-bold text-gray-400 flex items-center gap-2">
-                          <Smartphone className="w-4 h-4" /> 앱 푸시 알림
-                        </h3>
-                        <div className="flex items-center justify-between">
-                          <div className="space-y-0.5">
-                            <Label className="text-base text-gray-200">실시간 매매 신호</Label>
-                            <p className="text-sm text-gray-500">AI가 포착한 급등/급락 종목 알림</p>
-                          </div>
-                          <Switch defaultChecked />
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div className="space-y-0.5">
-                            <Label className="text-base text-gray-200">관심 종목 변동</Label>
-                            <p className="text-sm text-gray-500">지정한 목표가/손절가 도달 시 알림</p>
-                          </div>
-                          <Switch defaultChecked />
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div className="space-y-0.5">
-                            <Label className="text-base text-gray-200">커뮤니티 멘션</Label>
-                            <p className="text-sm text-gray-500">누군가 나를 멘션하거나 답글을 달았을 때</p>
-                          </div>
-                          <Switch defaultChecked />
-                        </div>
-                      </div>
-                      
-                      <Separator className="bg-white/5" />
-                      
-                      <div className="space-y-4">
-                        <h3 className="text-sm font-bold text-gray-400 flex items-center gap-2">
-                          <Mail className="w-4 h-4" /> 이메일 알림
-                        </h3>
-                        <div className="flex items-center justify-between">
-                          <div className="space-y-0.5">
-                            <Label className="text-base text-gray-200">주간 리포트</Label>
-                            <p className="text-sm text-gray-500">매주 월요일 발송되는 주간 시장 분석 리포트</p>
-                          </div>
-                          <Switch defaultChecked />
-                        </div>
-                        <div className="flex items-center justify-between">
-                          <div className="space-y-0.5">
-                            <Label className="text-base text-gray-200">마케팅 정보 수신</Label>
-                            <p className="text-sm text-gray-500">이벤트 및 프로모션 소식 받기</p>
-                          </div>
-                          <Switch />
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
+                            {/* 3. Notification Settings */}
+                            <TabsContent value="notifications" className="mt-0 h-full animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                <div>
+                                    <h2 className="text-xl font-bold text-white mb-1">알림 설정</h2>
+                                    <p className="text-sm text-gray-400 mb-6">원하는 알림만 선택해서 받아보세요.</p>
+                                    
+                                    <div className="space-y-8 max-w-2xl">
+                                        <div className="space-y-5">
+                                            <h3 className="text-sm font-bold text-primary flex items-center gap-2 uppercase tracking-wider">
+                                                <Smartphone className="w-4 h-4" /> 앱 푸시 알림
+                                            </h3>
+                                            <div className="bg-[#0B0E14] rounded-lg p-1 border border-white/5">
+                                                <div className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded">
+                                                    <div className="space-y-1">
+                                                        <Label className="text-base text-gray-200 font-medium">실시간 매매 신호</Label>
+                                                        <p className="text-sm text-gray-500">AI가 포착한 급등/급락 종목 알림</p>
+                                                    </div>
+                                                    <Switch defaultChecked />
+                                                </div>
+                                                <Separator className="bg-white/5" />
+                                                <div className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded">
+                                                    <div className="space-y-1">
+                                                        <Label className="text-base text-gray-200 font-medium">관심 종목 변동</Label>
+                                                        <p className="text-sm text-gray-500">지정한 목표가/손절가 도달 시 알림</p>
+                                                    </div>
+                                                    <Switch defaultChecked />
+                                                </div>
+                                                <Separator className="bg-white/5" />
+                                                <div className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded">
+                                                    <div className="space-y-1">
+                                                        <Label className="text-base text-gray-200 font-medium">커뮤니티 멘션</Label>
+                                                        <p className="text-sm text-gray-500">누군가 나를 멘션하거나 답글을 달았을 때</p>
+                                                    </div>
+                                                    <Switch defaultChecked />
+                                                </div>
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="space-y-5">
+                                            <h3 className="text-sm font-bold text-primary flex items-center gap-2 uppercase tracking-wider">
+                                                <Mail className="w-4 h-4" /> 이메일 알림
+                                            </h3>
+                                            <div className="bg-[#0B0E14] rounded-lg p-1 border border-white/5">
+                                                <div className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded">
+                                                    <div className="space-y-1">
+                                                        <Label className="text-base text-gray-200 font-medium">주간 리포트</Label>
+                                                        <p className="text-sm text-gray-500">매주 월요일 발송되는 주간 시장 분석 리포트</p>
+                                                    </div>
+                                                    <Switch defaultChecked />
+                                                </div>
+                                                <Separator className="bg-white/5" />
+                                                <div className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded">
+                                                    <div className="space-y-1">
+                                                        <Label className="text-base text-gray-200 font-medium">마케팅 정보 수신</Label>
+                                                        <p className="text-sm text-gray-500">이벤트 및 프로모션 소식 받기</p>
+                                                    </div>
+                                                    <Switch />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </TabsContent>
 
-                {/* 4. Payment History */}
-                <TabsContent value="billing">
-                  <Card className="bg-[#151921] border-white/10">
-                    <CardHeader>
-                      <CardTitle className="text-lg font-bold text-white">결제 내역</CardTitle>
-                      <CardDescription>최근 6개월간의 결제 내역입니다.</CardDescription>
-                    </CardHeader>
-                    <CardContent>
-                      <div className="rounded-md border border-white/5 overflow-hidden">
-                        <div className="grid grid-cols-4 bg-[#0B0E14] p-3 text-xs font-bold text-gray-400 uppercase">
-                          <div>날짜</div>
-                          <div>상품명</div>
-                          <div>결제 수단</div>
-                          <div className="text-right">금액</div>
-                        </div>
-                        <div className="divide-y divide-white/5 bg-[#151921]">
-                          {[
-                            { date: "2024.12.15", item: "StockLink PRO (월간)", method: "KakaoPay", amount: "29,000원" },
-                            { date: "2024.11.15", item: "StockLink PRO (월간)", method: "KakaoPay", amount: "29,000원" },
-                            { date: "2024.10.15", item: "StockLink PRO (월간)", method: "KakaoPay", amount: "29,000원" },
-                            { date: "2024.09.15", item: "StockLink PRO (월간)", method: "KakaoPay", amount: "29,000원" },
-                          ].map((history, i) => (
-                            <div key={i} className="grid grid-cols-4 p-4 text-sm text-gray-200 hover:bg-white/5 transition-colors">
-                              <div className="font-mono text-gray-400">{history.date}</div>
-                              <div className="font-medium">{history.item}</div>
-                              <div>{history.method}</div>
-                              <div className="text-right font-bold text-white">{history.amount}</div>
-                            </div>
-                          ))}
-                        </div>
-                      </div>
-                    </CardContent>
-                  </Card>
-                </TabsContent>
+                            {/* 4. Payment History */}
+                            <TabsContent value="billing" className="mt-0 h-full animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                <div>
+                                    <h2 className="text-xl font-bold text-white mb-1">결제 내역</h2>
+                                    <p className="text-sm text-gray-400 mb-6">최근 6개월간의 결제 내역입니다.</p>
+                                    
+                                    <div className="rounded-xl border border-white/10 overflow-hidden bg-[#0B0E14]">
+                                        <div className="grid grid-cols-4 bg-[#0B0E14] p-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-white/10">
+                                            <div>날짜</div>
+                                            <div>상품명</div>
+                                            <div>결제 수단</div>
+                                            <div className="text-right">금액</div>
+                                        </div>
+                                        <div className="divide-y divide-white/5">
+                                            {[
+                                                { date: "2024.12.15", item: "StockLink PRO (월간)", method: "KakaoPay", amount: "29,000원" },
+                                                { date: "2024.11.15", item: "StockLink PRO (월간)", method: "KakaoPay", amount: "29,000원" },
+                                                { date: "2024.10.15", item: "StockLink PRO (월간)", method: "KakaoPay", amount: "29,000원" },
+                                                { date: "2024.09.15", item: "StockLink PRO (월간)", method: "KakaoPay", amount: "29,000원" },
+                                            ].map((history, i) => (
+                                                <div key={i} className="grid grid-cols-4 p-4 text-sm text-gray-200 hover:bg-white/5 transition-colors items-center">
+                                                    <div className="font-mono text-gray-400">{history.date}</div>
+                                                    <div className="font-medium text-white">{history.item}</div>
+                                                    <div className="text-gray-400">{history.method}</div>
+                                                    <div className="text-right font-bold text-white text-base">{history.amount}</div>
+                                                </div>
+                                            ))}
+                                        </div>
+                                    </div>
+                                </div>
+                            </TabsContent>
 
-                {/* 5. Subscription Management */}
-                <TabsContent value="subscription">
-                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    <Card className="bg-gradient-to-br from-[#151921] to-[#1a1f2e] border-primary/50 relative overflow-hidden">
-                      <div className="absolute top-0 right-0 p-4">
-                        <Badge className="bg-primary text-black hover:bg-primary font-bold">이용 중</Badge>
-                      </div>
-                      <CardHeader>
-                        <div className="w-12 h-12 rounded-lg bg-primary/20 flex items-center justify-center mb-4">
-                          <Crown className="w-6 h-6 text-primary fill-primary" />
-                        </div>
-                        <CardTitle className="text-2xl font-bold text-white">PRO Plan</CardTitle>
-                        <CardDescription>전문 투자자를 위한 모든 기능</CardDescription>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="text-3xl font-bold text-white">₩29,000 <span className="text-sm font-normal text-gray-400">/ 월</span></div>
-                        <div className="space-y-2 pt-4 border-t border-white/10">
-                          <div className="flex items-center gap-2 text-sm text-gray-300">
-                            <Check className="w-4 h-4 text-green-500" /> AI 실시간 매매 신호 무제한
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-gray-300">
-                            <Check className="w-4 h-4 text-green-500" /> 심층 시장 분석 리포트
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-gray-300">
-                            <Check className="w-4 h-4 text-green-500" /> VIP 커뮤니티 접근 권한
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-gray-300">
-                            <Check className="w-4 h-4 text-green-500" /> 포트폴리오 진단 서비스
-                          </div>
-                        </div>
-                      </CardContent>
-                      <CardFooter className="flex gap-3">
-                         <Button variant="outline" className="flex-1 border-white/10 text-white hover:bg-white/5">결제 수단 변경</Button>
-                         <Button variant="destructive" className="flex-1 hover:bg-red-600/90">구독 해지</Button>
-                      </CardFooter>
-                    </Card>
+                            {/* 5. Subscription Management */}
+                            <TabsContent value="subscription" className="mt-0 h-full animate-in fade-in slide-in-from-bottom-2 duration-300">
+                                <div>
+                                    <h2 className="text-xl font-bold text-white mb-1">구독 관리</h2>
+                                    <p className="text-sm text-gray-400 mb-6">현재 이용 중인 플랜을 관리하거나 업그레이드하세요.</p>
+                                    
+                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                        <div className="relative group">
+                                            <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-blue-600 rounded-xl opacity-20 group-hover:opacity-40 blur transition duration-500"></div>
+                                            <div className="relative bg-[#0B0E14] rounded-xl border border-primary/50 overflow-hidden h-full flex flex-col">
+                                                <div className="p-6 md:p-8 flex-1">
+                                                    <div className="flex justify-between items-start mb-6">
+                                                        <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                                                            <Crown className="w-7 h-7 text-primary fill-primary" />
+                                                        </div>
+                                                        <Badge className="bg-primary text-black hover:bg-primary font-bold px-3 py-1">이용 중</Badge>
+                                                    </div>
+                                                    
+                                                    <h3 className="text-2xl font-bold text-white mb-2">PRO Plan</h3>
+                                                    <p className="text-gray-400 text-sm mb-6">전문 투자자를 위한 모든 기능</p>
+                                                    
+                                                    <div className="mb-8">
+                                                        <span className="text-4xl font-bold text-white">₩29,000</span>
+                                                        <span className="text-gray-500 ml-2">/ 월</span>
+                                                    </div>
+                                                    
+                                                    <div className="space-y-4">
+                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                                            <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
+                                                                <Check className="w-3 h-3 text-green-500" /> 
+                                                            </div>
+                                                            AI 실시간 매매 신호 무제한
+                                                        </div>
+                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                                            <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
+                                                                <Check className="w-3 h-3 text-green-500" /> 
+                                                            </div>
+                                                            심층 시장 분석 리포트
+                                                        </div>
+                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                                            <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
+                                                                <Check className="w-3 h-3 text-green-500" /> 
+                                                            </div>
+                                                            VIP 커뮤니티 접근 권한
+                                                        </div>
+                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                                            <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
+                                                                <Check className="w-3 h-3 text-green-500" /> 
+                                                            </div>
+                                                            포트폴리오 진단 서비스
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="p-6 border-t border-white/5 bg-white/[0.02] flex gap-3">
+                                                    <Button variant="outline" className="flex-1 border-white/10 text-white hover:bg-white/5 h-10">결제 수단 변경</Button>
+                                                    <Button variant="ghost" className="flex-1 text-red-400 hover:text-red-300 hover:bg-red-400/10 h-10">구독 해지</Button>
+                                                </div>
+                                            </div>
+                                        </div>
 
-                    <Card className="bg-[#151921] border-white/5 flex flex-col justify-between opacity-60 hover:opacity-100 transition-opacity">
-                      <CardHeader>
-                        <div className="w-12 h-12 rounded-lg bg-white/10 flex items-center justify-center mb-4">
-                          <Shield className="w-6 h-6 text-white" />
+                                        <div className="relative group">
+                                            <div className="absolute -inset-0.5 bg-gradient-to-r from-gray-700 to-gray-500 rounded-xl opacity-0 group-hover:opacity-20 blur transition duration-500"></div>
+                                            <div className="relative bg-[#0B0E14] rounded-xl border border-white/5 overflow-hidden h-full flex flex-col opacity-60 hover:opacity-100 transition-all duration-300">
+                                                <div className="p-6 md:p-8 flex-1">
+                                                    <div className="flex justify-between items-start mb-6">
+                                                        <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10">
+                                                            <Shield className="w-7 h-7 text-white" />
+                                                        </div>
+                                                    </div>
+                                                    
+                                                    <h3 className="text-2xl font-bold text-white mb-2">Enterprise</h3>
+                                                    <p className="text-gray-400 text-sm mb-6">기관 및 법인 투자자를 위한 솔루션</p>
+                                                    
+                                                    <div className="mb-8">
+                                                        <span className="text-4xl font-bold text-white">문의</span>
+                                                        <span className="text-gray-500 ml-2">/ 별도 협의</span>
+                                                    </div>
+                                                    
+                                                    <div className="space-y-4">
+                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                                            <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                                                                <Check className="w-3 h-3 text-gray-400" /> 
+                                                            </div>
+                                                            PRO 플랜의 모든 기능 포함
+                                                        </div>
+                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                                            <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                                                                <Check className="w-3 h-3 text-gray-400" /> 
+                                                            </div>
+                                                            전용 API 제공
+                                                        </div>
+                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
+                                                            <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0">
+                                                                <Check className="w-3 h-3 text-gray-400" /> 
+                                                            </div>
+                                                            1:1 전담 매니저 배정
+                                                        </div>
+                                                    </div>
+                                                </div>
+                                                <div className="p-6 border-t border-white/5 bg-white/[0.02]">
+                                                    <Button className="w-full bg-white text-black hover:bg-gray-200 h-10 font-bold">영업팀 문의하기</Button>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </TabsContent>
                         </div>
-                        <CardTitle className="text-2xl font-bold text-white">Enterprise</CardTitle>
-                        <CardDescription>기관 및 법인 투자자를 위한 솔루션</CardDescription>
-                      </CardHeader>
-                      <CardContent className="space-y-4">
-                        <div className="text-3xl font-bold text-white">문의 <span className="text-sm font-normal text-gray-400">/ 별도 협의</span></div>
-                        <div className="space-y-2 pt-4 border-t border-white/10">
-                          <div className="flex items-center gap-2 text-sm text-gray-300">
-                            <Check className="w-4 h-4 text-gray-500" /> PRO 플랜의 모든 기능 포함
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-gray-300">
-                            <Check className="w-4 h-4 text-gray-500" /> 전용 API 제공
-                          </div>
-                          <div className="flex items-center gap-2 text-sm text-gray-300">
-                            <Check className="w-4 h-4 text-gray-500" /> 1:1 전담 매니저 배정
-                          </div>
-                        </div>
-                      </CardContent>
-                      <CardFooter>
-                         <Button className="w-full bg-white text-black hover:bg-gray-200">영업팀 문의하기</Button>
-                      </CardFooter>
-                    </Card>
-                  </div>
-                </TabsContent>
-              </div>
-            </Tabs>
-          </div>
+                    </Tabs>
+                </div>
+            </div>
         </div>
       </div>
     </DashboardLayout>
