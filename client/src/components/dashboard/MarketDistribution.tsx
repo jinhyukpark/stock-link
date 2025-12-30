@@ -37,7 +37,7 @@ export default function MarketDistribution() {
           {/* Chart 1: Price Distribution */}
           <div className="flex flex-col h-full">
             <h3 className="text-sm font-bold text-center mb-1 text-white shrink-0 flex items-center justify-center gap-2">
-              Price Distribution <span className="text-[10px] text-gray-400 font-medium font-normal">(Rise/Fall/Flat)</span>
+              Price Distribution <span className="text-sm text-gray-400 font-bold">(Rise/Fall/Flat)</span>
             </h3>
             <div className="flex-1 flex items-center min-h-0">
                 {/* Legend Left */}
@@ -82,7 +82,7 @@ export default function MarketDistribution() {
           {/* Chart 2: Investor Volume */}
           <div className="flex flex-col h-full border-l border-border/30 pl-4">
              <h3 className="text-sm font-bold text-center mb-1 text-white shrink-0 flex items-center justify-center gap-2">
-              Investor Volume <span className="text-[10px] text-gray-400 font-medium font-normal">(Buy/Sell Ratio)</span>
+              Investor Volume <span className="text-sm text-gray-400 font-bold">(Buy/Sell Ratio)</span>
             </h3>
             <div className="flex-1 flex items-center min-h-0">
                 {/* Legend Left */}
