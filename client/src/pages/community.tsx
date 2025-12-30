@@ -428,44 +428,36 @@ const CommunityDiscovery = ({
 
   return (
     <div className="flex-1 flex flex-col bg-[#0B0E14] overflow-hidden">
-      {/* Discovery Header */}
-      <div className="h-16 px-8 flex items-center justify-between border-b border-white/5 bg-[#0B0E14]/50 backdrop-blur sticky top-0 z-10">
-        <div>
-          <h1 className="text-xl font-bold text-white flex items-center gap-2">
-            <Globe className="w-6 h-6 text-primary" />
-            커뮤니티 탐색
-          </h1>
-          <p className="text-sm text-gray-400">관심 있는 주식/투자 커뮤니티를 찾아보세요.</p>
-        </div>
-        <div className="relative w-72">
-          <Input 
-            placeholder="커뮤니티 검색..." 
-            className="bg-[#151921] border-white/10 pl-10 text-gray-200"
-          />
-          <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
-        </div>
-      </div>
-
       <ScrollArea className="flex-1 p-8">
         <div className="max-w-6xl mx-auto">
-          {/* Tabs */}
-          <div className="flex items-center gap-4 mb-8">
-            <Button 
-              variant={activeTab === 'all' ? "default" : "outline"}
-              onClick={() => setActiveTab('all')}
-              className={cn("gap-2", activeTab !== 'all' && "border-white/10 text-gray-400 hover:text-white hover:bg-white/5")}
-            >
-              <Globe className="w-4 h-4" />
-              전체 커뮤니티
-            </Button>
-            <Button 
-              variant={activeTab === 'favorites' ? "default" : "outline"}
-              onClick={() => setActiveTab('favorites')}
-              className={cn("gap-2", activeTab !== 'favorites' && "border-white/10 text-gray-400 hover:text-white hover:bg-white/5")}
-            >
-              <Star className={cn("w-4 h-4", activeTab === 'favorites' && "fill-current")} />
-              즐겨찾기
-            </Button>
+          {/* Tabs & Search */}
+          <div className="flex items-center justify-between gap-4 mb-8">
+            <div className="flex items-center gap-4">
+              <Button 
+                variant={activeTab === 'all' ? "default" : "outline"}
+                onClick={() => setActiveTab('all')}
+                className={cn("gap-2", activeTab !== 'all' && "border-white/10 text-gray-400 hover:text-white hover:bg-white/5")}
+              >
+                <Globe className="w-4 h-4" />
+                전체 커뮤니티
+              </Button>
+              <Button 
+                variant={activeTab === 'favorites' ? "default" : "outline"}
+                onClick={() => setActiveTab('favorites')}
+                className={cn("gap-2", activeTab !== 'favorites' && "border-white/10 text-gray-400 hover:text-white hover:bg-white/5")}
+              >
+                <Star className={cn("w-4 h-4", activeTab === 'favorites' && "fill-current")} />
+                즐겨찾기
+              </Button>
+            </div>
+
+            <div className="relative w-64">
+              <Input 
+                placeholder="커뮤니티 검색..." 
+                className="bg-[#151921] border-white/10 pl-9 text-gray-200 h-9 text-sm"
+              />
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-3.5 h-3.5 text-gray-500" />
+            </div>
           </div>
 
           {activeTab === 'all' && (
