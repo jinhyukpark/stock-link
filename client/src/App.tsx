@@ -13,6 +13,7 @@ import OntologyPage from "@/pages/ontology";
 import CommunityPage from "@/pages/community";
 import MyPage from "@/pages/mypage";
 import SocialPage from "@/pages/social";
+import SubscriptionPage from "@/pages/subscription";
 
 function Router() {
   return (
@@ -25,6 +26,7 @@ function Router() {
       <Route path="/analysis" component={MomentumPage} />
       <Route path="/community" component={CommunityPage} />
       <Route path="/mypage" component={MyPage} />
+      <Route path="/subscription" component={SubscriptionPage} />
       {/* Fallback to 404 */}
       <Route component={NotFound} />
     </Switch>

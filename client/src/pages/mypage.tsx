@@ -287,101 +287,63 @@ export default function MyPage() {
                                     <h2 className="text-xl font-bold text-white mb-1">구독 관리</h2>
                                     <p className="text-sm text-gray-400 mb-6">현재 이용 중인 플랜을 관리하거나 업그레이드하세요.</p>
                                     
-                                    <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                    <div className="max-w-xl mx-auto mt-12">
                                         <div className="relative group">
-                                            <div className="absolute -inset-0.5 bg-gradient-to-r from-primary to-blue-600 rounded-xl opacity-20 group-hover:opacity-40 blur transition duration-500"></div>
-                                            <div className="relative bg-[#0B0E14] rounded-xl border border-primary/50 overflow-hidden h-full flex flex-col">
-                                                <div className="p-6 md:p-8 flex-1">
-                                                    <div className="flex justify-between items-start mb-6">
-                                                        <div className="w-14 h-14 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20">
-                                                            <Crown className="w-7 h-7 text-primary fill-primary" />
+                                            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-blue-600 rounded-2xl opacity-30 group-hover:opacity-50 blur-lg transition duration-500"></div>
+                                            <div className="relative bg-[#0B0E14] rounded-2xl border border-primary/50 overflow-hidden h-full flex flex-col p-8">
+                                                
+                                                <div className="flex justify-between items-start mb-8">
+                                                    <div className="flex items-center gap-4">
+                                                        <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20">
+                                                            <Crown className="w-8 h-8 text-primary fill-primary" />
                                                         </div>
-                                                        <Badge className="bg-primary text-black hover:bg-primary font-bold px-3 py-1">이용 중</Badge>
-                                                    </div>
-                                                    
-                                                    <h3 className="text-2xl font-bold text-white mb-2">PRO Plan</h3>
-                                                    <p className="text-gray-400 text-sm mb-6">전문 투자자를 위한 모든 기능</p>
-                                                    
-                                                    <div className="mb-8">
-                                                        <span className="text-4xl font-bold text-white">₩29,000</span>
-                                                        <span className="text-gray-500 ml-2">/ 월</span>
-                                                    </div>
-                                                    
-                                                    <div className="space-y-4">
-                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
-                                                            <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
-                                                                <Check className="w-3 h-3 text-green-500" /> 
+                                                        <div>
+                                                            <div className="flex items-center gap-3 mb-1">
+                                                                <h3 className="text-2xl font-bold text-white">PRO Plan</h3>
+                                                                <Badge className="bg-primary text-black hover:bg-primary font-bold px-2 py-0.5">이용 중</Badge>
                                                             </div>
-                                                            AI 실시간 매매 신호 무제한
-                                                        </div>
-                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
-                                                            <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
-                                                                <Check className="w-3 h-3 text-green-500" /> 
-                                                            </div>
-                                                            심층 시장 분석 리포트
-                                                        </div>
-                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
-                                                            <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
-                                                                <Check className="w-3 h-3 text-green-500" /> 
-                                                            </div>
-                                                            VIP 커뮤니티 접근 권한
-                                                        </div>
-                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
-                                                            <div className="w-5 h-5 rounded-full bg-green-500/20 flex items-center justify-center shrink-0">
-                                                                <Check className="w-3 h-3 text-green-500" /> 
-                                                            </div>
-                                                            포트폴리오 진단 서비스
+                                                            <p className="text-gray-400 text-sm">전문 투자자를 위한 모든 기능</p>
                                                         </div>
                                                     </div>
                                                 </div>
-                                                <div className="p-6 border-t border-white/5 bg-white/[0.02] flex gap-3">
-                                                    <Button variant="outline" className="flex-1 border-white/10 text-white hover:bg-white/5 h-10">결제 수단 변경</Button>
-                                                    <Button variant="ghost" className="flex-1 text-red-400 hover:text-red-300 hover:bg-red-400/10 h-10">구독 해지</Button>
+                                                
+                                                <div className="mb-8 p-6 bg-white/5 rounded-xl border border-white/5">
+                                                    <div className="flex justify-between items-end mb-4">
+                                                        <span className="text-gray-400 text-sm">결제 금액</span>
+                                                        <div className="text-right">
+                                                            <span className="text-3xl font-bold text-white">₩29,000</span>
+                                                            <span className="text-gray-500 text-sm ml-1">/ 월</span>
+                                                        </div>
+                                                    </div>
+                                                    <div className="flex justify-between items-center text-sm pt-4 border-t border-white/10">
+                                                        <span className="text-gray-400">다음 결제일</span>
+                                                        <span className="text-white font-mono">2026. 01. 30</span>
+                                                    </div>
                                                 </div>
-                                            </div>
-                                        </div>
+                                                
+                                                <div className="space-y-3 mb-8">
+                                                    <div className="flex items-center gap-3 text-sm text-gray-300">
+                                                        <Check className="w-4 h-4 text-green-500" /> AI 실시간 매매 신호 무제한
+                                                    </div>
+                                                    <div className="flex items-center gap-3 text-sm text-gray-300">
+                                                        <Check className="w-4 h-4 text-green-500" /> 심층 시장 분석 리포트
+                                                    </div>
+                                                    <div className="flex items-center gap-3 text-sm text-gray-300">
+                                                        <Check className="w-4 h-4 text-green-500" /> VIP 커뮤니티 접근 권한
+                                                    </div>
+                                                    <div className="flex items-center gap-3 text-sm text-gray-300">
+                                                        <Check className="w-4 h-4 text-green-500" /> 포트폴리오 진단 서비스
+                                                    </div>
+                                                </div>
 
-                                        <div className="relative group">
-                                            <div className="absolute -inset-0.5 bg-gradient-to-r from-gray-700 to-gray-500 rounded-xl opacity-0 group-hover:opacity-20 blur transition duration-500"></div>
-                                            <div className="relative bg-[#0B0E14] rounded-xl border border-white/5 overflow-hidden h-full flex flex-col opacity-60 hover:opacity-100 transition-all duration-300">
-                                                <div className="p-6 md:p-8 flex-1">
-                                                    <div className="flex justify-between items-start mb-6">
-                                                        <div className="w-14 h-14 rounded-2xl bg-white/5 flex items-center justify-center border border-white/10">
-                                                            <Shield className="w-7 h-7 text-white" />
-                                                        </div>
-                                                    </div>
-                                                    
-                                                    <h3 className="text-2xl font-bold text-white mb-2">Enterprise</h3>
-                                                    <p className="text-gray-400 text-sm mb-6">기관 및 법인 투자자를 위한 솔루션</p>
-                                                    
-                                                    <div className="mb-8">
-                                                        <span className="text-4xl font-bold text-white">문의</span>
-                                                        <span className="text-gray-500 ml-2">/ 별도 협의</span>
-                                                    </div>
-                                                    
-                                                    <div className="space-y-4">
-                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
-                                                            <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                                                                <Check className="w-3 h-3 text-gray-400" /> 
-                                                            </div>
-                                                            PRO 플랜의 모든 기능 포함
-                                                        </div>
-                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
-                                                            <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                                                                <Check className="w-3 h-3 text-gray-400" /> 
-                                                            </div>
-                                                            전용 API 제공
-                                                        </div>
-                                                        <div className="flex items-center gap-3 text-sm text-gray-300">
-                                                            <div className="w-5 h-5 rounded-full bg-white/10 flex items-center justify-center shrink-0">
-                                                                <Check className="w-3 h-3 text-gray-400" /> 
-                                                            </div>
-                                                            1:1 전담 매니저 배정
-                                                        </div>
-                                                    </div>
+                                                <div className="flex gap-4 mt-auto">
+                                                    <Link href="/subscription" className="flex-1">
+                                                        <Button className="w-full bg-white text-black hover:bg-gray-200 font-bold h-11">구독 변경</Button>
+                                                    </Link>
+                                                    <Button variant="outline" className="flex-1 border-white/10 text-white hover:bg-white/5 h-11">결제 수단 관리</Button>
                                                 </div>
-                                                <div className="p-6 border-t border-white/5 bg-white/[0.02]">
-                                                    <Button className="w-full bg-white text-black hover:bg-gray-200 h-10 font-bold">영업팀 문의하기</Button>
+                                                <div className="mt-4 text-center">
+                                                     <button className="text-xs text-red-400 hover:text-red-300 hover:underline">구독 해지하기</button>
                                                 </div>
                                             </div>
                                         </div>
