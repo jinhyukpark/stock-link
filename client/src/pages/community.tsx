@@ -403,6 +403,14 @@ export default function CommunityPage() {
   const [isProfileModalOpen, setIsProfileModalOpen] = useState(false);
   const [selectedUser, setSelectedUser] = useState<User | null>(null);
 
+  const selectedChannel = mockChannels.find(c => c.id === selectedChannelId) || mockChannels[0];
+
+  useEffect(() => {
+    if (scrollRef.current) {
+      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
+    }
+  }, [messages, selectedChannelId]);
+
   // If in discovery mode, render discovery component
   if (viewMode === 'discovery') {
     return (
@@ -415,14 +423,6 @@ export default function CommunityPage() {
       </DashboardLayout>
     );
   }
-
-  const selectedChannel = mockChannels.find(c => c.id === selectedChannelId) || mockChannels[0];
-
-  useEffect(() => {
-    if (scrollRef.current) {
-      scrollRef.current.scrollTop = scrollRef.current.scrollHeight;
-    }
-  }, [messages, selectedChannelId]);
 
   const handleSendMessage = () => {
     if (!inputText.trim()) return;
