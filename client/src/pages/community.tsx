@@ -80,6 +80,8 @@ import {
 } from "@/components/ui/carousel";
 
 import stockAnalysisImage from '@assets/stock_images/stock_market_analysi_5b45eee1.jpg';
+import globalMacroImage from '@assets/generated_images/global_economy_visualization_with_world_map_and_data_streams.png';
+import quantStrategyImage from '@assets/generated_images/quantitative_trading_visualization_with_code_and_algorithms.png';
 
 // --- Mock Data ---
 
@@ -104,7 +106,7 @@ const featuredCommunities: Community[] = [
     description: '전 세계 거시경제 흐름과 주요 지표를 심층 분석하는 프리미엄 커뮤니티입니다.',
     members: 8900,
     online: 450,
-    image: 'https://images.unsplash.com/photo-1611974765270-ca1258634369?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    image: globalMacroImage,
     tags: ['Global', 'Macro', 'Premium'],
     isFavorite: false,
     leader: {
@@ -118,7 +120,7 @@ const featuredCommunities: Community[] = [
     description: '데이터 기반 퀀트 투자 전략을 연구하고 백테스팅 결과를 공유합니다.',
     members: 3200,
     online: 210,
-    image: 'https://images.unsplash.com/photo-1551288049-bebda4e38f71?w=800&auto=format&fit=crop&q=60&ixlib=rb-4.0.3',
+    image: quantStrategyImage,
     tags: ['Quant', 'Data', 'Strategy'],
     isFavorite: false,
     leader: {
