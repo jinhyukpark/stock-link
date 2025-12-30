@@ -740,15 +740,19 @@ export default function OntologyPage() {
             {/* Right Floating Toolbar */}
             <div className="absolute right-4 top-4 z-30 flex flex-col gap-4">
                  {/* Chat Trigger - Moved back to toolbar */}
-                 <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1 animate-pulse-subtle border-primary/30">
+                 <div className="flex flex-col bg-[#151921]/90 backdrop-blur border border-white/10 rounded-lg overflow-hidden shadow-lg p-1 animate-pulse-subtle border-primary/30 group">
                      <Button 
                         variant="ghost" 
                         size="icon" 
-                        className={cn("h-8 w-8 hover:text-white hover:bg-white/10 rounded transition-colors", isChatOpen ? "text-primary bg-primary/10" : "text-primary")}
+                        className={cn(
+                            "h-8 w-8 hover:text-white hover:bg-white/10 rounded transition-all duration-300 relative overflow-hidden", 
+                            isChatOpen ? "text-cyan-400 bg-cyan-950/30" : "text-cyan-400"
+                        )}
                         onClick={() => setIsChatOpen(!isChatOpen)}
                         title="AI 분석"
                      >
-                        <MessageSquare className="w-4 h-4" />
+                        <div className="absolute inset-0 bg-cyan-500/20 blur-md rounded-full animate-pulse opacity-0 group-hover:opacity-100 transition-opacity"></div>
+                        <Sparkles className="w-5 h-5 text-cyan-400 drop-shadow-[0_0_8px_rgba(34,211,238,0.8)] relative z-10 animate-pulse" />
                      </Button>
                  </div>
 
