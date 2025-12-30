@@ -76,6 +76,7 @@ import {
   CarouselItem,
   CarouselNext,
   CarouselPrevious,
+  type CarouselApi,
 } from "@/components/ui/carousel";
 
 import stockAnalysisImage from '@assets/stock_images/stock_market_analysi_5b45eee1.jpg';
@@ -387,6 +388,22 @@ const CommunityDiscovery = ({
   onToggleFavorite: (id: string) => void 
 }) => {
   const [activeTab, setActiveTab] = useState<'all' | 'favorites'>('all');
+  const [api, setApi] = useState<CarouselApi>();
+  const [current, setCurrent] = useState(0);
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    if (!api) {
+      return;
+    }
+
+    setCount(api.scrollSnapList().length);
+    setCurrent(api.selectedScrollSnap() + 1);
+
+    api.on("select", () => {
+      setCurrent(api.selectedScrollSnap() + 1);
+    });
+  }, [api]);
 
   const filteredCommunities = communities.filter(c => {
     if (activeTab === 'favorites') return c.isFavorite;
@@ -439,7 +456,7 @@ const CommunityDiscovery = ({
             <>
               {/* Featured Carousel */}
               <div className="mb-12">
-                <Carousel className="w-full" opts={{ loop: true }}>
+                <Carousel className="w-full" opts={{ loop: true }} setApi={setApi}>
                   <CarouselContent>
                     {featuredCommunities.map((featured) => (
                       <CarouselItem key={featured.id}>
@@ -480,8 +497,23 @@ const CommunityDiscovery = ({
                       </CarouselItem>
                     ))}
                   </CarouselContent>
-                  <CarouselPrevious className="left-4 bg-black/50 border-white/10 hover:bg-black/70 text-white" />
-                  <CarouselNext className="right-4 bg-black/50 border-white/10 hover:bg-black/70 text-white" />
+                  
+                  {/* Dots Indicator */}
+                  <div className="absolute bottom-4 right-8 flex gap-2 z-30">
+                    {Array.from({ length: count }).map((_, index) => (
+                      <button
+                        key={index}
+                        className={cn(
+                          "w-2 h-2 rounded-full transition-all duration-300",
+                          current === index + 1 ? "bg-white w-6" : "bg-white/40 hover:bg-white/60"
+                        )}
+                        onClick={(e) => {
+                            e.stopPropagation();
+                            api?.scrollTo(index);
+                        }}
+                      />
+                    ))}
+                  </div>
                 </Carousel>
               </div>
 
