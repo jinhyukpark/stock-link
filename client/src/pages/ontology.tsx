@@ -298,107 +298,148 @@ export default function OntologyPage() {
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
   const [isSearchExpanded, setIsSearchExpanded] = useState(false);
 
-  // Generate dense, structured graph data
+  // Generate structured radial graph data
   const { nodes, links } = useMemo(() => {
     const nodes: Node[] = [];
     const links: Link[] = [];
     
-    // 1. Central "Core" Cluster (Market Leaders) - High Density
-    const coreCount = 15;
-    const coreLabels = ["삼성전자", "SK하이닉스", "LG에너지솔루션", "POSCO홀딩스", "NAVER", "카카오", "현대차", "기아", "LG화학", "삼성SDI", "KB금융", "신한지주", "셀트리온", "삼성바이오로직스", "현대모비스"];
-    
-    for (let i = 0; i < coreCount; i++) {
-        // Spiral distribution for organic core
-        const angle = (i * 0.5) + Math.random() * 0.5;
-        const radius = 8 + i * 0.8; // Tight cluster
-        const x = 50 + Math.cos(angle) * radius;
-        const y = 50 + Math.sin(angle) * radius;
-        
-        nodes.push({
-            id: `core-${i}`,
-            x, y,
-            size: Math.random() * 20 + 20, // Large nodes
-            color: ["bg-red-500", "bg-blue-500", "bg-yellow-400"][Math.floor(Math.random() * 3)],
-            label: coreLabels[i],
-            pulse: true
-        });
+    const centerX = 50;
+    const centerY = 50;
 
-        // Interconnect core nodes densely
-        for (let j = 0; j < i; j++) {
-            if (Math.random() > 0.5) { // 50% chance to connect to previous core nodes
-                links.push({
-                    x1: nodes[j].x, y1: nodes[j].y,
-                    x2: x, y2: y,
-                    opacity: 0.3
-                });
-            }
-        }
-    }
+    // 1. Center Node (Market Hub)
+    nodes.push({
+        id: "center",
+        x: centerX,
+        y: centerY,
+        size: 50,
+        color: "bg-indigo-600",
+        label: "KOSPI 200",
+        pulse: true
+    });
 
-    // 2. Middle "Sector" Ring - Medium Density
-    const sectorCount = 40;
-    for (let i = 0; i < sectorCount; i++) {
-        const angle = (i / sectorCount) * Math.PI * 2;
-        const radius = 30 + Math.random() * 10; // Mid range
-        const x = 50 + Math.cos(angle) * radius;
-        const y = 50 + Math.sin(angle) * radius;
+    // 2. Inner Ring: Major Sectors (8 nodes)
+    const sectors = [
+        { name: "반도체", color: "bg-red-500", stocks: ["삼성전자", "SK하이닉스", "DB하이텍"] },
+        { name: "2차전지", color: "bg-orange-500", stocks: ["LG엔솔", "삼성SDI", "에코프로"] },
+        { name: "자동차", color: "bg-blue-500", stocks: ["현대차", "기아", "현대모비스"] },
+        { name: "바이오", color: "bg-green-500", stocks: ["삼바", "셀트리온", "SK바이오"] },
+        { name: "플랫폼", color: "bg-emerald-400", stocks: ["NAVER", "카카오", "하이브"] },
+        { name: "금융", color: "bg-yellow-500", stocks: ["KB금융", "신한지주", "하나금융"] },
+        { name: "화학/철강", color: "bg-cyan-500", stocks: ["POSCO홀딩스", "LG화학", "롯데케미칼"] },
+        { name: "조선/기계", color: "bg-slate-400", stocks: ["HD현대중공업", "한화오션", "두산에너빌리티"] }
+    ];
+
+    const innerRadius = 20;
+
+    sectors.forEach((sector, i) => {
+        const angle = (i / sectors.length) * Math.PI * 2;
+        const sx = centerX + Math.cos(angle) * innerRadius;
+        const sy = centerY + Math.sin(angle) * innerRadius;
         
+        // Sector Node
         nodes.push({
             id: `sector-${i}`,
-            x, y,
-            size: Math.random() * 10 + 8,
-            color: ["bg-orange-400", "bg-green-400", "bg-purple-400"][Math.floor(Math.random() * 3)],
+            x: sx,
+            y: sy,
+            size: 28,
+            color: sector.color,
+            label: sector.name,
             pulse: false
         });
 
-        // Connect to nearest core node
-        const nearestCore = nodes.slice(0, coreCount).reduce((prev, curr) => {
-            const distPrev = Math.hypot(prev.x - x, prev.y - y);
-            const distCurr = Math.hypot(curr.x - x, curr.y - y);
-            return distCurr < distPrev ? curr : prev;
+        // Link to Center
+        links.push({
+            x1: centerX, y1: centerY,
+            x2: sx, y2: sy,
+            opacity: 0.3
         });
+
+        // Link to neighboring sectors (forming a ring)
+        const nextIndex = (i + 1) % sectors.length;
+        const nextAngle = (nextIndex / sectors.length) * Math.PI * 2;
+        const nx = centerX + Math.cos(nextAngle) * innerRadius;
+        const ny = centerY + Math.sin(nextAngle) * innerRadius;
         
         links.push({
-            x1: nearestCore.x, y1: nearestCore.y,
-            x2: x, y2: y,
+            x1: sx, y1: sy,
+            x2: nx, y2: ny,
             opacity: 0.15
         });
-        
-        // Connect to neighbor in ring
-        if (i > 0) {
-            links.push({
-                x1: nodes[coreCount + i - 1].x, y1: nodes[coreCount + i - 1].y,
-                x2: x, y2: y,
-                opacity: 0.1
+
+        // 3. Middle Ring: Major Stocks (3 per sector)
+        const midRadius = 14; // Distance from sector node
+        sector.stocks.forEach((stockName, j) => {
+            // Spread stocks in a fan shape outwards from the sector node
+            // Base angle is the sector's angle
+            // Spread range: -30deg to +30deg
+            const spread = 0.8; // radians spread
+            const stockAngle = angle + (j - 1) * (spread / 2); 
+            
+            // Calculate absolute position based on sector position + offset vector
+            // But to make it circular global layout, let's use global radius logic
+            
+            // Alternative: Global concentric circle for stocks
+            const globalStockRadius = 35;
+            const globalAngle = angle + (j - 1) * 0.15; // slightly offset from sector angle
+
+            const kx = centerX + Math.cos(globalAngle) * globalStockRadius;
+            const ky = centerY + Math.sin(globalAngle) * globalStockRadius;
+
+            const stockId = `stock-${i}-${j}`;
+            nodes.push({
+                id: stockId,
+                x: kx,
+                y: ky,
+                size: 18,
+                color: sector.color.replace('500', '400').replace('600', '500'),
+                label: stockName,
+                pulse: false
             });
-        }
-    }
 
-    // 3. Outer "Periphery" Cloud - Low Density but high count
-    const outerCount = 100;
-    for (let i = 0; i < outerCount; i++) {
-        const angle = Math.random() * Math.PI * 2;
-        const radius = 45 + Math.random() * 15; // Wide spread, some off screen
-        const x = 50 + Math.cos(angle) * radius;
-        const y = 50 + Math.sin(angle) * radius;
+            // Link to Sector
+            links.push({
+                x1: sx, y1: sy,
+                x2: kx, y2: ky,
+                opacity: 0.25
+            });
 
-        nodes.push({
-            id: `outer-${i}`,
-            x, y,
-            size: Math.random() * 4 + 2, // Small dots
-            color: "bg-gray-600",
-            pulse: false
+            // 4. Outer Ring: Related/Small Stocks (2 per stock)
+            const outerRadiusDist = 10;
+            for (let k = 0; k < 2; k++) {
+                const smallAngle = globalAngle + (k - 0.5) * 0.1;
+                const ox = centerX + Math.cos(smallAngle) * (globalStockRadius + 12);
+                const oy = centerY + Math.sin(smallAngle) * (globalStockRadius + 12);
+                
+                nodes.push({
+                    id: `sub-${i}-${j}-${k}`,
+                    x: ox,
+                    y: oy,
+                    size: 6,
+                    color: "bg-gray-600",
+                    pulse: false
+                });
+
+                links.push({
+                    x1: kx, y1: ky,
+                    x2: ox, y2: oy,
+                    opacity: 0.1
+                });
+            }
         });
-        
-         // Connect to random sector node
-        const randomSector = nodes[coreCount + Math.floor(Math.random() * sectorCount)];
-        if (Math.random() > 0.7) {
-            links.push({
-                x1: randomSector.x, y1: randomSector.y,
-                x2: x, y2: y,
-                opacity: 0.05
-            });
-        }
+    });
+
+    // Add some random background stars for atmosphere
+    for (let i = 0; i < 50; i++) {
+        const angle = Math.random() * Math.PI * 2;
+        const rad = Math.random() * 40 + 10;
+        nodes.push({
+            id: `star-${i}`,
+            x: 50 + Math.cos(angle) * rad,
+            y: 50 + Math.sin(angle) * rad,
+            size: 2,
+            color: "bg-white/20",
+            pulse: Math.random() > 0.8
+        });
     }
 
     return { nodes, links };
