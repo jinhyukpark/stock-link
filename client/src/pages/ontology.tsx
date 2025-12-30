@@ -295,6 +295,7 @@ export default function OntologyPage() {
   const [activeTab, setActiveTab] = useState("theme");
   const [selectedNodeIds, setSelectedNodeIds] = useState<Set<string>>(new Set());
   const [isChatOpen, setIsChatOpen] = useState(false);
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   // Generate dense, structured graph data
   const { nodes, links } = useMemo(() => {
@@ -420,12 +421,17 @@ export default function OntologyPage() {
 
   return (
     <DashboardLayout>
-      <div className="flex h-[calc(100vh-4rem)] bg-[#050505] text-white font-sans overflow-hidden">
+      <div className="flex h-[calc(100vh-4rem)] bg-[#050505] text-white font-sans overflow-hidden relative">
         
         {/* Left Sidebar */}
-        <aside className="w-[340px] flex flex-col border-r border-white/10 bg-[#0B0E14] z-20">
+        <aside 
+            className={cn(
+                "flex flex-col border-r border-white/10 bg-[#0B0E14] z-20 transition-all duration-300 ease-in-out overflow-hidden absolute left-0 top-0 bottom-0 md:relative", 
+                isSidebarOpen ? "w-[340px] translate-x-0" : "w-0 -translate-x-full md:w-0 md:translate-x-0 border-r-0"
+            )}
+        >
             {/* Sidebar Header */}
-            <div className="p-0">
+            <div className="p-0 min-w-[340px]">
                 <div className="flex border-b border-white/10">
                     {['종목', '테마', '산업분류', '키워드', '시장지수'].map((tab) => (
                         <button 
@@ -440,8 +446,12 @@ export default function OntologyPage() {
                             {tab}
                         </button>
                     ))}
-                    <button className="px-2 border-l border-white/10 hover:bg-white/5">
-                        <ChevronLeft className="w-4 h-4 text-gray-500" />
+                    <button 
+                        className="px-2 border-l border-white/10 hover:bg-white/5 text-gray-500 hover:text-white transition-colors"
+                        onClick={() => setIsSidebarOpen(false)}
+                        title="사이드바 숨기기"
+                    >
+                        <ChevronLeft className="w-4 h-4" />
                     </button>
                 </div>
                 
@@ -581,6 +591,17 @@ export default function OntologyPage() {
 
             {/* Fear & Greed Gauge - Top Left Floating - REMOVED */}
             
+            {/* Show Sidebar Trigger - Visible when Sidebar is hidden */}
+            {!isSidebarOpen && (
+                <button 
+                    className="absolute left-0 top-14 z-40 bg-[#151921]/90 backdrop-blur border border-white/10 border-l-0 rounded-r-lg p-1.5 shadow-lg text-gray-400 hover:text-white hover:bg-white/10 transition-all hover:pl-2"
+                    onClick={() => setIsSidebarOpen(true)}
+                    title="사이드바 보이기"
+                >
+                    <ChevronLeft className="w-4 h-4 rotate-180" />
+                </button>
+            )}
+
             {/* Left Floating Toolbar */}
             <div className="absolute left-4 top-4 z-30 flex flex-col gap-4">
                  {/* Original Floating Buttons - Now at top */}
