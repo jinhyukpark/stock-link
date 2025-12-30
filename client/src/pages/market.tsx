@@ -850,14 +850,14 @@ export default function MarketAnalysis() {
                   icon={PieChartIcon} 
                   description="시가총액 규모(대형, 중형, 소형)별 누적 상승 비율 분석입니다. 이 시각화는 랠리가 블루칩(대형주)에 의해 주도되는지, 아니면 위험 선호 심리가 소형 성장주로 확산되고 있는지(낙수 효과)를 파악하는 데 도움을 줍니다."
                 />
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-6">
-                  <div className="lg:col-span-1 h-full">
-                    <AnalysisBlock content={analysisTexts.cap} className="h-full mb-0" />
+                <div className="flex flex-col gap-6 mb-8">
+                  <div className="w-full">
+                    <AnalysisBlock content={analysisTexts.cap} className="mb-0" />
                   </div>
-                  <div className="lg:col-span-2 h-full">
-                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
+                  <div className="w-full">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
                         <Card 
-                          className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative h-full flex flex-col"
+                          className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative h-full flex flex-col min-h-[300px]"
                           onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kospiCap')!)}
                         >
                             <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
@@ -871,7 +871,7 @@ export default function MarketAnalysis() {
                             </CardContent>
                         </Card>
                         <Card 
-                          className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative h-full flex flex-col"
+                          className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative h-full flex flex-col min-h-[300px]"
                           onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kosdaqCap')!)}
                         >
                             <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
