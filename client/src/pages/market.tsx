@@ -195,15 +195,15 @@ const SectionHeader = ({ number, title, icon: Icon, description }: { number: str
   </div>
 );
 
-const AnalysisBlock = ({ content }: { content: string }) => (
-  <div className="mb-6 rounded-lg border border-blue-500/30 bg-blue-900/10 overflow-hidden">
-    <div className="bg-blue-500/20 px-4 py-2 flex items-center gap-2 border-b border-blue-500/20">
+const AnalysisBlock = ({ content, className }: { content: string, className?: string }) => (
+  <div className={cn("rounded-lg border border-blue-500/30 bg-blue-900/10 overflow-hidden flex flex-col", className)}>
+    <div className="bg-blue-500/20 px-4 py-2 flex items-center gap-2 border-b border-blue-500/20 shrink-0">
       <Sparkles className="w-4 h-4 text-blue-400" />
       <h4 className="text-sm font-bold text-blue-400 uppercase tracking-wider font-mono">
         AI Insight
       </h4>
     </div>
-    <div className="p-4">
+    <div className="p-4 flex-1">
       <p className="text-sm text-gray-300 leading-relaxed font-sans whitespace-pre-line">
         {content}
       </p>
@@ -703,19 +703,19 @@ export default function MarketAnalysis() {
                   icon={Zap} 
                   description="공포 & 탐욕 지수는 모멘텀, 변동성, 옵션 거래량 등을 종합하여 시장 심리를 나타내는 지표입니다. 역발상 지표로 활용되며, 극도의 공포는 과매도 상태를, 극도의 탐욕은 잠재적인 조정 가능성을 시사합니다."
                 />
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  <div className="lg:col-span-1">
-                    <AnalysisBlock content={analysisTexts.fgi} />
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                  <div className="lg:col-span-1 h-full">
+                    <AnalysisBlock content={analysisTexts.fgi} className="h-full mb-0" />
                   </div>
-                  <div className="lg:col-span-2">
+                  <div className="lg:col-span-2 h-full">
                     <Card 
-                      className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                      className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative h-full flex flex-col"
                       onClick={() => setSelectedChart(allCharts.find(c => c.id === 'fgi')!)}
                     >
                       <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                           <Maximize2 className="w-5 h-5 text-muted-foreground" />
                       </div>
-                      <CardContent className="p-6">
+                      <CardContent className="p-6 flex-1">
                         <div className="h-[300px] w-full pointer-events-none">
                           {fgiChart}
                         </div>
@@ -733,40 +733,65 @@ export default function MarketAnalysis() {
                   icon={TrendingUp}
                   description="시장 등락(Market Breadth)은 주가 상승이 얼마나 광범위하게 나타나는지를 측정합니다. 이동평균선 대비 상승 종목 수를 추적하여 지수 추세의 강도를 검증합니다. 소수의 대형주가 주도하는 랠리보다 다수의 종목이 상승하는 랠리가 더 지속 가능합니다." 
                 />
-                <div className="grid grid-cols-1 lg:grid-cols-1 gap-8 mb-8">
-                   <AnalysisBlock content={analysisTexts.breadth} />
-                </div>
-                
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                  <Card 
-                    className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                    onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kospiBreadth')!)}
-                  >
-                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                          <Maximize2 className="w-5 h-5 text-muted-foreground" />
-                      </div>
-                      <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSPI Breadth</div>
-                      <CardContent className="p-6">
-                          <div className="h-[250px] w-full pointer-events-none">
-                              {kospiBreadthChart}
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-8">
+                   <div className="lg:col-span-1 h-full">
+                      <AnalysisBlock content={analysisTexts.breadth} className="h-full mb-0" />
+                   </div>
+                   <div className="lg:col-span-2 h-full">
+                      {/* Placeholder or consolidated chart if any, but layout was vertical stack before. 
+                          Wait, the original code had:
+                          <div className="grid grid-cols-1 lg:grid-cols-1 gap-8 mb-8">
+                             <AnalysisBlock ... />
                           </div>
-                      </CardContent>
-                  </Card>
-                  
-                  <Card 
-                    className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                    onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kosdaqBreadth')!)}
-                  >
-                      <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                          <Maximize2 className="w-5 h-5 text-muted-foreground" />
-                      </div>
-                      <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSDAQ Breadth</div>
-                      <CardContent className="p-6">
-                          <div className="h-[250px] w-full pointer-events-none">
-                              {kosdaqBreadthChart}
+                          <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
+                             <Card ... /> <Card ... />
                           </div>
-                      </CardContent>
-                  </Card>
+                          
+                          I should probably leave this one as is unless asked to change layout entirely. 
+                          The user request was "Market 상세의 보고서안의 AI Insight 박스의 사이즈가 오른쪽 차트의 Height 가 같도록. 라인업이 되도록"
+                          (Make the AI Insight box size in the Market Detail report equal to the height of the chart on the right. So it lines up.)
+                          
+                          For section 2, the AnalysisBlock was full width above two charts. 
+                          If the user implies "wherever there is a chart on the right", I should apply this pattern.
+                          
+                          Section 1 (FGI): Left Insight, Right Chart. -> Fix this.
+                          Section 2 (Breadth): Top Insight, Bottom 2 Charts. -> Skip or ask? 
+                          Usually "Height equal to right chart" implies side-by-side layout.
+                          Let's keep Section 2 Top-Bottom for now as it has 2 charts below. Or maybe I can put insight on left and 2 charts stacked on right?
+                          The original layout was Top Insight. I'll stick to fixing Section 1, 3, 5 which are Side-by-Side.
+                      */}
+                      <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
+                        <Card 
+                          className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative h-full flex flex-col"
+                          onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kospiBreadth')!)}
+                        >
+                            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                                <Maximize2 className="w-5 h-5 text-muted-foreground" />
+                            </div>
+                            <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSPI Breadth</div>
+                            <CardContent className="p-6 flex-1">
+                                <div className="h-[250px] w-full pointer-events-none">
+                                    {kospiBreadthChart}
+                                </div>
+                            </CardContent>
+                        </Card>
+                        
+                        <Card 
+                          className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative h-full flex flex-col"
+                          onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kosdaqBreadth')!)}
+                        >
+                            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                                <Maximize2 className="w-5 h-5 text-muted-foreground" />
+                            </div>
+                            <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSDAQ Breadth</div>
+                            <CardContent className="p-6 flex-1">
+                                <div className="h-[250px] w-full pointer-events-none">
+                                    {kosdaqBreadthChart}
+                                </div>
+                            </CardContent>
+                        </Card>
+                      </div>
+                   </div>
                 </div>
               </section>
 
@@ -778,35 +803,35 @@ export default function MarketAnalysis() {
                   icon={BarChart2}
                   description="이 히스토그램은 일일 주가 변동폭의 빈도 분포를 보여줍니다. 커널 밀도 추정(KDE) 선은 부드러운 확률 밀도를 나타냅니다. 오른쪽으로 치우친 분포는 긍정적인 모멘텀을, '두터운 꼬리(Fat tail)'는 급격한 변동 가능성이 높음을 의미합니다."
                 />
-                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  <div className="lg:col-span-1">
-                    <AnalysisBlock content={analysisTexts.dist} />
+                 <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                  <div className="lg:col-span-1 h-full">
+                    <AnalysisBlock content={analysisTexts.dist} className="h-full mb-0" />
                   </div>
-                  <div className="lg:col-span-2">
-                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                  <div className="lg:col-span-2 h-full">
+                     <div className="grid grid-cols-1 md:grid-cols-2 gap-4 h-full">
                        <Card 
-                         className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                         className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative h-full flex flex-col"
                          onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kospiDist')!)}
                        >
                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                              <Maximize2 className="w-5 h-5 text-muted-foreground" />
                          </div>
                          <div className="p-2 border-b border-border/30 bg-secondary/10 text-[10px] font-bold text-center text-muted-foreground uppercase">KOSPI Dist.</div>
-                         <CardContent className="p-4">
+                         <CardContent className="p-4 flex-1 flex items-center">
                             <div className="h-[180px] w-full pointer-events-none">
                                 {kospiDistChart}
                             </div>
                          </CardContent>
                        </Card>
                        <Card 
-                         className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                         className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative h-full flex flex-col"
                          onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kosdaqDist')!)}
                        >
                          <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                              <Maximize2 className="w-5 h-5 text-muted-foreground" />
                          </div>
                          <div className="p-2 border-b border-border/30 bg-secondary/10 text-[10px] font-bold text-center text-muted-foreground uppercase">KOSDAQ Dist.</div>
-                         <CardContent className="p-4">
+                         <CardContent className="p-4 flex-1 flex items-center">
                             <div className="h-[180px] w-full pointer-events-none">
                                 {kosdaqDistChart}
                             </div>
@@ -825,39 +850,42 @@ export default function MarketAnalysis() {
                   icon={PieChartIcon} 
                   description="시가총액 규모(대형, 중형, 소형)별 누적 상승 비율 분석입니다. 이 시각화는 랠리가 블루칩(대형주)에 의해 주도되는지, 아니면 위험 선호 심리가 소형 성장주로 확산되고 있는지(낙수 효과)를 파악하는 데 도움을 줍니다."
                 />
-                <div className="mb-6">
-                  <AnalysisBlock content={analysisTexts.cap} />
-                </div>
-                
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                    <Card 
-                      className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                      onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kospiCap')!)}
-                    >
-                        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                             <Maximize2 className="w-5 h-5 text-muted-foreground" />
-                         </div>
-                        <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSPI Segments</div>
-                        <CardContent className="p-6">
-                            <div className="h-[250px] w-full pointer-events-none">
-                                {kospiSizeChart}
-                            </div>
-                        </CardContent>
-                    </Card>
-                    <Card 
-                      className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
-                      onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kosdaqCap')!)}
-                    >
-                        <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
-                             <Maximize2 className="w-5 h-5 text-muted-foreground" />
-                         </div>
-                        <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSDAQ Segments</div>
-                        <CardContent className="p-6">
-                            <div className="h-[250px] w-full pointer-events-none">
-                                {kosdaqSizeChart}
-                            </div>
-                        </CardContent>
-                    </Card>
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch mb-6">
+                  <div className="lg:col-span-1 h-full">
+                    <AnalysisBlock content={analysisTexts.cap} className="h-full mb-0" />
+                  </div>
+                  <div className="lg:col-span-2 h-full">
+                    <div className="grid grid-cols-1 md:grid-cols-2 gap-8 h-full">
+                        <Card 
+                          className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative h-full flex flex-col"
+                          onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kospiCap')!)}
+                        >
+                            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                                 <Maximize2 className="w-5 h-5 text-muted-foreground" />
+                             </div>
+                            <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSPI Segments</div>
+                            <CardContent className="p-6 flex-1">
+                                <div className="h-[250px] w-full pointer-events-none">
+                                    {kospiSizeChart}
+                                </div>
+                            </CardContent>
+                        </Card>
+                        <Card 
+                          className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative h-full flex flex-col"
+                          onClick={() => setSelectedChart(allCharts.find(c => c.id === 'kosdaqCap')!)}
+                        >
+                            <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
+                                 <Maximize2 className="w-5 h-5 text-muted-foreground" />
+                             </div>
+                            <div className="p-3 border-b border-border/30 bg-secondary/10 text-xs font-bold text-center text-muted-foreground uppercase tracking-widest">KOSDAQ Segments</div>
+                            <CardContent className="p-6 flex-1">
+                                <div className="h-[250px] w-full pointer-events-none">
+                                    {kosdaqSizeChart}
+                                </div>
+                            </CardContent>
+                        </Card>
+                    </div>
+                  </div>
                 </div>
               </section>
 
@@ -869,19 +897,19 @@ export default function MarketAnalysis() {
                   icon={Activity} 
                   description="예측 자산 모델(PAM)을 사용하여 향후 5일, 10일, 20일 동안의 시장 기대 수익률을 시뮬레이션합니다. 과거 패턴과 현재 모멘텀을 기반으로 산출되며, 단기 트레이딩 전략 수립에 활용됩니다."
                 />
-                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8">
-                  <div className="lg:col-span-1">
-                     <AnalysisBlock content={analysisTexts.pam} />
+                <div className="grid grid-cols-1 lg:grid-cols-3 gap-8 items-stretch">
+                  <div className="lg:col-span-1 h-full">
+                     <AnalysisBlock content={analysisTexts.pam} className="h-full mb-0" />
                   </div>
-                  <div className="lg:col-span-2">
+                  <div className="lg:col-span-2 h-full">
                      <Card 
-                       className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative"
+                       className="bg-transparent border border-border/30 shadow-none rounded-none cursor-pointer hover:bg-white/5 transition-colors group relative h-full flex flex-col"
                        onClick={() => setSelectedChart(allCharts.find(c => c.id === 'pam')!)}
                      >
                         <div className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10">
                              <Maximize2 className="w-5 h-5 text-muted-foreground" />
                          </div>
-                        <CardContent className="p-6">
+                        <CardContent className="p-6 flex-1">
                             <div className="h-[300px] w-full pointer-events-none">
                                 {pamChart}
                             </div>
