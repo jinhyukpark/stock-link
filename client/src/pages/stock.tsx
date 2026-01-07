@@ -106,17 +106,17 @@ export default function StockPage() {
         <aside className="w-64 flex flex-col border-r border-white/5 bg-[#151921] shrink-0 z-20">
           <div className="bg-[#111318] p-4 space-y-2 border-b border-white/5">
             <div 
-              className={cn("flex items-center gap-2 text-sm px-2 py-2 rounded cursor-pointer", !selectedStock ? "font-bold text-white bg-white/10" : "font-bold text-gray-300 hover:bg-white/5")}
+              className={cn("flex items-center gap-2 text-sm px-2 py-2 rounded cursor-pointer", !selectedStock ? "font-bold text-white bg-blue-600/20 border border-blue-500/30" : "font-bold text-gray-300 hover:bg-white/5 border border-transparent")}
               onClick={() => setSelectedStock(null)}
             >
-              <List className="w-4 h-4" />
+              <List className={cn("w-4 h-4", !selectedStock ? "text-blue-400" : "text-gray-400")} />
               실시간 Top 100 차트
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-400 px-2 py-2 rounded hover:bg-white/5 cursor-pointer">
+            <div className="flex items-center gap-2 text-sm text-gray-400 px-2 py-2 rounded hover:bg-white/5 cursor-pointer border border-transparent">
               <Star className="w-4 h-4" />
               즐겨찾기
             </div>
-            <div className="flex items-center gap-2 text-sm text-gray-400 px-2 py-2 rounded hover:bg-white/5 cursor-pointer">
+            <div className="flex items-center gap-2 text-sm text-gray-400 px-2 py-2 rounded hover:bg-white/5 cursor-pointer border border-transparent">
               <LayoutGrid className="w-4 h-4" />
               멀티차트
             </div>
