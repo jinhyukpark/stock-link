@@ -55,7 +55,7 @@ export default function MarketMapView() {
     )}>
       
       {/* Header */}
-      <div className="flex justify-end items-center mb-4 shrink-0">
+      <div className="flex justify-start items-center mb-4 shrink-0">
          <div className="flex items-center gap-2">
             <Button 
                 variant="outline" 
