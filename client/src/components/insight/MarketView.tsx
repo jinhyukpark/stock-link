@@ -520,68 +520,51 @@ export default function MarketView() {
 
   return (
     <div className="space-y-6">
-        {/* Date Selector */}
-        <div className="flex items-center justify-between mb-8 sticky top-0 z-10 bg-[#0B0E14]/80 backdrop-blur-sm py-4 border-b border-white/5">
-          <div className="flex items-center gap-4">
-             <Button variant="outline" size="icon" onClick={handlePrevDate} className="h-8 w-8 rounded-full border-white/10 hover:bg-white/10">
-                <ChevronLeft className="h-4 w-4" />
-             </Button>
-             
-             <Popover open={open} onOpenChange={setOpen}>
-               <PopoverTrigger asChild>
-                 <Button
-                   variant="outline"
-                   className={cn(
-                     "w-[240px] justify-start text-left font-normal bg-[#151921] border-white/10 hover:bg-white/5",
-                     !date && "text-muted-foreground"
-                   )}
-                 >
-                   <CalendarDays className="mr-2 h-4 w-4 text-primary" />
-                   {date ? format(new Date(date), "PPP") : <span>Pick a date</span>}
-                 </Button>
-               </PopoverTrigger>
-               <PopoverContent className="w-[240px] p-0 bg-[#1a1f2b] border-white/10" align="start">
-                 <Command>
-                   <CommandInput placeholder="Search date..." />
-                   <CommandList>
-                     <CommandEmpty>No date found.</CommandEmpty>
-                     <CommandGroup>
-                       {dateOptions.map((option) => (
-                         <CommandItem
-                           key={option.value}
-                           value={option.value}
-                           onSelect={(currentValue) => {
-                             setDate(currentValue === date ? "" : currentValue);
-                             setOpen(false);
-                           }}
-                           className="text-gray-300 aria-selected:bg-white/10"
-                         >
-                           <Check
-                             className={cn(
-                               "mr-2 h-4 w-4",
-                               date === option.value ? "opacity-100" : "opacity-0"
-                             )}
-                           />
-                           {option.label}
-                         </CommandItem>
-                       ))}
-                     </CommandGroup>
-                   </CommandList>
-                 </Command>
-               </PopoverContent>
-             </Popover>
-
-             <Button variant="outline" size="icon" onClick={handleNextDate} className="h-8 w-8 rounded-full border-white/10 hover:bg-white/10">
-                <ChevronRight className="h-4 w-4" />
-             </Button>
+        {/* Info Banner */}
+        {showDescription && (
+          <div className="flex items-center justify-between gap-4 mb-2 bg-blue-950/30 border border-blue-800/30 rounded-lg px-4 py-3 text-sm text-blue-100 animate-in fade-in slide-in-from-top-2 duration-300">
+             <div className="flex items-center gap-3">
+               <Info className="w-4 h-4 text-blue-400 shrink-0" />
+               <span className="font-bold text-blue-200 whitespace-nowrap">마켓 분석?</span>
+               <span className="text-gray-300 border-l border-blue-800/50 pl-3">
+                 시장 전반의 주요 지표와 AI 분석 리포트를 통해 시장의 흐름과 투자 심리를 심층적으로 파악할 수 있습니다.
+               </span>
+             </div>
+             <button 
+               onClick={() => setShowDescription(false)}
+               className="p-1 hover:bg-blue-900/30 rounded-md transition-colors text-blue-400 hover:text-blue-200"
+             >
+               <X className="w-4 h-4" />
+             </button>
           </div>
+        )}
 
-          <div className="flex gap-2">
-            <Button size="sm" variant="outline" className="h-8 gap-2 bg-blue-900/20 text-blue-400 border-blue-500/30 hover:bg-blue-900/40">
+        {/* Date Navigation */}
+        <div className="flex justify-end items-center mb-6 gap-2">
+            <Button size="sm" variant="outline" className="h-9 gap-2 bg-blue-900/20 text-blue-400 border-blue-500/30 hover:bg-blue-900/40 mr-auto">
                <Download className="w-3.5 h-3.5" />
                Export PDF
             </Button>
-          </div>
+
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handlePrevDate} 
+              className="h-9 px-4 rounded-full bg-[#151921] border-white/10 hover:bg-white/5 text-gray-400 font-mono text-xs transition-all hover:text-white"
+            >
+              <ChevronLeft className="w-3 h-3 mr-2" />
+              {format(subDays(new Date(date), 1), "MM.dd")}
+            </Button>
+            
+            <Button 
+              variant="outline" 
+              size="sm" 
+              onClick={handleNextDate} 
+              className="h-9 px-4 rounded-full bg-[#151921] border-white/10 hover:bg-white/5 text-gray-400 font-mono text-xs transition-all hover:text-white"
+            >
+              {format(addDays(new Date(date), 1), "MM.dd")}
+              <ChevronRight className="w-3 h-3 ml-2" />
+            </Button>
         </div>
 
         <div className="max-w-5xl mx-auto space-y-16">
