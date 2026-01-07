@@ -1,4 +1,5 @@
-import { Switch, Route } from "wouter";
+import { Switch, Route, Router as WouterRouter } from "wouter";
+import { useHashLocation } from "wouter/use-hash-location";
 import { queryClient } from "./lib/queryClient";
 import { QueryClientProvider } from "@tanstack/react-query";
 import { Toaster } from "@/components/ui/toaster";
@@ -17,19 +18,21 @@ import SubscriptionPage from "@/pages/subscription";
 
 function Router() {
   return (
-    <Switch>
-      <Route path="/" component={Dashboard} />
-      <Route path="/stock" component={StockPage} />
-      <Route path="/market" component={MarketAnalysis} />
-      <Route path="/social" component={SocialPage} />
-      <Route path="/ontology" component={OntologyPage} />
-      <Route path="/analysis" component={MomentumPage} />
-      <Route path="/community" component={CommunityPage} />
-      <Route path="/mypage" component={MyPage} />
-      <Route path="/subscription" component={SubscriptionPage} />
-      {/* Fallback to 404 */}
-      <Route component={NotFound} />
-    </Switch>
+    <WouterRouter hook={useHashLocation}>
+      <Switch>
+        <Route path="/" component={Dashboard} />
+        <Route path="/stock" component={StockPage} />
+        <Route path="/market" component={MarketAnalysis} />
+        <Route path="/social" component={SocialPage} />
+        <Route path="/ontology" component={OntologyPage} />
+        <Route path="/analysis" component={MomentumPage} />
+        <Route path="/community" component={CommunityPage} />
+        <Route path="/mypage" component={MyPage} />
+        <Route path="/subscription" component={SubscriptionPage} />
+        {/* Fallback to 404 */}
+        <Route component={NotFound} />
+      </Switch>
+    </WouterRouter>
   );
 }
 
