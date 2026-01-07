@@ -522,7 +522,7 @@ export default function MarketView() {
     <div className="space-y-6 max-w-5xl mx-auto">
         {/* Info Banner */}
         {showDescription && (
-          <div className="flex items-center justify-between gap-4 mb-2 bg-blue-950/30 border border-blue-800/30 rounded-lg px-4 py-3 text-sm text-blue-100 animate-in fade-in slide-in-from-top-2 duration-300">
+          <div className="flex items-center justify-between gap-4 mb-6 bg-blue-950/30 border border-blue-800/30 rounded-lg px-4 py-3 text-sm text-blue-100 animate-in fade-in slide-in-from-top-2 duration-300">
              <div className="flex items-center gap-3">
                <Info className="w-4 h-4 text-blue-400 shrink-0" />
                <span className="font-bold text-blue-200 whitespace-nowrap">마켓 분석?</span>
