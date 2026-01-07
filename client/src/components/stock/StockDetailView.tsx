@@ -10,7 +10,11 @@ import {
   TrendingUp,
   Download,
   MessageCircle,
-  MoreHorizontal
+  MoreHorizontal,
+  Cpu,
+  Smartphone,
+  Tv,
+  Disc
 } from "lucide-react";
 import { useRef, useState } from "react";
 import { ImperativePanelHandle } from "react-resizable-panels";
@@ -1178,7 +1182,7 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                             </ResponsiveContainer>
                          </div>
                          
-                         <div className="flex justify-center gap-6 mt-[-10px]">
+                         <div className="flex justify-center gap-6 mt-[-10px] mb-6">
                             <div className="flex items-center gap-2 text-xs">
                                <div className="w-6 h-1 bg-blue-500 rounded-full"></div>
                                <span className="text-white">2022년</span>
@@ -1191,6 +1195,32 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                <div className="w-6 h-1 bg-purple-500 rounded-full"></div>
                                <span className="text-white">2024년</span>
                             </div>
+                         </div>
+
+                         {/* Related Stocks List */}
+                         <div className="space-y-1">
+                            {[
+                                { name: 'SK하이닉스', price: '742,000원', change: '16,000', rate: '+2.20%', isUp: true, color: 'bg-red-500', icon: Cpu },
+                                { name: '삼성전기', price: '267,500원', change: '500', rate: '-0.19%', isUp: false, color: 'bg-blue-600', icon: Smartphone },
+                                { name: 'LG전자', price: '92,300원', change: '1,700', rate: '-1.81%', isUp: false, color: 'bg-pink-600', icon: Tv },
+                                { name: '한화시스템', price: '58,500원', change: '1,000', rate: '-2.99%', isUp: false, color: 'bg-orange-500', icon: Disc }
+                            ].map((stock, i) => (
+                                <div key={i} className="flex items-center justify-between py-3 px-2 hover:bg-white/5 rounded-lg cursor-pointer transition-all group border border-transparent hover:border-white/5">
+                                   <div className="flex items-center gap-3">
+                                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${stock.color} bg-opacity-20`}>
+                                         <stock.icon className={`w-5 h-5 ${stock.color.replace('bg-', 'text-')}`} />
+                                      </div>
+                                      <span className="text-white font-bold text-sm group-hover:text-primary transition-colors">{stock.name}</span>
+                                   </div>
+                                   <div className="text-right">
+                                      <div className="text-white font-bold text-sm tracking-tight">{stock.price}</div>
+                                      <div className={`text-xs font-semibold mt-0.5 flex items-center justify-end gap-1 ${stock.isUp ? 'text-red-400' : 'text-blue-400'}`}>
+                                         <span>{stock.isUp ? '▲' : '▼'} {stock.change}</span>
+                                         <span className="opacity-80">{stock.rate}</span>
+                                      </div>
+                                   </div>
+                                </div>
+                            ))}
                          </div>
                       </div>
                    </div>
