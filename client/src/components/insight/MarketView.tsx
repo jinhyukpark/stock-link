@@ -634,23 +634,125 @@ export default function MarketView() {
 
         {/* Chart Modal */}
         <Dialog open={!!selectedChart} onOpenChange={(open) => !open && setSelectedChart(null)}>
-          <DialogContent className="max-w-5xl h-[80vh] bg-[#0B0E14] border-border/50">
-            <DialogHeader>
-              <DialogTitle className="text-xl font-bold flex items-center gap-2">
-                 {selectedChart?.title}
-              </DialogTitle>
-              <DialogDescription>
-                 {selectedChart?.description}
-              </DialogDescription>
-            </DialogHeader>
-            <div className="flex-1 w-full h-full min-h-0 pt-4">
-              {selectedChart?.chart}
+          <DialogContent className="max-w-[100vw] w-screen h-screen bg-[#0B0E14] border-none p-0 flex flex-col overflow-hidden rounded-none z-[100]">
+            
+            {/* 1. Top Navigation Tabs */}
+            <div className="flex items-center justify-center pt-6 pb-2 relative shrink-0">
+               {/* Close Button - Top Right */}
+               <Button 
+                  variant="ghost" 
+                  size="icon" 
+                  className="absolute right-6 top-6 rounded-full hover:bg-white/10 text-gray-400 hover:text-white"
+                  onClick={() => setSelectedChart(null)}
+               >
+                 <X className="w-6 h-6" />
+               </Button>
+
+               <div className="flex bg-[#151921] rounded-full p-1 border border-white/5">
+                  {navLinks.map((link) => {
+                     const isSelected = selectedChart?.id === link.id;
+                     return (
+                        <button
+                           key={link.id}
+                           onClick={() => {
+                              const chart = allCharts.find(c => c.id === link.id);
+                              if (chart) setSelectedChart(chart);
+                           }}
+                           className={cn(
+                              "px-4 py-1.5 rounded-full text-xs font-bold transition-all",
+                              isSelected 
+                                 ? "bg-primary/20 text-primary shadow-[0_0_10px_rgba(59,130,246,0.2)]" 
+                                 : "text-gray-500 hover:text-gray-300 hover:bg-white/5"
+                           )}
+                        >
+                           {link.label.split('. ')[1]}
+                        </button>
+                     );
+                  })}
+               </div>
             </div>
-            {selectedChart?.analysis && (
-              <div className="mt-4 p-4 bg-secondary/10 rounded-lg border border-border/20 text-sm text-gray-300">
-                 {selectedChart.analysis}
-              </div>
-            )}
+
+            <div className="flex-1 flex items-center relative min-h-0">
+               {/* Left Navigation Arrow */}
+               <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute left-8 h-12 w-12 rounded-full border border-white/10 bg-[#151921]/50 hover:bg-primary/20 hover:border-primary/50 text-gray-400 hover:text-white z-10 transition-all"
+                  onClick={() => {
+                     const currentIndex = allCharts.findIndex(c => c.id === selectedChart?.id);
+                     const prevIndex = (currentIndex - 1 + allCharts.length) % allCharts.length;
+                     setSelectedChart(allCharts[prevIndex]);
+                  }}
+               >
+                  <ChevronLeft className="w-6 h-6" />
+               </Button>
+
+               {/* Right Navigation Arrow */}
+               <Button
+                  variant="ghost"
+                  size="icon"
+                  className="absolute right-8 h-12 w-12 rounded-full border border-white/10 bg-[#151921]/50 hover:bg-primary/20 hover:border-primary/50 text-gray-400 hover:text-white z-10 transition-all"
+                  onClick={() => {
+                     const currentIndex = allCharts.findIndex(c => c.id === selectedChart?.id);
+                     const nextIndex = (currentIndex + 1) % allCharts.length;
+                     setSelectedChart(allCharts[nextIndex]);
+                  }}
+               >
+                  <ChevronRight className="w-6 h-6" />
+               </Button>
+
+               <div className="flex-1 h-full max-w-7xl mx-auto flex flex-col p-8">
+                  {/* 2. Header: Title & Description */}
+                  <div className="mb-6 shrink-0">
+                     <div className="flex items-center gap-3 mb-2">
+                        <BarChart2 className="w-5 h-5 text-primary" />
+                        <h2 className="text-sm font-bold text-primary tracking-widest uppercase">차트 상세 분석 (CHART DETAIL ANALYSIS)</h2>
+                     </div>
+                     <h1 className="text-3xl font-display font-bold text-white mb-3">
+                        {selectedChart?.title}
+                     </h1>
+                     <p className="text-gray-400 text-sm max-w-3xl leading-relaxed">
+                        {selectedChart?.description}
+                     </p>
+                  </div>
+
+                  {/* 3. Main Chart Area */}
+                  <div className="flex-1 min-h-0 bg-[#0F1218] rounded-xl border border-white/5 p-6 relative">
+                     {/* Inner Grid Lines Decoration */}
+                     <div className="absolute inset-0 pointer-events-none opacity-20" 
+                        style={{backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '40px 40px'}}>
+                     </div>
+                     
+                     {selectedChart?.chart}
+                  </div>
+
+                  {/* 4. Legend / Info Section */}
+                  <div className="mt-6 shrink-0 bg-[#151921] rounded-lg p-4 border border-white/5 flex items-start gap-4">
+                     <Info className="w-5 h-5 text-primary mt-0.5 shrink-0" />
+                     <div className="text-sm text-gray-400 space-y-1">
+                        {selectedChart?.legend ? selectedChart.legend : (
+                           <p>
+                              차트의 추세선과 지표를 통해 현재 시장 상황을 진단할 수 있습니다. 
+                              <span className="text-primary font-bold ml-1">붉은색 영역</span>은 과열/탐욕 구간을, 
+                              <span className="text-blue-400 font-bold ml-1">푸른색 영역</span>은 침체/공포 구간을 의미합니다.
+                           </p>
+                        )}
+                     </div>
+                  </div>
+
+                  {/* 5. AI Analysis Section */}
+                  <div className="mt-4 shrink-0 bg-blue-950/20 border border-blue-500/20 rounded-lg p-5">
+                     <div className="flex items-center gap-2 mb-2">
+                        <Sparkles className="w-4 h-4 text-blue-400" />
+                        <h3 className="font-bold text-blue-400 text-sm">AI Analysis</h3>
+                     </div>
+                     <p className="text-sm text-gray-300 leading-relaxed">
+                        {selectedChart?.analysis}
+                     </p>
+                  </div>
+               </div>
+            </div>
+
           </DialogContent>
         </Dialog>
     </div>
