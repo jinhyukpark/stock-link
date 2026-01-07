@@ -124,12 +124,11 @@ export default function NewsView() {
       {/* 1. Word Cloud Section */}
       <div className="bg-[#151921] border border-white/5 rounded-xl p-8 relative overflow-hidden flex flex-col items-center justify-center min-h-[400px]">
         {/* Sentiment Bar */}
-        <div className="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-black/40 px-4 py-2 rounded-full border border-white/10 backdrop-blur-sm z-10">
-            <span className="text-xs font-bold text-red-400">Sentiment Negative</span>
-            <div className="w-32 h-1.5 bg-gray-700 rounded-full overflow-hidden flex">
-                <div className="w-[30%] bg-gradient-to-r from-red-500 to-red-400 h-full" />
-                <div className="flex-1 bg-gray-800 h-full" />
-                <div className="w-[50%] bg-gradient-to-l from-green-500 to-green-400 h-full" />
+        <div className="absolute top-6 left-1/2 -translate-x-1/2 flex items-center gap-3 bg-black/40 px-5 py-2.5 rounded-full border border-white/10 backdrop-blur-md z-10 shadow-xl">
+            <span className="text-xs font-medium text-gray-400 mr-1">Sentiment</span>
+            <span className="text-xs font-bold text-red-400">Negative</span>
+            <div className="w-32 h-2 bg-gray-800 rounded-full overflow-hidden relative">
+                <div className="absolute inset-0 bg-gradient-to-r from-red-500 via-transparent to-green-500 opacity-80" />
             </div>
             <span className="text-xs font-bold text-green-400">Positive</span>
         </div>
