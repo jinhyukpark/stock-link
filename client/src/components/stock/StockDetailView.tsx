@@ -42,7 +42,9 @@ import {
   PolarAngleAxis,
   PolarRadiusAxis,
   Radar,
-  Legend
+  Legend,
+  LineChart,
+  Line,
 } from "recharts";
 
 interface StockDetailViewProps {
@@ -85,6 +87,13 @@ const dailyPriceData = [
   { date: '2025.12.17', close: 107900, rate: 4.96, volume: 22109635 },
   { date: '2025.12.16', close: 102800, rate: -1.91, volume: 18829983 },
   { date: '2025.12.15', close: 104800, rate: -3.76, volume: 20317066 },
+];
+
+const performanceData = [
+  { date: '24년 12월', operatingProfit: 6.4927, revenue: 75.7883, label: '2024년 4분기' },
+  { date: '25년 03월', operatingProfit: 6.6853, revenue: 79.1405, label: '2025년 1분기' },
+  { date: '25년 06월', operatingProfit: 4.6761, revenue: 74.5663, label: '2025년 2분기' },
+  { date: '25년 09월', operatingProfit: 12.1661, revenue: 86.6170, label: '2025년 3분기' },
 ];
 
 export default function StockDetailView({ onBack, stockName }: StockDetailViewProps) {
@@ -508,6 +517,183 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                                     {/* Empty state as per screenshot */}
                                                 </tbody>
                                             </table>
+                                        </div>
+                                    </div>
+                                </div>
+                                </div>
+                            </TabsContent>
+
+                            <TabsContent value="실적" className="mt-0 h-full">
+                                <div className="grid grid-cols-2 gap-4 h-full">
+                                    {/* Operating Profit (Left) */}
+                                    <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
+                                        <div className="p-4 border-b border-white/5 flex justify-between items-center">
+                                            <h3 className="text-white font-bold text-sm">영업이익</h3>
+                                            <div className="flex text-xs text-gray-500 gap-2">
+                                                <span className="cursor-pointer hover:text-white">연결</span>
+                                                <ChevronDown className="w-3 h-3" />
+                                                <span className="w-px h-3 bg-white/10"></span>
+                                                <span className="cursor-pointer hover:text-white text-white font-medium">분기</span>
+                                                <ChevronDown className="w-3 h-3" />
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="flex-1 p-4 flex flex-col">
+                                            {/* Chart Area */}
+                                            <div className="flex-1 min-h-0 relative mb-4">
+                                                <ResponsiveContainer width="100%" height="100%">
+                                                    <LineChart data={performanceData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                                                        <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+                                                        <XAxis 
+                                                            dataKey="date" 
+                                                            tick={{ fill: '#9ca3af', fontSize: 11 }} 
+                                                            tickLine={false} 
+                                                            axisLine={{ stroke: '#ffffff10' }} 
+                                                            dy={10}
+                                                        />
+                                                        <YAxis 
+                                                            domain={[4, 14]} 
+                                                            tick={{ fill: '#6b7280', fontSize: 11 }} 
+                                                            tickLine={false} 
+                                                            axisLine={false}
+                                                            tickFormatter={(value) => `${value}조`}
+                                                        />
+                                                        <Tooltip 
+                                                            contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '8px', fontSize: '12px' }}
+                                                            itemStyle={{ color: '#fff' }}
+                                                            formatter={(value: number) => [`${value}조`, '영업이익']}
+                                                        />
+                                                        <Line 
+                                                            type="monotone" 
+                                                            dataKey="operatingProfit" 
+                                                            stroke="#3b82f6" 
+                                                            strokeWidth={2}
+                                                            dot={{ r: 4, fill: '#3b82f6', strokeWidth: 0 }}
+                                                            activeDot={{ r: 6 }}
+                                                        />
+                                                    </LineChart>
+                                                </ResponsiveContainer>
+                                            </div>
+
+                                            {/* Data Table */}
+                                            <div className="bg-[#1E222B] rounded-lg overflow-hidden border border-white/5">
+                                                <table className="w-full text-xs">
+                                                    <thead className="text-gray-500 border-b border-white/5">
+                                                        <tr>
+                                                            <th className="p-3 text-left font-normal">구분</th>
+                                                            {performanceData.map((item, idx) => (
+                                                                <th key={idx} className="p-3 text-right font-normal">{item.label}</th>
+                                                            ))}
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td className="p-3 text-left font-medium text-white flex items-center gap-2">
+                                                                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                                                                실제 영업이익
+                                                            </td>
+                                                            {performanceData.map((item, idx) => (
+                                                                <td key={idx} className="p-3 text-right text-white">{item.operatingProfit}조 {Math.floor(Math.random()*9000)}억</td>
+                                                            ))}
+                                                        </tr>
+                                                        <tr>
+                                                            <td className="p-3 text-left font-medium text-gray-500 flex items-center gap-2">
+                                                                <div className="w-2 h-2 rounded-full border border-gray-600"></div>
+                                                                예상 영업이익
+                                                            </td>
+                                                            {performanceData.map((item, idx) => (
+                                                                <td key={idx} className="p-3 text-right text-gray-500">-</td>
+                                                            ))}
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Revenue (Right) */}
+                                    <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
+                                        <div className="p-4 border-b border-white/5 flex justify-between items-center">
+                                            <h3 className="text-white font-bold text-sm">매출액</h3>
+                                            <div className="flex text-xs text-gray-500 gap-2">
+                                                <span className="cursor-pointer hover:text-white">연결</span>
+                                                <ChevronDown className="w-3 h-3" />
+                                                <span className="w-px h-3 bg-white/10"></span>
+                                                <span className="cursor-pointer hover:text-white text-white font-medium">분기</span>
+                                                <ChevronDown className="w-3 h-3" />
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="flex-1 p-4 flex flex-col">
+                                            {/* Chart Area */}
+                                            <div className="flex-1 min-h-0 relative mb-4">
+                                                <ResponsiveContainer width="100%" height="100%">
+                                                    <LineChart data={performanceData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                                                        <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+                                                        <XAxis 
+                                                            dataKey="date" 
+                                                            tick={{ fill: '#9ca3af', fontSize: 11 }} 
+                                                            tickLine={false} 
+                                                            axisLine={{ stroke: '#ffffff10' }} 
+                                                            dy={10}
+                                                        />
+                                                        <YAxis 
+                                                            domain={[70, 90]} 
+                                                            tick={{ fill: '#6b7280', fontSize: 11 }} 
+                                                            tickLine={false} 
+                                                            axisLine={false}
+                                                            tickFormatter={(value) => `${value}조`}
+                                                        />
+                                                        <Tooltip 
+                                                            contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '8px', fontSize: '12px' }}
+                                                            itemStyle={{ color: '#fff' }}
+                                                            formatter={(value: number) => [`${value}조`, '매출액']}
+                                                        />
+                                                        <Line 
+                                                            type="monotone" 
+                                                            dataKey="revenue" 
+                                                            stroke="#3b82f6" 
+                                                            strokeWidth={2}
+                                                            dot={{ r: 4, fill: '#3b82f6', strokeWidth: 0 }}
+                                                            activeDot={{ r: 6 }}
+                                                        />
+                                                    </LineChart>
+                                                </ResponsiveContainer>
+                                            </div>
+
+                                            {/* Data Table */}
+                                            <div className="bg-[#1E222B] rounded-lg overflow-hidden border border-white/5">
+                                                <table className="w-full text-xs">
+                                                    <thead className="text-gray-500 border-b border-white/5">
+                                                        <tr>
+                                                            <th className="p-3 text-left font-normal">구분</th>
+                                                            {performanceData.map((item, idx) => (
+                                                                <th key={idx} className="p-3 text-right font-normal">{item.label}</th>
+                                                            ))}
+                                                        </tr>
+                                                    </thead>
+                                                    <tbody>
+                                                        <tr>
+                                                            <td className="p-3 text-left font-medium text-white flex items-center gap-2">
+                                                                <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                                                                실제 매출액
+                                                            </td>
+                                                            {performanceData.map((item, idx) => (
+                                                                <td key={idx} className="p-3 text-right text-white">{item.revenue}조 {Math.floor(Math.random()*9000)}억</td>
+                                                            ))}
+                                                        </tr>
+                                                        <tr>
+                                                            <td className="p-3 text-left font-medium text-gray-500 flex items-center gap-2">
+                                                                <div className="w-2 h-2 rounded-full border border-gray-600"></div>
+                                                                예상 매출액
+                                                            </td>
+                                                            {performanceData.map((item, idx) => (
+                                                                <td key={idx} className="p-3 text-right text-gray-500">-</td>
+                                                            ))}
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
