@@ -568,60 +568,68 @@ export default function MarketView() {
             </div>
         </div>
 
-        <div className="space-y-16">
-           <ReportHeader date={date} />
+        <div className="relative border border-green-500/30 rounded-xl p-8 md:p-12 shadow-[0_0_20px_rgba(34,197,94,0.05)] bg-[#0B0E14] overflow-hidden">
+            {/* Top Glow Line */}
+            <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-green-500/50 to-transparent" />
+            
+            <div className="space-y-16">
+                <ReportHeader date={date} />
 
-           {/* Executive Summary */}
-           <MarketSummaryReport date={date} />
+                {/* Executive Summary */}
+                <MarketSummaryReport date={date} />
 
-           {/* Detailed Analysis Sections */}
-           <div className="space-y-24">
-              {allCharts.map((section, idx) => {
-                 const navItem = navLinks.find(link => link.id === section.id);
-                 const SectionIcon = navItem ? navItem.icon : Activity;
-                 const sectionNumber = navItem ? navItem.label.split('.')[0] : '00';
+                {/* Detailed Analysis Sections */}
+                <div className="space-y-24">
+                    {allCharts.map((section, idx) => {
+                        const navItem = navLinks.find(link => link.id === section.id);
+                        const SectionIcon = navItem ? navItem.icon : Activity;
+                        const sectionNumber = navItem ? navItem.label.split('.')[0] : '00';
 
-                 return (
-                    <section key={section.id} id={section.id} className="scroll-mt-24">
-                       <SectionHeader 
-                          number={sectionNumber} 
-                          title={section.title} 
-                          icon={SectionIcon} 
-                          description={section.description}
-                       />
+                        return (
+                            <section key={section.id} id={section.id} className="scroll-mt-24">
+                                <SectionHeader 
+                                    number={sectionNumber} 
+                                    title={section.title} 
+                                    icon={SectionIcon} 
+                                    description={section.description}
+                                />
 
-                       <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-                          {/* Analysis Column (Left) */}
-                          <div className="lg:col-span-2 space-y-6">
-                             <AnalysisBlock content={section.analysis} />
-                             {section.legend && (
-                                <div className="bg-secondary/10 rounded-lg p-4 border border-border/30">
-                                   <h5 className="text-xs font-bold text-muted-foreground uppercase mb-2 flex items-center gap-1">
-                                      <Info className="w-3 h-3" />
-                                      Legend
-                                   </h5>
-                                   {section.legend}
+                                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
+                                    {/* Analysis Column (Left) */}
+                                    <div className="lg:col-span-2 space-y-6">
+                                        <AnalysisBlock content={section.analysis} />
+                                        {section.legend && (
+                                            <div className="bg-secondary/10 rounded-lg p-4 border border-border/30">
+                                            <h5 className="text-xs font-bold text-muted-foreground uppercase mb-2 flex items-center gap-1">
+                                                <Info className="w-3 h-3" />
+                                                Legend
+                                            </h5>
+                                            {section.legend}
+                                            </div>
+                                        )}
+                                    </div>
+
+                                    {/* Chart Column (Right) */}
+                                    <div className="lg:col-span-3 h-[320px] bg-[#12141a] rounded-lg border border-border/20 p-4 shadow-inner relative group">
+                                        <Button 
+                                            variant="ghost" 
+                                            size="icon" 
+                                            className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10"
+                                            onClick={() => setSelectedChart(section)}
+                                        >
+                                            <Maximize2 className="w-4 h-4 text-muted-foreground" />
+                                        </Button>
+                                        {section.chart}
+                                    </div>
                                 </div>
-                             )}
-                          </div>
-
-                          {/* Chart Column (Right) */}
-                          <div className="lg:col-span-3 h-[320px] bg-[#12141a] rounded-lg border border-border/20 p-4 shadow-inner relative group">
-                             <Button 
-                                variant="ghost" 
-                                size="icon" 
-                                className="absolute top-2 right-2 opacity-0 group-hover:opacity-100 transition-opacity z-10"
-                                onClick={() => setSelectedChart(section)}
-                             >
-                                <Maximize2 className="w-4 h-4 text-muted-foreground" />
-                             </Button>
-                             {section.chart}
-                          </div>
-                       </div>
-                    </section>
-                 );
-              })}
-           </div>
+                            </section>
+                        );
+                    })}
+                </div>
+            </div>
+            
+            {/* Bottom Glow Line */}
+            <div className="absolute bottom-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-green-500/50 to-transparent" />
         </div>
 
         {/* Chart Modal */}
