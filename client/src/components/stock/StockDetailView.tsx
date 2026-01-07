@@ -153,6 +153,20 @@ const financialStatements = [
 
 const financialPeriods = ['2024년 09월', '2024년 06월', '2024년 03월', '2023년 12월', '2023년 09월'];
 
+const valuationData = [
+  { date: '24년 12월', per: 47.07, pbr: 1.38, psr: 6.57 },
+  { date: '25년 03월', per: 48.2, pbr: 1.45, psr: 6.8 },
+  { date: '25년 06월', per: 82.5, pbr: 1.5, psr: 7.2 },
+  { date: '25년 09월', per: 46.5, pbr: 1.4, psr: 6.6 },
+];
+
+const stabilityData = [
+  { date: '24년 09월', currentRatio: 251.37, debtRatio: 26.36 },
+  { date: '24년 12월', currentRatio: 245.0, debtRatio: 27.0 },
+  { date: '25년 03월', currentRatio: 248.0, debtRatio: 26.5 },
+  { date: '25년 06월', currentRatio: 252.0, debtRatio: 25.8 },
+];
+
 export default function StockDetailView({ onBack, stockName }: StockDetailViewProps) {
   const [isAutoExpand, setIsAutoExpand] = useState(true);
   const chartPanelRef = useRef<ImperativePanelHandle>(null);
@@ -823,6 +837,146 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                                 </tr>
                                             </tbody>
                                         </table>
+                                    </div>
+                                </div>
+                                </div>
+                            </TabsContent>
+
+                            <TabsContent value="투자지표" className="mt-0 h-full">
+                                <div className="grid grid-cols-2 gap-4 h-full">
+                                    {/* Valuation (Left) */}
+                                    <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
+                                        <div className="p-4 border-b border-white/5 flex justify-between items-center">
+                                            <h3 className="text-white font-bold text-sm">가치성</h3>
+                                            <div className="flex text-xs text-gray-500 gap-2">
+                                                <span className="cursor-pointer hover:text-white">연결</span>
+                                                <ChevronDown className="w-3 h-3" />
+                                                <span className="w-px h-3 bg-white/10"></span>
+                                                <span className="cursor-pointer hover:text-white text-white font-medium">분기</span>
+                                                <ChevronDown className="w-3 h-3" />
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="flex-1 p-4 flex flex-col">
+                                            {/* Chart Area */}
+                                            <div className="flex-1 min-h-0 relative mb-4">
+                                                <ResponsiveContainer width="100%" height="100%">
+                                                    <LineChart data={valuationData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                                                        <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+                                                        <XAxis 
+                                                            dataKey="date" 
+                                                            tick={{ fill: '#9ca3af', fontSize: 11 }} 
+                                                            tickLine={false} 
+                                                            axisLine={{ stroke: '#ffffff10' }} 
+                                                            dy={10}
+                                                        />
+                                                        <YAxis 
+                                                            domain={[0, 100]} 
+                                                            tick={{ fill: '#6b7280', fontSize: 11 }} 
+                                                            tickLine={false} 
+                                                            axisLine={false}
+                                                            tickFormatter={(value) => `${value}%`}
+                                                        />
+                                                        <Tooltip 
+                                                            contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '8px', fontSize: '12px' }}
+                                                            itemStyle={{ color: '#fff' }}
+                                                        />
+                                                        <Line type="monotone" dataKey="per" name="PER" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4, fill: '#3b82f6', strokeWidth: 0 }} />
+                                                        <Line type="monotone" dataKey="pbr" name="PBR" stroke="#5eead4" strokeWidth={2} dot={{ r: 4, fill: '#5eead4', strokeWidth: 0 }} />
+                                                        <Line type="monotone" dataKey="psr" name="PSR" stroke="#a855f7" strokeWidth={2} dot={{ r: 4, fill: '#a855f7', strokeWidth: 0 }} />
+                                                    </LineChart>
+                                                </ResponsiveContainer>
+                                            </div>
+
+                                            {/* Legend / Info */}
+                                            <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-4">
+                                                <div className="text-center">
+                                                    <div className="flex items-center justify-center gap-2 mb-1">
+                                                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                                                        <span className="text-xs text-gray-400">PER</span>
+                                                    </div>
+                                                    <div className="text-sm font-bold text-white">47.07배</div>
+                                                </div>
+                                                <div className="text-center">
+                                                    <div className="flex items-center justify-center gap-2 mb-1">
+                                                        <div className="w-2 h-2 rounded-full bg-teal-400"></div>
+                                                        <span className="text-xs text-gray-400">PBR</span>
+                                                    </div>
+                                                    <div className="text-sm font-bold text-white">1.38배</div>
+                                                </div>
+                                                <div className="text-center">
+                                                    <div className="flex items-center justify-center gap-2 mb-1">
+                                                        <div className="w-2 h-2 rounded-full bg-purple-500"></div>
+                                                        <span className="text-xs text-gray-400">PSR</span>
+                                                    </div>
+                                                    <div className="text-sm font-bold text-white">6.57배</div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    {/* Stability (Right) */}
+                                    <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
+                                        <div className="p-4 border-b border-white/5 flex justify-between items-center">
+                                            <h3 className="text-white font-bold text-sm">안정성</h3>
+                                            <div className="flex text-xs text-gray-500 gap-2">
+                                                <span className="cursor-pointer hover:text-white">연결</span>
+                                                <ChevronDown className="w-3 h-3" />
+                                                <span className="w-px h-3 bg-white/10"></span>
+                                                <span className="cursor-pointer hover:text-white text-white font-medium">분기</span>
+                                                <ChevronDown className="w-3 h-3" />
+                                            </div>
+                                        </div>
+                                        
+                                        <div className="flex-1 p-4 flex flex-col">
+                                            {/* Chart Area */}
+                                            <div className="flex-1 min-h-0 relative mb-4">
+                                                <ResponsiveContainer width="100%" height="100%">
+                                                    <LineChart data={stabilityData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
+                                                        <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
+                                                        <XAxis 
+                                                            dataKey="date" 
+                                                            tick={{ fill: '#9ca3af', fontSize: 11 }} 
+                                                            tickLine={false} 
+                                                            axisLine={{ stroke: '#ffffff10' }} 
+                                                            dy={10}
+                                                        />
+                                                        <YAxis 
+                                                            domain={[0, 320]} 
+                                                            ticks={[0, 80, 160, 240, 320]}
+                                                            tick={{ fill: '#6b7280', fontSize: 11 }} 
+                                                            tickLine={false} 
+                                                            axisLine={false}
+                                                            tickFormatter={(value) => `${value}%`}
+                                                        />
+                                                        <Tooltip 
+                                                            contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '8px', fontSize: '12px' }}
+                                                            itemStyle={{ color: '#fff' }}
+                                                        />
+                                                        <Line type="monotone" dataKey="currentRatio" name="유동비율" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4, fill: '#3b82f6', strokeWidth: 0 }} />
+                                                        <Line type="monotone" dataKey="debtRatio" name="부채비율" stroke="#5eead4" strokeWidth={2} dot={{ r: 4, fill: '#5eead4', strokeWidth: 0 }} />
+                                                    </LineChart>
+                                                </ResponsiveContainer>
+                                            </div>
+
+                                            {/* Legend / Info */}
+                                            <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-4">
+                                                <div className="text-center">
+                                                    <div className="flex items-center justify-center gap-2 mb-1">
+                                                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
+                                                        <span className="text-xs text-gray-400">유동비율</span>
+                                                    </div>
+                                                    <div className="text-sm font-bold text-white">251.37배</div>
+                                                </div>
+                                                <div className="text-center">
+                                                    <div className="flex items-center justify-center gap-2 mb-1">
+                                                        <div className="w-2 h-2 rounded-full bg-teal-400"></div>
+                                                        <span className="text-xs text-gray-400">부채비율</span>
+                                                    </div>
+                                                    <div className="text-sm font-bold text-white">26.36배</div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </TabsContent>
