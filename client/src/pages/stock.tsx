@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
+import StockDetailView from "@/components/stock/StockDetailView";
 import { 
   Star, 
   Download, 
@@ -95,15 +96,19 @@ const stocks = [
 
 export default function StockPage() {
   const [filter, setFilter] = useState("volume"); // volume, amount, cap, change
+  const [selectedStock, setSelectedStock] = useState<typeof stocks[0] | null>(null);
 
   return (
     <DashboardLayout>
       <div className="flex h-[calc(100vh-4rem)] bg-[#0B0E14] text-gray-200 font-sans overflow-hidden">
         
         {/* Left Sidebar */}
-        <aside className="w-64 flex flex-col border-r border-white/5 bg-[#151921]">
+        <aside className="w-64 flex flex-col border-r border-white/5 bg-[#151921] shrink-0 z-20">
           <div className="bg-[#111318] p-4 space-y-2 border-b border-white/5">
-            <div className="flex items-center gap-2 text-sm font-bold text-gray-300 px-2 py-2 rounded hover:bg-white/5 cursor-pointer">
+            <div 
+              className={cn("flex items-center gap-2 text-sm px-2 py-2 rounded cursor-pointer", !selectedStock ? "font-bold text-white bg-white/10" : "font-bold text-gray-300 hover:bg-white/5")}
+              onClick={() => setSelectedStock(null)}
+            >
               <List className="w-4 h-4" />
               실시간 Top 100 차트
             </div>
@@ -146,166 +151,176 @@ export default function StockPage() {
         </aside>
 
         {/* Main Content */}
-        <main className="flex-1 flex flex-col min-w-0 bg-[#0B0E14]">
-          {/* Content Header */}
-          <div className="p-6 pb-2">
-            <h1 className="text-2xl font-bold text-white mb-6">실시간 TOP 100 차트</h1>
-            
-            <div className="flex flex-wrap justify-between items-center gap-4 bg-[#151921] p-3 rounded-lg border border-white/5">
-              <div className="flex items-center gap-6">
-                 <label className="flex items-center gap-2 cursor-pointer group">
-                   <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${filter === 'volume' ? 'border-primary' : 'border-gray-600'}`}>
-                     {filter === 'volume' && <div className="w-2 h-2 rounded-full bg-primary" />}
-                   </div>
-                   <input type="radio" name="filter" className="hidden" checked={filter === 'volume'} onChange={() => setFilter('volume')} />
-                   <span className={`text-sm ${filter === 'volume' ? 'text-primary font-bold' : 'text-gray-400 group-hover:text-gray-300'}`}>거래량</span>
-                 </label>
-                 <label className="flex items-center gap-2 cursor-pointer group">
-                   <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${filter === 'amount' ? 'border-primary' : 'border-gray-600'}`}>
-                     {filter === 'amount' && <div className="w-2 h-2 rounded-full bg-primary" />}
-                   </div>
-                   <input type="radio" name="filter" className="hidden" checked={filter === 'amount'} onChange={() => setFilter('amount')} />
-                   <span className={`text-sm ${filter === 'amount' ? 'text-primary font-bold' : 'text-gray-400 group-hover:text-gray-300'}`}>거래대금</span>
-                 </label>
-                 <label className="flex items-center gap-2 cursor-pointer group">
-                   <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${filter === 'cap' ? 'border-primary' : 'border-gray-600'}`}>
-                     {filter === 'cap' && <div className="w-2 h-2 rounded-full bg-primary" />}
-                   </div>
-                   <input type="radio" name="filter" className="hidden" checked={filter === 'cap'} onChange={() => setFilter('cap')} />
-                   <span className={`text-sm ${filter === 'cap' ? 'text-primary font-bold' : 'text-gray-400 group-hover:text-gray-300'}`}>시가총액</span>
-                 </label>
-                 <label className="flex items-center gap-2 cursor-pointer group">
-                   <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${filter === 'change' ? 'border-primary' : 'border-gray-600'}`}>
-                     {filter === 'change' && <div className="w-2 h-2 rounded-full bg-primary" />}
-                   </div>
-                   <input type="radio" name="filter" className="hidden" checked={filter === 'change'} onChange={() => setFilter('change')} />
-                   <span className={`text-sm ${filter === 'change' ? 'text-primary font-bold' : 'text-gray-400 group-hover:text-gray-300'}`}>등락률</span>
-                 </label>
+        <main className="flex-1 flex flex-col min-w-0 bg-[#0B0E14] overflow-hidden relative">
+          {selectedStock ? (
+            <StockDetailView onBack={() => setSelectedStock(null)} stockName={selectedStock.name} />
+          ) : (
+            <div className="flex flex-col h-full overflow-hidden">
+              {/* Content Header */}
+              <div className="p-6 pb-2 shrink-0">
+                <h1 className="text-2xl font-bold text-white mb-6">실시간 TOP 100 차트</h1>
+                
+                <div className="flex flex-wrap justify-between items-center gap-4 bg-[#151921] p-3 rounded-lg border border-white/5">
+                  <div className="flex items-center gap-6">
+                     <label className="flex items-center gap-2 cursor-pointer group">
+                       <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${filter === 'volume' ? 'border-primary' : 'border-gray-600'}`}>
+                         {filter === 'volume' && <div className="w-2 h-2 rounded-full bg-primary" />}
+                       </div>
+                       <input type="radio" name="filter" className="hidden" checked={filter === 'volume'} onChange={() => setFilter('volume')} />
+                       <span className={`text-sm ${filter === 'volume' ? 'text-primary font-bold' : 'text-gray-400 group-hover:text-gray-300'}`}>거래량</span>
+                     </label>
+                     <label className="flex items-center gap-2 cursor-pointer group">
+                       <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${filter === 'amount' ? 'border-primary' : 'border-gray-600'}`}>
+                         {filter === 'amount' && <div className="w-2 h-2 rounded-full bg-primary" />}
+                       </div>
+                       <input type="radio" name="filter" className="hidden" checked={filter === 'amount'} onChange={() => setFilter('amount')} />
+                       <span className={`text-sm ${filter === 'amount' ? 'text-primary font-bold' : 'text-gray-400 group-hover:text-gray-300'}`}>거래대금</span>
+                     </label>
+                     <label className="flex items-center gap-2 cursor-pointer group">
+                       <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${filter === 'cap' ? 'border-primary' : 'border-gray-600'}`}>
+                         {filter === 'cap' && <div className="w-2 h-2 rounded-full bg-primary" />}
+                       </div>
+                       <input type="radio" name="filter" className="hidden" checked={filter === 'cap'} onChange={() => setFilter('cap')} />
+                       <span className={`text-sm ${filter === 'cap' ? 'text-primary font-bold' : 'text-gray-400 group-hover:text-gray-300'}`}>시가총액</span>
+                     </label>
+                     <label className="flex items-center gap-2 cursor-pointer group">
+                       <div className={`w-4 h-4 rounded-full border flex items-center justify-center ${filter === 'change' ? 'border-primary' : 'border-gray-600'}`}>
+                         {filter === 'change' && <div className="w-2 h-2 rounded-full bg-primary" />}
+                       </div>
+                       <input type="radio" name="filter" className="hidden" checked={filter === 'change'} onChange={() => setFilter('change')} />
+                       <span className={`text-sm ${filter === 'change' ? 'text-primary font-bold' : 'text-gray-400 group-hover:text-gray-300'}`}>등락률</span>
+                     </label>
+                  </div>
+
+                  <Button variant="outline" size="sm" className="h-8 gap-2 bg-[#0B0E14] border-white/10 hover:bg-white/5 text-gray-400">
+                    <Download className="w-3.5 h-3.5" />
+                    CSV
+                  </Button>
+                </div>
+                
+                <p className="text-[10px] text-gray-500 mt-2 ml-1">
+                  ※ StockLink 의 차트 솔루션은 글로벌 커뮤니티를 위한 차트 플랫폼인 <span className="text-primary cursor-pointer hover:underline">트레이딩뷰</span> 에서 제공합니다. 국내외 주식 차트뿐만 아니라, <span className="text-primary cursor-pointer hover:underline">이코노믹 캘린더</span> 또는 <span className="text-primary cursor-pointer hover:underline">스탁 스크리너</span> 와 같은 고급 분석도구를 통해 종합적인 시장 분석에 기반한 거래를 할 수 있습니다.
+                </p>
               </div>
 
-              <Button variant="outline" size="sm" className="h-8 gap-2 bg-[#0B0E14] border-white/10 hover:bg-white/5 text-gray-400">
-                <Download className="w-3.5 h-3.5" />
-                CSV
-              </Button>
+              {/* Table */}
+              <div className="flex-1 overflow-auto px-6 pb-0">
+                 <table className="w-full text-xs text-left border-separate border-spacing-0 border-l border-t border-white/10">
+                   <thead className="bg-[#151921] sticky top-0 z-10 text-gray-400 font-medium h-9">
+                     <tr>
+                       <th className="px-2 w-10 text-center border-b border-r border-white/10">#</th>
+                       <th className="px-2 border-b border-r border-white/10">종목</th>
+                       <th className="px-2 text-right border-b border-r border-white/10">현재가 <span className="text-[9px]">▼</span></th>
+                       <th className="px-2 text-right border-b border-r border-white/10">등락률 <span className="text-[9px]">▼</span></th>
+                       <th className="px-2 text-right border-b border-r border-white/10">거래량 <span className="text-[9px]">▼</span></th>
+                       <th className="px-2 text-right border-b border-r border-white/10">거래대금 <span className="text-[9px]">▼</span></th>
+                       <th className="px-2 text-right border-b border-r border-white/10">시가총액 <span className="text-[9px]">▼</span></th>
+                       <th className="px-2 text-right border-b border-r border-white/10">PER <span className="text-[9px]">▼</span></th>
+                       <th className="px-2 text-right border-b border-r border-white/10">PBR <span className="text-[9px]">▼</span></th>
+                       <th className="px-2 text-right border-b border-r border-white/10">52주 최고가 <span className="text-[9px]">▼</span></th>
+                       <th className="px-2 text-right border-b border-r border-white/10">52주 최저가 <span className="text-[9px]">▼</span></th>
+                       <th className="px-2 w-24 text-center border-b border-r border-white/10">미니차트</th>
+                     </tr>
+                   </thead>
+                   <tbody className="divide-y divide-white/5">
+                     {stocks.map((stock) => (
+                       <tr 
+                         key={stock.rank} 
+                         className="hover:bg-white/[0.02] transition-colors group cursor-pointer"
+                         onClick={() => setSelectedStock(stock)}
+                       >
+                         <td className="px-2 py-2.5 text-center text-gray-500 font-mono border-r border-white/10 border-b border-white/5">
+                           <div className="flex items-center justify-center gap-1">
+                             <Star className="w-3 h-3 text-gray-700 hover:text-yellow-400 cursor-pointer" />
+                             {stock.rank}
+                           </div>
+                         </td>
+                         <td className="px-2 py-2.5 border-r border-white/10 border-b border-white/5">
+                           <div className="flex items-center gap-2">
+                             <div className={`w-1 h-3 rounded-full ${stock.change > 0 ? 'bg-red-500' : 'bg-blue-500'}`} />
+                             <span className="text-gray-200 font-bold hover:underline cursor-pointer">{stock.name}</span>
+                           </div>
+                         </td>
+                         <td className="px-2 py-2.5 text-right font-mono text-gray-300 border-r border-white/10 border-b border-white/5">
+                           {stock.price.toLocaleString()}
+                         </td>
+                         <td className={`px-2 py-2.5 text-right font-mono font-medium border-r border-white/10 border-b border-white/5 ${stock.change > 0 ? 'text-red-400' : 'text-blue-400'}`}>
+                           <div className="flex items-center justify-end gap-1">
+                             {stock.change > 0 ? '+' : ''}{stock.change.toFixed(2)}%
+                           </div>
+                         </td>
+                         <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{stock.vol}</td>
+                         <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{stock.amt}</td>
+                         <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{stock.cap}</td>
+                         <td className={`px-2 py-2.5 text-right font-mono border-r border-white/10 border-b border-white/5 ${stock.per !== '-' ? 'text-red-400' : 'text-gray-600'}`}>{stock.per !== '-' && '+'}{stock.per}%</td>
+                         <td className={`px-2 py-2.5 text-right font-mono border-r border-white/10 border-b border-white/5 ${stock.pbr !== '-' ? 'text-red-400' : 'text-gray-600'}`}>{stock.pbr !== '-' && '+'}{stock.pbr}%</td>
+                         <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{Number(stock.high.replace(/,/g,'')).toLocaleString()}</td>
+                         <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{Number(stock.low.replace(/,/g,'')).toLocaleString()}</td>
+                         <td className="px-2 py-1 pr-4 border-r border-white/10 border-b border-white/5">
+                           <div className="h-8 w-20 ml-auto">
+                            <ResponsiveContainer width="100%" height="100%">
+                              <AreaChart data={generateSparklineData(stock.trend as any)}>
+                                <defs>
+                                  <linearGradient id={`spark_${stock.rank}`} x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0.3}/>
+                                    <stop offset="95%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0}/>
+                                  </linearGradient>
+                                </defs>
+                                <Area 
+                                  type="monotone" 
+                                  dataKey="value" 
+                                  stroke={stock.change > 0 ? "#ef4444" : "#3b82f6"} 
+                                  fill={`url(#spark_${stock.rank})`} 
+                                  strokeWidth={1.5}
+                                />
+                                <YAxis domain={['dataMin', 'dataMax']} hide />
+                              </AreaChart>
+                            </ResponsiveContainer>
+                           </div>
+                         </td>
+                       </tr>
+                     ))}
+                   </tbody>
+                 </table>
+              </div>
+
+              {/* Bottom Ticker */}
+              <div className="bg-[#0f1115] border-t border-white/5 h-8 flex items-center px-4 overflow-hidden shrink-0">
+                 <div className="flex gap-8 text-[10px] font-mono whitespace-nowrap animate-ticker">
+                    <div className="flex items-center gap-2">
+                       <span className="text-gray-400">코스피 종합</span>
+                       <span className="text-gray-200 font-bold">2220.56</span>
+                       <span className="text-red-400">▲ 90.88 2.2%</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                       <span className="text-gray-400">코스닥 종합</span>
+                       <span className="text-gray-200 font-bold">932.59</span>
+                       <span className="text-red-400">▲ 12.92 1.4%</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                       <span className="text-gray-400">나스닥 종합</span>
+                       <span className="text-gray-200 font-bold">23450.97</span>
+                       <span className="text-blue-400">▼ 142.13 -0.6%</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                       <span className="text-gray-400">다우 산업</span>
+                       <span className="text-gray-200 font-bold">48710.97</span>
+                       <span className="text-blue-400">▼ 20.19 -0.04%</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                       <span className="text-gray-400">S&P 500</span>
+                       <span className="text-gray-200 font-bold">6900.9</span>
+                       <span className="text-blue-400">▼ 29.04 -0.42%</span>
+                    </div>
+                    <div className="flex items-center gap-2">
+                       <span className="text-gray-400">달러환율</span>
+                       <span className="text-gray-200 font-bold">1434.1</span>
+                       <span className="text-blue-400">▼ 8.1 -0.56%</span>
+                    </div>
+                 </div>
+              </div>
             </div>
-            
-            <p className="text-[10px] text-gray-500 mt-2 ml-1">
-              ※ StockLink 의 차트 솔루션은 글로벌 커뮤니티를 위한 차트 플랫폼인 <span className="text-primary cursor-pointer hover:underline">트레이딩뷰</span> 에서 제공합니다. 국내외 주식 차트뿐만 아니라, <span className="text-primary cursor-pointer hover:underline">이코노믹 캘린더</span> 또는 <span className="text-primary cursor-pointer hover:underline">스탁 스크리너</span> 와 같은 고급 분석도구를 통해 종합적인 시장 분석에 기반한 거래를 할 수 있습니다.
-            </p>
-          </div>
-
-          {/* Table */}
-          <div className="flex-1 overflow-auto px-6 pb-0">
-             <table className="w-full text-xs text-left border-separate border-spacing-0 border-l border-t border-white/10">
-               <thead className="bg-[#151921] sticky top-0 z-10 text-gray-400 font-medium h-9">
-                 <tr>
-                   <th className="px-2 w-10 text-center border-b border-r border-white/10">#</th>
-                   <th className="px-2 border-b border-r border-white/10">종목</th>
-                   <th className="px-2 text-right border-b border-r border-white/10">현재가 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-r border-white/10">등락률 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-r border-white/10">거래량 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-r border-white/10">거래대금 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-r border-white/10">시가총액 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-r border-white/10">PER <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-r border-white/10">PBR <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-r border-white/10">52주 최고가 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 text-right border-b border-r border-white/10">52주 최저가 <span className="text-[9px]">▼</span></th>
-                   <th className="px-2 w-24 text-center border-b border-r border-white/10">미니차트</th>
-                 </tr>
-               </thead>
-               <tbody className="divide-y divide-white/5">
-                 {stocks.map((stock) => (
-                   <tr key={stock.rank} className="hover:bg-white/[0.02] transition-colors group">
-                     <td className="px-2 py-2.5 text-center text-gray-500 font-mono border-r border-white/10 border-b border-white/5">
-                       <div className="flex items-center justify-center gap-1">
-                         <Star className="w-3 h-3 text-gray-700 hover:text-yellow-400 cursor-pointer" />
-                         {stock.rank}
-                       </div>
-                     </td>
-                     <td className="px-2 py-2.5 border-r border-white/10 border-b border-white/5">
-                       <div className="flex items-center gap-2">
-                         <div className={`w-1 h-3 rounded-full ${stock.change > 0 ? 'bg-red-500' : 'bg-blue-500'}`} />
-                         <span className="text-gray-200 font-bold hover:underline cursor-pointer">{stock.name}</span>
-                       </div>
-                     </td>
-                     <td className="px-2 py-2.5 text-right font-mono text-gray-300 border-r border-white/10 border-b border-white/5">
-                       {stock.price.toLocaleString()}
-                     </td>
-                     <td className={`px-2 py-2.5 text-right font-mono font-medium border-r border-white/10 border-b border-white/5 ${stock.change > 0 ? 'text-red-400' : 'text-blue-400'}`}>
-                       <div className="flex items-center justify-end gap-1">
-                         {stock.change > 0 ? '+' : ''}{stock.change.toFixed(2)}%
-                       </div>
-                     </td>
-                     <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{stock.vol}</td>
-                     <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{stock.amt}</td>
-                     <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{stock.cap}</td>
-                     <td className={`px-2 py-2.5 text-right font-mono border-r border-white/10 border-b border-white/5 ${stock.per !== '-' ? 'text-red-400' : 'text-gray-600'}`}>{stock.per !== '-' && '+'}{stock.per}%</td>
-                     <td className={`px-2 py-2.5 text-right font-mono border-r border-white/10 border-b border-white/5 ${stock.pbr !== '-' ? 'text-red-400' : 'text-gray-600'}`}>{stock.pbr !== '-' && '+'}{stock.pbr}%</td>
-                     <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{Number(stock.high.replace(/,/g,'')).toLocaleString()}</td>
-                     <td className="px-2 py-2.5 text-right font-mono text-gray-400 border-r border-white/10 border-b border-white/5">{Number(stock.low.replace(/,/g,'')).toLocaleString()}</td>
-                     <td className="px-2 py-1 pr-4 border-r border-white/10 border-b border-white/5">
-                       <div className="h-8 w-20 ml-auto">
-                        <ResponsiveContainer width="100%" height="100%">
-                          <AreaChart data={generateSparklineData(stock.trend as any)}>
-                            <defs>
-                              <linearGradient id={`spark_${stock.rank}`} x1="0" y1="0" x2="0" y2="1">
-                                <stop offset="5%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0.3}/>
-                                <stop offset="95%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0}/>
-                              </linearGradient>
-                            </defs>
-                            <Area 
-                              type="monotone" 
-                              dataKey="value" 
-                              stroke={stock.change > 0 ? "#ef4444" : "#3b82f6"} 
-                              fill={`url(#spark_${stock.rank})`} 
-                              strokeWidth={1.5}
-                            />
-                            <YAxis domain={['dataMin', 'dataMax']} hide />
-                          </AreaChart>
-                        </ResponsiveContainer>
-                       </div>
-                     </td>
-                   </tr>
-                 ))}
-               </tbody>
-             </table>
-          </div>
-
-          {/* Bottom Ticker */}
-          <div className="bg-[#0f1115] border-t border-white/5 h-8 flex items-center px-4 overflow-hidden shrink-0">
-             <div className="flex gap-8 text-[10px] font-mono whitespace-nowrap animate-ticker">
-                <div className="flex items-center gap-2">
-                   <span className="text-gray-400">코스피 종합</span>
-                   <span className="text-gray-200 font-bold">2220.56</span>
-                   <span className="text-red-400">▲ 90.88 2.2%</span>
-                </div>
-                <div className="flex items-center gap-2">
-                   <span className="text-gray-400">코스닥 종합</span>
-                   <span className="text-gray-200 font-bold">932.59</span>
-                   <span className="text-red-400">▲ 12.92 1.4%</span>
-                </div>
-                <div className="flex items-center gap-2">
-                   <span className="text-gray-400">나스닥 종합</span>
-                   <span className="text-gray-200 font-bold">23450.97</span>
-                   <span className="text-blue-400">▼ 142.13 -0.6%</span>
-                </div>
-                <div className="flex items-center gap-2">
-                   <span className="text-gray-400">다우 산업</span>
-                   <span className="text-gray-200 font-bold">48710.97</span>
-                   <span className="text-blue-400">▼ 20.19 -0.04%</span>
-                </div>
-                <div className="flex items-center gap-2">
-                   <span className="text-gray-400">S&P 500</span>
-                   <span className="text-gray-200 font-bold">6900.9</span>
-                   <span className="text-blue-400">▼ 29.04 -0.42%</span>
-                </div>
-                <div className="flex items-center gap-2">
-                   <span className="text-gray-400">달러환율</span>
-                   <span className="text-gray-200 font-bold">1434.1</span>
-                   <span className="text-blue-400">▼ 8.1 -0.56%</span>
-                </div>
-             </div>
-          </div>
+          )}
         </main>
       </div>
     </DashboardLayout>
