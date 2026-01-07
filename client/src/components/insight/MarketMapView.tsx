@@ -42,8 +42,11 @@ const marketData: StockNode[] = [
 
 export default function MarketMapView() {
   const [selectedStock, setSelectedStock] = useState<StockNode | null>(null);
-  const [zoomLevel, setZoomLevel] = useState(1);
+  const [detailLevel, setDetailLevel] = useState(2); // 1: Low detail (fewer stocks), 2: High detail (more stocks)
   const [isExpanded, setIsExpanded] = useState(false);
+
+  // Helper to determine if a secondary stock is visible
+  const isSecondaryVisible = detailLevel >= 2;
 
   return (
     <div className={cn(
@@ -54,10 +57,22 @@ export default function MarketMapView() {
       {/* Header */}
       <div className="flex justify-end items-center mb-4 shrink-0">
          <div className="flex items-center gap-2">
-            <Button variant="outline" size="icon" className="h-8 w-8 bg-[#151921] border-white/10" onClick={() => setZoomLevel(Math.min(zoomLevel + 0.1, 2))}>
+            <Button 
+                variant="outline" 
+                size="icon" 
+                className="h-8 w-8 bg-[#151921] border-white/10" 
+                onClick={() => setDetailLevel(Math.min(detailLevel + 1, 2))}
+                disabled={detailLevel >= 2}
+            >
                 <ZoomIn className="w-4 h-4 text-gray-400" />
             </Button>
-            <Button variant="outline" size="icon" className="h-8 w-8 bg-[#151921] border-white/10" onClick={() => setZoomLevel(Math.max(zoomLevel - 0.1, 0.5))}>
+            <Button 
+                variant="outline" 
+                size="icon" 
+                className="h-8 w-8 bg-[#151921] border-white/10" 
+                onClick={() => setDetailLevel(Math.max(detailLevel - 1, 1))}
+                disabled={detailLevel <= 1}
+            >
                 <ZoomOut className="w-4 h-4 text-gray-400" />
             </Button>
             <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white" onClick={() => setIsExpanded(!isExpanded)}>
@@ -72,8 +87,7 @@ export default function MarketMapView() {
               
               {/* This Grid Layout mimics a treemap */}
               <div 
-                className="w-full h-full grid grid-cols-4 grid-rows-3 gap-[1px] bg-[#0B0E14] transition-transform duration-300 origin-top-left border-r border-white/10"
-                style={{ transform: `scale(${zoomLevel})` }}
+                className="w-full h-full grid grid-cols-4 grid-rows-3 gap-[1px] bg-[#0B0E14] border-r border-white/10"
               >
                   {/* Row 1: Samsung (Left 2x2), SK Hynix (Right Top 2x1) */}
                   <div className="col-span-2 row-span-2">
@@ -89,22 +103,54 @@ export default function MarketMapView() {
                       <StockBlock stock={marketData[2]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[2].id} size="md" />
                   </div>
                    <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
-                      <StockBlock stock={marketData[6]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[6].id} className="h-1/2" size="sm" />
-                      <StockBlock stock={marketData[7]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[7].id} className="h-1/2" size="sm" />
+                      <StockBlock 
+                        stock={marketData[6]} 
+                        onClick={setSelectedStock} 
+                        selected={selectedStock?.id === marketData[6].id} 
+                        className={isSecondaryVisible ? "h-1/2" : "h-full"} 
+                        size={isSecondaryVisible ? "sm" : "md"} 
+                      />
+                      {isSecondaryVisible && (
+                        <StockBlock stock={marketData[7]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[7].id} className="h-1/2" size="sm" />
+                      )}
                   </div>
 
                   {/* Row 3: Bottom Row */}
                   <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
-                      <StockBlock stock={marketData[4]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[4].id} className="flex-1" size="md" />
-                      <StockBlock stock={marketData[8]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[8].id} className="h-1/3" size="sm" />
+                      <StockBlock 
+                        stock={marketData[4]} 
+                        onClick={setSelectedStock} 
+                        selected={selectedStock?.id === marketData[4].id} 
+                        className={isSecondaryVisible ? "flex-1" : "h-full"} 
+                        size="md" 
+                       />
+                      {isSecondaryVisible && (
+                        <StockBlock stock={marketData[8]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[8].id} className="h-1/3" size="sm" />
+                      )}
                   </div>
                   <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
-                      <StockBlock stock={marketData[5]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[5].id} className="flex-1" size="md" />
-                      <StockBlock stock={marketData[9]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[9].id} className="h-1/4" size="sm" />
+                      <StockBlock 
+                        stock={marketData[5]} 
+                        onClick={setSelectedStock} 
+                        selected={selectedStock?.id === marketData[5].id} 
+                        className={isSecondaryVisible ? "flex-1" : "h-full"} 
+                        size="md" 
+                       />
+                      {isSecondaryVisible && (
+                        <StockBlock stock={marketData[9]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[9].id} className="h-1/4" size="sm" />
+                      )}
                   </div>
                   <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
-                      <StockBlock stock={marketData[3]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[3].id} className="flex-1" size="md" />
-                      <StockBlock stock={marketData[10]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[10].id} className="h-1/4" size="sm" />
+                      <StockBlock 
+                        stock={marketData[3]} 
+                        onClick={setSelectedStock} 
+                        selected={selectedStock?.id === marketData[3].id} 
+                        className={isSecondaryVisible ? "flex-1" : "h-full"} 
+                        size="md" 
+                      />
+                      {isSecondaryVisible && (
+                        <StockBlock stock={marketData[10]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[10].id} className="h-1/4" size="sm" />
+                      )}
                   </div>
                    {/* Empty space filler or extra stocks */}
                    <div className="col-span-1 row-span-1 bg-[#151921]" />
