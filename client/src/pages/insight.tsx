@@ -16,7 +16,7 @@ import {
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-type InsightTab = "momentum" | "news" | "market" | "theme" | "social";
+type InsightTab = "momentum" | "news" | "market" | "market-map" | "theme" | "social";
 
 import MomentumView from "@/components/insight/MomentumView";
 import MarketView from "@/components/insight/MarketView";
@@ -31,6 +31,7 @@ export default function InsightPage() {
     { id: "momentum", label: "Momentum Analysis", icon: Zap },
     { id: "news", label: "News Analysis", icon: Newspaper },
     { id: "market", label: "Market Analysis", icon: BarChart3 },
+    { id: "market-map", label: "Market Map Analysis", icon: Globe },
     { id: "theme", label: "Theme Analysis", icon: Layers },
     { id: "social", label: "Social Analysis", icon: Share2 },
   ];
@@ -93,6 +94,7 @@ export default function InsightPage() {
                             {activeTab === 'momentum' && "Analyze price momentum and technical indicators in depth."}
                             {activeTab === 'news' && "AI-powered analysis of the latest news and its market impact."}
                             {activeTab === 'market' && "Comprehensive analysis of macroeconomic indicators and market trends."}
+                            {activeTab === 'market-map' && "Interactive visualization of market structure and relationships."}
                             {activeTab === 'theme' && "Visualize sector performance and identify leading market themes."}
                             {activeTab === 'social' && "Real-time analysis of social media and community sentiment."}
                         </p>
