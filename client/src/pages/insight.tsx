@@ -21,6 +21,7 @@ type InsightTab = "momentum" | "news" | "market" | "theme" | "social";
 import MomentumView from "@/components/insight/MomentumView";
 import MarketView from "@/components/insight/MarketView";
 import ThemeView from "@/components/insight/ThemeView";
+import NewsView from "@/components/insight/NewsView";
 
 export default function InsightPage() {
   const [activeTab, setActiveTab] = useState<InsightTab>("momentum");
@@ -108,6 +109,8 @@ export default function InsightPage() {
                 <div className="mt-6">
                     {activeTab === 'momentum' ? (
                         <MomentumView />
+                    ) : activeTab === 'news' ? (
+                        <NewsView />
                     ) : activeTab === 'market' ? (
                         <MarketView />
                     ) : activeTab === 'theme' ? (
