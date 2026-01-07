@@ -89,59 +89,56 @@ export default function MarketMapView() {
          </div>
       </div>
 
-      <div className="flex flex-1 gap-6 min-h-0">
+      <div className="flex flex-1 gap-0 min-h-0 border-t border-white/10">
           {/* Main Map Area */}
-          <div className="flex-1 bg-[#151921] border border-white/5 rounded-xl p-1 overflow-hidden relative group">
+          <div className="flex-1 bg-[#151921] p-0 overflow-hidden relative group">
               
               {/* This Grid Layout mimics a treemap */}
               <div 
-                className="w-full h-full grid grid-cols-4 grid-rows-3 gap-1 transition-transform duration-300 origin-top-left"
+                className="w-full h-full grid grid-cols-4 grid-rows-3 gap-[1px] bg-[#0B0E14] transition-transform duration-300 origin-top-left border-r border-white/10"
                 style={{ transform: `scale(${zoomLevel})` }}
               >
                   {/* Row 1: Samsung (Left 2x2), SK Hynix (Right Top 2x1) */}
-                  <div className="col-span-2 row-span-2 p-1">
+                  <div className="col-span-2 row-span-2">
                       <StockBlock stock={marketData[0]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[0].id} />
                   </div>
-                  <div className="col-span-2 row-span-1 p-1">
+                  <div className="col-span-2 row-span-1">
                       <StockBlock stock={marketData[1]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[1].id} />
                   </div>
 
                   {/* Row 2: LG Energy (Mid Right 2x1 -> actually let's split this area) */}
-                  {/* Actually grid layout needs care. Let's do nested flex or grid to match image exactly. */}
-                  
-                  {/* Let's redefine the grid areas to be simpler and nested */}
                   {/* Right side lower block */}
-                  <div className="col-span-1 row-span-1 p-1">
+                  <div className="col-span-1 row-span-1">
                       <StockBlock stock={marketData[2]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[2].id} />
                   </div>
-                   <div className="col-span-1 row-span-1 p-1 flex flex-col gap-1">
+                   <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
                       <StockBlock stock={marketData[6]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[6].id} className="h-1/2" />
                       <StockBlock stock={marketData[7]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[7].id} className="h-1/2" />
                   </div>
 
                   {/* Row 3: Bottom Row */}
-                  <div className="col-span-1 row-span-1 p-1 flex flex-col gap-1">
+                  <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
                       <StockBlock stock={marketData[4]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[4].id} className="flex-1" />
                       <StockBlock stock={marketData[8]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[8].id} className="h-1/3" />
                   </div>
-                  <div className="col-span-1 row-span-1 p-1 flex flex-col gap-1">
+                  <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
                       <StockBlock stock={marketData[5]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[5].id} className="flex-1" />
                       <StockBlock stock={marketData[9]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[9].id} className="h-1/4" />
                   </div>
-                  <div className="col-span-1 row-span-1 p-1 flex flex-col gap-1">
+                  <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
                       <StockBlock stock={marketData[3]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[3].id} className="flex-1" />
                       <StockBlock stock={marketData[10]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[10].id} className="h-1/4" />
                   </div>
                    {/* Empty space filler or extra stocks */}
-                   <div className="col-span-1 row-span-1 p-1 bg-transparent" />
+                   <div className="col-span-1 row-span-1 bg-[#151921]" />
               </div>
           </div>
 
           {/* Right Sidebar */}
-          <div className="w-80 flex flex-col gap-6 shrink-0">
+          <div className="w-80 flex flex-col shrink-0 bg-[#151921]">
               
               {/* AI Insight */}
-              <div className="bg-[#151921] border border-white/5 rounded-xl p-6 flex-1 flex flex-col">
+              <div className="p-6 flex-1 flex flex-col border-b border-white/10">
                   <div className="flex items-center gap-2 mb-4 text-blue-400">
                       <Sparkles className="w-4 h-4" />
                       <h3 className="font-bold text-sm">AI Market Insight</h3>
@@ -161,7 +158,7 @@ export default function MarketMapView() {
               </div>
 
               {/* Selected Stock Info */}
-              <div className="bg-[#151921] border border-white/5 rounded-xl p-6 h-64 shrink-0 flex flex-col justify-center">
+              <div className="p-6 h-64 shrink-0 flex flex-col justify-center bg-[#12141a]">
                   <div className="text-xs font-bold text-gray-500 uppercase tracking-wider mb-4">Selected Stock</div>
                   
                   {selectedStock ? (
