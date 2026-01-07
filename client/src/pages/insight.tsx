@@ -17,10 +17,10 @@ export default function InsightPage() {
   const [activeTab, setActiveTab] = useState<InsightTab>("momentum");
 
   const menuItems = [
-    { id: "momentum", label: "Momentum 분석", icon: Zap },
-    { id: "news", label: "News 분석", icon: Newspaper },
-    { id: "market", label: "시장분석", icon: BarChart3 },
-    { id: "social", label: "소셜분석", icon: Share2 },
+    { id: "momentum", label: "Momentum Analysis", icon: Zap },
+    { id: "news", label: "News Analysis", icon: Newspaper },
+    { id: "market", label: "Market Analysis", icon: BarChart3 },
+    { id: "social", label: "Social Analysis", icon: Share2 },
   ];
 
   return (
@@ -62,10 +62,10 @@ export default function InsightPage() {
                         {menuItems.find(i => i.id === activeTab)?.label}
                     </h1>
                     <p className="text-gray-400 text-sm">
-                        {activeTab === 'momentum' && "주가 모멘텀과 기술적 지표를 심층적으로 분석합니다."}
-                        {activeTab === 'news' && "최신 뉴스 기사를 AI가 분석하여 시장에 미치는 영향을 파악합니다."}
-                        {activeTab === 'market' && "거시 경제 지표와 시장 동향을 종합적으로 분석합니다."}
-                        {activeTab === 'social' && "소셜 미디어와 커뮤니티의 여론을 실시간으로 분석합니다."}
+                        {activeTab === 'momentum' && "Analyze price momentum and technical indicators in depth."}
+                        {activeTab === 'news' && "AI-powered analysis of the latest news and its market impact."}
+                        {activeTab === 'market' && "Comprehensive analysis of macroeconomic indicators and market trends."}
+                        {activeTab === 'social' && "Real-time analysis of social media and community sentiment."}
                     </p>
                 </header>
 
@@ -79,7 +79,7 @@ export default function InsightPage() {
                             {activeTab === 'market' && <BarChart3 className="w-6 h-6" />}
                             {activeTab === 'social' && <Share2 className="w-6 h-6" />}
                         </div>
-                        <p>{menuItems.find(i => i.id === activeTab)?.label} 콘텐츠 영역 1</p>
+                        <p>{menuItems.find(i => i.id === activeTab)?.label} Content Area 1</p>
                     </div>
                     
                     {/* Example Content Card 2 */}
@@ -87,7 +87,7 @@ export default function InsightPage() {
                         <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
                             <Globe className="w-6 h-6" />
                         </div>
-                        <p>{menuItems.find(i => i.id === activeTab)?.label} 콘텐츠 영역 2</p>
+                        <p>{menuItems.find(i => i.id === activeTab)?.label} Content Area 2</p>
                     </div>
 
                     {/* Example Content Card 3 */}
@@ -95,12 +95,12 @@ export default function InsightPage() {
                         <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
                              <MessageSquare className="w-6 h-6" />
                         </div>
-                        <p>{menuItems.find(i => i.id === activeTab)?.label} 콘텐츠 영역 3</p>
+                        <p>{menuItems.find(i => i.id === activeTab)?.label} Content Area 3</p>
                     </div>
                 </div>
                 
                 <div className="mt-6 bg-[#151921] border border-white/5 rounded-xl p-6 h-96 flex flex-col items-center justify-center text-gray-500">
-                    <p>메인 상세 분석 차트 및 데이터 영역</p>
+                    <p>Main detailed analysis chart and data area</p>
                 </div>
             </div>
         </main>
