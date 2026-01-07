@@ -116,6 +116,8 @@ export default function StockPage() {
               멀티차트
             </div>
           </div>
+          
+          <div className="h-px bg-white/10 mx-4 my-2" />
 
           <div className="px-4 pb-2">
             <div className="grid grid-cols-2 bg-black/40 p-1 rounded-md">
