@@ -1013,8 +1013,8 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                         { label: '년별', value: '-0.89%', color: 'text-blue-400' }
                       ].map((item, i) => (
                         <div key={i} className="bg-[#1E222B] rounded-md p-2 text-center border border-white/5">
-                           <div className="text-gray-500 text-[10px] mb-1">{item.label}</div>
-                           <div className={`font-bold text-xs ${item.color}`}>{item.value}</div>
+                           <div className="text-gray-500 text-xs mb-1 font-medium">{item.label}</div>
+                           <div className={`font-bold text-sm ${item.color}`}>{item.value}</div>
                         </div>
                       ))}
                    </div>
@@ -1022,28 +1022,28 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                    {/* Market Info Row */}
                    <div className="grid grid-cols-3 gap-2">
                       <div className="bg-[#1E222B] rounded-md p-3 text-center border border-white/5 flex flex-col justify-center">
-                         <div className="text-gray-500 text-[10px] mb-1">시장 구분</div>
-                         <div className="text-white text-xs font-medium">코스피</div>
+                         <div className="text-gray-500 text-xs mb-1 font-medium">시장 구분</div>
+                         <div className="text-white text-sm font-medium">코스피</div>
                       </div>
                       <div className="bg-[#1E222B] rounded-md p-3 text-center border border-white/5 flex flex-col justify-center">
-                         <div className="text-gray-500 text-[10px] mb-1">시가총액 순위</div>
-                         <div className="text-white text-xs font-medium">1위</div>
+                         <div className="text-gray-500 text-xs mb-1 font-medium">시가총액 순위</div>
+                         <div className="text-white text-sm font-medium">1위</div>
                       </div>
                       <div className="bg-[#1E222B] rounded-md p-3 text-center border border-white/5 flex flex-col justify-center">
-                         <div className="text-gray-500 text-[10px] mb-1">액면가</div>
-                         <div className="text-white text-xs font-medium">100원</div>
+                         <div className="text-gray-500 text-xs mb-1 font-medium">액면가</div>
+                         <div className="text-white text-sm font-medium">100원</div>
                       </div>
                    </div>
 
                    {/* Market Cap & Shares Row */}
                    <div className="grid grid-cols-2 gap-2">
                       <div className="bg-[#1E222B] rounded-md p-3 text-center border border-white/5">
-                         <div className="text-gray-500 text-[10px] mb-1">시가총액</div>
-                         <div className="text-white text-sm font-bold">834조 6,689억</div>
+                         <div className="text-gray-500 text-xs mb-1 font-medium">시가총액</div>
+                         <div className="text-white text-base font-bold">834조 6,689억</div>
                       </div>
                       <div className="bg-[#1E222B] rounded-md p-3 text-center border border-white/5">
-                         <div className="text-gray-500 text-[10px] mb-1">상장주식수</div>
-                         <div className="text-white text-sm font-bold">5,919,637,922주</div>
+                         <div className="text-gray-500 text-xs mb-1 font-medium">상장주식수</div>
+                         <div className="text-white text-base font-bold">5,919,637,922주</div>
                       </div>
                    </div>
 
@@ -1056,8 +1056,8 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                         { label: 'ROE', value: '3.01%' }
                       ].map((item, i) => (
                         <div key={i} className="bg-[#1E222B] rounded-md p-2 text-center border border-white/5">
-                           <div className="text-gray-500 text-[10px] mb-1">{item.label}</div>
-                           <div className="text-white text-xs font-medium">{item.value}</div>
+                           <div className="text-gray-500 text-xs mb-1 font-medium">{item.label}</div>
+                           <div className="text-white text-sm font-medium">{item.value}</div>
                         </div>
                       ))}
                    </div>
