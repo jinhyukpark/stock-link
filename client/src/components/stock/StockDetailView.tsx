@@ -167,6 +167,17 @@ const stabilityData = [
   { date: '25년 06월', currentRatio: 252.0, debtRatio: 25.8 },
 ];
 
+// Mock Chart Data
+const chartData = Array.from({ length: 100 }, (_, i) => {
+  const basePrice = 138000;
+  const randomChange = (Math.random() - 0.45) * 1000;
+  return {
+    time: `${9 + Math.floor(i / 12)}:${(i % 12) * 5}`,
+    price: basePrice + Math.sin(i / 10) * 2000 + randomChange,
+    volume: Math.floor(Math.random() * 10000) + 1000
+  };
+});
+
 export default function StockDetailView({ onBack, stockName }: StockDetailViewProps) {
   const [isAutoExpand, setIsAutoExpand] = useState(true);
   const chartPanelRef = useRef<ImperativePanelHandle>(null);
