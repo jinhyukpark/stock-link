@@ -15,6 +15,7 @@ import CommunityPage from "@/pages/community";
 import MyPage from "@/pages/mypage";
 import SocialPage from "@/pages/social";
 import SubscriptionPage from "@/pages/subscription";
+import InsightPage from "@/pages/insight";
 
 function Router() {
   return (
@@ -22,6 +23,7 @@ function Router() {
       <Switch>
         <Route path="/" component={Dashboard} />
         <Route path="/stock" component={StockPage} />
+        <Route path="/insight" component={InsightPage} />
         <Route path="/market" component={MarketAnalysis} />
         <Route path="/social" component={SocialPage} />
         <Route path="/ontology" component={OntologyPage} />
