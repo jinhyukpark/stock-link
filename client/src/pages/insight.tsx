@@ -8,13 +8,16 @@ import {
   Share2,
   TrendingUp,
   MessageSquare,
-  Globe
+  Globe,
+  Menu,
+  ChevronLeft
 } from "lucide-react";
 
 type InsightTab = "momentum" | "news" | "market" | "social";
 
 export default function InsightPage() {
   const [activeTab, setActiveTab] = useState<InsightTab>("momentum");
+  const [isSidebarOpen, setIsSidebarOpen] = useState(true);
 
   const menuItems = [
     { id: "momentum", label: "Momentum Analysis", icon: Zap },
@@ -27,15 +30,28 @@ export default function InsightPage() {
     <DashboardLayout>
       <div className="flex h-[calc(100vh-4rem)] bg-[#0B0E14] text-white font-sans overflow-hidden">
         {/* Left Sidebar */}
-        <aside className="w-64 flex flex-col border-r border-white/5 bg-[#151921] shrink-0">
-          <div className="p-4 border-b border-white/5">
-            <h2 className="text-lg font-bold flex items-center gap-2">
-              <TrendingUp className="w-5 h-5 text-primary" />
-              Insight
-            </h2>
+        <aside 
+          className={cn(
+            "flex flex-col border-r border-white/5 bg-[#151921] shrink-0 transition-all duration-300 ease-in-out",
+            isSidebarOpen ? "w-64" : "w-16"
+          )}
+        >
+          <div className={cn("p-4 border-b border-white/5 flex items-center h-16", isSidebarOpen ? "justify-between" : "justify-center")}>
+            {isSidebarOpen && (
+              <h2 className="text-lg font-bold flex items-center gap-2 whitespace-nowrap overflow-hidden">
+                <TrendingUp className="w-5 h-5 text-primary" />
+                Insight
+              </h2>
+            )}
+            <button 
+              onClick={() => setIsSidebarOpen(!isSidebarOpen)}
+              className="text-gray-400 hover:text-white transition-colors"
+            >
+              {isSidebarOpen ? <ChevronLeft className="w-5 h-5" /> : <Menu className="w-5 h-5" />}
+            </button>
           </div>
           
-          <nav className="flex-1 p-2 space-y-1">
+          <nav className="flex-1 p-2 space-y-1 overflow-hidden">
             {menuItems.map((item) => (
               <button
                 key={item.id}
@@ -44,11 +60,13 @@ export default function InsightPage() {
                   "w-full flex items-center gap-3 px-3 py-2.5 rounded-lg text-sm font-medium transition-all duration-200",
                   activeTab === item.id 
                     ? "bg-primary/10 text-primary border border-primary/20" 
-                    : "text-gray-400 hover:text-white hover:bg-white/5 border border-transparent"
+                    : "text-gray-400 hover:text-white hover:bg-white/5 border border-transparent",
+                  !isSidebarOpen && "justify-center px-0"
                 )}
+                title={!isSidebarOpen ? item.label : undefined}
               >
-                <item.icon className={cn("w-4 h-4", activeTab === item.id ? "text-primary" : "text-gray-500")} />
-                {item.label}
+                <item.icon className={cn("w-4 h-4 shrink-0", activeTab === item.id ? "text-primary" : "text-gray-500")} />
+                {isSidebarOpen && <span className="whitespace-nowrap overflow-hidden">{item.label}</span>}
               </button>
             ))}
           </nav>
