@@ -482,6 +482,3 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
     </div>
   );
 }
-    </div>
-  );
-}
