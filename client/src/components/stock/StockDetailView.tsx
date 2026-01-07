@@ -591,7 +591,6 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                         </div>
                                     </div>
                                 </div>
-                                </div>
                             </TabsContent>
 
                             <TabsContent value="실적" className="mt-0 h-full">
@@ -838,7 +837,6 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                             </tbody>
                                         </table>
                                     </div>
-                                </div>
                                 </div>
                             </TabsContent>
 
