@@ -84,16 +84,17 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
           </Button>
           <div className="flex items-center gap-3">
              {/* Logo removed as per user request/screenshot fix */}
-             <div>
-               <div className="flex items-center gap-2 flex-wrap">
-                 <h1 className="text-xl font-bold truncate max-w-[300px]">{stockName}</h1>
-                 <span className="text-gray-400 text-sm font-mono shrink-0">005930</span>
+             <div className="flex items-center gap-4 flex-wrap">
+               <div className="flex items-center gap-2">
+                 <h1 className="text-lg font-bold truncate">{stockName}</h1>
+                 <span className="text-gray-400 text-xs font-mono shrink-0">005930</span>
                  <Badge variant="outline" className="text-[10px] h-5 px-1.5 border-red-500/50 text-red-400 bg-red-500/10 shrink-0">KOSPI</Badge>
                  <Star className="w-4 h-4 text-gray-500 hover:text-yellow-400 cursor-pointer shrink-0" />
                </div>
-               <div className="flex items-baseline gap-2 mt-1">
-                 <span className="text-3xl font-bold text-red-500">141,000<span className="text-lg font-normal text-white">원</span></span>
-                 <span className="text-red-500 font-medium text-sm">전일대비 ▲ 2,100 (+1.51%)</span>
+               <div className="h-4 w-px bg-white/10 hidden sm:block" />
+               <div className="flex items-baseline gap-2">
+                 <span className="text-xl font-bold text-red-500">141,000<span className="text-sm font-normal text-white ml-0.5">원</span></span>
+                 <span className="text-red-500 font-medium text-xs">▲ 2,100 (+1.51%)</span>
                </div>
              </div>
           </div>
