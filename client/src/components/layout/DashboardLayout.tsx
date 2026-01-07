@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, LineChart, PieChart, Newspaper, Users, Settings, LogOut, Search, Bell, Menu, Network, User, CreditCard, Lock, Crown, Share2 } from "lucide-react";
+import { LayoutDashboard, LineChart, PieChart, Newspaper, Users, Settings, LogOut, Search, Bell, Menu, Network, User, CreditCard, Lock, Crown, Share2, Lightbulb } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -22,6 +22,7 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
   const navItems = [
     { icon: LayoutDashboard, label: "Dashboard", href: "/" },
     { icon: LineChart, label: "Stock", href: "/stock" },
+    { icon: Lightbulb, label: "Insight", href: "/insight" },
     { icon: PieChart, label: "Momentum", href: "/analysis" },
     { icon: Newspaper, label: "Market", href: "/market" },
     { icon: Share2, label: "Social", href: "/social" },
