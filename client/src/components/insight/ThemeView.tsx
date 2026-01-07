@@ -165,36 +165,36 @@ export default function ThemeView() {
 
       <div className="bg-[#151921] border border-white/5 rounded-xl p-6 shadow-xl">
         {/* Header & Controls */}
-        <div className="flex flex-col md:flex-row justify-between items-start md:items-center gap-6 mb-8">
-          <div>
-            <h2 className="text-xl font-bold text-white flex items-center gap-2 mb-1">
-              섹터별 수익률
-              <span className="text-sm font-normal text-gray-400 ml-2">({periods.find(p => p.id === selectedPeriod)?.label})</span>
-            </h2>
-            <p className="text-xs text-gray-500 font-mono">Real-time Sector Performance</p>
+        <div className="flex flex-col gap-6 mb-6">
+          <div className="flex justify-between items-start">
+             <div>
+               <h2 className="text-xl font-bold text-white flex items-center gap-2 mb-1">
+                 섹터별 수익률
+               </h2>
+               <p className="text-xs text-gray-500 font-mono">Real-time Sector Performance</p>
+             </div>
+             {/* Optional: Add Export/Options button here if needed later */}
           </div>
 
-          <div className="flex flex-wrap gap-2">
-            {periods.map((period) => (
-              <button
-                key={period.id}
-                onClick={() => handlePeriodChange(period.id)}
-                className={cn(
-                  "px-3 py-1.5 rounded-full text-xs font-bold transition-all border",
-                  selectedPeriod === period.id
-                    ? "bg-white text-black border-white"
-                    : "bg-transparent text-gray-500 border-white/10 hover:border-white/30 hover:text-gray-300"
-                )}
-              >
-                <div className="flex items-center gap-1.5">
-                  <div className={cn(
-                    "w-1.5 h-1.5 rounded-full",
-                    selectedPeriod === period.id ? "bg-red-500" : "bg-transparent border border-gray-500"
-                  )} />
-                  {period.label}
-                </div>
-              </button>
-            ))}
+          {/* Controls - Left Aligned (Toolbar style) */}
+          <div className="w-full border-b border-white/5 pb-4">
+             <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-bold text-gray-500 mr-2 uppercase tracking-wider">Period</span>
+                {periods.map((period) => (
+                  <button
+                    key={period.id}
+                    onClick={() => handlePeriodChange(period.id)}
+                    className={cn(
+                      "px-3 py-1.5 rounded-md text-xs font-bold transition-all border",
+                      selectedPeriod === period.id
+                        ? "bg-primary/20 text-primary border-primary/50 shadow-[0_0_10px_rgba(59,130,246,0.2)]"
+                        : "bg-white/5 text-gray-400 border-transparent hover:bg-white/10 hover:text-gray-200"
+                    )}
+                  >
+                    {period.label}
+                  </button>
+                ))}
+             </div>
           </div>
         </div>
 
