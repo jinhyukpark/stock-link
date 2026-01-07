@@ -69,6 +69,24 @@ const currentPriceOrder = {
   volume: 43886
 };
 
+const dailyPriceData = [
+  { date: '2026.01.07', close: 141000, rate: 1.51, volume: 44861533 },
+  { date: '2026.01.06', close: 138900, rate: 0.58, volume: 45208323 },
+  { date: '2026.01.05', close: 138100, rate: 7.47, volume: 42847876 },
+  { date: '2026.01.02', close: 128500, rate: 7.17, volume: 29435352 },
+  { date: '2025.12.30', close: 119900, rate: 0.33, volume: 18866014 },
+  { date: '2025.12.29', close: 119500, rate: 2.14, volume: 19676004 },
+  { date: '2025.12.26', close: 117000, rate: 5.31, volume: 33999812 },
+  { date: '2025.12.24', close: 111100, rate: -0.36, volume: 12492939 },
+  { date: '2025.12.23', close: 111500, rate: 0.90, volume: 20419187 },
+  { date: '2025.12.22', close: 110500, rate: 3.95, volume: 24705413 },
+  { date: '2025.12.19', close: 106300, rate: -1.21, volume: 22670915 },
+  { date: '2025.12.18', close: 107600, rate: -0.28, volume: 20010639 },
+  { date: '2025.12.17', close: 107900, rate: 4.96, volume: 22109635 },
+  { date: '2025.12.16', close: 102800, rate: -1.91, volume: 18829983 },
+  { date: '2025.12.15', close: 104800, rate: -3.76, volume: 20317066 },
+];
+
 export default function StockDetailView({ onBack, stockName }: StockDetailViewProps) {
   const [isAutoExpand, setIsAutoExpand] = useState(true);
   const chartPanelRef = useRef<ImperativePanelHandle>(null);
@@ -435,6 +453,63 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                           </div>
                                       </div>
                                   </div>
+                                </div>
+                            </TabsContent>
+
+                            <TabsContent value="실시간/일별시세" className="mt-0 h-full">
+                                <div className="grid grid-cols-2 gap-4 h-full">
+                                    {/* Daily Price (Left) */}
+                                    <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
+                                        <div className="p-4 border-b border-white/5">
+                                            <h3 className="text-white font-bold text-sm">일별 시세</h3>
+                                        </div>
+                                        <div className="flex-1 overflow-y-auto custom-scrollbar">
+                                            <table className="w-full text-xs text-left">
+                                                <thead className="text-gray-500 bg-[#1E222B] sticky top-0 z-10">
+                                                    <tr>
+                                                        <th className="p-3 font-medium">날짜</th>
+                                                        <th className="p-3 font-medium text-right">종가</th>
+                                                        <th className="p-3 font-medium text-right">등락률</th>
+                                                        <th className="p-3 font-medium text-right">거래량(주)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="divide-y divide-white/5">
+                                                    {dailyPriceData.map((item, idx) => (
+                                                        <tr key={idx} className="hover:bg-white/5 transition-colors">
+                                                            <td className="p-3 text-gray-400">{item.date}</td>
+                                                            <td className="p-3 text-right text-white font-medium">{item.close.toLocaleString()}원</td>
+                                                            <td className={`p-3 text-right font-medium ${item.rate > 0 ? 'text-red-400' : 'text-blue-400'}`}>
+                                                                {item.rate > 0 ? '+' : ''}{item.rate}%
+                                                            </td>
+                                                            <td className="p-3 text-right text-gray-400">{item.volume.toLocaleString()}</td>
+                                                        </tr>
+                                                    ))}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+
+                                    {/* Real-time Price (Right) */}
+                                    <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
+                                        <div className="p-4 border-b border-white/5">
+                                            <h3 className="text-white font-bold text-sm">실시간 시세</h3>
+                                        </div>
+                                        <div className="flex-1 overflow-y-auto custom-scrollbar bg-[#0B0E14]">
+                                             <table className="w-full text-xs text-left">
+                                                <thead className="text-gray-500 bg-[#1E222B] sticky top-0 z-10">
+                                                    <tr>
+                                                        <th className="p-3 font-medium">시간</th>
+                                                        <th className="p-3 font-medium text-right">체결가</th>
+                                                        <th className="p-3 font-medium text-right">등락률</th>
+                                                        <th className="p-3 font-medium text-right">체결량(주)</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="divide-y divide-white/5">
+                                                    {/* Empty state as per screenshot */}
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
                                 </div>
                             </TabsContent>
                           </div>
