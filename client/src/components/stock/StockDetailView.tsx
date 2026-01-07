@@ -1047,19 +1047,21 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                       </div>
                    </div>
 
-                   {/* Valuation Ratios Row */}
-                   <div className="grid grid-cols-4 gap-2">
-                      {[
-                        { label: 'PER', value: '47.07배' },
-                        { label: 'PBR', value: '1.38배' },
-                        { label: 'PSR', value: '6.57배' },
-                        { label: 'ROE', value: '3.01%' }
-                      ].map((item, i) => (
-                        <div key={i} className="bg-[#1E222B] rounded-md p-2 text-center border border-white/5">
-                           <div className="text-gray-500 text-xs mb-1 font-medium">{item.label}</div>
-                           <div className="text-white text-sm font-medium">{item.value}</div>
-                        </div>
-                      ))}
+                   {/* Valuation Ratios Row - Combined */}
+                   <div className="bg-[#1E222B] rounded-md border border-white/5 p-4">
+                      <div className="grid grid-cols-4 gap-4 divide-x divide-white/5">
+                        {[
+                          { label: 'PER', value: '47.07배' },
+                          { label: 'PBR', value: '1.38배' },
+                          { label: 'PSR', value: '6.57배' },
+                          { label: 'ROE', value: '3.01%' }
+                        ].map((item, i) => (
+                          <div key={i} className="text-center px-2 first:pl-0 last:pr-0">
+                             <div className="text-gray-500 text-xs mb-1.5 font-medium">{item.label}</div>
+                             <div className="text-white text-sm font-bold">{item.value}</div>
+                          </div>
+                        ))}
+                      </div>
                    </div>
 
                    {/* Combined Ownership Breakdown */}
