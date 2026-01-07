@@ -1205,6 +1205,8 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                             </div>
                          </div>
 
+                         <div className="border-t border-white/10 mb-4"></div>
+
                          {/* Related Stocks List */}
                          <div className="space-y-1">
                             {[
