@@ -153,6 +153,22 @@ const financialStatements = [
 
 const financialPeriods = ['2024년 09월', '2024년 06월', '2024년 03월', '2023년 12월', '2023년 09월'];
 
+const shareholderData = [
+  { name: '삼성물산 외 15인', value: 20.20, color: '#3b82f6' },
+  { name: '국민연금공단', value: 7.43, color: '#a855f7' },
+  { name: 'BlackRock Fund', value: 5.03, color: '#eab308' },
+  { name: '자사주', value: 2.98, color: '#22c55e' },
+  { name: '기타 주주', value: 64.36, color: '#64748b' },
+];
+
+const productMixData = [
+  { name: 'DX 부문', value: 43.7, color: '#3b82f6' },
+  { name: 'DS 부문', value: 38.6, color: '#a855f7' },
+  { name: 'SDC', value: 11.2, color: '#22c55e' },
+  { name: 'Harman', value: 4.8, color: '#eab308' },
+  { name: '기타', value: 1.7, color: '#64748b' },
+];
+
 const valuationData = [
   { date: '24년 12월', per: 47.07, pbr: 1.38, psr: 6.57 },
   { date: '25년 03월', per: 48.2, pbr: 1.45, psr: 6.8 },
