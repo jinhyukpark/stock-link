@@ -12,10 +12,13 @@ import {
   MessageCircle,
   MoreHorizontal
 } from "lucide-react";
+import { useRef, useState } from "react";
+import { ImperativePanelHandle } from "react-resizable-panels";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import { Separator } from "@/components/ui/separator";
+import { Switch } from "@/components/ui/switch";
 import { 
   ResizableHandle, 
   ResizablePanel, 
@@ -78,6 +81,18 @@ const productMixData = [
 ];
 
 export default function StockDetailView({ onBack, stockName }: StockDetailViewProps) {
+  const [isAutoExpand, setIsAutoExpand] = useState(true);
+  const chartPanelRef = useRef<ImperativePanelHandle>(null);
+  const tabsPanelRef = useRef<ImperativePanelHandle>(null);
+
+  const handleTabChange = (value: string) => {
+    if (isAutoExpand && chartPanelRef.current && tabsPanelRef.current) {
+      // Shrink chart, expand tabs
+      chartPanelRef.current.resize(30);
+      tabsPanelRef.current.resize(70);
+    }
+  };
+
   return (
     <div className="h-full bg-[#0B0E14] text-white overflow-hidden">
         <ResizablePanelGroup direction="horizontal">
@@ -121,7 +136,11 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
               <div className="flex-1 min-h-0">
                 <ResizablePanelGroup direction="vertical">
                   {/* Top: Chart */}
-                  <ResizablePanel defaultSize={60} minSize={30}>
+                  <ResizablePanel 
+                    ref={chartPanelRef}
+                    defaultSize={60} 
+                    minSize={20}
+                  >
                     <div className="h-full flex flex-col p-4 relative">
                       <div className="flex justify-between items-center mb-4 text-xs text-gray-400 shrink-0">
                           <div className="flex items-center gap-4">
@@ -174,11 +193,15 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                   <ResizableHandle withHandle className="bg-white/5 hover:bg-white/10 transition-colors" />
 
                   {/* Bottom: Tabs */}
-                  <ResizablePanel defaultSize={40} minSize={20}>
+                  <ResizablePanel 
+                    ref={tabsPanelRef}
+                    defaultSize={40} 
+                    minSize={20}
+                  >
                     <div className="h-full flex flex-col bg-[#151921]">
-                      <Tabs defaultValue="company" className="h-full flex flex-col">
-                          <div className="border-b border-white/10 px-4 shrink-0">
-                            <TabsList className="bg-transparent w-full justify-start h-auto p-0 gap-6 rounded-none">
+                      <Tabs defaultValue="company" className="h-full flex flex-col" onValueChange={handleTabChange}>
+                          <div className="border-b border-white/10 px-4 shrink-0 flex items-center justify-between">
+                            <TabsList className="bg-transparent justify-start h-auto p-0 gap-6 rounded-none">
                               {['기업소개', '호가', '실시간/일별시세', '실적', '배당', '뉴스/공시', '투자자동향', '재무분석', '투자지표', '토론'].map((tab) => (
                                   <TabsTrigger 
                                     key={tab} 
@@ -189,6 +212,17 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                   </TabsTrigger>
                               ))}
                             </TabsList>
+                            
+                            <div className="flex items-center gap-2">
+                               <div className="flex items-center space-x-2">
+                                  <Switch 
+                                    id="auto-expand" 
+                                    checked={isAutoExpand} 
+                                    onCheckedChange={setIsAutoExpand} 
+                                    className="scale-75"
+                                  />
+                               </div>
+                            </div>
                           </div>
                           
                           <div className="flex-1 overflow-y-auto custom-scrollbar p-6 bg-[#111318]/50">
