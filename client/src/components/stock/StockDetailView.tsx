@@ -355,6 +355,7 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                             
                             <div className="flex items-center gap-2">
                                <div className="flex items-center space-x-2">
+                                  <label htmlFor="auto-expand" className="text-xs text-gray-400 cursor-pointer hover:text-white transition-colors">화면 자동 확장</label>
                                   <Switch 
                                     id="auto-expand" 
                                     checked={isAutoExpand} 
