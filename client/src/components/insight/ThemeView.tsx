@@ -12,7 +12,7 @@ import {
   Cell,
   ReferenceLine
 } from "recharts";
-import { Info, Download } from "lucide-react";
+import { Info, Download, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 
 // --- Mock Data ---
@@ -97,6 +97,11 @@ export default function ThemeView() {
     setData(generateSectorData());
   };
 
+  // Calculate top/bottom performers for AI briefing
+  const topPerformer = data[0];
+  const secondPerformer = data[1];
+  const bottomPerformer = data[data.length - 1];
+
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       
@@ -111,6 +116,51 @@ export default function ThemeView() {
              </span>
            </div>
          </div>
+      </div>
+
+      {/* AI Theme Briefing */}
+      <div className="bg-gradient-to-r from-blue-950/20 to-purple-950/20 border border-blue-500/20 rounded-xl p-6 relative overflow-hidden">
+        <div className="absolute top-0 right-0 p-4 opacity-10">
+          <Sparkles className="w-24 h-24 text-blue-400" />
+        </div>
+        
+        <div className="flex items-center gap-2 mb-4">
+           <Sparkles className="w-5 h-5 text-blue-400" />
+           <h3 className="text-lg font-bold text-blue-100">AI Theme Analysis Briefing</h3>
+           <span className="text-xs font-mono text-blue-400/70 border border-blue-500/30 px-2 py-0.5 rounded">UPDATED: JUST NOW</span>
+        </div>
+        
+        <div className="space-y-4 relative z-10">
+           <p className="text-gray-300 leading-relaxed text-sm md:text-base">
+             <span className="text-red-400 font-bold">{topPerformer.name}</span> 및 <span className="text-red-400 font-bold">{secondPerformer.name}</span> 섹터가 강한 상승세를 보이며 시장을 주도하고 있습니다. 
+             특히 {selectedPeriod === '1d' ? '오늘' : selectedPeriod === '5d' ? '최근 1주일간' : '해당 기간 동안'} 외국인과 기관의 동반 매수세가 유입되며 주가 탄력을 강화하고 있습니다. 
+             반면 <span className="text-blue-400 font-bold">{bottomPerformer.name}</span> 섹터는 차익 실현 매물 출회로 인해 상대적 약세를 보이고 있어 주의가 필요합니다.
+           </p>
+           
+           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+              <div className="bg-black/20 rounded-lg p-3 border border-white/5 backdrop-blur-sm">
+                 <div className="text-xs text-gray-500 mb-1 uppercase tracking-wider">Strongest Theme</div>
+                 <div className="text-red-400 font-bold flex justify-between items-center">
+                    <span>{topPerformer.name}</span>
+                    <span>+{topPerformer.value}%</span>
+                 </div>
+              </div>
+              <div className="bg-black/20 rounded-lg p-3 border border-white/5 backdrop-blur-sm">
+                 <div className="text-xs text-gray-500 mb-1 uppercase tracking-wider">Emerging Theme</div>
+                 <div className="text-red-400 font-bold flex justify-between items-center">
+                    <span>{secondPerformer.name}</span>
+                    <span>+{secondPerformer.value}%</span>
+                 </div>
+              </div>
+              <div className="bg-black/20 rounded-lg p-3 border border-white/5 backdrop-blur-sm">
+                 <div className="text-xs text-gray-500 mb-1 uppercase tracking-wider">Weakest Theme</div>
+                 <div className="text-blue-400 font-bold flex justify-between items-center">
+                    <span>{bottomPerformer.name}</span>
+                    <span>{bottomPerformer.value}%</span>
+                 </div>
+              </div>
+           </div>
+        </div>
       </div>
 
       <div className="bg-[#151921] border border-white/5 rounded-xl p-6 shadow-xl">
