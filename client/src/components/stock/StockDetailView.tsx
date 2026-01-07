@@ -1061,22 +1061,30 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                       ))}
                    </div>
 
-                   {/* Foreign Holdings Circle */}
-                   <div className="flex items-center justify-center gap-6 mt-4 py-2 px-4">
-                      <div className="relative w-24 h-24 shrink-0">
-                          <svg viewBox="0 0 36 36" className="w-full h-full rotate-[-90deg]">
-                             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#2D3340" strokeWidth="3" />
-                             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831" fill="none" stroke="#5EEAD4" strokeWidth="3" strokeDasharray="52.22, 100" strokeLinecap="round" />
-                          </svg>
-                          <div className="absolute inset-0 flex flex-col items-center justify-center">
-                             <div className="text-xs font-bold text-white">52.22%</div>
-                          </div>
-                       </div>
-                       <div className="flex flex-col gap-1 min-w-0 flex-1">
-                          <div className="text-xs text-gray-400">상장주식</div>
-                          <div className="text-base font-bold text-white truncate">5,919,637,922</div>
-                          <div className="text-xs text-gray-400 mt-1">외국인 보유비율 <span className="text-teal-400 ml-1">52.22%</span></div>
-                       </div>
+                   {/* Foreign Holdings & Shares Grid */}
+                   <div className="grid grid-cols-2 gap-2 mt-4">
+                      {/* Listed Shares */}
+                      <div className="bg-[#1E222B] rounded-md p-3 border border-white/5 flex flex-col justify-center">
+                          <div className="text-gray-500 text-[10px] mb-1">상장주식수</div>
+                          <div className="text-white text-xs font-bold tracking-tight">5,919,637,922</div>
+                      </div>
+
+                      {/* Foreign Ownership */}
+                      <div className="bg-[#1E222B] rounded-md p-2 border border-white/5 flex items-center gap-2">
+                          <div className="relative w-10 h-10 shrink-0">
+                              <svg viewBox="0 0 36 36" className="w-full h-full rotate-[-90deg]">
+                                 <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#2D3340" strokeWidth="3" />
+                                 <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831" fill="none" stroke="#5EEAD4" strokeWidth="3" strokeDasharray="52.22, 100" strokeLinecap="round" />
+                              </svg>
+                              <div className="absolute inset-0 flex flex-col items-center justify-center">
+                                 <div className="text-[8px] font-bold text-white">52%</div>
+                              </div>
+                           </div>
+                           <div className="flex flex-col min-w-0">
+                              <div className="text-[9px] text-gray-400 leading-none mb-1">외국인비율</div>
+                              <div className="text-teal-400 text-xs font-bold leading-none">52.22%</div>
+                           </div>
+                      </div>
                    </div>
 
                    {/* Price Ranges */}
