@@ -179,7 +179,7 @@ export default function ThemeView() {
                <h2 className="text-xl font-bold text-white flex items-center gap-2 mb-1">
                  섹터별 수익률
                </h2>
-               <p className="text-xs text-gray-500 font-mono">Real-time Sector Performance</p>
+               <p className="text-xs text-gray-500 font-mono">Based on 2026-01-08 15:00 (Updated hourly)</p>
              </div>
              {/* Optional: Add Export/Options button here if needed later */}
           </div>
