@@ -475,23 +475,26 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                     <div className="flex-1 flex flex-col relative overflow-y-auto custom-scrollbar">
                                       {/* Ask Orders (Sell) - Blue */}
                                       {askOrders.map((order, i) => (
-                                        <div key={`ask-${i}`} className="grid grid-cols-[1fr_120px_1fr] h-10 border-b border-white/5 text-sm group hover:bg-white/5">
-                                          <div className="relative flex items-center justify-end pr-2 bg-blue-500/5 group-hover:bg-blue-500/10">
+                                        <div key={`ask-${i}`} className="grid grid-cols-[1fr_120px_1fr] h-10 text-sm group">
+                                          {/* Col 1: Volume */}
+                                          <div className="relative flex items-center justify-end pr-2 bg-blue-500/5 group-hover:bg-blue-500/10 border-b border-white/5">
                                               <div 
                                                 className="absolute top-1 bottom-1 right-0 bg-blue-500/20 z-0 transition-all" 
                                                 style={{ width: `${Math.min(order.volume / 500000 * 100, 100)}%` }}
                                               ></div>
                                               <span className="relative z-10 text-blue-300 font-mono tracking-wide">{order.volume.toLocaleString()}</span>
                                           </div>
-                                          <div className="flex items-center justify-center bg-[#1E222B] text-red-400 font-bold border-x border-white/5">
+                                          {/* Col 2: Price */}
+                                          <div className="flex items-center justify-center bg-[#1E222B] text-red-400 font-bold border-x border-b border-white/5 group-hover:bg-white/5 transition-colors">
                                               {order.price.toLocaleString()}
                                               <span className="ml-1 text-[10px] opacity-70">+{order.rate}%</span>
                                           </div>
-                                          <div className="bg-[#151921] flex items-center px-3 border-r border-white/5 last:border-r-0">
+                                          {/* Col 3: Summary Info - No row hover effect, specific borders */}
+                                          <div className={`bg-[#151921] flex items-center px-4 ${[1, 5, 8].includes(i) ? 'border-b border-white/10' : ''}`}>
                                             {summaryData[i] && (
                                                 <div className="flex justify-between w-full text-xs">
                                                     <span className="text-gray-500">{summaryData[i].label}</span>
-                                                    <span className={`font-medium ${summaryData[i].color}`}>{summaryData[i].value}</span>
+                                                    <span className={`font-medium ${summaryData[i].color} font-mono`}>{summaryData[i].value}</span>
                                                 </div>
                                             )}
                                           </div>
