@@ -568,7 +568,7 @@ export default function MarketView() {
             </div>
         </div>
 
-        <div className="relative border border-green-500/30 rounded-xl p-8 md:p-12 shadow-[0_0_20px_rgba(34,197,94,0.05)] bg-[#0B0E14] overflow-hidden">
+        <div className="relative border-2 border-green-500/30 rounded-xl p-8 md:p-12 shadow-[0_0_20px_rgba(34,197,94,0.05)] bg-[#0B0E14] overflow-hidden">
             {/* Top Glow Line */}
             <div className="absolute top-0 left-1/2 -translate-x-1/2 w-3/4 h-[1px] bg-gradient-to-r from-transparent via-green-500/50 to-transparent" />
             
