@@ -519,7 +519,7 @@ export default function MarketView() {
   ];
 
   return (
-    <div className="space-y-6">
+    <div className="space-y-6 max-w-5xl mx-auto">
         {/* Info Banner */}
         {showDescription && (
           <div className="flex items-center justify-between gap-4 mb-2 bg-blue-950/30 border border-blue-800/30 rounded-lg px-4 py-3 text-sm text-blue-100 animate-in fade-in slide-in-from-top-2 duration-300">
@@ -540,34 +540,36 @@ export default function MarketView() {
         )}
 
         {/* Date Navigation */}
-        <div className="flex justify-end items-center mb-6 gap-2">
-            <Button size="sm" variant="outline" className="h-9 gap-2 bg-blue-900/20 text-blue-400 border-blue-500/30 hover:bg-blue-900/40 mr-auto">
+        <div className="flex justify-between items-center mb-6">
+            <Button size="sm" variant="outline" className="h-9 gap-2 bg-blue-900/20 text-blue-400 border-blue-500/30 hover:bg-blue-900/40">
                <Download className="w-3.5 h-3.5" />
                Export PDF
             </Button>
 
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={handlePrevDate} 
-              className="h-9 px-4 rounded-full bg-[#151921] border-white/10 hover:bg-white/5 text-gray-400 font-mono text-xs transition-all hover:text-white"
-            >
-              <ChevronLeft className="w-3 h-3 mr-2" />
-              {format(subDays(new Date(date), 1), "MM.dd")}
-            </Button>
-            
-            <Button 
-              variant="outline" 
-              size="sm" 
-              onClick={handleNextDate} 
-              className="h-9 px-4 rounded-full bg-[#151921] border-white/10 hover:bg-white/5 text-gray-400 font-mono text-xs transition-all hover:text-white"
-            >
-              {format(addDays(new Date(date), 1), "MM.dd")}
-              <ChevronRight className="w-3 h-3 ml-2" />
-            </Button>
+            <div className="flex items-center gap-2">
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={handlePrevDate} 
+                className="h-9 px-4 rounded-full bg-[#151921] border-white/10 hover:bg-white/5 text-gray-400 font-mono text-xs transition-all hover:text-white"
+              >
+                <ChevronLeft className="w-3 h-3 mr-2" />
+                {format(subDays(new Date(date), 1), "MM.dd")}
+              </Button>
+              
+              <Button 
+                variant="outline" 
+                size="sm" 
+                onClick={handleNextDate} 
+                className="h-9 px-4 rounded-full bg-[#151921] border-white/10 hover:bg-white/5 text-gray-400 font-mono text-xs transition-all hover:text-white"
+              >
+                {format(addDays(new Date(date), 1), "MM.dd")}
+                <ChevronRight className="w-3 h-3 ml-2" />
+              </Button>
+            </div>
         </div>
 
-        <div className="max-w-5xl mx-auto space-y-16">
+        <div className="space-y-16">
            <ReportHeader date={date} />
 
            {/* Executive Summary */}
