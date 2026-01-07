@@ -101,6 +101,7 @@ export default function ThemeView() {
   const topPerformer = data[0];
   const secondPerformer = data[1];
   const bottomPerformer = data[data.length - 1];
+  const secondBottomPerformer = data[data.length - 2];
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -134,10 +135,10 @@ export default function ThemeView() {
            <p className="text-gray-300 leading-relaxed text-sm md:text-base">
              <span className="text-red-400 font-bold">{topPerformer.name}</span> 및 <span className="text-red-400 font-bold">{secondPerformer.name}</span> 섹터가 강한 상승세를 보이며 시장을 주도하고 있습니다. 
              특히 {selectedPeriod === '1d' ? '오늘' : selectedPeriod === '5d' ? '최근 1주일간' : '해당 기간 동안'} 외국인과 기관의 동반 매수세가 유입되며 주가 탄력을 강화하고 있습니다. 
-             반면 <span className="text-blue-400 font-bold">{bottomPerformer.name}</span> 섹터는 차익 실현 매물 출회로 인해 상대적 약세를 보이고 있어 주의가 필요합니다.
+             반면 <span className="text-blue-400 font-bold">{bottomPerformer.name}</span> 및 <span className="text-blue-400 font-bold">{secondBottomPerformer.name}</span> 섹터는 차익 실현 매물 출회로 인해 상대적 약세를 보이고 있어 주의가 필요합니다.
            </p>
            
-           <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-4">
+           <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4 mt-4">
               <div className="bg-black/20 rounded-lg p-3 border border-white/5 backdrop-blur-sm">
                  <div className="text-xs text-gray-500 mb-1 uppercase tracking-wider">Strongest Theme</div>
                  <div className="text-red-400 font-bold flex justify-between items-center">
@@ -153,7 +154,14 @@ export default function ThemeView() {
                  </div>
               </div>
               <div className="bg-black/20 rounded-lg p-3 border border-white/5 backdrop-blur-sm">
-                 <div className="text-xs text-gray-500 mb-1 uppercase tracking-wider">Weakest Theme</div>
+                 <div className="text-xs text-gray-500 mb-1 uppercase tracking-wider">Weakest Theme 2</div>
+                 <div className="text-blue-400 font-bold flex justify-between items-center">
+                    <span>{secondBottomPerformer.name}</span>
+                    <span>{secondBottomPerformer.value}%</span>
+                 </div>
+              </div>
+              <div className="bg-black/20 rounded-lg p-3 border border-white/5 backdrop-blur-sm">
+                 <div className="text-xs text-gray-500 mb-1 uppercase tracking-wider">Weakest Theme 1</div>
                  <div className="text-blue-400 font-bold flex justify-between items-center">
                     <span>{bottomPerformer.name}</span>
                     <span>{bottomPerformer.value}%</span>
