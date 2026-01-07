@@ -59,6 +59,19 @@ const askOrders = Array.from({ length: 10 }, (_, i) => ({
   rate: ((141100 + i * 100 - 138900) / 138900 * 100).toFixed(2)
 })).reverse();
 
+const summaryData = [
+  { label: '52주 최고', value: '144,400', color: 'text-red-400' },
+  { label: '52주 최저', value: '50,800', color: 'text-blue-400' },
+  { label: '상한가', value: '180,500', color: 'text-red-400' },
+  { label: '하한가', value: '97,300', color: 'text-blue-400' },
+  { label: '상승VI', value: '152,790', color: 'text-red-400' },
+  { label: '하락VI', value: '125,010', color: 'text-blue-400' },
+  { label: '시작', value: '143,500', color: 'text-white' },
+  { label: '최고', value: '144,400', color: 'text-red-400' },
+  { label: '최저', value: '137,600', color: 'text-blue-400' },
+  { label: '거래량', value: '4,486만', color: 'text-white' },
+];
+
 const bidOrders = Array.from({ length: 10 }, (_, i) => ({
   price: 140900 - i * 100,
   volume: Math.floor(Math.random() * 20000) + 1000,
@@ -474,7 +487,14 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                               {order.price.toLocaleString()}
                                               <span className="ml-1 text-[10px] opacity-70">+{order.rate}%</span>
                                           </div>
-                                          <div className="bg-[#151921]"></div>
+                                          <div className="bg-[#151921] flex items-center px-3 border-r border-white/5 last:border-r-0">
+                                            {summaryData[i] && (
+                                                <div className="flex justify-between w-full text-xs">
+                                                    <span className="text-gray-500">{summaryData[i].label}</span>
+                                                    <span className={`font-medium ${summaryData[i].color}`}>{summaryData[i].value}</span>
+                                                </div>
+                                            )}
+                                          </div>
                                         </div>
                                       ))}
 
@@ -515,59 +535,6 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                         </div>
                                       ))}
                                     </div>
-                                  </div>
-
-                                  {/* Right Summary Panel */}
-                                  <div className="w-[320px] shrink-0 flex flex-col gap-4">
-                                      <div className="bg-[#151921] rounded-lg border border-white/5 p-0 overflow-hidden">
-                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
-                                              <div className="p-3 border-r border-white/5 text-gray-400">52주 최고</div>
-                                              <div className="p-3 text-right font-medium text-red-400">144,400</div>
-                                          </div>
-                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
-                                              <div className="p-3 border-r border-white/5 text-gray-400">52주 최저</div>
-                                              <div className="p-3 text-right font-medium text-blue-400">50,800</div>
-                                          </div>
-                                          <div className="h-2 bg-[#0B0E14] border-b border-white/5"></div>
-                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
-                                              <div className="p-3 border-r border-white/5 text-gray-400">상한가</div>
-                                              <div className="p-3 text-right font-medium text-red-400">180,500</div>
-                                          </div>
-                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
-                                              <div className="p-3 border-r border-white/5 text-gray-400">하한가</div>
-                                              <div className="p-3 text-right font-medium text-blue-400">97,300</div>
-                                          </div>
-                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
-                                              <div className="p-3 border-r border-white/5 text-gray-400">상승VI</div>
-                                              <div className="p-3 text-right font-medium text-red-400">152,790</div>
-                                          </div>
-                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
-                                              <div className="p-3 border-r border-white/5 text-gray-400">하락VI</div>
-                                              <div className="p-3 text-right font-medium text-blue-400">125,010</div>
-                                          </div>
-                                          <div className="h-2 bg-[#0B0E14] border-b border-white/5"></div>
-                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
-                                              <div className="p-3 border-r border-white/5 text-gray-400">시작</div>
-                                              <div className="p-3 text-right font-medium text-white">143,500</div>
-                                          </div>
-                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
-                                              <div className="p-3 border-r border-white/5 text-gray-400">최고</div>
-                                              <div className="p-3 text-right font-medium text-red-400">144,400</div>
-                                          </div>
-                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
-                                              <div className="p-3 border-r border-white/5 text-gray-400">최저</div>
-                                              <div className="p-3 text-right font-medium text-blue-400">137,600</div>
-                                          </div>
-                                          <div className="h-2 bg-[#0B0E14] border-b border-white/5"></div>
-                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
-                                              <div className="p-3 border-r border-white/5 text-gray-400">거래량</div>
-                                              <div className="p-3 text-right font-medium text-white">4,486만 1,533</div>
-                                          </div>
-                                          <div className="grid grid-cols-2 text-xs">
-                                              <div className="p-3 border-r border-white/5 text-gray-400">어제보다</div>
-                                              <div className="p-3 text-right font-medium text-white">98.99%</div>
-                                          </div>
-                                      </div>
                                   </div>
                                 </div>
                             </TabsContent>
