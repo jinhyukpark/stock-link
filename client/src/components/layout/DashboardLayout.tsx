@@ -1,5 +1,5 @@
 import { Link, useLocation } from "wouter";
-import { LayoutDashboard, LineChart, PieChart, Newspaper, Users, Settings, LogOut, Search, Bell, Menu, Network, User, CreditCard, Lock, Crown, Share2, Lightbulb } from "lucide-react";
+import { LayoutDashboard, LineChart, PieChart, Newspaper, Users, Settings, LogOut, Search, Bell, Menu, Network, User, CreditCard, Lock, Crown, Share2, Lightbulb, Sparkles } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Button } from "@/components/ui/button";
@@ -43,7 +43,14 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 : "text-muted-foreground hover:text-foreground hover:bg-secondary/50",
               vertical && "w-full justify-start rounded-lg px-4 py-3"
             )}>
-              <item.icon className={cn("w-4 h-4", isActive ? "text-white" : "text-muted-foreground")} />
+              {item.label === "Insight" ? (
+                 <div className="relative">
+                    <item.icon className={cn("w-4 h-4", isActive ? "text-white" : "text-muted-foreground")} />
+                    <Sparkles className="absolute -top-2 -right-2 w-3 h-3 text-yellow-400 fill-yellow-400 animate-pulse" />
+                 </div>
+              ) : (
+                 <item.icon className={cn("w-4 h-4", isActive ? "text-white" : "text-muted-foreground")} />
+              )}
               <span>{item.label}</span>
             </a>
           </Link>
