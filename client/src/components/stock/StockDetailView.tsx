@@ -183,6 +183,15 @@ const stabilityData = [
   { date: '25년 06월', currentRatio: 252.0, debtRatio: 25.8 },
 ];
 
+const radarData = [
+  { subject: '수익성', A: 120, fullMark: 150 },
+  { subject: '성장성', A: 98, fullMark: 150 },
+  { subject: '안정성', A: 86, fullMark: 150 },
+  { subject: '활동성', A: 99, fullMark: 150 },
+  { subject: '배당', A: 85, fullMark: 150 },
+  { subject: '가치', A: 65, fullMark: 150 },
+];
+
 // Mock Chart Data
 const chartData = Array.from({ length: 100 }, (_, i) => {
   const basePrice = 138000;
