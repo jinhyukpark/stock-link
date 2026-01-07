@@ -634,20 +634,21 @@ export default function MarketView() {
 
         {/* Chart Modal */}
         <Dialog open={!!selectedChart} onOpenChange={(open) => !open && setSelectedChart(null)}>
-          <DialogContent className="max-w-6xl w-[90vw] h-[85vh] bg-[#0B0E14] border border-white/10 p-0 flex flex-col overflow-hidden rounded-xl shadow-2xl z-[100]">
+          <DialogContent className="max-w-7xl bg-[#0B0E14] border border-white/10 p-0 flex flex-col overflow-hidden rounded-xl shadow-2xl z-[100] gap-0">
             
-            {/* 1. Top Navigation Tabs */}
-            <div className="flex items-center justify-center pt-6 pb-2 relative shrink-0">
+            {/* 1. Top Navigation Bar (Full Width) */}
+            <div className="flex items-center justify-center pt-5 pb-5 relative shrink-0 border-b border-white/5 bg-[#0F1218]">
                {/* Close Button - Top Right */}
                <Button 
                   variant="ghost" 
                   size="icon" 
-                  className="absolute right-6 top-6 rounded-full hover:bg-white/10 text-gray-400 hover:text-white"
+                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white hover:bg-white/5"
                   onClick={() => setSelectedChart(null)}
                >
-                 <X className="w-6 h-6" />
+                 <X className="w-5 h-5" />
                </Button>
 
+               {/* Navigation Tabs (Pill Shaped) */}
                <div className="flex bg-[#151921] rounded-full p-1 border border-white/5">
                   {navLinks.map((link) => {
                      const isSelected = selectedChart?.id === link.id;
@@ -672,52 +673,58 @@ export default function MarketView() {
                </div>
             </div>
 
-            <div className="flex-1 flex items-center relative min-h-0">
-               {/* Left Navigation Arrow */}
-               <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute left-8 h-12 w-12 rounded-full border border-white/10 bg-[#151921]/50 hover:bg-primary/20 hover:border-primary/50 text-gray-400 hover:text-white z-10 transition-all"
-                  onClick={() => {
-                     const currentIndex = allCharts.findIndex(c => c.id === selectedChart?.id);
-                     const prevIndex = (currentIndex - 1 + allCharts.length) % allCharts.length;
-                     setSelectedChart(allCharts[prevIndex]);
-                  }}
-               >
-                  <ChevronLeft className="w-6 h-6" />
-               </Button>
+            <div className="flex-1 flex relative min-h-[600px] bg-[#0B0E14]">
+               {/* Left Navigation Arrow (Outside Content) */}
+               <div className="absolute left-4 top-1/2 -translate-y-1/2 z-20">
+                  <Button
+                     variant="ghost"
+                     size="icon"
+                     className="h-10 w-10 rounded-full border border-white/10 bg-[#151921] hover:bg-primary/20 hover:border-primary/50 text-gray-400 hover:text-white transition-all shadow-lg"
+                     onClick={() => {
+                        const currentIndex = allCharts.findIndex(c => c.id === selectedChart?.id);
+                        const prevIndex = (currentIndex - 1 + allCharts.length) % allCharts.length;
+                        setSelectedChart(allCharts[prevIndex]);
+                     }}
+                  >
+                     <ChevronLeft className="w-5 h-5" />
+                  </Button>
+               </div>
 
-               {/* Right Navigation Arrow */}
-               <Button
-                  variant="ghost"
-                  size="icon"
-                  className="absolute right-8 h-12 w-12 rounded-full border border-white/10 bg-[#151921]/50 hover:bg-primary/20 hover:border-primary/50 text-gray-400 hover:text-white z-10 transition-all"
-                  onClick={() => {
-                     const currentIndex = allCharts.findIndex(c => c.id === selectedChart?.id);
-                     const nextIndex = (currentIndex + 1) % allCharts.length;
-                     setSelectedChart(allCharts[nextIndex]);
-                  }}
-               >
-                  <ChevronRight className="w-6 h-6" />
-               </Button>
+               {/* Right Navigation Arrow (Outside Content) */}
+               <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20">
+                  <Button
+                     variant="ghost"
+                     size="icon"
+                     className="h-10 w-10 rounded-full border border-white/10 bg-[#151921] hover:bg-primary/20 hover:border-primary/50 text-gray-400 hover:text-white transition-all shadow-lg"
+                     onClick={() => {
+                        const currentIndex = allCharts.findIndex(c => c.id === selectedChart?.id);
+                        const nextIndex = (currentIndex + 1) % allCharts.length;
+                        setSelectedChart(allCharts[nextIndex]);
+                     }}
+                  >
+                     <ChevronRight className="w-5 h-5" />
+                  </Button>
+               </div>
 
-               <div className="flex-1 h-full max-w-7xl mx-auto flex flex-col p-8">
+               {/* Main Content Container */}
+               <div className="flex-1 flex flex-col p-8 px-20 max-w-6xl mx-auto h-full overflow-y-auto">
+                  
                   {/* 2. Header: Title & Description */}
                   <div className="mb-6 shrink-0">
-                     <div className="flex items-center gap-3 mb-2">
-                        <BarChart2 className="w-5 h-5 text-primary" />
-                        <h2 className="text-sm font-bold text-primary tracking-widest uppercase">차트 상세 분석 (CHART DETAIL ANALYSIS)</h2>
+                     <div className="flex items-center gap-2 mb-2">
+                        <BarChart2 className="w-4 h-4 text-primary" />
+                        <h2 className="text-xs font-bold text-primary tracking-widest uppercase">차트 상세 분석 (CHART DETAIL ANALYSIS)</h2>
                      </div>
                      <h1 className="text-3xl font-display font-bold text-white mb-3">
                         {selectedChart?.title}
                      </h1>
-                     <p className="text-gray-400 text-sm max-w-3xl leading-relaxed">
+                     <p className="text-gray-400 text-sm max-w-4xl leading-relaxed">
                         {selectedChart?.description}
                      </p>
                   </div>
 
                   {/* 3. Main Chart Area */}
-                  <div className="flex-1 min-h-0 bg-[#0F1218] rounded-xl border border-white/5 p-6 relative">
+                  <div className="flex-1 min-h-[400px] bg-[#0F1218] rounded-xl border border-white/5 p-6 relative mb-6">
                      {/* Inner Grid Lines Decoration */}
                      <div className="absolute inset-0 pointer-events-none opacity-20" 
                         style={{backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '40px 40px'}}>
@@ -727,9 +734,9 @@ export default function MarketView() {
                   </div>
 
                   {/* 4. Legend / Info Section */}
-                  <div className="mt-6 shrink-0 bg-[#151921] rounded-lg p-4 border border-white/5 flex items-start gap-4">
-                     <Info className="w-5 h-5 text-primary mt-0.5 shrink-0" />
-                     <div className="text-sm text-gray-400 space-y-1">
+                  <div className="mb-6 shrink-0 bg-[#151921]/50 rounded-lg p-3 border border-white/5 flex items-center gap-3">
+                     <Info className="w-4 h-4 text-gray-500 shrink-0" />
+                     <div className="text-xs text-gray-500">
                         {selectedChart?.legend ? selectedChart.legend : (
                            <p>
                               차트의 추세선과 지표를 통해 현재 시장 상황을 진단할 수 있습니다. 
@@ -741,7 +748,7 @@ export default function MarketView() {
                   </div>
 
                   {/* 5. AI Analysis Section */}
-                  <div className="mt-4 shrink-0 bg-blue-950/20 border border-blue-500/20 rounded-lg p-5">
+                  <div className="shrink-0 bg-blue-950/20 border border-blue-500/20 rounded-lg p-5">
                      <div className="flex items-center gap-2 mb-2">
                         <Sparkles className="w-4 h-4 text-blue-400" />
                         <h3 className="font-bold text-blue-400 text-sm">AI Analysis</h3>
