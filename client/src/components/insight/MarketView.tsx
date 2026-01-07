@@ -305,10 +305,13 @@ const MarketSummaryReport = ({ date }: { date: string }) => {
 // --- Navigation Links ---
 const navLinks = [
   { id: "fgi", label: "01. 공포 & 탐욕 지수", icon: Zap },
-  { id: "rising-stocks", label: "02. 상승 종목 수", icon: TrendingUp },
-  { id: "price-dist", label: "03. 등락률 분포", icon: BarChart2 },
-  { id: "market-size", label: "04. 시총별 흐름", icon: PieChartIcon },
-  { id: "pam", label: "05. 기대 수익률", icon: Activity },
+  { id: "rising-stocks-kospi", label: "02. KOSPI 상승 종목 수", icon: TrendingUp },
+  { id: "rising-stocks-kosdaq", label: "03. KOSDAQ 상승 종목 수", icon: TrendingUp },
+  { id: "price-dist-kospi", label: "04. KOSPI 등락률 분포", icon: BarChart2 },
+  { id: "price-dist-kosdaq", label: "05. KOSDAQ 등락률 분포", icon: BarChart2 },
+  { id: "market-size-kospi", label: "06. KOSPI 시총별 흐름", icon: PieChartIcon },
+  { id: "market-size-kosdaq", label: "07. KOSDAQ 시총별 흐름", icon: PieChartIcon },
+  { id: "pam", label: "08. 기대 수익률", icon: Activity },
 ];
 
 export default function MarketView() {
@@ -488,23 +491,44 @@ export default function MarketView() {
       description: chartDescriptions.fgi
     },
     { 
-      id: "rising-stocks", 
-      title: "상승 종목 수 (Market Breadth)", 
-      chart: <div className="grid grid-cols-2 gap-4 h-full"><div className="h-full">{kospiBreadthChart}</div><div className="h-full">{kosdaqBreadthChart}</div></div>,
+      id: "rising-stocks-kospi", 
+      title: "KOSPI 상승 종목 수 (Market Breadth)", 
+      chart: kospiBreadthChart,
       analysis: analysisTexts.breadth,
       description: chartDescriptions.breadth
     },
     { 
-      id: "price-dist", 
-      title: "등락률 분포 (Histogram)", 
-      chart: <div className="grid grid-cols-2 gap-4 h-full"><div className="h-full">{kospiDistChart}</div><div className="h-full">{kosdaqDistChart}</div></div>,
+      id: "rising-stocks-kosdaq", 
+      title: "KOSDAQ 상승 종목 수 (Market Breadth)", 
+      chart: kosdaqBreadthChart,
+      analysis: analysisTexts.breadth,
+      description: chartDescriptions.breadth
+    },
+    { 
+      id: "price-dist-kospi", 
+      title: "KOSPI 등락률 분포 (Histogram)", 
+      chart: kospiDistChart,
       analysis: analysisTexts.dist,
       description: chartDescriptions.dist
     },
     { 
-      id: "market-size", 
-      title: "시가총액별 흐름 (Size Effect)", 
-      chart: <div className="grid grid-cols-2 gap-4 h-full"><div className="h-full">{kospiSizeChart}</div><div className="h-full">{kosdaqSizeChart}</div></div>,
+      id: "price-dist-kosdaq", 
+      title: "KOSDAQ 등락률 분포 (Histogram)", 
+      chart: kosdaqDistChart,
+      analysis: analysisTexts.dist,
+      description: chartDescriptions.dist
+    },
+    { 
+      id: "market-size-kospi", 
+      title: "KOSPI 시총별 흐름 (Size Effect)", 
+      chart: kospiSizeChart,
+      analysis: analysisTexts.cap,
+      description: chartDescriptions.cap
+    },
+    { 
+      id: "market-size-kosdaq", 
+      title: "KOSDAQ 시총별 흐름 (Size Effect)", 
+      chart: kosdaqSizeChart,
       analysis: analysisTexts.cap,
       description: chartDescriptions.cap
     },
@@ -634,132 +658,135 @@ export default function MarketView() {
 
         {/* Chart Modal */}
         <Dialog open={!!selectedChart} onOpenChange={(open) => !open && setSelectedChart(null)}>
-          <DialogContent className="max-w-7xl bg-[#0B0E14] border border-white/10 p-0 flex flex-col overflow-hidden rounded-xl shadow-2xl z-[100] gap-0">
+          <DialogContent className="w-[70vw] max-w-[70vw] h-[70vh] p-0 bg-transparent border-none shadow-none overflow-visible [&>button]:hidden outline-none">
             
-            {/* 1. Top Navigation Bar (Full Width) */}
-            <div className="flex items-center justify-center pt-5 pb-5 relative shrink-0 border-b border-white/5 bg-[#0F1218]">
-               {/* Close Button - Top Right */}
-               <Button 
-                  variant="ghost" 
-                  size="icon" 
-                  className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white hover:bg-white/5"
-                  onClick={() => setSelectedChart(null)}
-               >
-                 <X className="w-5 h-5" />
-               </Button>
-
-               {/* Navigation Tabs (Pill Shaped) */}
-               <div className="flex bg-[#151921] rounded-full p-1 border border-white/5">
-                  {navLinks.map((link) => {
-                     const isSelected = selectedChart?.id === link.id;
-                     return (
-                        <button
-                           key={link.id}
-                           onClick={() => {
-                              const chart = allCharts.find(c => c.id === link.id);
-                              if (chart) setSelectedChart(chart);
-                           }}
-                           className={cn(
-                              "px-4 py-1.5 rounded-full text-xs font-bold transition-all",
-                              isSelected 
-                                 ? "bg-primary/20 text-primary shadow-[0_0_10px_rgba(59,130,246,0.2)]" 
-                                 : "text-gray-500 hover:text-gray-300 hover:bg-white/5"
-                           )}
-                        >
-                           {link.label.split('. ')[1]}
-                        </button>
-                     );
-                  })}
-               </div>
-            </div>
-
-            <div className="flex-1 flex relative min-h-[600px] bg-[#0B0E14]">
+            <div className="relative w-full h-full flex flex-col">
                {/* Left Navigation Arrow (Outside Content) */}
-               <div className="absolute left-4 top-1/2 -translate-y-1/2 z-20">
+               <div className="absolute -left-20 top-1/2 -translate-y-1/2 z-50">
                   <Button
                      variant="ghost"
                      size="icon"
-                     className="h-10 w-10 rounded-full border border-white/10 bg-[#151921] hover:bg-primary/20 hover:border-primary/50 text-gray-400 hover:text-white transition-all shadow-lg"
+                     className="h-12 w-12 rounded-full border border-white/10 bg-[#151921] hover:bg-primary/20 hover:border-primary/50 text-gray-400 hover:text-white transition-all shadow-lg"
                      onClick={() => {
                         const currentIndex = allCharts.findIndex(c => c.id === selectedChart?.id);
                         const prevIndex = (currentIndex - 1 + allCharts.length) % allCharts.length;
                         setSelectedChart(allCharts[prevIndex]);
                      }}
                   >
-                     <ChevronLeft className="w-5 h-5" />
+                     <ChevronLeft className="w-6 h-6" />
                   </Button>
                </div>
 
                {/* Right Navigation Arrow (Outside Content) */}
-               <div className="absolute right-4 top-1/2 -translate-y-1/2 z-20">
+               <div className="absolute -right-20 top-1/2 -translate-y-1/2 z-50">
                   <Button
                      variant="ghost"
                      size="icon"
-                     className="h-10 w-10 rounded-full border border-white/10 bg-[#151921] hover:bg-primary/20 hover:border-primary/50 text-gray-400 hover:text-white transition-all shadow-lg"
+                     className="h-12 w-12 rounded-full border border-white/10 bg-[#151921] hover:bg-primary/20 hover:border-primary/50 text-gray-400 hover:text-white transition-all shadow-lg"
                      onClick={() => {
                         const currentIndex = allCharts.findIndex(c => c.id === selectedChart?.id);
                         const nextIndex = (currentIndex + 1) % allCharts.length;
                         setSelectedChart(allCharts[nextIndex]);
                      }}
                   >
-                     <ChevronRight className="w-5 h-5" />
+                     <ChevronRight className="w-6 h-6" />
                   </Button>
                </div>
 
-               {/* Main Content Container */}
-               <div className="flex-1 flex flex-col p-8 px-20 max-w-6xl mx-auto h-full overflow-y-auto">
-                  
-                  {/* 2. Header: Title & Description */}
-                  <div className="mb-6 shrink-0">
-                     <div className="flex items-center gap-2 mb-2">
-                        <BarChart2 className="w-4 h-4 text-primary" />
-                        <h2 className="text-xs font-bold text-primary tracking-widest uppercase">차트 상세 분석 (CHART DETAIL ANALYSIS)</h2>
+               {/* Main Content Box */}
+               <div className="w-full h-full bg-[#0B0E14] border border-white/10 rounded-xl flex flex-col overflow-hidden shadow-2xl relative">
+                   
+                  {/* 1. Top Navigation Bar (Full Width) */}
+                  <div className="flex items-center justify-center pt-5 pb-5 relative shrink-0 border-b border-white/5 bg-[#0F1218]">
+                     {/* Close Button - Top Right */}
+                     <Button 
+                        variant="ghost" 
+                        size="icon" 
+                        className="absolute right-4 top-1/2 -translate-y-1/2 text-gray-400 hover:text-white hover:bg-white/5"
+                        onClick={() => setSelectedChart(null)}
+                     >
+                       <X className="w-5 h-5" />
+                     </Button>
+
+                     {/* Navigation Tabs (Pill Shaped) */}
+                     <div className="flex bg-[#151921] rounded-full p-1 border border-white/5 overflow-x-auto max-w-[80%] no-scrollbar">
+                        {navLinks.map((link) => {
+                           const isSelected = selectedChart?.id === link.id;
+                           return (
+                              <button
+                                 key={link.id}
+                                 onClick={() => {
+                                    const chart = allCharts.find(c => c.id === link.id);
+                                    if (chart) setSelectedChart(chart);
+                                 }}
+                                 className={cn(
+                                    "px-4 py-1.5 rounded-full text-xs font-bold transition-all whitespace-nowrap",
+                                    isSelected 
+                                       ? "bg-primary/20 text-primary shadow-[0_0_10px_rgba(59,130,246,0.2)]" 
+                                       : "text-gray-500 hover:text-gray-300 hover:bg-white/5"
+                                 )}
+                              >
+                                 {link.label.includes('. ') ? link.label.split('. ')[1] : link.label}
+                              </button>
+                           );
+                        })}
                      </div>
-                     <h1 className="text-3xl font-display font-bold text-white mb-3">
-                        {selectedChart?.title}
-                     </h1>
-                     <p className="text-gray-400 text-sm max-w-4xl leading-relaxed">
-                        {selectedChart?.description}
-                     </p>
                   </div>
 
-                  {/* 3. Main Chart Area */}
-                  <div className="flex-1 min-h-[400px] bg-[#0F1218] rounded-xl border border-white/5 p-6 relative mb-6">
-                     {/* Inner Grid Lines Decoration */}
-                     <div className="absolute inset-0 pointer-events-none opacity-20" 
-                        style={{backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '40px 40px'}}>
-                     </div>
-                     
-                     {selectedChart?.chart}
-                  </div>
+                  {/* Scrollable Content Area */}
+                  <div className="flex-1 flex flex-col p-8 px-12 overflow-y-auto">
+                      
+                      {/* 2. Header: Title & Description */}
+                      <div className="mb-6 shrink-0">
+                         <div className="flex items-center gap-2 mb-2">
+                            <BarChart2 className="w-4 h-4 text-primary" />
+                            <h2 className="text-xs font-bold text-primary tracking-widest uppercase">차트 상세 분석 (CHART DETAIL ANALYSIS)</h2>
+                         </div>
+                         <h1 className="text-3xl font-display font-bold text-white mb-3">
+                            {selectedChart?.title}
+                         </h1>
+                         <p className="text-gray-400 text-sm max-w-4xl leading-relaxed">
+                            {selectedChart?.description}
+                         </p>
+                      </div>
 
-                  {/* 4. Legend / Info Section */}
-                  <div className="mb-6 shrink-0 bg-[#151921]/50 rounded-lg p-3 border border-white/5 flex items-center gap-3">
-                     <Info className="w-4 h-4 text-gray-500 shrink-0" />
-                     <div className="text-xs text-gray-500">
-                        {selectedChart?.legend ? selectedChart.legend : (
-                           <p>
-                              차트의 추세선과 지표를 통해 현재 시장 상황을 진단할 수 있습니다. 
-                              <span className="text-primary font-bold ml-1">붉은색 영역</span>은 과열/탐욕 구간을, 
-                              <span className="text-blue-400 font-bold ml-1">푸른색 영역</span>은 침체/공포 구간을 의미합니다.
-                           </p>
-                        )}
-                     </div>
-                  </div>
+                      {/* 3. Main Chart Area */}
+                      <div className="flex-1 min-h-[400px] bg-[#0F1218] rounded-xl border border-white/5 p-6 relative mb-6">
+                         {/* Inner Grid Lines Decoration */}
+                         <div className="absolute inset-0 pointer-events-none opacity-20" 
+                            style={{backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '40px 40px'}}>
+                         </div>
+                         
+                         {selectedChart?.chart}
+                      </div>
 
-                  {/* 5. AI Analysis Section */}
-                  <div className="shrink-0 bg-blue-950/20 border border-blue-500/20 rounded-lg p-5">
-                     <div className="flex items-center gap-2 mb-2">
-                        <Sparkles className="w-4 h-4 text-blue-400" />
-                        <h3 className="font-bold text-blue-400 text-sm">AI Analysis</h3>
-                     </div>
-                     <p className="text-sm text-gray-300 leading-relaxed">
-                        {selectedChart?.analysis}
-                     </p>
-                  </div>
+                      {/* 4. Legend / Info Section */}
+                      <div className="mb-6 shrink-0 bg-[#151921]/50 rounded-lg p-3 border border-white/5 flex items-center gap-3">
+                         <Info className="w-4 h-4 text-gray-500 shrink-0" />
+                         <div className="text-xs text-gray-500">
+                            {selectedChart?.legend ? selectedChart.legend : (
+                               <p>
+                                  차트의 추세선과 지표를 통해 현재 시장 상황을 진단할 수 있습니다. 
+                                  <span className="text-primary font-bold ml-1">붉은색 영역</span>은 과열/탐욕 구간을, 
+                                  <span className="text-blue-400 font-bold ml-1">푸른색 영역</span>은 침체/공포 구간을 의미합니다.
+                               </p>
+                            )}
+                         </div>
+                      </div>
+
+                      {/* 5. AI Analysis Section */}
+                      <div className="shrink-0 bg-blue-950/20 border border-blue-500/20 rounded-lg p-5">
+                         <div className="flex items-center gap-2 mb-2">
+                            <Sparkles className="w-4 h-4 text-blue-400" />
+                            <h3 className="font-bold text-blue-400 text-sm">AI Analysis</h3>
+                         </div>
+                         <p className="text-sm text-gray-300 leading-relaxed">
+                            {selectedChart?.analysis}
+                         </p>
+                      </div>
+                   </div>
                </div>
             </div>
-
           </DialogContent>
         </Dialog>
     </div>
