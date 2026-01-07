@@ -75,16 +75,7 @@ export default function MarketMapView() {
     )}>
       
       {/* Header */}
-      <div className="flex justify-between items-center mb-4 shrink-0">
-         <div className="flex items-center gap-4">
-            <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                Market Map Analysis
-            </h2>
-            <div className="flex items-center gap-2 text-xs font-mono">
-                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500"></span> Bullish</span>
-                <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-500"></span> Bearish</span>
-            </div>
-         </div>
+      <div className="flex justify-end items-center mb-4 shrink-0">
          <div className="flex items-center gap-2">
             <Button variant="outline" size="icon" className="h-8 w-8 bg-[#151921] border-white/10" onClick={() => setZoomLevel(Math.min(zoomLevel + 0.1, 2))}>
                 <ZoomIn className="w-4 h-4 text-gray-400" />

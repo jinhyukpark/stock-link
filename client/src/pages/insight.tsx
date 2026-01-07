@@ -88,14 +88,20 @@ export default function InsightPage() {
             <div className="flex-1 overflow-y-auto p-8">
                 <header className="mb-8 flex justify-between items-start">
                     <div>
-                        <h1 className="text-2xl font-bold text-white mb-2">
+                        <h1 className="text-2xl font-bold text-white mb-2 flex items-center gap-4">
                             {menuItems.find(i => i.id === activeTab)?.label}
+                            {activeTab === 'market-map' && (
+                                <div className="flex items-center gap-2 text-xs font-mono font-normal">
+                                    <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-red-500"></span> Bullish</span>
+                                    <span className="flex items-center gap-1"><span className="w-2 h-2 rounded-full bg-blue-500"></span> Bearish</span>
+                                </div>
+                            )}
                         </h1>
                         <p className="text-gray-400 text-sm">
                             {activeTab === 'momentum' && "Analyze price momentum and technical indicators in depth."}
                             {activeTab === 'news' && "AI-powered analysis of the latest news and its market impact."}
                             {activeTab === 'market' && "Comprehensive analysis of macroeconomic indicators and market trends."}
-                            {activeTab === 'market-map' && "Interactive visualization of market structure and relationships."}
+                            {activeTab === 'market-map' ? null : null}
                             {activeTab === 'theme' && "Visualize sector performance and identify leading market themes."}
                             {activeTab === 'social' && "Real-time analysis of social media and community sentiment."}
                         </p>
