@@ -1061,28 +1061,45 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                       ))}
                    </div>
 
-                   {/* Combined Market Cap & Foreign Holdings */}
-                   <div className="flex items-center gap-6 mt-6 px-2">
+                   {/* Combined Market Cap, Foreign & Institution Holdings */}
+                   <div className="flex items-center gap-8 mt-8 px-4">
                       {/* Chart */}
-                      <div className="relative w-20 h-20 shrink-0">
+                      <div className="relative w-28 h-28 shrink-0">
                           <svg viewBox="0 0 36 36" className="w-full h-full rotate-[-90deg]">
+                             {/* Background */}
                              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#2D3340" strokeWidth="4" />
-                             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831" fill="none" stroke="#5EEAD4" strokeWidth="4" strokeDasharray="52.22, 100" strokeLinecap="round" />
+                             
+                             {/* Foreign Ownership (Teal) */}
+                             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#5EEAD4" strokeWidth="4" strokeDasharray="52.22, 100" />
+                             
+                             {/* Institution Ownership (Purple) - Starts after Foreign */}
+                             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#a855f7" strokeWidth="4" strokeDasharray="20.5, 100" strokeDashoffset="-52.22" />
                           </svg>
                           <div className="absolute inset-0 flex flex-col items-center justify-center">
-                             <div className="text-xs font-bold text-white">52.22%</div>
+                             <div className="text-gray-400 text-[10px] mb-0.5">외인/기관</div>
+                             <div className="text-sm font-bold text-white">72.7%</div>
                           </div>
                       </div>
 
                       {/* Info */}
-                      <div className="flex-1 space-y-4">
+                      <div className="flex-1 space-y-5">
                           <div className="flex justify-between items-center border-b border-white/5 pb-2">
-                              <span className="text-gray-400 text-xs">상장 주식</span>
-                              <span className="text-white text-sm font-bold tracking-tight">5,919,637,922</span>
+                              <span className="text-gray-400 text-sm">상장 주식</span>
+                              <span className="text-white text-base font-bold tracking-tight">5,919,637,922</span>
                           </div>
                           <div className="flex justify-between items-center">
-                              <span className="text-gray-400 text-xs">외국인 보유 비율</span>
-                              <span className="text-white text-sm font-bold">52.22%</span>
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-[#5EEAD4]"></div>
+                                <span className="text-gray-400 text-sm">외국인 보유 비율</span>
+                              </div>
+                              <span className="text-white text-base font-bold">52.22%</span>
+                          </div>
+                          <div className="flex justify-between items-center">
+                              <div className="flex items-center gap-2">
+                                <div className="w-2 h-2 rounded-full bg-[#a855f7]"></div>
+                                <span className="text-gray-400 text-sm">기관 보유 비율</span>
+                              </div>
+                              <span className="text-white text-base font-bold">20.50%</span>
                           </div>
                       </div>
                    </div>
