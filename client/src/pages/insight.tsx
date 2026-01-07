@@ -101,7 +101,7 @@ export default function InsightPage() {
                             {activeTab === 'momentum' && "Analyze price momentum and technical indicators in depth."}
                             {activeTab === 'news' && "AI-powered analysis of the latest news and its market impact."}
                             {activeTab === 'market' && "Comprehensive analysis of macroeconomic indicators and market trends."}
-                            {activeTab === 'market-map' ? null : null}
+                            {activeTab === 'market-map' && "Interactive heatmap visualization of market performance across sectors and top companies."}
                             {activeTab === 'theme' && "Visualize sector performance and identify leading market themes."}
                             {activeTab === 'social' && "Real-time analysis of social media and community sentiment."}
                         </p>
