@@ -298,7 +298,7 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
           <ResizableHandle withHandle className="bg-white/5 hover:bg-white/10 transition-colors" />
 
           {/* Right Column: Info & Radar */}
-          <ResizablePanel defaultSize={25} minSize={20} className="bg-[#151921] border-l border-white/5">
+          <ResizablePanel defaultSize={25} minSize={15} className="bg-[#151921] border-l border-white/5">
              <div className="h-full flex flex-col overflow-y-auto custom-scrollbar p-4">
                 <h3 className="font-bold text-white mb-4 text-sm px-1">종목 정보</h3>
 
@@ -362,45 +362,45 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                    </div>
 
                    {/* Foreign Holdings Circle */}
-                   <div className="bg-[#1E222B] rounded-md p-4 border border-white/5 flex items-center justify-center gap-6 mt-2">
-                      <div className="relative w-20 h-20 shrink-0">
+                   <div className="flex items-center justify-center gap-6 mt-4 py-2 px-4">
+                      <div className="relative w-24 h-24 shrink-0">
                           <svg viewBox="0 0 36 36" className="w-full h-full rotate-[-90deg]">
-                             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#2D3340" strokeWidth="4" />
-                             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831" fill="none" stroke="#5EEAD4" strokeWidth="4" strokeDasharray="52.22, 100" strokeLinecap="round" />
+                             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#2D3340" strokeWidth="3" />
+                             <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831" fill="none" stroke="#5EEAD4" strokeWidth="3" strokeDasharray="52.22, 100" strokeLinecap="round" />
                           </svg>
                           <div className="absolute inset-0 flex flex-col items-center justify-center">
-                             <div className="text-[11px] font-bold text-white">52.22%</div>
+                             <div className="text-xs font-bold text-white">52.22%</div>
                           </div>
                        </div>
-                       <div className="flex flex-col gap-1">
+                       <div className="flex flex-col gap-1 min-w-0 flex-1">
                           <div className="text-xs text-gray-400">상장주식</div>
-                          <div className="text-sm font-bold text-white">5,919,637,922</div>
+                          <div className="text-base font-bold text-white truncate">5,919,637,922</div>
                           <div className="text-xs text-gray-400 mt-1">외국인 보유비율 <span className="text-teal-400 ml-1">52.22%</span></div>
                        </div>
                    </div>
 
                    {/* Price Ranges */}
-                   <div className="bg-[#1E222B] rounded-md p-4 border border-white/5 space-y-5">
-                       <div className="space-y-1">
+                   <div className="space-y-6 px-1 mt-2">
+                       <div className="space-y-2">
                           <div className="flex justify-between text-[10px] text-gray-500 mb-2">
                              <span>1일 최저가</span>
                              <span>1일 최고가</span>
                           </div>
-                          <div className="relative h-1.5 w-full bg-[#2D3340] rounded-full">
-                             <div className="absolute top-0 bottom-0 left-[70%] w-2 h-2 -mt-0.5 bg-[#5EEAD4] rounded-full shadow-[0_0_8px_rgba(94,234,212,0.5)] z-10 border border-[#1E222B]"></div>
+                          <div className="relative h-1 w-full bg-[#2D3340] rounded-full">
+                             <div className="absolute top-0 bottom-0 left-[70%] w-2 h-2 -mt-0.5 bg-[#5EEAD4] rounded-full shadow-[0_0_8px_rgba(94,234,212,0.5)] z-10 border border-[#151921]"></div>
                           </div>
                           <div className="flex justify-between text-[11px] font-medium text-white mt-1">
                              <span>137,600원</span>
                              <span>144,400원</span>
                           </div>
                        </div>
-                       <div className="space-y-1">
+                       <div className="space-y-2">
                           <div className="flex justify-between text-[10px] text-gray-500 mb-2">
                              <span>1년 최저가</span>
                              <span>1년 최고가</span>
                           </div>
-                          <div className="relative h-1.5 w-full bg-[#2D3340] rounded-full">
-                             <div className="absolute top-0 bottom-0 left-[90%] w-2 h-2 -mt-0.5 bg-[#5EEAD4] rounded-full shadow-[0_0_8px_rgba(94,234,212,0.5)] z-10 border border-[#1E222B]"></div>
+                          <div className="relative h-1 w-full bg-[#2D3340] rounded-full">
+                             <div className="absolute top-0 bottom-0 left-[90%] w-2 h-2 -mt-0.5 bg-[#5EEAD4] rounded-full shadow-[0_0_8px_rgba(94,234,212,0.5)] z-10 border border-[#151921]"></div>
                           </div>
                           <div className="flex justify-between text-[11px] font-medium text-white mt-1">
                              <span>50,800원</span>
@@ -410,18 +410,18 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                        
                        {/* Order Book Balance Bar */}
                        <div className="pt-2">
-                          <div className="flex w-full h-2 rounded-full overflow-hidden">
+                          <div className="flex w-full h-1.5 rounded-full overflow-hidden">
                              <div className="w-[85%] bg-blue-500"></div>
                              <div className="w-[15%] bg-red-500"></div>
                           </div>
-                          <div className="flex justify-between text-[10px] text-gray-400 mt-1.5">
+                          <div className="flex justify-between text-[10px] text-gray-400 mt-2">
                              <div>
                                 <span>판매대기</span>
-                                <div className="text-white font-medium">776,609주</div>
+                                <div className="text-white font-medium mt-0.5">776,609주</div>
                              </div>
                              <div className="text-right">
                                 <span>구매대기</span>
-                                <div className="text-white font-medium">140,084주</div>
+                                <div className="text-white font-medium mt-0.5">140,084주</div>
                              </div>
                           </div>
                        </div>
