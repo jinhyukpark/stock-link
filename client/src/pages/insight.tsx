@@ -15,6 +15,8 @@ import {
 
 type InsightTab = "momentum" | "news" | "market" | "social";
 
+import MomentumView from "@/components/insight/MomentumView";
+
 export default function InsightPage() {
   const [activeTab, setActiveTab] = useState<InsightTab>("momentum");
   const [isSidebarOpen, setIsSidebarOpen] = useState(true);
@@ -87,38 +89,46 @@ export default function InsightPage() {
                     </p>
                 </header>
 
-                {/* Content Placeholder */}
-                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
-                    {/* Example Content Card 1 */}
-                    <div className="bg-[#151921] border border-white/5 rounded-xl p-6 h-64 flex flex-col items-center justify-center text-gray-500 gap-4">
-                        <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
-                            {activeTab === 'momentum' && <Zap className="w-6 h-6" />}
-                            {activeTab === 'news' && <Newspaper className="w-6 h-6" />}
-                            {activeTab === 'market' && <BarChart3 className="w-6 h-6" />}
-                            {activeTab === 'social' && <Share2 className="w-6 h-6" />}
-                        </div>
-                        <p>{menuItems.find(i => i.id === activeTab)?.label} Content Area 1</p>
-                    </div>
-                    
-                    {/* Example Content Card 2 */}
-                    <div className="bg-[#151921] border border-white/5 rounded-xl p-6 h-64 flex flex-col items-center justify-center text-gray-500 gap-4">
-                        <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
-                            <Globe className="w-6 h-6" />
-                        </div>
-                        <p>{menuItems.find(i => i.id === activeTab)?.label} Content Area 2</p>
-                    </div>
+                {/* Content Area */}
+                <div className="mt-6">
+                    {activeTab === 'momentum' ? (
+                        <MomentumView />
+                    ) : (
+                        <>
+                            {/* Placeholder for other tabs */}
+                            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
+                                {/* Example Content Card 1 */}
+                                <div className="bg-[#151921] border border-white/5 rounded-xl p-6 h-64 flex flex-col items-center justify-center text-gray-500 gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
+                                        {activeTab === 'news' && <Newspaper className="w-6 h-6" />}
+                                        {activeTab === 'market' && <BarChart3 className="w-6 h-6" />}
+                                        {activeTab === 'social' && <Share2 className="w-6 h-6" />}
+                                    </div>
+                                    <p>{menuItems.find(i => i.id === activeTab)?.label} Content Area 1</p>
+                                </div>
+                                
+                                {/* Example Content Card 2 */}
+                                <div className="bg-[#151921] border border-white/5 rounded-xl p-6 h-64 flex flex-col items-center justify-center text-gray-500 gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
+                                        <Globe className="w-6 h-6" />
+                                    </div>
+                                    <p>{menuItems.find(i => i.id === activeTab)?.label} Content Area 2</p>
+                                </div>
 
-                    {/* Example Content Card 3 */}
-                    <div className="bg-[#151921] border border-white/5 rounded-xl p-6 h-64 flex flex-col items-center justify-center text-gray-500 gap-4">
-                        <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
-                             <MessageSquare className="w-6 h-6" />
-                        </div>
-                        <p>{menuItems.find(i => i.id === activeTab)?.label} Content Area 3</p>
-                    </div>
-                </div>
-                
-                <div className="mt-6 bg-[#151921] border border-white/5 rounded-xl p-6 h-96 flex flex-col items-center justify-center text-gray-500">
-                    <p>Main detailed analysis chart and data area</p>
+                                {/* Example Content Card 3 */}
+                                <div className="bg-[#151921] border border-white/5 rounded-xl p-6 h-64 flex flex-col items-center justify-center text-gray-500 gap-4">
+                                    <div className="w-12 h-12 rounded-full bg-white/5 flex items-center justify-center">
+                                        <MessageSquare className="w-6 h-6" />
+                                    </div>
+                                    <p>{menuItems.find(i => i.id === activeTab)?.label} Content Area 3</p>
+                                </div>
+                            </div>
+                            
+                            <div className="mt-6 bg-[#151921] border border-white/5 rounded-xl p-6 h-96 flex flex-col items-center justify-center text-gray-500">
+                                <p>Main detailed analysis chart and data area</p>
+                            </div>
+                        </>
+                    )}
                 </div>
             </div>
         </main>
