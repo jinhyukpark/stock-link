@@ -79,17 +79,17 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
       {/* Header */}
       <div className="flex items-center justify-between p-6 pb-4 border-b border-white/5">
         <div className="flex items-center gap-4">
-          <Button variant="ghost" size="icon" onClick={onBack} className="text-gray-400 hover:text-white">
+          <Button variant="ghost" size="icon" onClick={onBack} className="text-gray-400 hover:text-white shrink-0">
             <ArrowLeft className="w-5 h-5" />
           </Button>
           <div className="flex items-center gap-3">
-             <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/24/Samsung_Logo.svg/2560px-Samsung_Logo.svg.png" alt="Logo" className="h-6 w-auto brightness-0 invert" />
+             {/* Logo removed as per user request/screenshot fix */}
              <div>
-               <div className="flex items-center gap-2">
-                 <h1 className="text-xl font-bold">{stockName}</h1>
-                 <span className="text-gray-400 text-sm font-mono">005930</span>
-                 <Badge variant="outline" className="text-[10px] h-5 px-1.5 border-red-500/50 text-red-400 bg-red-500/10">KOSPI</Badge>
-                 <Star className="w-4 h-4 text-gray-500 hover:text-yellow-400 cursor-pointer" />
+               <div className="flex items-center gap-2 flex-wrap">
+                 <h1 className="text-xl font-bold truncate max-w-[300px]">{stockName}</h1>
+                 <span className="text-gray-400 text-sm font-mono shrink-0">005930</span>
+                 <Badge variant="outline" className="text-[10px] h-5 px-1.5 border-red-500/50 text-red-400 bg-red-500/10 shrink-0">KOSPI</Badge>
+                 <Star className="w-4 h-4 text-gray-500 hover:text-yellow-400 cursor-pointer shrink-0" />
                </div>
                <div className="flex items-baseline gap-2 mt-1">
                  <span className="text-3xl font-bold text-red-500">141,000<span className="text-lg font-normal text-white">원</span></span>
@@ -98,12 +98,12 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
              </div>
           </div>
         </div>
-        <div className="flex items-center gap-2">
-           <Button variant="outline" size="sm" className="bg-[#151921] border-white/10 hover:bg-white/5 gap-2">
+        <div className="flex items-center gap-2 shrink-0">
+           <Button variant="outline" size="sm" className="bg-[#151921] border-white/10 hover:bg-white/5 gap-2 hidden sm:flex">
              <TrendingUp className="w-4 h-4" />
              지표분석
            </Button>
-           <Button variant="outline" size="sm" className="bg-[#151921] border-white/10 hover:bg-white/5 gap-2">
+           <Button variant="outline" size="sm" className="bg-[#151921] border-white/10 hover:bg-white/5 gap-2 hidden sm:flex">
              <MessageCircle className="w-4 h-4" />
              토론
            </Button>
@@ -112,10 +112,10 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
 
       <div className="flex-1 p-6 space-y-6">
         {/* Top Section: Chart & Info */}
-        <div className="grid grid-cols-12 gap-6 h-[500px]">
+        <div className="flex flex-col lg:grid lg:grid-cols-12 gap-6 min-h-[500px]">
           {/* Main Chart */}
-          <Card className="col-span-12 lg:col-span-9 bg-[#151921] border-white/10 p-4 flex flex-col">
-             <div className="flex justify-between items-center mb-4 text-xs text-gray-400">
+          <Card className="col-span-12 lg:col-span-9 bg-[#151921] border-white/10 p-4 flex flex-col h-[500px] lg:h-auto">
+             <div className="flex justify-between items-center mb-4 text-xs text-gray-400 shrink-0">
                 <div className="flex items-center gap-4">
                   <div className="flex gap-2">
                      <span className="text-white font-bold cursor-pointer">일</span>
