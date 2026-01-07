@@ -16,6 +16,7 @@ import {
 type InsightTab = "momentum" | "news" | "market" | "social";
 
 import MomentumView from "@/components/insight/MomentumView";
+import MarketView from "@/components/insight/MarketView";
 
 export default function InsightPage() {
   const [activeTab, setActiveTab] = useState<InsightTab>("momentum");
@@ -93,6 +94,8 @@ export default function InsightPage() {
                 <div className="mt-6">
                     {activeTab === 'momentum' ? (
                         <MomentumView />
+                    ) : activeTab === 'market' ? (
+                        <MarketView />
                     ) : (
                         <>
                             {/* Placeholder for other tabs */}
