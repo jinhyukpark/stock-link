@@ -436,52 +436,68 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                       AI 주가예측 (생성형AI)
                    </Button>
 
-                   <Separator className="bg-white/10 my-4" />
-
                    {/* Related Industries Header */}
-                   <div className="flex items-center gap-4 mb-2">
-                      <div className="text-xs font-bold text-teal-400 border-b-2 border-teal-400 pb-1 cursor-pointer">관련 업종</div>
-                      <div className="text-xs text-gray-500 pb-1 hover:text-white cursor-pointer transition-colors">공매도 현황</div>
-                      <div className="text-xs text-gray-500 pb-1 hover:text-white cursor-pointer transition-colors">외국인/기관</div>
-                   </div>
-                   
-                   {/* Related Industries Radar - Compact */}
-                   <div className="bg-[#1E222B] rounded-md p-4 border border-white/5 min-h-[220px] flex flex-col">
-                      <div className="mb-2 shrink-0 flex justify-between items-end">
-                         <div className="text-gray-400 text-xs">업종 내 순위</div>
-                         <div className="text-xl font-bold text-white">1위 <span className="text-xs font-normal text-gray-500">/ 89개</span></div>
+                   <div className="mt-6">
+                      <div className="flex items-center gap-6 border-b border-white/10 mb-4">
+                         <div className="text-sm font-bold text-teal-400 border-b-2 border-teal-400 pb-2 -mb-px cursor-pointer px-1">관련 업종</div>
+                         <div className="text-sm text-gray-500 pb-2 hover:text-white cursor-pointer transition-colors px-1">공매도 현황</div>
+                         <div className="text-sm text-gray-500 pb-2 hover:text-white cursor-pointer transition-colors px-1">외국인/기관</div>
                       </div>
                       
-                      <div className="flex-1 relative min-h-0">
-                         <ResponsiveContainer width="100%" height="100%">
-                            <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
-                               <PolarGrid stroke="#333" />
-                               <PolarAngleAxis dataKey="subject" tick={{ fill: '#9ca3af', fontSize: 9 }} />
-                               <PolarRadiusAxis angle={30} domain={[0, 150]} tick={false} axisLine={false} />
-                               <Radar
-                                  name="Samsung"
-                                  dataKey="A"
-                                  stroke="#8b5cf6"
-                                  strokeWidth={2}
-                                  fill="#8b5cf6"
-                                  fillOpacity={0.3}
-                                />
-                            </RadarChart>
-                         </ResponsiveContainer>
-                      </div>
-                      
-                      <div className="flex justify-center gap-4 mt-2 shrink-0">
-                         <div className="flex items-center gap-1.5 text-[10px]">
-                            <div className="w-1.5 h-1.5 rounded-full bg-blue-500"></div>
-                            <span className="text-gray-500">2022</span>
+                      {/* Related Industries Content */}
+                      <div className="min-h-[300px] flex flex-col relative">
+                         <div className="absolute top-0 left-0 z-10">
+                            <div className="text-gray-300 text-sm mb-1">순위</div>
+                            <div className="text-4xl font-bold text-white">1위</div>
                          </div>
-                         <div className="flex items-center gap-1.5 text-[10px]">
-                            <div className="w-1.5 h-1.5 rounded-full bg-red-500"></div>
-                            <span className="text-gray-500">2023</span>
+                         
+                         <div className="flex-1 w-full -mt-4">
+                            <ResponsiveContainer width="100%" height={280}>
+                               <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
+                                  <PolarGrid stroke="#333" />
+                                  <PolarAngleAxis dataKey="subject" tick={{ fill: '#9ca3af', fontSize: 11 }} />
+                                  <PolarRadiusAxis angle={30} domain={[0, 150]} tick={false} axisLine={false} />
+                                  <Radar
+                                     name="2024"
+                                     dataKey="A"
+                                     stroke="#8b5cf6"
+                                     strokeWidth={2}
+                                     fill="#8b5cf6"
+                                     fillOpacity={0.4}
+                                   />
+                                   <Radar
+                                     name="2023"
+                                     dataKey="fullMark" // Mocking other years for visual similarity to screenshot
+                                     stroke="#ef4444"
+                                     strokeWidth={2}
+                                     fill="transparent"
+                                     fillOpacity={0}
+                                   />
+                                   <Radar
+                                     name="2022"
+                                     dataKey="A" // Mocking
+                                     stroke="#3b82f6"
+                                     strokeWidth={2}
+                                     fill="transparent"
+                                     fillOpacity={0}
+                                   />
+                               </RadarChart>
+                            </ResponsiveContainer>
                          </div>
-                         <div className="flex items-center gap-1.5 text-[10px]">
-                            <div className="w-1.5 h-1.5 rounded-full bg-purple-500"></div>
-                            <span className="text-gray-500">2024</span>
+                         
+                         <div className="flex justify-center gap-6 mt-[-10px]">
+                            <div className="flex items-center gap-2 text-xs">
+                               <div className="w-6 h-1 bg-blue-500 rounded-full"></div>
+                               <span className="text-white">2022년</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-xs">
+                               <div className="w-6 h-1 bg-red-500 rounded-full"></div>
+                               <span className="text-white">2023년</span>
+                            </div>
+                            <div className="flex items-center gap-2 text-xs">
+                               <div className="w-6 h-1 bg-purple-500 rounded-full"></div>
+                               <span className="text-white">2024년</span>
+                            </div>
                          </div>
                       </div>
                    </div>
