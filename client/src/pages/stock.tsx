@@ -102,7 +102,7 @@ export default function StockPage() {
         
         {/* Left Sidebar */}
         <aside className="w-64 flex flex-col border-r border-white/5 bg-[#151921]">
-          <div className="p-4 space-y-2">
+          <div className="bg-[#111318] p-4 space-y-2 border-b border-white/5">
             <div className="flex items-center gap-2 text-sm font-bold text-gray-300 px-2 py-2 rounded hover:bg-white/5 cursor-pointer">
               <List className="w-4 h-4" />
               실시간 Top 100 차트
@@ -117,32 +117,32 @@ export default function StockPage() {
             </div>
           </div>
           
-          <div className="h-px bg-white/10 mx-4 my-2" />
-
-          <div className="px-4 pb-2">
-            <div className="grid grid-cols-2 bg-black/40 p-1 rounded-md">
-              <button className="text-xs font-bold py-1.5 px-2 bg-gray-700 text-white rounded shadow-sm text-center">테마</button>
-              <button className="text-xs text-gray-400 py-1.5 px-2 hover:text-white text-center">산업분류</button>
+          <div className="flex-1 flex flex-col min-h-0 pt-4">
+            <div className="px-4 pb-2">
+              <div className="grid grid-cols-2 bg-black/40 p-1 rounded-md">
+                <button className="text-xs font-bold py-1.5 px-2 bg-gray-700 text-white rounded shadow-sm text-center">테마</button>
+                <button className="text-xs text-gray-400 py-1.5 px-2 hover:text-white text-center">산업분류</button>
+              </div>
             </div>
-          </div>
 
-          <ScrollArea className="flex-1 px-2">
-            <div className="space-y-0.5 pb-4">
-              {themes.map((theme, idx) => (
-                <div key={idx} className="flex items-center justify-between px-3 py-2.5 rounded hover:bg-white/5 cursor-pointer group">
-                  <div className="flex items-center gap-3 overflow-hidden">
-                    <div className="w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center shrink-0 group-hover:bg-gray-700">
-                      <theme.icon className="w-3.5 h-3.5 text-gray-400 group-hover:text-white" />
+            <ScrollArea className="flex-1 px-2">
+              <div className="space-y-0.5 pb-4">
+                {themes.map((theme, idx) => (
+                  <div key={idx} className="flex items-center justify-between px-3 py-2.5 rounded hover:bg-white/5 cursor-pointer group">
+                    <div className="flex items-center gap-3 overflow-hidden">
+                      <div className="w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center shrink-0 group-hover:bg-gray-700">
+                        <theme.icon className="w-3.5 h-3.5 text-gray-400 group-hover:text-white" />
+                      </div>
+                      <span className="text-xs text-gray-300 truncate group-hover:text-white">{theme.name}</span>
                     </div>
-                    <span className="text-xs text-gray-300 truncate group-hover:text-white">{theme.name}</span>
+                    <span className={`text-xs font-mono font-medium ${theme.up ? 'text-red-400' : 'text-blue-400'}`}>
+                      {theme.up ? '▲' : '▼'}{theme.change}%
+                    </span>
                   </div>
-                  <span className={`text-xs font-mono font-medium ${theme.up ? 'text-red-400' : 'text-blue-400'}`}>
-                    {theme.up ? '▲' : '▼'}{theme.change}%
-                  </span>
-                </div>
-              ))}
-            </div>
-          </ScrollArea>
+                ))}
+              </div>
+            </ScrollArea>
+          </div>
         </aside>
 
         {/* Main Content */}
