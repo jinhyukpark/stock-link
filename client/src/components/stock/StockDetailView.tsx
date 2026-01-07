@@ -1062,21 +1062,21 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                    </div>
 
                    {/* Combined Market Cap & Foreign Holdings */}
-                   <div className="bg-[#1E222B] rounded-md p-4 border border-white/5 flex items-center gap-4 mt-4">
+                   <div className="flex items-center gap-6 mt-6 px-2">
                       {/* Chart */}
-                      <div className="relative w-16 h-16 shrink-0">
+                      <div className="relative w-20 h-20 shrink-0">
                           <svg viewBox="0 0 36 36" className="w-full h-full rotate-[-90deg]">
                              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831 a 15.9155 15.9155 0 0 1 0 -31.831" fill="none" stroke="#2D3340" strokeWidth="4" />
                              <path d="M18 2.0845 a 15.9155 15.9155 0 0 1 0 31.831" fill="none" stroke="#5EEAD4" strokeWidth="4" strokeDasharray="52.22, 100" strokeLinecap="round" />
                           </svg>
                           <div className="absolute inset-0 flex flex-col items-center justify-center">
-                             <div className="text-[10px] font-bold text-white">52.22%</div>
+                             <div className="text-xs font-bold text-white">52.22%</div>
                           </div>
                       </div>
 
                       {/* Info */}
-                      <div className="flex-1 space-y-3">
-                          <div className="flex justify-between items-center">
+                      <div className="flex-1 space-y-4">
+                          <div className="flex justify-between items-center border-b border-white/5 pb-2">
                               <span className="text-gray-400 text-xs">상장 주식</span>
                               <span className="text-white text-sm font-bold tracking-tight">5,919,637,922</span>
                           </div>
