@@ -228,72 +228,80 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                           <div className="flex-1 overflow-y-auto custom-scrollbar p-6 bg-[#111318]/50">
                             <TabsContent value="company" className="mt-0 h-full">
                                 {/* Company Summary Content - Adjusted Layout */}
-                                <div className="flex flex-col gap-8 h-full">
-                                  <div>
-                                      <h3 className="font-bold text-white mb-4 flex items-center gap-2">
+                                <div className="flex flex-col gap-6 h-full">
+                                  {/* Company Overview Card */}
+                                  <div className="bg-[#151921] rounded-lg p-6 border border-white/5">
+                                      <h3 className="font-bold text-white mb-6 flex items-center gap-2 text-lg">
                                         기업소개
                                         <Badge variant="outline" className="text-[10px] bg-blue-500/10 text-blue-400 border-blue-500/30">대기업</Badge>
                                         <Badge variant="outline" className="text-[10px] bg-purple-500/10 text-purple-400 border-purple-500/30">KOSPI 1위</Badge>
                                       </h3>
                                       
-                                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-6 text-sm mb-6">
-                                        <div className="space-y-1">
+                                      <div className="grid grid-cols-2 lg:grid-cols-4 gap-x-6 gap-y-6 text-sm mb-6">
+                                        <div className="space-y-1.5">
                                             <span className="text-gray-500 text-xs block">사업자번호</span>
-                                            <span className="text-white">124-81-00998</span>
+                                            <span className="text-white font-medium">124-81-00998</span>
                                         </div>
-                                        <div className="space-y-1">
+                                        <div className="space-y-1.5">
                                             <span className="text-gray-500 text-xs block">대표이사</span>
-                                            <span className="text-white">전영현</span>
+                                            <span className="text-white font-medium">전영현</span>
                                         </div>
-                                        <div className="space-y-1">
+                                        <div className="space-y-1.5">
                                             <span className="text-gray-500 text-xs block">설립일자</span>
-                                            <span className="text-white">1969년 01월 13일</span>
+                                            <span className="text-white font-medium">1969년 01월 13일</span>
                                         </div>
-                                        <div className="space-y-1">
+                                        <div className="space-y-1.5">
                                             <span className="text-gray-500 text-xs block">직원수</span>
-                                            <span className="text-white">124,917명</span>
+                                            <span className="text-white font-medium">124,917명</span>
                                         </div>
-                                        <div className="space-y-1 col-span-2">
+                                        <div className="space-y-1.5 col-span-2">
                                             <span className="text-gray-500 text-xs block">주소</span>
-                                            <span className="text-white">경기 수원시 영통구 삼성로 129</span>
+                                            <span className="text-white font-medium">경기 수원시 영통구 삼성로 129</span>
                                         </div>
                                       </div>
                                       
-                                      <div className="space-y-2 text-sm text-gray-400 leading-relaxed bg-black/20 p-4 rounded border border-white/5">
+                                      <div className="space-y-2 text-sm text-gray-400 leading-relaxed bg-[#0B0E14] p-5 rounded-md border border-white/5">
                                         <p>• 한국 및 DX부문 해외 9개 지역총괄과 DS부문 해외 5개 지역총괄, SDC, Harman 등 229개의 종속기업으로 구성된 글로벌 전자기업임.</p>
                                         <p>• 세트사업은 TV를 비롯 모니터, 냉장고, 세탁기, 에어컨, 스마트폰, 네트워크시스템, 컴퓨터 등을 생산하는 DX부문이 있음.</p>
                                         <p>• 부품 사업에는 DRAM, NAND Flash, 모바일AP 등의 제품을 생산하고 있는 DS 부문과 스마트폰용 OLED 패널을 생산하고 있는 SDC가 있음.</p>
                                       </div>
                                   </div>
 
-                                  <Separator className="bg-white/10" />
-                                  
-                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-8">
-                                      <div>
-                                        <h4 className="font-bold text-white mb-4 text-sm">주주 정보</h4>
-                                        <div className="space-y-3">
+                                  <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                                      {/* Shareholder Info Card */}
+                                      <div className="bg-[#151921] rounded-lg p-6 border border-white/5">
+                                        <h4 className="font-bold text-white mb-6 text-sm flex items-center gap-2">
+                                          <div className="w-1 h-4 bg-blue-500 rounded-full"></div>
+                                          주주 정보
+                                        </h4>
+                                        <div className="space-y-4">
                                             {shareholderData.map((item, idx) => (
-                                              <div key={idx} className="flex justify-between text-xs">
-                                                  <div className="flex items-center gap-2">
-                                                    <div className="w-2 h-2 rounded-full" style={{backgroundColor: item.color}}></div>
-                                                    <span className="text-gray-400">{item.name}</span>
+                                              <div key={idx} className="flex justify-between items-center text-sm group">
+                                                  <div className="flex items-center gap-3">
+                                                    <div className="w-2.5 h-2.5 rounded-full ring-2 ring-white/5 group-hover:ring-white/10 transition-all" style={{backgroundColor: item.color}}></div>
+                                                    <span className="text-gray-400 group-hover:text-gray-300 transition-colors">{item.name}</span>
                                                   </div>
-                                                  <div className="text-white font-mono">{item.value}%</div>
+                                                  <div className="text-white font-mono font-medium">{item.value}%</div>
                                               </div>
                                             ))}
                                         </div>
                                       </div>
-                                      <div>
-                                        <h4 className="font-bold text-white mb-4 text-sm">주요 제품 매출 구성</h4>
-                                        <div className="flex items-center gap-4">
-                                            <div className="h-32 w-32 relative shrink-0">
+                                      
+                                      {/* Product Mix Card */}
+                                      <div className="bg-[#151921] rounded-lg p-6 border border-white/5">
+                                        <h4 className="font-bold text-white mb-6 text-sm flex items-center gap-2">
+                                          <div className="w-1 h-4 bg-purple-500 rounded-full"></div>
+                                          주요 제품 매출 구성
+                                        </h4>
+                                        <div className="flex items-center gap-6">
+                                            <div className="h-40 w-40 relative shrink-0">
                                               <ResponsiveContainer width="100%" height="100%">
                                                   <PieChart>
                                                     <Pie 
                                                         data={productMixData} 
-                                                        innerRadius={25} 
-                                                        outerRadius={40} 
-                                                        paddingAngle={5} 
+                                                        innerRadius={35} 
+                                                        outerRadius={55} 
+                                                        paddingAngle={4} 
                                                         dataKey="value"
                                                         stroke="none"
                                                     >
@@ -303,16 +311,16 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                                     </Pie>
                                                   </PieChart>
                                               </ResponsiveContainer>
-                                              <div className="absolute inset-0 flex items-center justify-center text-[10px] text-gray-400">
+                                              <div className="absolute inset-0 flex items-center justify-center text-xs font-medium text-gray-500">
                                                   2024.09
                                               </div>
                                             </div>
-                                            <div className="space-y-2 text-xs flex-1 min-w-0">
+                                            <div className="space-y-3 text-sm flex-1 min-w-0">
                                               {productMixData.map((item, idx) => (
-                                                  <div key={idx} className="flex justify-between items-center gap-2">
+                                                  <div key={idx} className="flex justify-between items-center gap-2 group">
                                                     <div className="flex items-center gap-2 min-w-0 flex-1">
-                                                        <div className="w-2 h-2 rounded-full shrink-0" style={{backgroundColor: item.color}}></div>
-                                                        <span className="text-gray-400 truncate">{item.name}</span>
+                                                        <div className="w-2.5 h-2.5 rounded-full shrink-0 ring-2 ring-white/5 group-hover:ring-white/10 transition-all" style={{backgroundColor: item.color}}></div>
+                                                        <span className="text-gray-400 truncate group-hover:text-gray-300 transition-colors">{item.name}</span>
                                                     </div>
                                                     <span className="text-white font-bold shrink-0">{item.value}%</span>
                                                   </div>
