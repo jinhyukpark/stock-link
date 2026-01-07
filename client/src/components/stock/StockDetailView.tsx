@@ -96,6 +96,63 @@ const performanceData = [
   { date: '25년 09월', operatingProfit: 12.1661, revenue: 86.6170, label: '2025년 3분기' },
 ];
 
+const financialStatements = [
+  { 
+    item: '매출액(수익)', 
+    values: ['79조 987억', '74조 683억', '71조 9,156억', '67조 7,799억', '67조 4,046억'],
+    isHeader: true,
+    hasSubItems: true
+  },
+  { 
+    item: '매출원가', 
+    values: ['49조 950억', '44조 3,120억', '45조 8,863억', '46조 1,155억', '46조 6,187억']
+  },
+  { 
+    item: '매출총이익', 
+    values: ['30조 36억', '29조 7,562억', '26조 292억', '21조 6,643억', '20조 7,859억']
+  },
+  { 
+    item: '판매비와 관리비', 
+    values: ['20조 8,202억', '19조 3,123억', '19조 4,232억', '18조 8,396억', '18조 3,523억']
+  },
+  { 
+    item: '영업이익', 
+    values: ['9조 1,833억', '10조 4,438억', '6조 6,060억', '2조 8,247억', '2조 4,335억'],
+    highlight: true
+  },
+  { 
+    item: '영업이익(발표기준)', 
+    values: ['9조 1,833억', '10조 4,438억', '6조 6,060억', '2조 8,247억', '2조 4,335억']
+  },
+  { 
+    item: '금융수익', 
+    values: ['3조 6,175억', '3조 6,161억', '3조 4,845억', '3조 3,030억', '4조 1,121억']
+  },
+  { 
+    item: '금융원가', 
+    values: ['2조 8,237억', '2조 7,362억', '2조 6,625억', '2조 5,412억', '2조 9,037억']
+  },
+  { 
+    item: '기타영업외손익', 
+    values: ['1,598억 6,200만', '730억 500만', '638억 8,800만', '-2,732억 6,000만', '379억 4,900만']
+  },
+  { 
+    item: '종속기업, 공동지배기업 및 관계기업 관련 손익', 
+    values: ['1,834억 1,100만', '1,985억 1,400만', '2,148억 3,300만', '2,110억 9,100만', '2,626억 7,700만']
+  },
+  { 
+    item: '법인세비용차감전계속사업이익', 
+    values: ['10조 3,204억', '11조 5,953억', '7조 7,067억', '3조 5,242억', '3조 9,426억'],
+    highlight: true
+  },
+  { 
+    item: '법인세비용', 
+    values: ['2,195억 800만', '1조 7,539억', '9,520억 1,500만', '-2조 8,204억', '-1조 9,015억']
+  }
+];
+
+const financialPeriods = ['2024년 09월', '2024년 06월', '2024년 03월', '2023년 12월', '2023년 09월'];
+
 export default function StockDetailView({ onBack, stockName }: StockDetailViewProps) {
   const [isAutoExpand, setIsAutoExpand] = useState(true);
   const chartPanelRef = useRef<ImperativePanelHandle>(null);
@@ -695,6 +752,77 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                                 </table>
                                             </div>
                                         </div>
+                                    </div>
+                                </div>
+                                    </div>
+                                </div>
+                            </TabsContent>
+
+                            <TabsContent value="재무분석" className="mt-0 h-full">
+                                <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
+                                    <div className="p-4 border-b border-white/5 flex justify-between items-center">
+                                        <div className="flex flex-col gap-4 w-full">
+                                          <div className="flex justify-between items-center w-full">
+                                            <h3 className="text-white font-bold text-sm">재무제표</h3>
+                                            <div className="flex text-xs text-gray-500 gap-2">
+                                                <span className="cursor-pointer hover:text-white">연결</span>
+                                                <ChevronDown className="w-3 h-3" />
+                                                <span className="w-px h-3 bg-white/10"></span>
+                                                <span className="cursor-pointer hover:text-white text-white font-medium">분기</span>
+                                                <ChevronDown className="w-3 h-3" />
+                                            </div>
+                                          </div>
+                                          <div className="flex gap-6 border-b border-white/5 -mx-4 px-4">
+                                            {['손익계산서', '재무상태표', '현금흐름표'].map((subtab, i) => (
+                                              <div 
+                                                key={subtab} 
+                                                className={`pb-2 text-xs font-medium cursor-pointer border-b-2 transition-colors ${i === 0 ? 'text-teal-400 border-teal-400' : 'text-gray-500 border-transparent hover:text-white'}`}
+                                              >
+                                                {subtab}
+                                              </div>
+                                            ))}
+                                          </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex-1 overflow-y-auto custom-scrollbar">
+                                        <table className="w-full text-xs border-collapse">
+                                            <thead className="bg-[#1E222B] sticky top-0 z-10">
+                                                <tr>
+                                                    <th className="p-3 text-left font-normal text-gray-400 w-[20%] border-b border-white/5">항목</th>
+                                                    {financialPeriods.map((period, idx) => (
+                                                        <th key={idx} className="p-3 text-right font-normal text-gray-400 border-b border-white/5">{period}</th>
+                                                    ))}
+                                                </tr>
+                                            </thead>
+                                            <tbody className="divide-y divide-white/5">
+                                                {financialStatements.map((row, idx) => (
+                                                    <tr key={idx} className={`hover:bg-white/5 transition-colors group ${row.highlight ? 'bg-white/5' : ''}`}>
+                                                        <td className={`p-3 text-left text-white border-r border-white/5 ${row.highlight ? 'font-bold' : ''}`}>
+                                                          <div className="flex items-center gap-1">
+                                                            {row.hasSubItems && <ChevronDown className="w-3 h-3 text-gray-500" />}
+                                                            {row.item}
+                                                          </div>
+                                                        </td>
+                                                        {row.values.map((val, vIdx) => (
+                                                            <td key={vIdx} className={`p-3 text-right font-medium border-r border-white/5 last:border-r-0 ${val.startsWith('-') ? 'text-blue-400' : 'text-white'}`}>
+                                                                {val}
+                                                            </td>
+                                                        ))}
+                                                    </tr>
+                                                ))}
+                                                {/* Mocking expanded rows for Revenue if needed, but per image it's collapsed or just shown as item */}
+                                                {/* Adding empty sub-rows for "매출액(수익)" to match image slightly if desired, but sticking to provided data structure for cleaner code */}
+                                                <tr className="hover:bg-white/5 transition-colors">
+                                                    <td className="p-3 pl-8 text-left text-gray-400 border-r border-white/5">내수</td>
+                                                    {financialPeriods.map((_, i) => <td key={i} className="p-3 text-right text-gray-600 border-r border-white/5 last:border-r-0">-</td>)}
+                                                </tr>
+                                                <tr className="hover:bg-white/5 transition-colors">
+                                                    <td className="p-3 pl-8 text-left text-gray-400 border-r border-white/5">수출</td>
+                                                    {financialPeriods.map((_, i) => <td key={i} className="p-3 text-right text-gray-600 border-r border-white/5 last:border-r-0">-</td>)}
+                                                </tr>
+                                            </tbody>
+                                        </table>
                                     </div>
                                 </div>
                             </TabsContent>
