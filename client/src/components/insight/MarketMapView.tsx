@@ -45,29 +45,6 @@ export default function MarketMapView() {
   const [zoomLevel, setZoomLevel] = useState(1);
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Helper to get color based on change
-  const getBlockColor = (change: number) => {
-    if (change > 3) return "bg-[#ef4444]"; // Bright Red
-    if (change > 0) return "bg-[#b91c1c]"; // Red
-    if (change > -1) return "bg-[#1d4ed8]"; // Blue
-    return "bg-[#1e3a8a]"; // Dark Blue
-  };
-
-  const getBlockSizeClass = (id: string) => {
-    // Hardcoded layout classes to match the mockup visual
-    switch(id) {
-        case "samsung": return "col-span-2 row-span-2 text-3xl";
-        case "sk": return "col-span-2 row-span-1 text-2xl";
-        case "lg": return "col-span-1 row-span-1 text-xl";
-        case "hyundai": return "col-span-1 row-span-1 text-lg";
-        case "kia": return "col-span-1 row-span-1 text-base";
-        case "posco": return "col-span-1 row-span-1 text-base";
-        case "sbi": return "col-span-1 row-span-1 text-xs";
-        case "naver": return "col-span-1 row-span-1 text-xs";
-        default: return "col-span-1 text-xs";
-    }
-  };
-
   return (
     <div className={cn(
         "flex flex-col h-[calc(100vh-12rem)] animate-in fade-in duration-500",
@@ -100,34 +77,34 @@ export default function MarketMapView() {
               >
                   {/* Row 1: Samsung (Left 2x2), SK Hynix (Right Top 2x1) */}
                   <div className="col-span-2 row-span-2">
-                      <StockBlock stock={marketData[0]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[0].id} />
+                      <StockBlock stock={marketData[0]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[0].id} size="xl" />
                   </div>
                   <div className="col-span-2 row-span-1">
-                      <StockBlock stock={marketData[1]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[1].id} />
+                      <StockBlock stock={marketData[1]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[1].id} size="lg" />
                   </div>
 
                   {/* Row 2: LG Energy (Mid Right 2x1 -> actually let's split this area) */}
                   {/* Right side lower block */}
                   <div className="col-span-1 row-span-1">
-                      <StockBlock stock={marketData[2]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[2].id} />
+                      <StockBlock stock={marketData[2]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[2].id} size="md" />
                   </div>
                    <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
-                      <StockBlock stock={marketData[6]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[6].id} className="h-1/2" />
-                      <StockBlock stock={marketData[7]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[7].id} className="h-1/2" />
+                      <StockBlock stock={marketData[6]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[6].id} className="h-1/2" size="sm" />
+                      <StockBlock stock={marketData[7]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[7].id} className="h-1/2" size="sm" />
                   </div>
 
                   {/* Row 3: Bottom Row */}
                   <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
-                      <StockBlock stock={marketData[4]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[4].id} className="flex-1" />
-                      <StockBlock stock={marketData[8]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[8].id} className="h-1/3" />
+                      <StockBlock stock={marketData[4]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[4].id} className="flex-1" size="md" />
+                      <StockBlock stock={marketData[8]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[8].id} className="h-1/3" size="sm" />
                   </div>
                   <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
-                      <StockBlock stock={marketData[5]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[5].id} className="flex-1" />
-                      <StockBlock stock={marketData[9]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[9].id} className="h-1/4" />
+                      <StockBlock stock={marketData[5]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[5].id} className="flex-1" size="md" />
+                      <StockBlock stock={marketData[9]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[9].id} className="h-1/4" size="sm" />
                   </div>
                   <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
-                      <StockBlock stock={marketData[3]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[3].id} className="flex-1" />
-                      <StockBlock stock={marketData[10]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[10].id} className="h-1/4" />
+                      <StockBlock stock={marketData[3]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[3].id} className="flex-1" size="md" />
+                      <StockBlock stock={marketData[10]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[10].id} className="h-1/4" size="sm" />
                   </div>
                    {/* Empty space filler or extra stocks */}
                    <div className="col-span-1 row-span-1 bg-[#151921]" />
@@ -204,30 +181,40 @@ export default function MarketMapView() {
   );
 }
 
-function StockBlock({ stock, onClick, selected, className }: { stock: StockNode, onClick: (s: StockNode) => void, selected: boolean, className?: string }) {
+function StockBlock({ stock, onClick, selected, className, size = 'sm' }: { stock: StockNode, onClick: (s: StockNode) => void, selected: boolean, className?: string, size?: 'xl' | 'lg' | 'md' | 'sm' }) {
     const isBullish = stock.change > 0;
     const bgColor = isBullish 
         ? stock.change > 3 ? "bg-[#ef4444]" : "bg-[#b91c1c]"
         : stock.change < -2 ? "bg-[#172554]" : "bg-[#3b82f6]";
     
+    const sizeConfig = {
+        xl: { name: "text-3xl md:text-5xl", change: "text-xl md:text-3xl", info: "text-sm md:text-xl", padding: "p-6" },
+        lg: { name: "text-2xl md:text-4xl", change: "text-lg md:text-2xl", info: "text-xs md:text-lg", padding: "p-4" },
+        md: { name: "text-lg md:text-2xl", change: "text-base md:text-xl", info: "text-[10px] md:text-sm", padding: "p-3" },
+        sm: { name: "text-xs md:text-sm", change: "text-[10px] md:text-xs", info: "text-[9px] md:text-[10px]", padding: "p-1 md:p-2" }
+    };
+
+    const { name: nameSize, change: changeSize, info: infoSize, padding } = sizeConfig[size];
+
     return (
         <motion.div 
             layoutId={stock.id}
             onClick={() => onClick(stock)}
             className={cn(
-                "w-full h-full flex flex-col items-center justify-center p-2 cursor-pointer transition-all duration-200 hover:brightness-110 hover:z-10 hover:scale-[1.02]",
+                "w-full h-full flex flex-col items-center justify-center cursor-pointer transition-all duration-200 hover:brightness-110 hover:z-10 hover:scale-[1.02]",
+                padding,
                 bgColor,
                 selected ? "ring-2 ring-white z-20 shadow-xl scale-[1.02]" : "border border-black/10",
                 className
             )}
         >
-            <span className="font-bold text-white text-center leading-tight drop-shadow-md truncate w-full">
+            <span className={cn("font-bold text-white text-center leading-tight drop-shadow-md truncate w-full", nameSize)}>
                 {stock.name}
             </span>
-            <span className="font-mono text-white/90 text-sm drop-shadow-md">
+            <span className={cn("font-mono text-white/90 drop-shadow-md", changeSize)}>
                 {stock.change > 0 ? "+" : ""}{stock.change}%
             </span>
-            <span className="text-[10px] text-white/60 font-mono mt-1 hidden sm:block">
+            <span className={cn("text-white/60 font-mono mt-1 hidden sm:block", infoSize)}>
                 {stock.code} | {stock.value}T KRW
             </span>
         </motion.div>
