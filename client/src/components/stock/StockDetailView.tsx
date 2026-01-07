@@ -50,35 +50,24 @@ interface StockDetailViewProps {
   stockName: string;
 }
 
-// Mock Data for Charts
-const chartData = Array.from({ length: 50 }, (_, i) => ({
-  time: i,
-  price: 130000 + Math.random() * 20000 - 10000 + (i * 500),
-  volume: Math.random() * 1000000
+// Mock Data for Order Book
+const askOrders = Array.from({ length: 10 }, (_, i) => ({
+  price: 141100 + i * 100,
+  volume: Math.floor(Math.random() * 200000) + 10000,
+  rate: ((141100 + i * 100 - 138900) / 138900 * 100).toFixed(2)
+})).reverse();
+
+const bidOrders = Array.from({ length: 10 }, (_, i) => ({
+  price: 140900 - i * 100,
+  volume: Math.floor(Math.random() * 20000) + 1000,
+  rate: ((140900 - i * 100 - 138900) / 138900 * 100).toFixed(2)
 }));
 
-const radarData = [
-  { subject: '매출액', A: 120, fullMark: 150 },
-  { subject: '영업이익', A: 98, fullMark: 150 },
-  { subject: '배당수익률', A: 86, fullMark: 150 },
-  { subject: 'EPS', A: 99, fullMark: 150 },
-  { subject: 'ROE', A: 85, fullMark: 150 },
-];
-
-const shareholderData = [
-  { name: '삼성생명보험 외 16인', value: 20.07, color: '#3b82f6' },
-  { name: '국민연금공단', value: 7.68, color: '#10b981' },
-  { name: 'BlackRock Fund', value: 5.03, color: '#f59e0b' },
-  { name: '자사주', value: 0.58, color: '#ef4444' },
-  { name: '기타', value: 66.64, color: '#6b7280' },
-];
-
-const productMixData = [
-  { name: 'DX(가전, 스마트폰)', value: 45, color: '#3b82f6' },
-  { name: 'DS(반도체)', value: 35, color: '#ef4444' },
-  { name: 'SDC(디스플레이)', value: 12, color: '#10b981' },
-  { name: 'Harman', value: 8, color: '#f59e0b' },
-];
+const currentPriceOrder = {
+  price: 141000,
+  rate: ((141000 - 138900) / 138900 * 100).toFixed(2),
+  volume: 43886
+};
 
 export default function StockDetailView({ onBack, stockName }: StockDetailViewProps) {
   const [isAutoExpand, setIsAutoExpand] = useState(true);
@@ -205,7 +194,7 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                               {['기업소개', '호가', '실시간/일별시세', '실적', '배당', '뉴스/공시', '투자자동향', '재무분석', '투자지표', '토론'].map((tab) => (
                                   <TabsTrigger 
                                     key={tab} 
-                                    value={tab === '기업소개' ? 'company' : tab} 
+                                    value={tab === '기업소개' ? 'company' : (tab === '호가' ? 'orderbook' : tab)} 
                                     className="rounded-none border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:bg-transparent data-[state=active]:text-white text-gray-400 py-3 px-0 transition-all hover:text-white"
                                   >
                                     {tab}
@@ -327,6 +316,123 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                               ))}
                                             </div>
                                         </div>
+                                      </div>
+                                  </div>
+                                </div>
+                            </TabsContent>
+
+                            <TabsContent value="orderbook" className="mt-0 h-full">
+                                <div className="flex h-full gap-4">
+                                  {/* Order Book Main Panel */}
+                                  <div className="flex-1 bg-[#151921] rounded-lg border border-white/5 flex flex-col min-w-[500px]">
+                                    <div className="flex-1 flex flex-col relative overflow-y-auto custom-scrollbar">
+                                      {/* Ask Orders (Sell) - Blue */}
+                                      {askOrders.map((order, i) => (
+                                        <div key={`ask-${i}`} className="grid grid-cols-[1fr_120px_1fr] h-10 border-b border-white/5 text-sm group hover:bg-white/5">
+                                          <div className="relative flex items-center justify-end pr-2 bg-blue-500/5 group-hover:bg-blue-500/10">
+                                              <div 
+                                                className="absolute top-1 bottom-1 right-0 bg-blue-500/20 z-0 transition-all" 
+                                                style={{ width: `${Math.min(order.volume / 500000 * 100, 100)}%` }}
+                                              ></div>
+                                              <span className="relative z-10 text-blue-300 font-mono tracking-wide">{order.volume.toLocaleString()}</span>
+                                          </div>
+                                          <div className="flex items-center justify-center bg-[#1E222B] text-red-400 font-bold border-x border-white/5">
+                                              {order.price.toLocaleString()}
+                                              <span className="ml-1 text-[10px] opacity-70">+{order.rate}%</span>
+                                          </div>
+                                          <div className="bg-[#151921]"></div>
+                                        </div>
+                                      ))}
+
+                                      {/* Current Price Divider */}
+                                      <div className="grid grid-cols-[1fr_120px_1fr] h-12 border-y-2 border-white/10 text-sm bg-white/5">
+                                         <div className="flex items-center justify-start pl-4 text-xs text-gray-400">
+                                            <span>매도총잔량 <span className="text-white font-mono ml-1">1,245,920</span></span>
+                                         </div>
+                                         <div className="flex items-center justify-center text-red-500 font-extrabold text-lg border-x border-white/10 bg-[#252A36]">
+                                            {currentPriceOrder.price.toLocaleString()}
+                                         </div>
+                                         <div className="flex items-center justify-end pr-4 text-xs text-gray-400">
+                                            <span>매수총잔량 <span className="text-white font-mono ml-1">892,110</span></span>
+                                         </div>
+                                      </div>
+
+                                      {/* Bid Orders (Buy) - Red */}
+                                      {bidOrders.map((order, i) => (
+                                        <div key={`bid-${i}`} className="grid grid-cols-[1fr_120px_1fr] h-10 border-b border-white/5 text-sm group hover:bg-white/5">
+                                          <div className="bg-[#151921] relative">
+                                            {i === bidOrders.length - 1 && (
+                                              <div className="absolute bottom-2 left-4 text-xs text-gray-500">
+                                                체결강도 <span className="text-white ml-2">98.99%</span>
+                                              </div>
+                                            )}
+                                          </div>
+                                          <div className="flex items-center justify-center bg-[#1E222B] text-red-400 font-bold border-x border-white/5">
+                                              {order.price.toLocaleString()}
+                                              <span className="ml-1 text-[10px] opacity-70">+{order.rate}%</span>
+                                          </div>
+                                          <div className="relative flex items-center justify-start pl-2 bg-red-500/5 group-hover:bg-red-500/10">
+                                              <div 
+                                                className="absolute top-1 bottom-1 left-0 bg-red-500/20 z-0 transition-all" 
+                                                style={{ width: `${Math.min(order.volume / 50000 * 100, 100)}%` }}
+                                              ></div>
+                                              <span className="relative z-10 text-red-300 font-mono tracking-wide">{order.volume.toLocaleString()}</span>
+                                          </div>
+                                        </div>
+                                      ))}
+                                    </div>
+                                  </div>
+
+                                  {/* Right Summary Panel */}
+                                  <div className="w-[320px] shrink-0 flex flex-col gap-4">
+                                      <div className="bg-[#151921] rounded-lg border border-white/5 p-0 overflow-hidden">
+                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
+                                              <div className="p-3 border-r border-white/5 text-gray-400">52주 최고</div>
+                                              <div className="p-3 text-right font-medium text-red-400">144,400</div>
+                                          </div>
+                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
+                                              <div className="p-3 border-r border-white/5 text-gray-400">52주 최저</div>
+                                              <div className="p-3 text-right font-medium text-blue-400">50,800</div>
+                                          </div>
+                                          <div className="h-2 bg-[#0B0E14] border-b border-white/5"></div>
+                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
+                                              <div className="p-3 border-r border-white/5 text-gray-400">상한가</div>
+                                              <div className="p-3 text-right font-medium text-red-400">180,500</div>
+                                          </div>
+                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
+                                              <div className="p-3 border-r border-white/5 text-gray-400">하한가</div>
+                                              <div className="p-3 text-right font-medium text-blue-400">97,300</div>
+                                          </div>
+                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
+                                              <div className="p-3 border-r border-white/5 text-gray-400">상승VI</div>
+                                              <div className="p-3 text-right font-medium text-red-400">152,790</div>
+                                          </div>
+                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
+                                              <div className="p-3 border-r border-white/5 text-gray-400">하락VI</div>
+                                              <div className="p-3 text-right font-medium text-blue-400">125,010</div>
+                                          </div>
+                                          <div className="h-2 bg-[#0B0E14] border-b border-white/5"></div>
+                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
+                                              <div className="p-3 border-r border-white/5 text-gray-400">시작</div>
+                                              <div className="p-3 text-right font-medium text-white">143,500</div>
+                                          </div>
+                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
+                                              <div className="p-3 border-r border-white/5 text-gray-400">최고</div>
+                                              <div className="p-3 text-right font-medium text-red-400">144,400</div>
+                                          </div>
+                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
+                                              <div className="p-3 border-r border-white/5 text-gray-400">최저</div>
+                                              <div className="p-3 text-right font-medium text-blue-400">137,600</div>
+                                          </div>
+                                          <div className="h-2 bg-[#0B0E14] border-b border-white/5"></div>
+                                          <div className="grid grid-cols-2 text-xs border-b border-white/5">
+                                              <div className="p-3 border-r border-white/5 text-gray-400">거래량</div>
+                                              <div className="p-3 text-right font-medium text-white">4,486만 1,533</div>
+                                          </div>
+                                          <div className="grid grid-cols-2 text-xs">
+                                              <div className="p-3 border-r border-white/5 text-gray-400">어제보다</div>
+                                              <div className="p-3 text-right font-medium text-white">98.99%</div>
+                                          </div>
                                       </div>
                                   </div>
                                 </div>
