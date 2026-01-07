@@ -10,8 +10,10 @@ import {
   MessageSquare,
   Globe,
   Menu,
-  ChevronLeft
+  ChevronLeft,
+  Download
 } from "lucide-react";
+import { Button } from "@/components/ui/button";
 
 type InsightTab = "momentum" | "news" | "market" | "social";
 
@@ -78,16 +80,24 @@ export default function InsightPage() {
         {/* Main Content Area */}
         <main className="flex-1 flex flex-col min-w-0 bg-[#0B0E14] overflow-hidden">
             <div className="flex-1 overflow-y-auto p-8">
-                <header className="mb-8">
-                    <h1 className="text-2xl font-bold text-white mb-2">
-                        {menuItems.find(i => i.id === activeTab)?.label}
-                    </h1>
-                    <p className="text-gray-400 text-sm">
-                        {activeTab === 'momentum' && "Analyze price momentum and technical indicators in depth."}
-                        {activeTab === 'news' && "AI-powered analysis of the latest news and its market impact."}
-                        {activeTab === 'market' && "Comprehensive analysis of macroeconomic indicators and market trends."}
-                        {activeTab === 'social' && "Real-time analysis of social media and community sentiment."}
-                    </p>
+                <header className="mb-8 flex justify-between items-start">
+                    <div>
+                        <h1 className="text-2xl font-bold text-white mb-2">
+                            {menuItems.find(i => i.id === activeTab)?.label}
+                        </h1>
+                        <p className="text-gray-400 text-sm">
+                            {activeTab === 'momentum' && "Analyze price momentum and technical indicators in depth."}
+                            {activeTab === 'news' && "AI-powered analysis of the latest news and its market impact."}
+                            {activeTab === 'market' && "Comprehensive analysis of macroeconomic indicators and market trends."}
+                            {activeTab === 'social' && "Real-time analysis of social media and community sentiment."}
+                        </p>
+                    </div>
+                    {activeTab === 'market' && (
+                        <Button size="sm" variant="outline" className="h-9 gap-2 bg-blue-900/20 text-blue-400 border-blue-500/30 hover:bg-blue-900/40">
+                            <Download className="w-3.5 h-3.5" />
+                            Export PDF
+                        </Button>
+                    )}
                 </header>
 
                 {/* Content Area */}

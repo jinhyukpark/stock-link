@@ -545,11 +545,6 @@ export default function MarketView() {
               {/* Left spacer or other controls if needed */}
             </div>
 
-            <Button size="sm" variant="outline" className="h-9 gap-2 bg-blue-900/20 text-blue-400 border-blue-500/30 hover:bg-blue-900/40 mr-2">
-               <Download className="w-3.5 h-3.5" />
-               Export PDF
-            </Button>
-
             <div className="flex items-center gap-2">
               <Button 
                 variant="outline" 
