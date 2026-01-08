@@ -384,7 +384,11 @@ export default function CompareView() {
       </div>
 
       <div className="bg-[#0a0c10] border border-white/10 rounded-xl overflow-hidden">
-        <div className="flex items-center justify-end px-4 py-3 border-b border-white/10">
+        <div className="flex items-center justify-between px-4 py-3 border-b border-white/10">
+          <h3 className="text-sm font-bold text-white flex items-center gap-2">
+            <BarChart3 className="w-4 h-4 text-primary" />
+            종목심층비교
+          </h3>
           <Button 
             variant="outline" 
             size="sm"
