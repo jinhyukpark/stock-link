@@ -260,16 +260,6 @@ export default function CompareView() {
             )}
           </div>
         )}
-        
-        <Button 
-          variant="outline" 
-          size="sm"
-          className="rounded-full gap-2 bg-white/5 border-white/10 text-gray-300 hover:bg-white/10"
-          onClick={openFieldSelector}
-        >
-          <Settings2 className="w-4 h-4" />
-          컬럼
-        </Button>
       </div>
 
       {showFieldSelector && (
@@ -396,6 +386,17 @@ export default function CompareView() {
       </div>
 
       <div className="bg-[#0a0c10] border border-white/10 rounded-xl overflow-hidden">
+        <div className="flex items-center justify-end px-4 py-3 border-b border-white/10">
+          <Button 
+            variant="outline" 
+            size="sm"
+            className="rounded-lg gap-2 bg-white/5 border-white/10 text-gray-300 hover:bg-white/10"
+            onClick={openFieldSelector}
+          >
+            <Settings2 className="w-4 h-4" />
+            컬럼
+          </Button>
+        </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
             <thead>
