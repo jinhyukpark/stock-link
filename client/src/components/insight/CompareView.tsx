@@ -48,43 +48,43 @@ const stockIcons: Record<string, string> = {
 const stockDatabase: Stock[] = [
   { 
     id: "samsung", name: "삼성전자", code: "005930", price: "78,200", change: 1200, changePercent: "1.56%", color: "#3b82f6",
-    metrics: { marketCapM: "467,254,800", foreignRate: 52.14, dividend: 2.35, per: 12.5, pbr: 1.2, eps: 6256, psr: 1.82, roe: 9.6, roa: 512.35, sps: 42985, totalAssets: 4265842, totalDebt: 1125486, revenue: 2589542, operatingProfit: 356214, grossProfit: 485621, continuingOps: 412542, netIncome: 356214, revenueGrowth: 8.52, opProfitGrowth: 15.24, netIncomeGrowth: 12.35, debtRatio: 26.38, currentRatio: 285.42 }
+    metrics: { aiScore1w: 85, aiScore2w: 82, aiScore4w: 78, aiScore6w: 75, marketCapM: "467,254,800", foreignRate: 52.14, dividend: 2.35, per: 12.5, pbr: 1.2, eps: 6256, psr: 1.82, roe: 9.6, roa: 512.35, sps: 42985, totalAssets: 4265842, totalDebt: 1125486, revenue: 2589542, operatingProfit: 356214, grossProfit: 485621, continuingOps: 412542, netIncome: 356214, revenueGrowth: 8.52, opProfitGrowth: 15.24, netIncomeGrowth: 12.35, debtRatio: 26.38, currentRatio: 285.42 }
   },
   { 
     id: "sk", name: "SK하이닉스", code: "000660", price: "765,000", change: 23000, changePercent: "3.1%", color: "#ef4444",
-    metrics: { marketCapM: "126,599,611", foreignRate: 53.98, dividend: 1.27, per: 6.4, pbr: 1.62, eps: 27182, psr: 1.91, roe: 31.07, roa: 1651.73, sps: 90924, totalAssets: 1198552, totalDebt: 459395, revenue: 661930, operatingProfit: 234673, grossProfit: 318281, continuingOps: 238854, netIncome: 197969, revenueGrowth: 102.02, opProfitGrowth: 403.58, netIncomeGrowth: 316.65, debtRatio: 62.15, currentRatio: 169.35 }
+    metrics: { aiScore1w: 92, aiScore2w: 88, aiScore4w: 85, aiScore6w: 80, marketCapM: "126,599,611", foreignRate: 53.98, dividend: 1.27, per: 6.4, pbr: 1.62, eps: 27182, psr: 1.91, roe: 31.07, roa: 1651.73, sps: 90924, totalAssets: 1198552, totalDebt: 459395, revenue: 661930, operatingProfit: 234673, grossProfit: 318281, continuingOps: 238854, netIncome: 197969, revenueGrowth: 102.02, opProfitGrowth: 403.58, netIncomeGrowth: 316.65, debtRatio: 62.15, currentRatio: 169.35 }
   },
   { 
     id: "lg-energy", name: "LG에너지솔루션", code: "373220", price: "392,000", change: -5500, changePercent: "-1.38%", color: "#22c55e",
-    metrics: { marketCapM: "91,728,000", foreignRate: 28.45, dividend: 0, per: 45.3, pbr: 4.2, eps: 8652, psr: 3.85, roe: 9.3, roa: 425.68, sps: 101825, totalAssets: 685421, totalDebt: 285642, revenue: 338254, operatingProfit: 28542, grossProfit: 58642, continuingOps: 32541, netIncome: 25648, revenueGrowth: 32.45, opProfitGrowth: -15.24, netIncomeGrowth: -22.35, debtRatio: 41.68, currentRatio: 145.62 }
+    metrics: { aiScore1w: 58, aiScore2w: 62, aiScore4w: 55, aiScore6w: 52, marketCapM: "91,728,000", foreignRate: 28.45, dividend: 0, per: 45.3, pbr: 4.2, eps: 8652, psr: 3.85, roe: 9.3, roa: 425.68, sps: 101825, totalAssets: 685421, totalDebt: 285642, revenue: 338254, operatingProfit: 28542, grossProfit: 58642, continuingOps: 32541, netIncome: 25648, revenueGrowth: 32.45, opProfitGrowth: -15.24, netIncomeGrowth: -22.35, debtRatio: 41.68, currentRatio: 145.62 }
   },
   { 
     id: "hyundai-car", name: "현대차", code: "005380", price: "340,500", change: -10000, changePercent: "-2.85%", color: "#f97316",
-    metrics: { marketCapM: "44,396,232", foreignRate: 36.62, dividend: 5.66, per: 4.6, pbr: 0.51, eps: 46042, psr: 0.33, roe: 11.91, roa: 389.35, sps: 644061, totalAssets: 3397984, totalDebt: 2195225, revenue: 1752312, operatingProfit: 142396, grossProfit: 357492, continuingOps: 177814, netIncome: 132299, revenueGrowth: 7.73, opProfitGrowth: -5.87, netIncomeGrowth: 7.8, debtRatio: 182.52, currentRatio: 80.92 }
+    metrics: { aiScore1w: 45, aiScore2w: 48, aiScore4w: 52, aiScore6w: 58, marketCapM: "44,396,232", foreignRate: 36.62, dividend: 5.66, per: 4.6, pbr: 0.51, eps: 46042, psr: 0.33, roe: 11.91, roa: 389.35, sps: 644061, totalAssets: 3397984, totalDebt: 2195225, revenue: 1752312, operatingProfit: 142396, grossProfit: 357492, continuingOps: 177814, netIncome: 132299, revenueGrowth: 7.73, opProfitGrowth: -5.87, netIncomeGrowth: 7.8, debtRatio: 182.52, currentRatio: 80.92 }
   },
   { 
     id: "naver", name: "NAVER", code: "035420", price: "205,000", change: 3500, changePercent: "1.74%", color: "#a855f7",
-    metrics: { marketCapM: "33,648,500", foreignRate: 48.52, dividend: 0.42, per: 28.4, pbr: 1.4, eps: 7218, psr: 4.25, roe: 4.9, roa: 285.42, sps: 48256, totalAssets: 425648, totalDebt: 98542, revenue: 98542, operatingProfit: 18542, grossProfit: 42568, continuingOps: 22548, netIncome: 18425, revenueGrowth: 12.85, opProfitGrowth: 8.54, netIncomeGrowth: 6.25, debtRatio: 23.15, currentRatio: 312.45 }
+    metrics: { aiScore1w: 72, aiScore2w: 75, aiScore4w: 70, aiScore6w: 68, marketCapM: "33,648,500", foreignRate: 48.52, dividend: 0.42, per: 28.4, pbr: 1.4, eps: 7218, psr: 4.25, roe: 4.9, roa: 285.42, sps: 48256, totalAssets: 425648, totalDebt: 98542, revenue: 98542, operatingProfit: 18542, grossProfit: 42568, continuingOps: 22548, netIncome: 18425, revenueGrowth: 12.85, opProfitGrowth: 8.54, netIncomeGrowth: 6.25, debtRatio: 23.15, currentRatio: 312.45 }
   },
   { 
     id: "kakao", name: "카카오", code: "035720", price: "54,000", change: -1200, changePercent: "-2.17%", color: "#eab308",
-    metrics: { marketCapM: "24,012,000", foreignRate: 35.24, dividend: 0, per: 52.1, pbr: 1.1, eps: 1036, psr: 2.85, roe: 2.1, roa: 125.42, sps: 18952, totalAssets: 285642, totalDebt: 125486, revenue: 85426, operatingProfit: 5842, grossProfit: 28564, continuingOps: 6854, netIncome: 4256, revenueGrowth: -5.24, opProfitGrowth: -28.54, netIncomeGrowth: -35.42, debtRatio: 43.92, currentRatio: 185.24 }
+    metrics: { aiScore1w: 38, aiScore2w: 42, aiScore4w: 45, aiScore6w: 40, marketCapM: "24,012,000", foreignRate: 35.24, dividend: 0, per: 52.1, pbr: 1.1, eps: 1036, psr: 2.85, roe: 2.1, roa: 125.42, sps: 18952, totalAssets: 285642, totalDebt: 125486, revenue: 85426, operatingProfit: 5842, grossProfit: 28564, continuingOps: 6854, netIncome: 4256, revenueGrowth: -5.24, opProfitGrowth: -28.54, netIncomeGrowth: -35.42, debtRatio: 43.92, currentRatio: 185.24 }
   },
   { 
     id: "kb", name: "KB금융", code: "105560", price: "82,500", change: 1800, changePercent: "2.23%", color: "#14b8a6",
-    metrics: { marketCapM: "32,835,000", foreignRate: 68.42, dividend: 5.82, per: 5.8, pbr: 0.58, eps: 14224, psr: 1.25, roe: 10.02, roa: 45.24, sps: 66024, totalAssets: 6854256, totalDebt: 6254862, revenue: 265842, operatingProfit: 85426, grossProfit: 125486, continuingOps: 95246, netIncome: 72548, revenueGrowth: 8.54, opProfitGrowth: 12.45, netIncomeGrowth: 15.24, debtRatio: 91.26, currentRatio: 112.35 }
+    metrics: { aiScore1w: 78, aiScore2w: 75, aiScore4w: 72, aiScore6w: 70, marketCapM: "32,835,000", foreignRate: 68.42, dividend: 5.82, per: 5.8, pbr: 0.58, eps: 14224, psr: 1.25, roe: 10.02, roa: 45.24, sps: 66024, totalAssets: 6854256, totalDebt: 6254862, revenue: 265842, operatingProfit: 85426, grossProfit: 125486, continuingOps: 95246, netIncome: 72548, revenueGrowth: 8.54, opProfitGrowth: 12.45, netIncomeGrowth: 15.24, debtRatio: 91.26, currentRatio: 112.35 }
   },
   { 
     id: "posco", name: "POSCO홀딩스", code: "005490", price: "312,000", change: 8500, changePercent: "2.80%", color: "#64748b",
-    metrics: { marketCapM: "26,364,000", foreignRate: 42.85, dividend: 3.52, per: 6.2, pbr: 0.42, eps: 50322, psr: 0.28, roe: 6.77, roa: 285.42, sps: 1114285, totalAssets: 1254862, totalDebt: 685426, revenue: 942568, operatingProfit: 65428, grossProfit: 125486, continuingOps: 72548, netIncome: 58426, revenueGrowth: -12.45, opProfitGrowth: -25.42, netIncomeGrowth: -32.15, debtRatio: 54.62, currentRatio: 135.24 }
+    metrics: { aiScore1w: 55, aiScore2w: 52, aiScore4w: 48, aiScore6w: 45, marketCapM: "26,364,000", foreignRate: 42.85, dividend: 3.52, per: 6.2, pbr: 0.42, eps: 50322, psr: 0.28, roe: 6.77, roa: 285.42, sps: 1114285, totalAssets: 1254862, totalDebt: 685426, revenue: 942568, operatingProfit: 65428, grossProfit: 125486, continuingOps: 72548, netIncome: 58426, revenueGrowth: -12.45, opProfitGrowth: -25.42, netIncomeGrowth: -32.15, debtRatio: 54.62, currentRatio: 135.24 }
   },
   { 
     id: "celltrion", name: "셀트리온", code: "068270", price: "178,500", change: 4200, changePercent: "2.41%", color: "#ec4899",
-    metrics: { marketCapM: "24,862,500", foreignRate: 18.54, dividend: 0.28, per: 35.2, pbr: 4.85, eps: 5071, psr: 8.52, roe: 13.78, roa: 542.68, sps: 20945, totalAssets: 185426, totalDebt: 42568, revenue: 29854, operatingProfit: 8542, grossProfit: 18542, continuingOps: 9854, netIncome: 7856, revenueGrowth: 25.42, opProfitGrowth: 32.45, netIncomeGrowth: 28.54, debtRatio: 22.95, currentRatio: 425.62 }
+    metrics: { aiScore1w: 68, aiScore2w: 72, aiScore4w: 75, aiScore6w: 78, marketCapM: "24,862,500", foreignRate: 18.54, dividend: 0.28, per: 35.2, pbr: 4.85, eps: 5071, psr: 8.52, roe: 13.78, roa: 542.68, sps: 20945, totalAssets: 185426, totalDebt: 42568, revenue: 29854, operatingProfit: 8542, grossProfit: 18542, continuingOps: 9854, netIncome: 7856, revenueGrowth: 25.42, opProfitGrowth: 32.45, netIncomeGrowth: 28.54, debtRatio: 22.95, currentRatio: 425.62 }
   },
   { 
     id: "kia", name: "기아", code: "000270", price: "128,500", change: -2500, changePercent: "-1.91%", color: "#06b6d4",
-    metrics: { marketCapM: "52,268,250", foreignRate: 38.42, dividend: 4.85, per: 4.2, pbr: 0.72, eps: 30595, psr: 0.35, roe: 17.14, roa: 485.62, sps: 367142, totalAssets: 985426, totalDebt: 542568, revenue: 1485426, operatingProfit: 125486, grossProfit: 285642, continuingOps: 142568, netIncome: 118542, revenueGrowth: 12.54, opProfitGrowth: 18.42, netIncomeGrowth: 22.35, debtRatio: 55.06, currentRatio: 125.42 }
+    metrics: { aiScore1w: 62, aiScore2w: 58, aiScore4w: 55, aiScore6w: 52, marketCapM: "52,268,250", foreignRate: 38.42, dividend: 4.85, per: 4.2, pbr: 0.72, eps: 30595, psr: 0.35, roe: 17.14, roa: 485.62, sps: 367142, totalAssets: 985426, totalDebt: 542568, revenue: 1485426, operatingProfit: 125486, grossProfit: 285642, continuingOps: 142568, netIncome: 118542, revenueGrowth: 12.54, opProfitGrowth: 18.42, netIncomeGrowth: 22.35, debtRatio: 55.06, currentRatio: 125.42 }
   },
 ];
 
@@ -97,6 +97,7 @@ const generateChartData = (stockId: string) => {
 };
 
 const metricCategories = {
+  aiScore: { label: "AI스코어", items: ["aiScore1w", "aiScore2w", "aiScore4w", "aiScore6w"] },
   basic: { label: "기본정보", items: ["marketCapM", "foreignRate", "dividend"] },
   investment: { label: "투자지표", items: ["per", "pbr", "eps", "psr", "roe", "roa", "sps"] },
   financial: { label: "재무정보", items: ["totalAssets", "totalDebt", "revenue", "operatingProfit", "grossProfit", "continuingOps", "netIncome"] },
@@ -110,6 +111,7 @@ export default function CompareView() {
   const [showSearch, setShowSearch] = useState(false);
   const [showFieldSelector, setShowFieldSelector] = useState(false);
   const [visibleFields, setVisibleFields] = useState<string[]>([
+    "aiScore1w", "aiScore2w", "aiScore4w", "aiScore6w",
     "marketCapM", "foreignRate", "dividend", "per", "pbr", "eps", "psr", "roe", "roa", "sps",
     "totalAssets", "totalDebt", "revenue", "operatingProfit", "grossProfit", "continuingOps", "netIncome",
     "revenueGrowth", "opProfitGrowth", "netIncomeGrowth", "debtRatio", "currentRatio"
@@ -134,6 +136,10 @@ export default function CompareView() {
   };
 
   const allMetrics = [
+    { key: "aiScore1w", label: "AI스코어 1주" },
+    { key: "aiScore2w", label: "AI스코어 2주" },
+    { key: "aiScore4w", label: "AI스코어 4주" },
+    { key: "aiScore6w", label: "AI스코어 6주" },
     { key: "marketCapM", label: "시가총액(백만)" },
     { key: "foreignRate", label: "외국인 지분율" },
     { key: "dividend", label: "배당수익률" },
