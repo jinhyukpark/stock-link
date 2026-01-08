@@ -224,7 +224,21 @@ export default function CompareView() {
         </h3>
         <div className="h-[300px]">
           <ResponsiveContainer width="100%" height="100%">
-            <LineChart margin={{ top: 10, right: 10, left: 0, bottom: 0 }}>
+            <LineChart 
+              data={(() => {
+                return Array.from({ length: 30 }, (_, i) => {
+                  const point: Record<string, number | string> = { date: `${i + 1}` };
+                  selectedStocks.forEach(stock => {
+                    const baseValue = stock.id === "samsung" ? 78 : stock.id === "sk" ? 765 : stock.id === "lg-energy" ? 392 : 
+                      stock.id === "hyundai-car" ? 340 : stock.id === "naver" ? 205 : stock.id === "kakao" ? 54 :
+                      stock.id === "kb" ? 82 : stock.id === "posco" ? 312 : stock.id === "celltrion" ? 178 : 128;
+                    point[stock.id] = baseValue + (Math.random() - 0.5) * baseValue * 0.08 + Math.sin(i / 5) * baseValue * 0.02;
+                  });
+                  return point;
+                });
+              })()}
+              margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
+            >
               <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
               <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
               <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} hide />
@@ -232,20 +246,17 @@ export default function CompareView() {
                 contentStyle={{ backgroundColor: '#151921', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
                 labelStyle={{ color: '#fff' }}
               />
-              {selectedStocks.map((stock) => {
-                const data = generateChartData(stock.id);
-                return (
-                  <Line 
-                    key={stock.id}
-                    data={data}
-                    dataKey="value"
-                    name={stock.name}
-                    stroke={stock.color}
-                    strokeWidth={2}
-                    dot={false}
-                  />
-                );
-              })}
+              {selectedStocks.map((stock) => (
+                <Line 
+                  key={stock.id}
+                  type="monotone"
+                  dataKey={stock.id}
+                  name={stock.name}
+                  stroke={stock.color}
+                  strokeWidth={2}
+                  dot={false}
+                />
+              ))}
             </LineChart>
           </ResponsiveContainer>
         </div>
