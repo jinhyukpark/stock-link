@@ -226,13 +226,23 @@ export default function CompareView() {
           <ResponsiveContainer width="100%" height="100%">
             <LineChart 
               data={(() => {
+                const stockSeeds: Record<string, number[]> = {};
+                selectedStocks.forEach(stock => {
+                  const baseValue = stock.id === "samsung" ? 78 : stock.id === "sk" ? 765 : stock.id === "lg-energy" ? 392 : 
+                    stock.id === "hyundai-car" ? 340 : stock.id === "naver" ? 205 : stock.id === "kakao" ? 54 :
+                    stock.id === "kb" ? 82 : stock.id === "posco" ? 312 : stock.id === "celltrion" ? 178 : 128;
+                  let current = baseValue;
+                  stockSeeds[stock.id] = [];
+                  for (let i = 0; i < 30; i++) {
+                    const change = (Math.random() - 0.48) * baseValue * 0.06;
+                    current = Math.max(baseValue * 0.85, Math.min(baseValue * 1.15, current + change));
+                    stockSeeds[stock.id].push(current);
+                  }
+                });
                 return Array.from({ length: 30 }, (_, i) => {
                   const point: Record<string, number | string> = { date: `${i + 1}` };
                   selectedStocks.forEach(stock => {
-                    const baseValue = stock.id === "samsung" ? 78 : stock.id === "sk" ? 765 : stock.id === "lg-energy" ? 392 : 
-                      stock.id === "hyundai-car" ? 340 : stock.id === "naver" ? 205 : stock.id === "kakao" ? 54 :
-                      stock.id === "kb" ? 82 : stock.id === "posco" ? 312 : stock.id === "celltrion" ? 178 : 128;
-                    point[stock.id] = baseValue + (Math.random() - 0.5) * baseValue * 0.08 + Math.sin(i / 5) * baseValue * 0.02;
+                    point[stock.id] = stockSeeds[stock.id][i];
                   });
                   return point;
                 });
@@ -249,11 +259,11 @@ export default function CompareView() {
               {selectedStocks.map((stock) => (
                 <Line 
                   key={stock.id}
-                  type="monotone"
+                  type="linear"
                   dataKey={stock.id}
                   name={stock.name}
                   stroke={stock.color}
-                  strokeWidth={2}
+                  strokeWidth={1.5}
                   dot={false}
                 />
               ))}
