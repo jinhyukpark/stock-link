@@ -618,9 +618,9 @@ export default function MarketView() {
                                     description={section.description}
                                 />
 
-                                <div className="grid grid-cols-1 lg:grid-cols-5 gap-8">
-                                    {/* Analysis Column (Left) */}
-                                    <div className="lg:col-span-2 space-y-6">
+                                <div className="flex flex-col gap-6">
+                                    {/* Analysis Column (Top) */}
+                                    <div className="w-full space-y-6">
                                         <AnalysisBlock content={section.analysis} />
                                         {section.legend && (
                                             <div className="bg-secondary/10 rounded-lg p-4 border border-border/30">
@@ -633,8 +633,8 @@ export default function MarketView() {
                                         )}
                                     </div>
 
-                                    {/* Chart Column (Right) */}
-                                    <div className="lg:col-span-3 h-[320px] bg-[#12141a] rounded-lg border border-border/20 p-4 shadow-inner relative group">
+                                    {/* Chart Column (Bottom) */}
+                                    <div className="w-full h-[450px] bg-[#12141a] rounded-lg border border-border/20 p-4 shadow-inner relative group">
                                         <Button 
                                             variant="ghost" 
                                             size="icon" 
