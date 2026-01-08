@@ -234,8 +234,10 @@ export default function CompareView() {
                   let current = baseValue;
                   stockSeeds[stock.id] = [];
                   for (let i = 0; i < 30; i++) {
-                    const change = (Math.random() - 0.48) * baseValue * 0.06;
-                    current = Math.max(baseValue * 0.85, Math.min(baseValue * 1.15, current + change));
+                    const trend = Math.sin(i / 3 + stock.id.length) * baseValue * 0.03;
+                    const spike = Math.random() > 0.85 ? (Math.random() - 0.5) * baseValue * 0.08 : 0;
+                    const change = (Math.random() - 0.5) * baseValue * 0.04 + trend + spike;
+                    current = Math.max(baseValue * 0.8, Math.min(baseValue * 1.2, current + change));
                     stockSeeds[stock.id].push(current);
                   }
                 });
