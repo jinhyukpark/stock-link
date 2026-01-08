@@ -15,7 +15,8 @@ import {
   ChevronUp,
   ChevronDown,
   Settings2,
-  Check
+  Check,
+  Download
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
@@ -389,15 +390,37 @@ export default function CompareView() {
             <BarChart3 className="w-4 h-4 text-primary" />
             종목심층비교
           </h3>
-          <Button 
-            variant="outline" 
-            size="sm"
-            className="rounded-lg gap-2 bg-white/5 border-white/10 text-gray-300 hover:bg-white/10"
-            onClick={openFieldSelector}
-          >
-            <Settings2 className="w-4 h-4" />
-            컬럼
-          </Button>
+          <div className="flex items-center gap-2">
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="rounded-lg gap-2 bg-white/5 border-white/10 text-gray-300 hover:bg-white/10"
+              onClick={openFieldSelector}
+            >
+              <Settings2 className="w-4 h-4" />
+              컬럼
+            </Button>
+            <Button 
+              variant="outline" 
+              size="sm"
+              className="rounded-lg gap-2 bg-white/5 border-white/10 text-gray-300 hover:bg-white/10"
+              onClick={() => {
+                const headers = ['항목', ...selectedStocks.map(s => s.name)];
+                const rows = metrics.map(m => [m.label, ...selectedStocks.map(s => stockData[s.id]?.[m.key] ?? '-')]);
+                const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
+                const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
+                const url = URL.createObjectURL(blob);
+                const a = document.createElement('a');
+                a.href = url;
+                a.download = '종목비교.csv';
+                a.click();
+                URL.revokeObjectURL(url);
+              }}
+            >
+              <Download className="w-4 h-4" />
+              엑셀
+            </Button>
+          </div>
         </div>
         <div className="overflow-x-auto">
           <table className="w-full text-sm border-collapse">
