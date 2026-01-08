@@ -305,19 +305,16 @@ const MarketSummaryReport = ({ date }: { date: string }) => {
 // --- Navigation Links ---
 const navLinks = [
   { id: "fgi", label: "01. 공포 & 탐욕 지수", icon: Zap },
-  { id: "rising-stocks-kospi", label: "02. KOSPI 상승 종목 수", icon: TrendingUp },
-  { id: "rising-stocks-kosdaq", label: "03. KOSDAQ 상승 종목 수", icon: TrendingUp },
-  { id: "price-dist-kospi", label: "04. KOSPI 등락률 분포", icon: BarChart2 },
-  { id: "price-dist-kosdaq", label: "05. KOSDAQ 등락률 분포", icon: BarChart2 },
-  { id: "market-size-kospi", label: "06. KOSPI 시총별 흐름", icon: PieChartIcon },
-  { id: "market-size-kosdaq", label: "07. KOSDAQ 시총별 흐름", icon: PieChartIcon },
-  { id: "pam", label: "08. 기대 수익률", icon: Activity },
+  { id: "market-breadth", label: "02. 시장 등락: 상승 종목 수", icon: TrendingUp },
+  { id: "price-dist", label: "03. 등락률 분포", icon: BarChart2 },
+  { id: "market-size", label: "04. 시총별 흐름", icon: PieChartIcon },
+  { id: "pam", label: "05. 기대 수익률", icon: Activity },
 ];
 
 export default function MarketView() {
   const [date, setDate] = useState<string>(dateOptions[0].value);
   const [open, setOpen] = useState(false);
-  const [selectedChart, setSelectedChart] = useState<{ title: string; description: string; chart: React.ReactNode; analysis: string; legend?: React.ReactNode } | null>(null);
+  const [selectedChart, setSelectedChart] = useState<{ title: string; description: string; chart: React.ReactNode; analysis: string; legend?: React.ReactNode; height?: string } | null>(null);
   const [showDescription, setShowDescription] = useState(true);
 
   const handlePrevDate = () => {
@@ -491,46 +488,73 @@ export default function MarketView() {
       description: chartDescriptions.fgi
     },
     { 
-      id: "rising-stocks-kospi", 
-      title: "KOSPI 상승 종목 수 (Market Breadth)", 
-      chart: kospiBreadthChart,
+      id: "market-breadth", 
+      title: "시장 등락: 상승 종목 수 (MARKET BREADTH)", 
+      chart: (
+        <div className="flex flex-col gap-6 h-full">
+            <div className="flex-1 min-h-0 flex flex-col">
+                <h3 className="text-xs font-bold text-gray-500 mb-2 pl-2 border-l-2 border-primary/50">KOSPI</h3>
+                <div className="flex-1 min-h-0 bg-[#0F1218] rounded-md border border-white/5 p-2">
+                    {kospiBreadthChart}
+                </div>
+            </div>
+            <div className="flex-1 min-h-0 flex flex-col">
+                <h3 className="text-xs font-bold text-gray-500 mb-2 pl-2 border-l-2 border-primary/50">KOSDAQ</h3>
+                <div className="flex-1 min-h-0 bg-[#0F1218] rounded-md border border-white/5 p-2">
+                    {kosdaqBreadthChart}
+                </div>
+            </div>
+        </div>
+      ),
       analysis: analysisTexts.breadth,
-      description: chartDescriptions.breadth
+      description: chartDescriptions.breadth,
+      height: "h-[600px]"
     },
     { 
-      id: "rising-stocks-kosdaq", 
-      title: "KOSDAQ 상승 종목 수 (Market Breadth)", 
-      chart: kosdaqBreadthChart,
-      analysis: analysisTexts.breadth,
-      description: chartDescriptions.breadth
-    },
-    { 
-      id: "price-dist-kospi", 
-      title: "KOSPI 등락률 분포 (Histogram)", 
-      chart: kospiDistChart,
+      id: "price-dist", 
+      title: "등락률 분포 (Histogram)", 
+      chart: (
+        <div className="flex flex-col gap-6 h-full">
+            <div className="flex-1 min-h-0 flex flex-col">
+                <h3 className="text-xs font-bold text-gray-500 mb-2 pl-2 border-l-2 border-primary/50">KOSPI</h3>
+                <div className="flex-1 min-h-0 bg-[#0F1218] rounded-md border border-white/5 p-2">
+                    {kospiDistChart}
+                </div>
+            </div>
+            <div className="flex-1 min-h-0 flex flex-col">
+                <h3 className="text-xs font-bold text-gray-500 mb-2 pl-2 border-l-2 border-primary/50">KOSDAQ</h3>
+                <div className="flex-1 min-h-0 bg-[#0F1218] rounded-md border border-white/5 p-2">
+                    {kosdaqDistChart}
+                </div>
+            </div>
+        </div>
+      ),
       analysis: analysisTexts.dist,
-      description: chartDescriptions.dist
+      description: chartDescriptions.dist,
+      height: "h-[600px]"
     },
     { 
-      id: "price-dist-kosdaq", 
-      title: "KOSDAQ 등락률 분포 (Histogram)", 
-      chart: kosdaqDistChart,
-      analysis: analysisTexts.dist,
-      description: chartDescriptions.dist
-    },
-    { 
-      id: "market-size-kospi", 
-      title: "KOSPI 시총별 흐름 (Size Effect)", 
-      chart: kospiSizeChart,
+      id: "market-size", 
+      title: "시총별 흐름 (Size Effect)", 
+      chart: (
+        <div className="flex flex-col gap-6 h-full">
+            <div className="flex-1 min-h-0 flex flex-col">
+                <h3 className="text-xs font-bold text-gray-500 mb-2 pl-2 border-l-2 border-primary/50">KOSPI</h3>
+                <div className="flex-1 min-h-0 bg-[#0F1218] rounded-md border border-white/5 p-2">
+                    {kospiSizeChart}
+                </div>
+            </div>
+            <div className="flex-1 min-h-0 flex flex-col">
+                <h3 className="text-xs font-bold text-gray-500 mb-2 pl-2 border-l-2 border-primary/50">KOSDAQ</h3>
+                <div className="flex-1 min-h-0 bg-[#0F1218] rounded-md border border-white/5 p-2">
+                    {kosdaqSizeChart}
+                </div>
+            </div>
+        </div>
+      ),
       analysis: analysisTexts.cap,
-      description: chartDescriptions.cap
-    },
-    { 
-      id: "market-size-kosdaq", 
-      title: "KOSDAQ 시총별 흐름 (Size Effect)", 
-      chart: kosdaqSizeChart,
-      analysis: analysisTexts.cap,
-      description: chartDescriptions.cap
+      description: chartDescriptions.cap,
+      height: "h-[600px]"
     },
     { 
       id: "pam", 
@@ -634,7 +658,7 @@ export default function MarketView() {
                                     </div>
 
                                     {/* Chart Column (Bottom) */}
-                                    <div className="w-full h-[450px] bg-[#12141a] rounded-lg border border-border/20 p-4 shadow-inner relative group">
+                                    <div className={cn("w-full bg-[#12141a] rounded-lg border border-border/20 p-4 shadow-inner relative group", section.height || "h-[450px]")}>
                                         <Button 
                                             variant="ghost" 
                                             size="icon" 
