@@ -253,7 +253,7 @@ export default function CompareView() {
             >
               <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
               <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} />
-              <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} hide />
+              <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} width={60} tickFormatter={(value) => value.toLocaleString()} />
               <Tooltip 
                 contentStyle={{ backgroundColor: '#151921', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
                 labelStyle={{ color: '#fff' }}
