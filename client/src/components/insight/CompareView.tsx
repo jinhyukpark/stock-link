@@ -393,7 +393,10 @@ export default function CompareView() {
               <Tooltip 
                 contentStyle={{ backgroundColor: '#151921', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
                 labelStyle={{ color: '#fff' }}
-                formatter={(value: number) => [`${value > 0 ? '+' : ''}${value.toFixed(1)}%`, '']}
+                formatter={(value: number, name: string) => {
+                  const stock = selectedStocks.find(s => s.id === name);
+                  return [`${value > 0 ? '+' : ''}${value.toFixed(1)}%`, stock?.name || name];
+                }}
               />
               {selectedStocks.map((stock) => (
                 <Line 
