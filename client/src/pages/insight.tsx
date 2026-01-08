@@ -12,17 +12,19 @@ import {
   Menu,
   ChevronLeft,
   Download,
-  Layers
+  Layers,
+  GitCompare
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 
-type InsightTab = "momentum" | "news" | "market" | "market-map" | "theme" | "social";
+type InsightTab = "momentum" | "news" | "market" | "market-map" | "theme" | "compare" | "social";
 
 import MomentumView from "@/components/insight/MomentumView";
 import MarketView from "@/components/insight/MarketView";
 import ThemeView from "@/components/insight/ThemeView";
 import NewsView from "@/components/insight/NewsView";
 import MarketMapView from "@/components/insight/MarketMapView";
+import CompareView from "@/components/insight/CompareView";
 
 export default function InsightPage() {
   const [activeTab, setActiveTab] = useState<InsightTab>("momentum");
@@ -34,6 +36,7 @@ export default function InsightPage() {
     { id: "market", label: "Market Analysis", icon: BarChart3 },
     { id: "market-map", label: "Market Map Analysis", icon: Globe },
     { id: "theme", label: "Theme Analysis", icon: Layers },
+    { id: "compare", label: "Stock Comparison", icon: GitCompare },
     { id: "social", label: "Social Analysis", icon: Share2 },
   ];
 
@@ -103,6 +106,7 @@ export default function InsightPage() {
                             {activeTab === 'market' && "Comprehensive analysis of macroeconomic indicators and market trends."}
                             {activeTab === 'market-map' && "Interactive heatmap visualization of market performance across sectors and top companies."}
                             {activeTab === 'theme' && "Visualize sector performance and identify leading market themes."}
+                            {activeTab === 'compare' && "Compare multiple stocks side-by-side with detailed metrics and charts."}
                             {activeTab === 'social' && "Real-time analysis of social media and community sentiment."}
                         </p>
                     </div>
@@ -126,6 +130,8 @@ export default function InsightPage() {
                         <MarketMapView />
                     ) : activeTab === 'theme' ? (
                         <ThemeView />
+                    ) : activeTab === 'compare' ? (
+                        <CompareView />
                     ) : (
                         <>
                             {/* Placeholder for other tabs */}
