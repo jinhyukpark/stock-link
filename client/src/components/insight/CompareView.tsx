@@ -259,30 +259,34 @@ export default function CompareView() {
                 <th className="text-left px-4 py-4 text-gray-400 font-medium sticky left-0 bg-[#0f1318] z-10 min-w-[160px] border-r border-white/10">항목</th>
                 {selectedStocks.map((stock, i) => (
                   <th key={stock.id} className={cn(
-                    "text-center px-4 py-4 min-w-[140px]",
+                    "text-center px-4 py-4 min-w-[160px]",
                     i < selectedStocks.length - 1 && "border-r border-white/10"
                   )}>
-                    <div className="flex flex-col items-center gap-2">
-                      <div className="w-10 h-10 rounded-full overflow-hidden bg-white/10 flex items-center justify-center" style={{ borderColor: stock.color, borderWidth: 2 }}>
+                    <div className="flex items-center gap-3">
+                      <div className="w-10 h-10 rounded-full overflow-hidden flex-shrink-0 flex items-center justify-center" style={{ backgroundColor: stock.color + '20', borderColor: stock.color, borderWidth: 2 }}>
                         <img 
                           src={stockIcons[stock.id]} 
                           alt={stock.name}
                           className="w-full h-full object-cover"
                           onError={(e) => {
                             (e.target as HTMLImageElement).style.display = 'none';
-                            (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-lg font-bold" style="color: ${stock.color}">${stock.name.charAt(0)}</span>`;
+                            (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-sm font-bold" style="color: ${stock.color}">${stock.name.substring(0,2)}</span>`;
                           }}
                         />
                       </div>
-                      <span className="font-bold text-white text-sm">{stock.name}</span>
-                      <div className="text-xl font-bold text-white">{stock.price}원</div>
-                      <div className={cn(
-                        "text-xs font-semibold",
-                        stock.change > 0 ? "text-red-400" : stock.change < 0 ? "text-blue-400" : "text-gray-400"
-                      )}>
-                        {stock.change > 0 ? "▲" : stock.change < 0 ? "▼" : ""} {Math.abs(stock.change).toLocaleString()} {stock.changePercent}
+                      <div className="flex flex-col items-start text-left">
+                        <span className="font-bold text-white text-sm">{stock.name}</span>
+                        <div className="text-lg font-bold text-white">{stock.price}원</div>
+                        <div className="flex items-center gap-2">
+                          <span className="text-gray-500 text-xs font-mono">{stock.code}</span>
+                          <span className={cn(
+                            "text-xs font-semibold",
+                            stock.change > 0 ? "text-red-400" : stock.change < 0 ? "text-blue-400" : "text-gray-400"
+                          )}>
+                            {stock.change > 0 ? "▲" : stock.change < 0 ? "▼" : ""} {Math.abs(stock.change).toLocaleString()} {stock.changePercent}
+                          </span>
+                        </div>
                       </div>
-                      <div className="text-gray-500 text-xs font-mono">{stock.code}</div>
                     </div>
                   </th>
                 ))}
