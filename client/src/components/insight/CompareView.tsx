@@ -29,6 +29,19 @@ type Stock = {
   metrics: Record<string, string | number>;
 };
 
+const stockIcons: Record<string, string> = {
+  samsung: "https://cdn.brandfetch.io/samsung.com/w/400/h/400",
+  sk: "https://cdn.brandfetch.io/skhynix.com/w/400/h/400",
+  "lg-energy": "https://cdn.brandfetch.io/lg.com/w/400/h/400",
+  "hyundai-car": "https://cdn.brandfetch.io/hyundai.com/w/400/h/400",
+  naver: "https://cdn.brandfetch.io/naver.com/w/400/h/400",
+  kakao: "https://cdn.brandfetch.io/kakaocorp.com/w/400/h/400",
+  kb: "https://cdn.brandfetch.io/kbfg.com/w/400/h/400",
+  posco: "https://cdn.brandfetch.io/posco.com/w/400/h/400",
+  celltrion: "https://cdn.brandfetch.io/celltrion.com/w/400/h/400",
+  kia: "https://cdn.brandfetch.io/kia.com/w/400/h/400",
+};
+
 const stockDatabase: Stock[] = [
   { 
     id: "samsung", name: "삼성전자", code: "005930", price: "78,200", change: 1200, changePercent: "1.56%", color: "#3b82f6",
@@ -240,20 +253,31 @@ export default function CompareView() {
         </div>
       </div>
 
-      <div className="bg-[#0f1318] border border-white/5 rounded-xl overflow-hidden">
+      <div className="bg-[#0a0c10] border border-white/10 rounded-xl overflow-hidden">
         <div className="overflow-x-auto">
-          <table className="w-full text-sm">
+          <table className="w-full text-sm border-collapse">
             <thead>
-              <tr className="border-b border-white/10 bg-[#151921]">
-                <th className="text-left px-4 py-3 text-gray-400 font-medium sticky left-0 bg-[#151921] z-10 min-w-[140px]">항목</th>
-                {selectedStocks.map((stock) => (
-                  <th key={stock.id} className="text-center px-3 py-3 min-w-[120px]">
-                    <div className="flex flex-col items-center gap-1">
-                      <div className="flex items-center gap-1.5">
-                        <div className="w-2.5 h-2.5 rounded-full" style={{ backgroundColor: stock.color }} />
-                        <span className="font-bold text-white text-sm">{stock.name}</span>
+              <tr className="border-b border-white/10 bg-[#0f1318]">
+                <th className="text-left px-4 py-4 text-gray-400 font-medium sticky left-0 bg-[#0f1318] z-10 min-w-[160px] border-r border-white/10">항목</th>
+                {selectedStocks.map((stock, i) => (
+                  <th key={stock.id} className={cn(
+                    "text-center px-4 py-4 min-w-[140px]",
+                    i < selectedStocks.length - 1 && "border-r border-white/10"
+                  )}>
+                    <div className="flex flex-col items-center gap-2">
+                      <div className="w-10 h-10 rounded-full overflow-hidden bg-white/10 flex items-center justify-center" style={{ borderColor: stock.color, borderWidth: 2 }}>
+                        <img 
+                          src={stockIcons[stock.id]} 
+                          alt={stock.name}
+                          className="w-full h-full object-cover"
+                          onError={(e) => {
+                            (e.target as HTMLImageElement).style.display = 'none';
+                            (e.target as HTMLImageElement).parentElement!.innerHTML = `<span class="text-lg font-bold" style="color: ${stock.color}">${stock.name.charAt(0)}</span>`;
+                          }}
+                        />
                       </div>
-                      <div className="text-lg font-bold text-white">{stock.price}원</div>
+                      <span className="font-bold text-white text-sm">{stock.name}</span>
+                      <div className="text-xl font-bold text-white">{stock.price}원</div>
                       <div className={cn(
                         "text-xs font-semibold",
                         stock.change > 0 ? "text-red-400" : stock.change < 0 ? "text-blue-400" : "text-gray-400"
@@ -270,23 +294,28 @@ export default function CompareView() {
               {metrics.map((metric, idx) => (
                 <tr key={metric.key} className={cn(
                   "border-b border-white/5 hover:bg-white/[0.02] transition-colors",
-                  idx % 2 === 0 ? "bg-[#0f1318]" : "bg-[#111519]"
+                  idx % 2 === 0 ? "bg-[#0a0c10]" : "bg-[#0d0f14]"
                 )}>
                   <td className={cn(
-                    "px-4 py-2.5 font-medium text-gray-300 sticky left-0 z-10 flex items-center justify-between",
-                    idx % 2 === 0 ? "bg-[#0f1318]" : "bg-[#111519]"
+                    "px-4 py-2.5 font-medium text-gray-300 sticky left-0 z-10 border-r border-white/10",
+                    idx % 2 === 0 ? "bg-[#0a0c10]" : "bg-[#0d0f14]"
                   )}>
-                    <span>{metric.label}</span>
-                    <div className="flex flex-col ml-2">
-                      <ChevronUp className="w-3 h-3 text-cyan-400 -mb-1" />
-                      <ChevronDown className="w-3 h-3 text-cyan-400 -mt-1" />
+                    <div className="flex items-center justify-between">
+                      <span>{metric.label}</span>
+                      <div className="flex flex-col ml-2">
+                        <ChevronUp className="w-3 h-3 text-cyan-400 -mb-1" />
+                        <ChevronDown className="w-3 h-3 text-cyan-400 -mt-1" />
+                      </div>
                     </div>
                   </td>
-                  {selectedStocks.map((stock) => {
+                  {selectedStocks.map((stock, i) => {
                     const value = stock.metrics[metric.key];
                     return (
-                      <td key={stock.id} className="text-center px-3 py-2.5">
-                        <span className="text-gray-200 font-mono">{value}</span>
+                      <td key={stock.id} className={cn(
+                        "text-center px-4 py-2.5",
+                        i < selectedStocks.length - 1 && "border-r border-white/10"
+                      )}>
+                        <span className="text-gray-200 font-mono text-sm">{value}</span>
                       </td>
                     );
                   })}
