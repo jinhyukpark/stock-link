@@ -339,11 +339,28 @@ export default function CompareView() {
                   </td>
                   {selectedStocks.map((stock, i) => {
                     const value = stock.metrics[metric.key];
+                    const numValue = typeof value === 'number' ? value : parseFloat(String(value).replace(/,/g, ''));
+                    const allValues = selectedStocks.map(s => {
+                      const v = s.metrics[metric.key];
+                      return typeof v === 'number' ? v : parseFloat(String(v).replace(/,/g, ''));
+                    }).filter(v => !isNaN(v));
+                    const minVal = Math.min(...allValues);
+                    const maxVal = Math.max(...allValues);
+                    const range = maxVal - minVal || 1;
+                    const normalizedValue = isNaN(numValue) ? 0.5 : (numValue - minVal) / range;
+                    const getBgColor = () => {
+                      if (isNaN(numValue) || value === '-') return 'transparent';
+                      if (normalizedValue > 0.8) return 'rgba(34, 197, 94, 0.15)';
+                      if (normalizedValue > 0.6) return 'rgba(34, 197, 94, 0.08)';
+                      if (normalizedValue < 0.2) return 'rgba(239, 68, 68, 0.15)';
+                      if (normalizedValue < 0.4) return 'rgba(239, 68, 68, 0.08)';
+                      return 'transparent';
+                    };
                     return (
                       <td key={stock.id} className={cn(
                         "text-center px-4 py-2.5",
                         i < selectedStocks.length - 1 && "border-r border-white/10"
-                      )}>
+                      )} style={{ backgroundColor: getBgColor() }}>
                         <span className="text-gray-200 font-mono text-sm">{value}</span>
                       </td>
                     );
