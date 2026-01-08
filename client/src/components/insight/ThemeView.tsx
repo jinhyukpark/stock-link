@@ -70,9 +70,48 @@ const CustomTooltip = ({ active, payload, label }: any) => {
   return null;
 };
 
+const sectorStocks: Record<string, { name: string; code: string; price: string; change: number }[]> = {
+  "반도체": [
+    { name: "삼성전자", code: "005930", price: "78,200", change: 2.14 },
+    { name: "SK하이닉스", code: "000660", price: "765,000", change: 3.10 },
+    { name: "DB하이텍", code: "000990", price: "42,500", change: 1.85 },
+    { name: "리노공업", code: "058470", price: "198,000", change: 2.45 },
+  ],
+  "자동차": [
+    { name: "현대자동차", code: "005380", price: "340,500", change: -2.85 },
+    { name: "기아", code: "000270", price: "128,500", change: -1.91 },
+    { name: "현대모비스", code: "012330", price: "393,000", change: 0.13 },
+  ],
+  "이차전지 배터리": [
+    { name: "LG에너지솔루션", code: "373220", price: "392,000", change: -1.38 },
+    { name: "삼성SDI", code: "006400", price: "412,000", change: 1.25 },
+    { name: "에코프로비엠", code: "247540", price: "156,000", change: 2.85 },
+  ],
+  "바이오/신약개발": [
+    { name: "셀트리온", code: "068270", price: "178,500", change: 2.41 },
+    { name: "삼성바이오로직스", code: "207940", price: "892,000", change: 0.85 },
+    { name: "유한양행", code: "000100", price: "72,500", change: 1.12 },
+  ],
+  "은행": [
+    { name: "KB금융", code: "105560", price: "82,500", change: 2.23 },
+    { name: "신한지주", code: "055550", price: "52,400", change: 1.85 },
+    { name: "하나금융지주", code: "086790", price: "64,200", change: 1.42 },
+  ],
+};
+
+const getStocksForSector = (sectorName: string) => {
+  if (sectorStocks[sectorName]) return sectorStocks[sectorName];
+  return [
+    { name: `${sectorName} 대표주 1`, code: "000001", price: "50,000", change: Math.random() * 6 - 3 },
+    { name: `${sectorName} 대표주 2`, code: "000002", price: "35,000", change: Math.random() * 6 - 3 },
+    { name: `${sectorName} 관련주`, code: "000003", price: "28,000", change: Math.random() * 6 - 3 },
+  ];
+};
+
 export default function ThemeView() {
   const [selectedPeriod, setSelectedPeriod] = useState("1d");
   const [data, setData] = useState(generateSectorData());
+  const [selectedSector, setSelectedSector] = useState<string | null>(null);
 
   // Function to get color based on value
   const getBarColor = (value: number) => {
@@ -234,14 +273,62 @@ export default function ThemeView() {
               />
               <Tooltip content={<CustomTooltip />} cursor={{ fill: 'rgba(255,255,255,0.05)' }} />
               <ReferenceLine y={0} stroke="#475569" />
-              <Bar dataKey="value" radius={[2, 2, 0, 0]}>
+              <Bar 
+                dataKey="value" 
+                radius={[2, 2, 0, 0]}
+                onClick={(data) => setSelectedSector(data.name)}
+                cursor="pointer"
+              >
                 {data.map((entry, index) => (
-                  <Cell key={`cell-${index}`} fill={getBarColor(entry.value)} />
+                  <Cell 
+                    key={`cell-${index}`} 
+                    fill={getBarColor(entry.value)} 
+                    stroke={selectedSector === entry.name ? "#fff" : "transparent"}
+                    strokeWidth={selectedSector === entry.name ? 2 : 0}
+                  />
                 ))}
               </Bar>
             </BarChart>
           </ResponsiveContainer>
         </div>
+
+        {selectedSector && (
+          <div className="mt-6 pt-6 border-t border-white/10">
+            <div className="flex items-center justify-between mb-4">
+              <h3 className="text-lg font-bold text-white flex items-center gap-2">
+                <span className="text-primary">{selectedSector}</span> 섹터 종목
+              </h3>
+              <button 
+                onClick={() => setSelectedSector(null)}
+                className="text-gray-400 hover:text-white text-sm"
+              >
+                닫기
+              </button>
+            </div>
+            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
+              {getStocksForSector(selectedSector).map((stock, idx) => (
+                <div 
+                  key={idx}
+                  className="bg-[#0f1318] border border-white/5 rounded-lg p-4 hover:border-primary/30 transition-colors cursor-pointer"
+                >
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="font-bold text-white">{stock.name}</span>
+                    <span className="text-xs text-gray-500 font-mono">{stock.code}</span>
+                  </div>
+                  <div className="flex items-center justify-between">
+                    <span className="text-gray-300">{stock.price}원</span>
+                    <span className={cn(
+                      "font-bold text-sm",
+                      stock.change > 0 ? "text-red-400" : stock.change < 0 ? "text-blue-400" : "text-gray-400"
+                    )}>
+                      {stock.change > 0 ? "▲" : stock.change < 0 ? "▼" : ""} {Math.abs(stock.change).toFixed(2)}%
+                    </span>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+        )}
       </div>
     </div>
   );
