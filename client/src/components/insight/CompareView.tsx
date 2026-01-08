@@ -329,6 +329,33 @@ export default function CompareView() {
         </div>
       )}
 
+      <div className="rounded-lg border border-blue-500/30 bg-blue-900/10 overflow-hidden">
+        <div className="bg-blue-500/20 px-4 py-2 flex items-center gap-2 border-b border-blue-500/20">
+          <Sparkles className="w-4 h-4 text-blue-400" />
+          <h4 className="text-sm font-bold text-blue-400 uppercase tracking-wider font-mono">AI 비교 분석</h4>
+        </div>
+        <div className="p-4">
+          <div className="text-sm text-gray-300 leading-relaxed">
+            {selectedStocks.length >= 2 ? (
+              <span>
+                <span className="text-white font-bold">{selectedStocks[0].name}</span>과 <span className="text-white font-bold">{selectedStocks[1].name}</span>을 비교 분석한 결과, 
+                <br /><br />
+                {selectedStocks[0].change > selectedStocks[1].change ? (
+                  <span><span className="text-green-400 font-semibold">{selectedStocks[0].name}</span>이 단기 모멘텀에서 더 우수한 성과를 보이고 있습니다.</span>
+                ) : (
+                  <span><span className="text-green-400 font-semibold">{selectedStocks[1].name}</span>이 단기 모멘텀에서 더 우수한 성과를 보이고 있습니다.</span>
+                )}
+                <br /><br />
+                밸류에이션 측면에서 <span className="text-yellow-400 font-semibold">PER 기준</span>으로는 {Number(selectedStocks[0].metrics.per) < Number(selectedStocks[1].metrics.per) ? selectedStocks[0].name : selectedStocks[1].name}이 더 저평가되어 있으며, 
+                <span className="text-cyan-400 font-semibold"> ROE</span> 측면에서는 수익성의 차이가 확인됩니다.
+              </span>
+            ) : (
+              <span className="text-gray-500">2개 이상의 종목을 선택하면 AI 비교 분석이 표시됩니다.</span>
+            )}
+          </div>
+        </div>
+      </div>
+
       <div className="bg-[#151921] border border-white/5 rounded-xl p-6">
         <h3 className="text-sm font-bold text-white mb-4 flex items-center gap-2">
           <BarChart3 className="w-4 h-4 text-primary" />
@@ -508,7 +535,7 @@ export default function CompareView() {
                         "text-center px-4 py-2.5",
                         i < selectedStocks.length - 1 && "border-r border-white/10"
                       )} style={{ backgroundColor: getBgColor() }}>
-                        <span className="text-gray-200 font-mono text-sm">{value}</span>
+                        <span className="text-gray-200 font-mono text-sm">{typeof value === 'number' ? value.toLocaleString() : value}</span>
                       </td>
                     );
                   })}
@@ -519,32 +546,6 @@ export default function CompareView() {
         </div>
       </div>
 
-      <div className="rounded-lg border border-blue-500/30 bg-blue-900/10 overflow-hidden">
-        <div className="bg-blue-500/20 px-4 py-2 flex items-center gap-2 border-b border-blue-500/20">
-          <Sparkles className="w-4 h-4 text-blue-400" />
-          <h4 className="text-sm font-bold text-blue-400 uppercase tracking-wider font-mono">AI 비교 분석</h4>
-        </div>
-        <div className="p-4">
-          <div className="text-sm text-gray-300 leading-relaxed">
-            {selectedStocks.length >= 2 ? (
-              <span>
-                <span className="text-white font-bold">{selectedStocks[0].name}</span>과 <span className="text-white font-bold">{selectedStocks[1].name}</span>을 비교 분석한 결과, 
-                <br /><br />
-                {selectedStocks[0].change > selectedStocks[1].change ? (
-                  <span><span className="text-green-400 font-semibold">{selectedStocks[0].name}</span>이 단기 모멘텀에서 더 우수한 성과를 보이고 있습니다.</span>
-                ) : (
-                  <span><span className="text-green-400 font-semibold">{selectedStocks[1].name}</span>이 단기 모멘텀에서 더 우수한 성과를 보이고 있습니다.</span>
-                )}
-                <br /><br />
-                밸류에이션 측면에서 <span className="text-yellow-400 font-semibold">PER 기준</span>으로는 {Number(selectedStocks[0].metrics.per) < Number(selectedStocks[1].metrics.per) ? selectedStocks[0].name : selectedStocks[1].name}이 더 저평가되어 있으며, 
-                <span className="text-cyan-400 font-semibold"> ROE</span> 측면에서는 수익성의 차이가 확인됩니다.
-              </span>
-            ) : (
-              <span className="text-gray-500">2개 이상의 종목을 선택하면 AI 비교 분석이 표시됩니다.</span>
-            )}
-          </div>
-        </div>
-      </div>
     </div>
   );
 }
