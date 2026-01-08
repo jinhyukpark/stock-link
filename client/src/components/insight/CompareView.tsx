@@ -339,21 +339,18 @@ export default function CompareView() {
               data={(() => {
                 const stockSeeds: Record<string, number[]> = {};
                 selectedStocks.forEach(stock => {
-                  const baseValue = stock.id === "samsung" ? 78 : stock.id === "sk" ? 765 : stock.id === "lg-energy" ? 392 : 
-                    stock.id === "hyundai-car" ? 340 : stock.id === "naver" ? 205 : stock.id === "kakao" ? 54 :
-                    stock.id === "kb" ? 82 : stock.id === "posco" ? 312 : stock.id === "celltrion" ? 178 : 128;
-                  let current = baseValue;
+                  let current = 0;
                   stockSeeds[stock.id] = [];
                   for (let i = 0; i < 30; i++) {
-                    const trend = Math.sin(i / 3 + stock.id.length) * baseValue * 0.03;
-                    const spike = Math.random() > 0.85 ? (Math.random() - 0.5) * baseValue * 0.08 : 0;
-                    const change = (Math.random() - 0.5) * baseValue * 0.04 + trend + spike;
-                    current = Math.max(baseValue * 0.8, Math.min(baseValue * 1.2, current + change));
+                    const trend = Math.sin(i / 3 + stock.id.length) * 2;
+                    const spike = Math.random() > 0.85 ? (Math.random() - 0.5) * 8 : 0;
+                    const change = (Math.random() - 0.5) * 3 + trend + spike;
+                    current = Math.max(-25, Math.min(25, current + change));
                     stockSeeds[stock.id].push(current);
                   }
                 });
                 return Array.from({ length: 30 }, (_, i) => {
-                  const point: Record<string, number | string> = { date: `${i + 1}` };
+                  const point: Record<string, number | string> = { date: `${i + 1}일` };
                   selectedStocks.forEach(stock => {
                     point[stock.id] = stockSeeds[stock.id][i];
                   });
@@ -363,11 +360,12 @@ export default function CompareView() {
               margin={{ top: 10, right: 30, left: 0, bottom: 0 }}
             >
               <CartesianGrid strokeDasharray="3 3" stroke="#1e293b" />
-              <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} label={{ value: '날짜', position: 'insideBottomRight', offset: -5, fill: '#64748b', fontSize: 11 }} />
-              <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} width={70} tickFormatter={(value) => value.toLocaleString()} label={{ value: '상승율', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 11 }} />
+              <XAxis dataKey="date" stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} label={{ value: '일자', position: 'insideBottomRight', offset: -5, fill: '#64748b', fontSize: 11 }} />
+              <YAxis stroke="#64748b" fontSize={10} tickLine={false} axisLine={false} width={80} tickFormatter={(value) => `${value > 0 ? '+' : ''}${value.toFixed(0)}%`} domain={[-30, 30]} label={{ value: '주식 상승율 (-30%~+30%)', angle: -90, position: 'insideLeft', fill: '#64748b', fontSize: 10, dx: -10 }} />
               <Tooltip 
                 contentStyle={{ backgroundColor: '#151921', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
                 labelStyle={{ color: '#fff' }}
+                formatter={(value: number) => [`${value > 0 ? '+' : ''}${value.toFixed(1)}%`, '']}
               />
               {selectedStocks.map((stock) => (
                 <Line 
