@@ -13,7 +13,9 @@ import {
   BarChart3,
   Sparkles,
   ChevronUp,
-  ChevronDown
+  ChevronDown,
+  Settings2,
+  Check
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Line, LineChart, ResponsiveContainer, XAxis, YAxis, Tooltip, CartesianGrid } from "recharts";
@@ -93,10 +95,25 @@ const generateChartData = (stockId: string) => {
   }));
 };
 
+const metricCategories = {
+  basic: { label: "기본정보", items: ["marketCapM", "foreignRate", "dividend"] },
+  investment: { label: "투자지표", items: ["per", "pbr", "eps", "psr", "roe", "roa", "sps"] },
+  financial: { label: "재무정보", items: ["totalAssets", "totalDebt", "revenue", "operatingProfit", "grossProfit", "continuingOps", "netIncome"] },
+  growth: { label: "성장성지표", items: ["revenueGrowth", "opProfitGrowth", "netIncomeGrowth"] },
+  stability: { label: "안정성지표", items: ["debtRatio", "currentRatio"] },
+};
+
 export default function CompareView() {
   const [selectedStocks, setSelectedStocks] = useState<Stock[]>(stockDatabase);
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
+  const [showFieldSelector, setShowFieldSelector] = useState(false);
+  const [visibleFields, setVisibleFields] = useState<string[]>([
+    "marketCapM", "foreignRate", "dividend", "per", "pbr", "eps", "psr", "roe", "roa", "sps",
+    "totalAssets", "totalDebt", "revenue", "operatingProfit", "grossProfit", "continuingOps", "netIncome",
+    "revenueGrowth", "opProfitGrowth", "netIncomeGrowth", "debtRatio", "currentRatio"
+  ]);
+  const [tempVisibleFields, setTempVisibleFields] = useState<string[]>([]);
 
   const filteredStocks = stockDatabase.filter(
     stock => 
@@ -115,7 +132,7 @@ export default function CompareView() {
     setSelectedStocks(selectedStocks.filter(s => s.id !== stockId));
   };
 
-  const metrics = [
+  const allMetrics = [
     { key: "marketCapM", label: "시가총액(백만)" },
     { key: "foreignRate", label: "외국인 지분율" },
     { key: "dividend", label: "배당수익률" },
@@ -131,7 +148,7 @@ export default function CompareView() {
     { key: "revenue", label: "매출액(억)" },
     { key: "operatingProfit", label: "영업이익(억)" },
     { key: "grossProfit", label: "매출총이익(억)" },
-    { key: "continuingOps", label: "세전계속사업이..." },
+    { key: "continuingOps", label: "세전계속사업이익(억)" },
     { key: "netIncome", label: "당기순이익(억)" },
     { key: "revenueGrowth", label: "매출액 증가율" },
     { key: "opProfitGrowth", label: "영업이익 증가율" },
@@ -139,6 +156,34 @@ export default function CompareView() {
     { key: "debtRatio", label: "부채비율" },
     { key: "currentRatio", label: "유동비율" },
   ];
+  
+  const metrics = allMetrics.filter(m => visibleFields.includes(m.key));
+
+  const openFieldSelector = () => {
+    setTempVisibleFields([...visibleFields]);
+    setShowFieldSelector(true);
+  };
+
+  const toggleField = (key: string) => {
+    setTempVisibleFields(prev => 
+      prev.includes(key) ? prev.filter(k => k !== key) : [...prev, key]
+    );
+  };
+
+  const toggleCategory = (categoryKey: string) => {
+    const category = metricCategories[categoryKey as keyof typeof metricCategories];
+    const allSelected = category.items.every(item => tempVisibleFields.includes(item));
+    if (allSelected) {
+      setTempVisibleFields(prev => prev.filter(k => !category.items.includes(k)));
+    } else {
+      setTempVisibleFields(prev => [...new Set([...prev, ...category.items])]);
+    }
+  };
+
+  const applyFieldSelection = () => {
+    setVisibleFields(tempVisibleFields);
+    setShowFieldSelector(false);
+  };
 
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
@@ -215,7 +260,83 @@ export default function CompareView() {
             )}
           </div>
         )}
+        
+        <Button 
+          variant="outline" 
+          size="sm"
+          className="rounded-full gap-2 bg-white/5 border-white/10 text-gray-300 hover:bg-white/10"
+          onClick={openFieldSelector}
+        >
+          <Settings2 className="w-4 h-4" />
+          컬럼
+        </Button>
       </div>
+
+      {showFieldSelector && (
+        <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50" onClick={() => setShowFieldSelector(false)}>
+          <div className="bg-white rounded-xl w-[700px] max-h-[80vh] overflow-auto shadow-2xl" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+              <h3 className="text-lg font-bold text-gray-900">컬럼</h3>
+              <button onClick={() => setShowFieldSelector(false)} className="text-gray-400 hover:text-gray-600">
+                <X className="w-5 h-5" />
+              </button>
+            </div>
+            
+            <div className="p-6">
+              <label className="flex items-center gap-3 mb-6 cursor-pointer">
+                <div className={cn(
+                  "w-5 h-5 rounded border-2 flex items-center justify-center transition-colors",
+                  tempVisibleFields.length === allMetrics.length ? "bg-cyan-500 border-cyan-500" : "border-gray-300"
+                )}>
+                  {tempVisibleFields.length === allMetrics.length && <Check className="w-3 h-3 text-white" />}
+                </div>
+                <span className="text-gray-900 font-medium">모든 컬럼 <span className="text-gray-400">({tempVisibleFields.length} 선택됨)</span></span>
+              </label>
+
+              <div className="grid grid-cols-3 gap-8">
+                {Object.entries(metricCategories).map(([catKey, category]) => (
+                  <div key={catKey}>
+                    <label className="flex items-center gap-3 mb-3 cursor-pointer" onClick={() => toggleCategory(catKey)}>
+                      <div className={cn(
+                        "w-5 h-5 rounded border-2 flex items-center justify-center transition-colors",
+                        category.items.every(item => tempVisibleFields.includes(item)) ? "bg-cyan-500 border-cyan-500" : "border-gray-300"
+                      )}>
+                        {category.items.every(item => tempVisibleFields.includes(item)) && <Check className="w-3 h-3 text-white" />}
+                      </div>
+                      <span className="text-gray-900 font-semibold">{category.label}</span>
+                    </label>
+                    <div className="space-y-2 ml-8">
+                      {category.items.map(itemKey => {
+                        const metric = allMetrics.find(m => m.key === itemKey);
+                        return (
+                          <label key={itemKey} className="flex items-center gap-3 cursor-pointer" onClick={() => toggleField(itemKey)}>
+                            <div className={cn(
+                              "w-5 h-5 rounded border-2 flex items-center justify-center transition-colors",
+                              tempVisibleFields.includes(itemKey) ? "bg-cyan-500 border-cyan-500" : "border-gray-300"
+                            )}>
+                              {tempVisibleFields.includes(itemKey) && <Check className="w-3 h-3 text-white" />}
+                            </div>
+                            <span className="text-gray-700 text-sm">{metric?.label}</span>
+                          </label>
+                        );
+                      })}
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+
+            <div className="flex items-center justify-center gap-3 px-6 py-4 border-t border-gray-200">
+              <Button variant="outline" onClick={() => setShowFieldSelector(false)} className="px-8">
+                취소
+              </Button>
+              <Button onClick={applyFieldSelection} className="px-8 bg-cyan-500 hover:bg-cyan-600 text-white">
+                적용
+              </Button>
+            </div>
+          </div>
+        </div>
+      )}
 
       <div className="bg-[#151921] border border-white/5 rounded-xl p-6">
         <h3 className="text-sm font-bold text-white mb-4 flex items-center gap-2">
