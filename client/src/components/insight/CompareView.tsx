@@ -94,7 +94,7 @@ const generateChartData = (stockId: string) => {
 };
 
 export default function CompareView() {
-  const [selectedStocks, setSelectedStocks] = useState<Stock[]>([stockDatabase[0], stockDatabase[1]]);
+  const [selectedStocks, setSelectedStocks] = useState<Stock[]>(stockDatabase);
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
 
@@ -106,11 +106,9 @@ export default function CompareView() {
   );
 
   const addStock = (stock: Stock) => {
-    if (selectedStocks.length < 4) {
-      setSelectedStocks([...selectedStocks, stock]);
-      setSearchQuery("");
-      setShowSearch(false);
-    }
+    setSelectedStocks([...selectedStocks, stock]);
+    setSearchQuery("");
+    setShowSearch(false);
   };
 
   const removeStock = (stockId: string) => {
@@ -163,7 +161,7 @@ export default function CompareView() {
           </div>
         ))}
         
-        {selectedStocks.length < 4 && (
+        {selectedStocks.length < stockDatabase.length && (
           <div className="relative">
             {showSearch ? (
               <div className="flex items-center gap-2">
