@@ -31,32 +31,44 @@ type Stock = {
 
 const stockDatabase: Stock[] = [
   { 
+    id: "samsung", name: "삼성전자", code: "005930", price: "78,200", change: 1200, changePercent: "1.56%", color: "#3b82f6",
+    metrics: { marketCapM: "467,254,800", foreignRate: 52.14, dividend: 2.35, per: 12.5, pbr: 1.2, eps: 6256, psr: 1.82, roe: 9.6, roa: 512.35, sps: 42985, totalAssets: 4265842, totalDebt: 1125486, revenue: 2589542, operatingProfit: 356214, grossProfit: 485621, continuingOps: 412542, netIncome: 356214, revenueGrowth: 8.52, opProfitGrowth: 15.24, netIncomeGrowth: 12.35, debtRatio: 26.38, currentRatio: 285.42 }
+  },
+  { 
     id: "sk", name: "SK하이닉스", code: "000660", price: "765,000", change: 23000, changePercent: "3.1%", color: "#ef4444",
     metrics: { marketCapM: "126,599,611", foreignRate: 53.98, dividend: 1.27, per: 6.4, pbr: 1.62, eps: 27182, psr: 1.91, roe: 31.07, roa: 1651.73, sps: 90924, totalAssets: 1198552, totalDebt: 459395, revenue: 661930, operatingProfit: 234673, grossProfit: 318281, continuingOps: 238854, netIncome: 197969, revenueGrowth: 102.02, opProfitGrowth: 403.58, netIncomeGrowth: 316.65, debtRatio: 62.15, currentRatio: 169.35 }
   },
   { 
-    id: "samsung-ep", name: "삼성에피스홀딩스", code: "012620", price: "693,000", change: -4000, changePercent: "-0.57%", color: "#64748b",
-    metrics: { marketCapM: "-", foreignRate: "-", dividend: "-", per: "-", pbr: "-", eps: "-", psr: "-", roe: "-", roa: "-", sps: "-", totalAssets: "-", totalDebt: "-", revenue: "-", operatingProfit: "-", grossProfit: "-", continuingOps: "-", netIncome: "-", revenueGrowth: "-", opProfitGrowth: "-", netIncomeGrowth: "-", debtRatio: "-", currentRatio: "-" }
+    id: "lg-energy", name: "LG에너지솔루션", code: "373220", price: "392,000", change: -5500, changePercent: "-1.38%", color: "#22c55e",
+    metrics: { marketCapM: "91,728,000", foreignRate: 28.45, dividend: 0, per: 45.3, pbr: 4.2, eps: 8652, psr: 3.85, roe: 9.3, roa: 425.68, sps: 101825, totalAssets: 685421, totalDebt: 285642, revenue: 338254, operatingProfit: 28542, grossProfit: 58642, continuingOps: 32541, netIncome: 25648, revenueGrowth: 32.45, opProfitGrowth: -15.24, netIncomeGrowth: -22.35, debtRatio: 41.68, currentRatio: 145.62 }
   },
   { 
-    id: "sk-square", name: "SK스퀘어", code: "402340", price: "431,500", change: 2000, changePercent: "0.47%", color: "#22c55e",
-    metrics: { marketCapM: "10,685,672", foreignRate: 51.47, dividend: 0, per: 2.9, pbr: 0.55, eps: 27346, psr: 1.75, roe: 20.62, roa: 1665.3, sps: 45198, totalAssets: 219211, totalDebt: 23356, revenue: 61385, operatingProfit: 39126, grossProfit: 60134, continuingOps: 38356, netIncome: 36505, revenueGrowth: 169.41, opProfitGrowth: 267.23, netIncomeGrowth: 377.64, debtRatio: 11.92, currentRatio: 193.56 }
-  },
-  { 
-    id: "hyundai-elevator", name: "현대오토에버", code: "307950", price: "396,000", change: 1500, changePercent: "0.38%", color: "#f97316",
-    metrics: { marketCapM: "3,458,164", foreignRate: 2.52, dividend: 1.41, per: 20.25, pbr: 2.03, eps: 6228, psr: 0.93, roe: 10.54, roa: 523.01, sps: 135415, totalAssets: 33495, totalDebt: 16190, revenue: 37136, operatingProfit: 2244, grossProfit: 3945, continuingOps: 2267, netIncome: 1752, revenueGrowth: 21.16, opProfitGrowth: 23.71, netIncomeGrowth: 24.85, debtRatio: 93.55, currentRatio: 178.34 }
-  },
-  { 
-    id: "hyundai-mobis", name: "현대모비스", code: "012330", price: "393,000", change: -500, changePercent: "0.13%", color: "#a855f7",
-    metrics: { marketCapM: "21,993,340", foreignRate: 45.1, dividend: 2.54, per: 5.44, pbr: 0.46, eps: 43480, psr: 0.39, roe: 9.36, roa: 609.66, sps: 613625, totalAssets: 665969, totalDebt: 204787, revenue: 572370, operatingProfit: 30735, grossProfit: 80626, continuingOps: 52645, netIncome: 40602, revenueGrowth: -3.4, opProfitGrowth: 33.9, netIncomeGrowth: 18.6, debtRatio: 44.41, currentRatio: 223.02 }
-  },
-  { 
-    id: "hyundai-car", name: "현대차", code: "005380", price: "340,500", change: -10000, changePercent: "-2.85%", color: "#3b82f6",
+    id: "hyundai-car", name: "현대차", code: "005380", price: "340,500", change: -10000, changePercent: "-2.85%", color: "#f97316",
     metrics: { marketCapM: "44,396,232", foreignRate: 36.62, dividend: 5.66, per: 4.6, pbr: 0.51, eps: 46042, psr: 0.33, roe: 11.91, roa: 389.35, sps: 644061, totalAssets: 3397984, totalDebt: 2195225, revenue: 1752312, operatingProfit: 142396, grossProfit: 357492, continuingOps: 177814, netIncome: 132299, revenueGrowth: 7.73, opProfitGrowth: -5.87, netIncomeGrowth: 7.8, debtRatio: 182.52, currentRatio: 80.92 }
   },
   { 
-    id: "hybe", name: "하이브", code: "352820", price: "332,000", change: -3000, changePercent: "-0.89%", color: "#eab308",
-    metrics: { marketCapM: "13,978,242", foreignRate: 42.15, dividend: 0, per: 38.5, pbr: 3.82, eps: 8623, psr: 5.21, roe: 9.92, roa: 285.41, sps: 63745, totalAssets: 28542, totalDebt: 9854, revenue: 26854, operatingProfit: 3256, grossProfit: 8542, continuingOps: 4125, netIncome: 3624, revenueGrowth: 18.25, opProfitGrowth: 12.45, netIncomeGrowth: 15.32, debtRatio: 34.52, currentRatio: 245.32 }
+    id: "naver", name: "NAVER", code: "035420", price: "205,000", change: 3500, changePercent: "1.74%", color: "#a855f7",
+    metrics: { marketCapM: "33,648,500", foreignRate: 48.52, dividend: 0.42, per: 28.4, pbr: 1.4, eps: 7218, psr: 4.25, roe: 4.9, roa: 285.42, sps: 48256, totalAssets: 425648, totalDebt: 98542, revenue: 98542, operatingProfit: 18542, grossProfit: 42568, continuingOps: 22548, netIncome: 18425, revenueGrowth: 12.85, opProfitGrowth: 8.54, netIncomeGrowth: 6.25, debtRatio: 23.15, currentRatio: 312.45 }
+  },
+  { 
+    id: "kakao", name: "카카오", code: "035720", price: "54,000", change: -1200, changePercent: "-2.17%", color: "#eab308",
+    metrics: { marketCapM: "24,012,000", foreignRate: 35.24, dividend: 0, per: 52.1, pbr: 1.1, eps: 1036, psr: 2.85, roe: 2.1, roa: 125.42, sps: 18952, totalAssets: 285642, totalDebt: 125486, revenue: 85426, operatingProfit: 5842, grossProfit: 28564, continuingOps: 6854, netIncome: 4256, revenueGrowth: -5.24, opProfitGrowth: -28.54, netIncomeGrowth: -35.42, debtRatio: 43.92, currentRatio: 185.24 }
+  },
+  { 
+    id: "kb", name: "KB금융", code: "105560", price: "82,500", change: 1800, changePercent: "2.23%", color: "#14b8a6",
+    metrics: { marketCapM: "32,835,000", foreignRate: 68.42, dividend: 5.82, per: 5.8, pbr: 0.58, eps: 14224, psr: 1.25, roe: 10.02, roa: 45.24, sps: 66024, totalAssets: 6854256, totalDebt: 6254862, revenue: 265842, operatingProfit: 85426, grossProfit: 125486, continuingOps: 95246, netIncome: 72548, revenueGrowth: 8.54, opProfitGrowth: 12.45, netIncomeGrowth: 15.24, debtRatio: 91.26, currentRatio: 112.35 }
+  },
+  { 
+    id: "posco", name: "POSCO홀딩스", code: "005490", price: "312,000", change: 8500, changePercent: "2.80%", color: "#64748b",
+    metrics: { marketCapM: "26,364,000", foreignRate: 42.85, dividend: 3.52, per: 6.2, pbr: 0.42, eps: 50322, psr: 0.28, roe: 6.77, roa: 285.42, sps: 1114285, totalAssets: 1254862, totalDebt: 685426, revenue: 942568, operatingProfit: 65428, grossProfit: 125486, continuingOps: 72548, netIncome: 58426, revenueGrowth: -12.45, opProfitGrowth: -25.42, netIncomeGrowth: -32.15, debtRatio: 54.62, currentRatio: 135.24 }
+  },
+  { 
+    id: "celltrion", name: "셀트리온", code: "068270", price: "178,500", change: 4200, changePercent: "2.41%", color: "#ec4899",
+    metrics: { marketCapM: "24,862,500", foreignRate: 18.54, dividend: 0.28, per: 35.2, pbr: 4.85, eps: 5071, psr: 8.52, roe: 13.78, roa: 542.68, sps: 20945, totalAssets: 185426, totalDebt: 42568, revenue: 29854, operatingProfit: 8542, grossProfit: 18542, continuingOps: 9854, netIncome: 7856, revenueGrowth: 25.42, opProfitGrowth: 32.45, netIncomeGrowth: 28.54, debtRatio: 22.95, currentRatio: 425.62 }
+  },
+  { 
+    id: "kia", name: "기아", code: "000270", price: "128,500", change: -2500, changePercent: "-1.91%", color: "#06b6d4",
+    metrics: { marketCapM: "52,268,250", foreignRate: 38.42, dividend: 4.85, per: 4.2, pbr: 0.72, eps: 30595, psr: 0.35, roe: 17.14, roa: 485.62, sps: 367142, totalAssets: 985426, totalDebt: 542568, revenue: 1485426, operatingProfit: 125486, grossProfit: 285642, continuingOps: 142568, netIncome: 118542, revenueGrowth: 12.54, opProfitGrowth: 18.42, netIncomeGrowth: 22.35, debtRatio: 55.06, currentRatio: 125.42 }
   },
 ];
 
