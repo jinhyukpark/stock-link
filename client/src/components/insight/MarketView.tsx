@@ -194,7 +194,7 @@ const SectionHeader = ({ number, title, icon: Icon, description }: { number: str
   </div>
 );
 
-const AnalysisBlock = ({ content, className }: { content: string, className?: string }) => (
+const AnalysisBlock = ({ content, className }: { content: React.ReactNode, className?: string }) => (
   <div className={cn("rounded-lg border border-blue-500/30 bg-blue-900/10 overflow-hidden flex flex-col", className)}>
     <div className="bg-blue-500/20 px-4 py-2 flex items-center gap-2 border-b border-blue-500/20 shrink-0">
       <Sparkles className="w-4 h-4 text-blue-400" />
@@ -203,9 +203,9 @@ const AnalysisBlock = ({ content, className }: { content: string, className?: st
       </h4>
     </div>
     <div className="p-4 flex-1">
-      <p className="text-sm text-gray-300 leading-relaxed font-sans whitespace-pre-line">
+      <div className="text-sm text-gray-300 leading-relaxed font-sans">
         {content}
-      </p>
+      </div>
     </div>
   </div>
 );
@@ -314,7 +314,7 @@ const navLinks = [
 export default function MarketView() {
   const [date, setDate] = useState<string>(dateOptions[0].value);
   const [open, setOpen] = useState(false);
-  const [selectedChart, setSelectedChart] = useState<{ title: string; description: string; chart: React.ReactNode; analysis: string; legend?: React.ReactNode; height?: string } | null>(null);
+  const [selectedChart, setSelectedChart] = useState<{ title: string; description: string; chart: React.ReactNode; analysis: React.ReactNode; legend?: React.ReactNode; height?: string } | null>(null);
   const [showDescription, setShowDescription] = useState(true);
 
   const handlePrevDate = () => {
@@ -328,20 +328,49 @@ export default function MarketView() {
   };
 
   const analysisTexts = {
-    fgi: `현재 지수는 65(탐욕)로, 지난달의 중립 구간에서 상승했습니다.
-    과거 데이터를 볼 때, '탐욕' 구간에서 주간 평균이 월간 평균을 상향 돌파하면 시장 랠리가 2-3주 더 지속되는 경향이 있습니다.
-    80(극도 탐욕)을 돌파할 경우 단기 조정에 대비하여 현금 비중을 늘리는 전략이 유효할 수 있습니다.`,
-    breadth: `코스피 상승 종목 수는 지난 5거래일 동안 20일 이동평균선을 지속적으로 상회하며, 폭넓은 상승장을 확인시켜주고 있습니다.
-    반면 코스닥은 지수는 상승하지만 상승 종목 수는 감소하는 '괴리(Divergence)' 현상을 보이고 있어, 랠리가 일부 대형주에 집중되고 있음을 시사합니다.`,
-    dist: `코스피 분포는 약간 오른쪽(+0.5%)으로 치우쳐 있어, 매도세보다 매수세가 강함을 나타냅니다.
-    양의 방향에 나타난 '두터운 꼬리'는 일부 종목이 강한 시세 분출을 하고 있음을 의미합니다.
-    코스닥은 0% 부근에서 좁은 피크를 형성하고 있어, 관망세와 횡보장이 지속되고 있음을 보여줍니다.`,
-    cap: `지난 3일간 외국인 매수세에 힘입어 대형주(파란색 영역)가 코스피 랠리를 주도해왔습니다.
-    코스닥의 소형주들도 상승 탄력을 받기 시작했으며, 이는 '낙수 효과'가 곧 시작될 수 있음을 시사합니다.
-    향후 중형주가 이 격차를 메우며 상승할지 주목해야 합니다.`,
-    pam: `코스피의 단기(5일) 기대 수익률(적색 선)이 상승 추세를 보이며 장기 전망을 상회하고 있습니다. 이는 강력한 단기 모멘텀을 확인시켜 줍니다.
-    코스닥의 20일 전망은 평탄하여 아직 뚜렷한 장기 추세가 형성되지 않았음을 나타냅니다.
-    코스닥이 뚜렷한 방향성을 잡을 때까지는 코스피 단기 매매에 집중하는 것이 유리합니다.`
+    fgi: (
+      <span>
+        현재 지수는 <span className="text-red-400 font-bold">65(탐욕)</span>로, 지난달의 중립 구간에서 상승했습니다.
+        <br /><br />
+        과거 데이터를 볼 때, '탐욕' 구간에서 <span className="text-yellow-400 font-semibold">주간 평균이 월간 평균을 상향 돌파</span>하면 시장 랠리가 <span className="text-green-400 font-semibold">2-3주 더 지속</span>되는 경향이 있습니다.
+        <br /><br />
+        <span className="text-red-400 font-bold">80(극도 탐욕)</span>을 돌파할 경우 단기 조정에 대비하여 <span className="text-cyan-400 font-semibold">현금 비중을 늘리는 전략</span>이 유효할 수 있습니다.
+      </span>
+    ),
+    breadth: (
+      <span>
+        코스피 상승 종목 수는 지난 5거래일 동안 <span className="text-green-400 font-semibold">20일 이동평균선을 지속적으로 상회</span>하며, <span className="text-green-400 font-bold">폭넓은 상승장</span>을 확인시켜주고 있습니다.
+        <br /><br />
+        반면 코스닥은 지수는 상승하지만 상승 종목 수는 감소하는 <span className="text-yellow-400 font-bold">'괴리(Divergence)'</span> 현상을 보이고 있어, 랠리가 <span className="text-orange-400 font-semibold">일부 대형주에 집중</span>되고 있음을 시사합니다.
+      </span>
+    ),
+    dist: (
+      <span>
+        코스피 분포는 약간 <span className="text-green-400 font-semibold">오른쪽(+0.5%)</span>으로 치우쳐 있어, <span className="text-green-400 font-bold">매수세가 강함</span>을 나타냅니다.
+        <br /><br />
+        양의 방향에 나타난 <span className="text-yellow-400 font-bold">'두터운 꼬리'</span>는 일부 종목이 <span className="text-green-400 font-semibold">강한 시세 분출</span>을 하고 있음을 의미합니다.
+        <br /><br />
+        코스닥은 0% 부근에서 좁은 피크를 형성하고 있어, <span className="text-blue-400 font-semibold">관망세와 횡보장</span>이 지속되고 있음을 보여줍니다.
+      </span>
+    ),
+    cap: (
+      <span>
+        지난 3일간 <span className="text-cyan-400 font-semibold">외국인 매수세</span>에 힘입어 <span className="text-blue-400 font-bold">대형주</span>가 코스피 랠리를 주도해왔습니다.
+        <br /><br />
+        코스닥의 <span className="text-green-400 font-bold">소형주</span>들도 상승 탄력을 받기 시작했으며, 이는 <span className="text-yellow-400 font-bold">'낙수 효과'</span>가 곧 시작될 수 있음을 시사합니다.
+        <br /><br />
+        향후 <span className="text-purple-400 font-semibold">중형주가 이 격차를 메우며 상승</span>할지 주목해야 합니다.
+      </span>
+    ),
+    pam: (
+      <span>
+        코스피의 <span className="text-red-400 font-bold">단기(5일) 기대 수익률</span>이 상승 추세를 보이며 장기 전망을 상회하고 있습니다. 이는 <span className="text-green-400 font-bold">강력한 단기 모멘텀</span>을 확인시켜 줍니다.
+        <br /><br />
+        코스닥의 20일 전망은 평탄하여 아직 <span className="text-blue-400 font-semibold">뚜렷한 장기 추세가 형성되지 않았음</span>을 나타냅니다.
+        <br /><br />
+        코스닥이 뚜렷한 방향성을 잡을 때까지는 <span className="text-cyan-400 font-bold">코스피 단기 매매에 집중</span>하는 것이 유리합니다.
+      </span>
+    )
   };
 
   const chartDescriptions = {
