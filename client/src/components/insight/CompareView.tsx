@@ -327,10 +327,14 @@ export default function CompareView() {
                   )}>
                     <div className="flex items-center justify-between">
                       <span>{metric.label}</span>
-                      <div className="flex flex-col ml-2">
-                        <ChevronUp className="w-3 h-3 text-cyan-400 -mb-1" />
-                        <ChevronDown className="w-3 h-3 text-cyan-400 -mt-1" />
-                      </div>
+                      <button className="flex flex-col items-center ml-2 hover:opacity-80 transition-opacity">
+                        <svg width="8" height="5" viewBox="0 0 8 5" className="text-cyan-400 mb-0.5">
+                          <path d="M4 0L8 5H0L4 0Z" fill="currentColor" />
+                        </svg>
+                        <svg width="8" height="5" viewBox="0 0 8 5" className="text-cyan-400">
+                          <path d="M4 5L0 0H8L4 5Z" fill="currentColor" />
+                        </svg>
+                      </button>
                     </div>
                   </td>
                   {selectedStocks.map((stock, i) => {
