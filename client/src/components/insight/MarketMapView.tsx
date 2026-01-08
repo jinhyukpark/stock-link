@@ -38,15 +38,28 @@ const marketData: StockNode[] = [
   { id: "kakao", name: "Kakao", code: "035720", value: 50, change: -2.10, price: "54,000", sector: "Tech" },
   { id: "celltrion", name: "Celltrion", code: "068270", value: 55, change: 0.90, price: "182,000", sector: "Bio" },
   { id: "kb", name: "KB Financial", code: "105560", value: 45, change: 1.50, price: "68,000", sector: "Finance" },
+  // Level 2 additions
+  { id: "shinhan", name: "Shinhan", code: "055550", value: 42, change: 0.80, price: "42,500", sector: "Finance" },
+  { id: "hana", name: "Hana Financial", code: "086790", value: 38, change: 1.10, price: "51,200", sector: "Finance" },
+  { id: "ncsoft", name: "NCSOFT", code: "036570", value: 35, change: -1.50, price: "192,000", sector: "Tech" },
+  { id: "krafton", name: "Krafton", code: "259960", value: 32, change: 2.20, price: "248,000", sector: "Tech" },
+  // Level 3 additions
+  { id: "samsung_sdi", name: "Samsung SDI", code: "006400", value: 65, change: -0.90, price: "352,000", sector: "Battery" },
+  { id: "lg_chem", name: "LG Chem", code: "051910", value: 58, change: 0.40, price: "298,000", sector: "Battery" },
+  { id: "hanwha", name: "Hanwha Aero", code: "012450", value: 48, change: 4.20, price: "185,000", sector: "Defense" },
+  { id: "hyundai_mobis", name: "Hyundai Mobis", code: "012330", value: 44, change: 1.80, price: "232,000", sector: "Auto" },
+  { id: "kt", name: "KT Corp", code: "030200", value: 28, change: 0.30, price: "38,500", sector: "Telecom" },
+  { id: "skt", name: "SK Telecom", code: "017670", value: 30, change: 0.60, price: "52,800", sector: "Telecom" },
 ];
 
 export default function MarketMapView() {
   const [selectedStock, setSelectedStock] = useState<StockNode | null>(null);
-  const [detailLevel, setDetailLevel] = useState(2); // 1: Low detail (fewer stocks), 2: High detail (more stocks)
+  const [detailLevel, setDetailLevel] = useState(1); // 1: Minimum (current), 2: Medium, 3: Maximum
   const [isExpanded, setIsExpanded] = useState(false);
 
-  // Helper to determine if a secondary stock is visible
-  const isSecondaryVisible = detailLevel >= 2;
+  // Helper to determine visibility levels
+  const showLevel2 = detailLevel >= 2;
+  const showLevel3 = detailLevel >= 3;
 
   return (
     <div className={cn(
@@ -60,21 +73,24 @@ export default function MarketMapView() {
             <Button 
                 variant="outline" 
                 size="icon" 
-                className="h-8 w-8 bg-[#151921] border-white/10" 
-                onClick={() => setDetailLevel(Math.min(detailLevel + 1, 2))}
-                disabled={detailLevel >= 2}
+                className="h-8 w-8 bg-[#151921] border-white/10 hover:bg-primary/20 hover:border-primary/50 transition-all" 
+                onClick={() => setDetailLevel(Math.min(detailLevel + 1, 3))}
+                disabled={detailLevel >= 3}
             >
-                <ZoomIn className="w-4 h-4 text-gray-400" />
+                <ZoomIn className={cn("w-4 h-4", detailLevel >= 3 ? "text-gray-600" : "text-gray-400")} />
             </Button>
             <Button 
                 variant="outline" 
                 size="icon" 
-                className="h-8 w-8 bg-[#151921] border-white/10" 
+                className="h-8 w-8 bg-[#151921] border-white/10 hover:bg-primary/20 hover:border-primary/50 transition-all" 
                 onClick={() => setDetailLevel(Math.max(detailLevel - 1, 1))}
                 disabled={detailLevel <= 1}
             >
-                <ZoomOut className="w-4 h-4 text-gray-400" />
+                <ZoomOut className={cn("w-4 h-4", detailLevel <= 1 ? "text-gray-600" : "text-gray-400")} />
             </Button>
+            <div className="text-[10px] text-gray-500 font-mono px-2 border-l border-white/10 ml-1">
+                종목 수: {detailLevel === 1 ? "11" : detailLevel === 2 ? "15" : "21"}
+            </div>
             <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white" onClick={() => setIsExpanded(!isExpanded)}>
                 {isExpanded ? <Minimize2 className="w-4 h-4" /> : <Maximize2 className="w-4 h-4" />}
             </Button>
@@ -99,18 +115,27 @@ export default function MarketMapView() {
 
                   {/* Row 2: LG Energy (Mid Right 2x1 -> actually let's split this area) */}
                   {/* Right side lower block */}
-                  <div className="col-span-1 row-span-1">
-                      <StockBlock stock={marketData[2]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[2].id} size="md" />
+                  <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
+                      <StockBlock 
+                        stock={marketData[2]} 
+                        onClick={setSelectedStock} 
+                        selected={selectedStock?.id === marketData[2].id} 
+                        className={showLevel3 ? "flex-1" : "h-full"} 
+                        size="md" 
+                      />
+                      {showLevel3 && (
+                        <StockBlock stock={marketData[15]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[15].id} className="h-1/3" size="sm" />
+                      )}
                   </div>
                    <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
                       <StockBlock 
                         stock={marketData[6]} 
                         onClick={setSelectedStock} 
                         selected={selectedStock?.id === marketData[6].id} 
-                        className={isSecondaryVisible ? "h-1/2" : "h-full"} 
-                        size={isSecondaryVisible ? "sm" : "md"} 
+                        className={showLevel2 ? "h-1/2" : "h-full"} 
+                        size={showLevel2 ? "sm" : "md"} 
                       />
-                      {isSecondaryVisible && (
+                      {showLevel2 && (
                         <StockBlock stock={marketData[7]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[7].id} className="h-1/2" size="sm" />
                       )}
                   </div>
@@ -121,11 +146,14 @@ export default function MarketMapView() {
                         stock={marketData[4]} 
                         onClick={setSelectedStock} 
                         selected={selectedStock?.id === marketData[4].id} 
-                        className={isSecondaryVisible ? "flex-1" : "h-full"} 
+                        className={showLevel2 ? "flex-1" : "h-full"} 
                         size="md" 
                        />
-                      {isSecondaryVisible && (
-                        <StockBlock stock={marketData[8]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[8].id} className="h-1/3" size="sm" />
+                      {showLevel2 && (
+                        <StockBlock stock={marketData[8]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[8].id} className={showLevel3 ? "h-1/4" : "h-1/3"} size="sm" />
+                      )}
+                      {showLevel3 && (
+                        <StockBlock stock={marketData[16]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[16].id} className="h-1/4" size="sm" />
                       )}
                   </div>
                   <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
@@ -133,11 +161,14 @@ export default function MarketMapView() {
                         stock={marketData[5]} 
                         onClick={setSelectedStock} 
                         selected={selectedStock?.id === marketData[5].id} 
-                        className={isSecondaryVisible ? "flex-1" : "h-full"} 
+                        className={showLevel2 ? "flex-1" : "h-full"} 
                         size="md" 
                        />
-                      {isSecondaryVisible && (
-                        <StockBlock stock={marketData[9]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[9].id} className="h-1/4" size="sm" />
+                      {showLevel2 && (
+                        <StockBlock stock={marketData[9]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[9].id} className={showLevel3 ? "h-1/4" : "h-1/4"} size="sm" />
+                      )}
+                      {showLevel3 && (
+                        <StockBlock stock={marketData[17]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[17].id} className="h-1/4" size="sm" />
                       )}
                   </div>
                   <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
@@ -145,15 +176,33 @@ export default function MarketMapView() {
                         stock={marketData[3]} 
                         onClick={setSelectedStock} 
                         selected={selectedStock?.id === marketData[3].id} 
-                        className={isSecondaryVisible ? "flex-1" : "h-full"} 
+                        className={showLevel2 ? "flex-1" : "h-full"} 
                         size="md" 
                       />
-                      {isSecondaryVisible && (
-                        <StockBlock stock={marketData[10]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[10].id} className="h-1/4" size="sm" />
+                      {showLevel2 && (
+                        <StockBlock stock={marketData[10]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[10].id} className={showLevel3 ? "h-1/4" : "h-1/4"} size="sm" />
+                      )}
+                      {showLevel3 && (
+                        <StockBlock stock={marketData[18]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[18].id} className="h-1/4" size="sm" />
                       )}
                   </div>
-                   {/* Empty space filler or extra stocks */}
-                   <div className="col-span-1 row-span-1 bg-[#151921]" />
+                   {/* Extra stocks at level 2+ */}
+                   <div className="col-span-1 row-span-1 flex flex-col gap-[1px] bg-[#0B0E14]">
+                      {showLevel2 ? (
+                        <>
+                          <StockBlock stock={marketData[11]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[11].id} className={showLevel3 ? "flex-1" : "h-1/2"} size="sm" />
+                          <StockBlock stock={marketData[12]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[12].id} className={showLevel3 ? "flex-1" : "h-1/2"} size="sm" />
+                          {showLevel3 && (
+                            <>
+                              <StockBlock stock={marketData[19]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[19].id} className="flex-1" size="sm" />
+                              <StockBlock stock={marketData[20]} onClick={setSelectedStock} selected={selectedStock?.id === marketData[20].id} className="flex-1" size="sm" />
+                            </>
+                          )}
+                        </>
+                      ) : (
+                        <div className="w-full h-full bg-[#151921]" />
+                      )}
+                  </div>
               </div>
           </div>
 
