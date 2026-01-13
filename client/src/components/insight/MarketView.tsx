@@ -711,7 +711,7 @@ export default function MarketView() {
 
         {/* Chart Modal */}
         <Dialog open={!!selectedChart} onOpenChange={(open) => !open && setSelectedChart(null)}>
-          <DialogContent className="w-[70vw] max-w-[70vw] h-[70vh] p-0 bg-transparent border-none shadow-none overflow-visible [&>button]:hidden outline-none">
+          <DialogContent className="w-[70vw] max-w-[70vw] h-[80vh] p-0 bg-transparent border-none shadow-none overflow-visible [&>button]:hidden outline-none top-[10%] translate-y-0">
             
             <div className="relative w-full h-full flex flex-col">
                {/* Left Navigation Arrow (Outside Content) */}
