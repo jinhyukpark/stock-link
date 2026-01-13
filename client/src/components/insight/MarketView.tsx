@@ -314,7 +314,8 @@ const navLinks = [
 export default function MarketView() {
   const [date, setDate] = useState<string>(dateOptions[0].value);
   const [open, setOpen] = useState(false);
-  const [selectedChart, setSelectedChart] = useState<{ title: string; description: string; chart: React.ReactNode; analysis: React.ReactNode; legend?: React.ReactNode; height?: string } | null>(null);
+  const [selectedChart, setSelectedChart] = useState<{ title: string; description: string; chart: React.ReactNode; analysis: React.ReactNode; legend?: React.ReactNode; height?: string; hasDualChart?: boolean; kospiChart?: React.ReactNode; kosdaqChart?: React.ReactNode } | null>(null);
+  const [marketTab, setMarketTab] = useState<'kospi' | 'kosdaq'>('kospi');
   const [showDescription, setShowDescription] = useState(true);
 
   const handlePrevDate = () => {
@@ -535,6 +536,9 @@ export default function MarketView() {
             </div>
         </div>
       ),
+      kospiChart: kospiBreadthChart,
+      kosdaqChart: kosdaqBreadthChart,
+      hasDualChart: true,
       analysis: analysisTexts.breadth,
       description: chartDescriptions.breadth,
       height: "h-[600px]"
@@ -558,6 +562,9 @@ export default function MarketView() {
             </div>
         </div>
       ),
+      kospiChart: kospiDistChart,
+      kosdaqChart: kosdaqDistChart,
+      hasDualChart: true,
       analysis: analysisTexts.dist,
       description: chartDescriptions.dist,
       height: "h-[600px]"
@@ -581,6 +588,9 @@ export default function MarketView() {
             </div>
         </div>
       ),
+      kospiChart: kospiSizeChart,
+      kosdaqChart: kosdaqSizeChart,
+      hasDualChart: true,
       analysis: analysisTexts.cap,
       description: chartDescriptions.cap,
       height: "h-[600px]"
@@ -804,13 +814,47 @@ export default function MarketView() {
                       </div>
 
                       {/* 3. Main Chart Area */}
-                      <div className="flex-1 min-h-[400px] bg-[#0F1218] rounded-xl border border-white/5 p-6 relative mb-6">
+                      <div className="flex-1 min-h-[400px] bg-[#0F1218] rounded-xl border border-white/5 p-6 relative mb-6 flex flex-col">
                          {/* Inner Grid Lines Decoration */}
                          <div className="absolute inset-0 pointer-events-none opacity-20" 
                             style={{backgroundImage: 'linear-gradient(rgba(255,255,255,0.05) 1px, transparent 1px), linear-gradient(90deg, rgba(255,255,255,0.05) 1px, transparent 1px)', backgroundSize: '40px 40px'}}>
                          </div>
                          
-                         {selectedChart?.chart}
+                         {selectedChart?.hasDualChart ? (
+                           <div className="flex flex-col h-full relative z-10">
+                             {/* Market Tabs */}
+                             <div className="flex gap-2 mb-4 shrink-0">
+                               <button
+                                 onClick={() => setMarketTab('kospi')}
+                                 className={cn(
+                                   "px-4 py-2 rounded-lg text-sm font-bold transition-all",
+                                   marketTab === 'kospi' 
+                                     ? "bg-primary/20 text-primary border border-primary/30" 
+                                     : "bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10"
+                                 )}
+                               >
+                                 KOSPI
+                               </button>
+                               <button
+                                 onClick={() => setMarketTab('kosdaq')}
+                                 className={cn(
+                                   "px-4 py-2 rounded-lg text-sm font-bold transition-all",
+                                   marketTab === 'kosdaq' 
+                                     ? "bg-primary/20 text-primary border border-primary/30" 
+                                     : "bg-white/5 text-gray-400 border border-white/10 hover:bg-white/10"
+                                 )}
+                               >
+                                 KOSDAQ
+                               </button>
+                             </div>
+                             {/* Chart Content */}
+                             <div className="flex-1 min-h-0">
+                               {marketTab === 'kospi' ? selectedChart.kospiChart : selectedChart.kosdaqChart}
+                             </div>
+                           </div>
+                         ) : (
+                           selectedChart?.chart
+                         )}
                       </div>
 
                       {/* 4. Legend / Info Section */}
