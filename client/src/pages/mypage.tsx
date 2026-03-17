@@ -196,54 +196,38 @@ export default function MyPage() {
                                     <div className="space-y-8 max-w-2xl">
                                         <div className="space-y-5">
                                             <h3 className="text-sm font-bold text-primary flex items-center gap-2 uppercase tracking-wider">
-                                                <Smartphone className="w-4 h-4" /> 앱 푸시 알림
+                                                <Bell className="w-4 h-4" /> 알림 수신 여부
                                             </h3>
                                             <div className="bg-[#0B0E14] rounded-lg p-1 border border-white/5">
                                                 <div className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded">
                                                     <div className="space-y-1">
-                                                        <Label className="text-base text-gray-200 font-medium">실시간 매매 신호</Label>
-                                                        <p className="text-sm text-gray-500">AI가 포착한 급등/급락 종목 알림</p>
+                                                        <Label className="text-base text-gray-200 font-medium">구독 관련 알림</Label>
+                                                        <p className="text-sm text-gray-500">결제 및 구독 갱신, 서비스 이용 기간 등에 대한 알림</p>
                                                     </div>
                                                     <Switch defaultChecked />
                                                 </div>
                                                 <Separator className="bg-white/5" />
                                                 <div className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded">
                                                     <div className="space-y-1">
-                                                        <Label className="text-base text-gray-200 font-medium">관심 종목 변동</Label>
-                                                        <p className="text-sm text-gray-500">지정한 목표가/손절가 도달 시 알림</p>
+                                                        <Label className="text-base text-gray-200 font-medium">이벤트 알림</Label>
+                                                        <p className="text-sm text-gray-500">프로모션, 할인 혜택 및 신규 기능 출시 소식</p>
                                                     </div>
-                                                    <Switch defaultChecked />
-                                                </div>
-                                                <Separator className="bg-white/5" />
-                                                <div className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded">
-                                                    <div className="space-y-1">
-                                                        <Label className="text-base text-gray-200 font-medium">커뮤니티 멘션</Label>
-                                                        <p className="text-sm text-gray-500">누군가 나를 멘션하거나 답글을 달았을 때</p>
-                                                    </div>
-                                                    <Switch defaultChecked />
+                                                    <Switch />
                                                 </div>
                                             </div>
                                         </div>
                                         
                                         <div className="space-y-5">
                                             <h3 className="text-sm font-bold text-primary flex items-center gap-2 uppercase tracking-wider">
-                                                <Mail className="w-4 h-4" /> 이메일 알림
+                                                <Mail className="w-4 h-4" /> 이메일 수신 여부
                                             </h3>
                                             <div className="bg-[#0B0E14] rounded-lg p-1 border border-white/5">
                                                 <div className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded">
                                                     <div className="space-y-1">
-                                                        <Label className="text-base text-gray-200 font-medium">주간 리포트</Label>
-                                                        <p className="text-sm text-gray-500">매주 월요일 발송되는 주간 시장 분석 리포트</p>
+                                                        <Label className="text-base text-gray-200 font-medium">뉴스레터 알림</Label>
+                                                        <p className="text-sm text-gray-500">주간 시장 분석 리포트 및 주요 증시 브리핑 수신</p>
                                                     </div>
                                                     <Switch defaultChecked />
-                                                </div>
-                                                <Separator className="bg-white/5" />
-                                                <div className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded">
-                                                    <div className="space-y-1">
-                                                        <Label className="text-base text-gray-200 font-medium">마케팅 정보 수신</Label>
-                                                        <p className="text-sm text-gray-500">이벤트 및 프로모션 소식 받기</p>
-                                                    </div>
-                                                    <Switch />
                                                 </div>
                                             </div>
                                         </div>
