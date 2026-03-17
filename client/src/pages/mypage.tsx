@@ -273,65 +273,70 @@ export default function MyPage() {
                                     <h2 className="text-xl font-bold text-white mb-1">구독 관리</h2>
                                     <p className="text-sm text-gray-400 mb-6">현재 이용 중인 플랜을 관리하거나 업그레이드하세요.</p>
                                     
-                                    <div className="max-w-xl mx-auto mt-12">
-                                        <div className="relative group">
-                                            <div className="absolute -inset-1 bg-gradient-to-r from-primary to-blue-600 rounded-2xl opacity-30 group-hover:opacity-50 blur-lg transition duration-500"></div>
-                                            <div className="relative bg-[#0B0E14] rounded-2xl border border-primary/50 overflow-hidden h-full flex flex-col p-8">
-                                                
-                                                <div className="flex justify-between items-start mb-8">
-                                                    <div className="flex items-center gap-4">
-                                                        <div className="w-16 h-16 rounded-2xl bg-primary/10 flex items-center justify-center border border-primary/20">
-                                                            <Crown className="w-8 h-8 text-primary fill-primary" />
-                                                        </div>
-                                                        <div>
-                                                            <div className="flex items-center gap-3 mb-1">
-                                                                <h3 className="text-2xl font-bold text-white">PRO Plan</h3>
-                                                                <Badge className="bg-primary text-black hover:bg-primary font-bold px-2 py-0.5">이용 중</Badge>
-                                                            </div>
-                                                            <p className="text-gray-400 text-sm">전문 투자자를 위한 모든 기능</p>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div className="mb-8 p-6 bg-white/5 rounded-xl border border-white/5">
-                                                    <div className="flex justify-between items-end mb-4">
-                                                        <span className="text-gray-400 text-sm">결제 금액</span>
-                                                        <div className="text-right">
-                                                            <span className="text-3xl font-bold text-white">₩29,000</span>
-                                                            <span className="text-gray-500 text-sm ml-1">/ 월</span>
-                                                        </div>
-                                                    </div>
-                                                    <div className="flex justify-between items-center text-sm pt-4 border-t border-white/10">
-                                                        <span className="text-gray-400">다음 결제일</span>
-                                                        <span className="text-white font-mono">2026. 01. 30</span>
-                                                    </div>
-                                                </div>
-                                                
-                                                <div className="space-y-3 mb-8">
-                                                    <div className="flex items-center gap-3 text-sm text-gray-300">
-                                                        <Check className="w-4 h-4 text-green-500" /> AI 실시간 매매 신호 무제한
-                                                    </div>
-                                                    <div className="flex items-center gap-3 text-sm text-gray-300">
-                                                        <Check className="w-4 h-4 text-green-500" /> 심층 시장 분석 리포트
-                                                    </div>
-                                                    <div className="flex items-center gap-3 text-sm text-gray-300">
-                                                        <Check className="w-4 h-4 text-green-500" /> VIP 커뮤니티 접근 권한
-                                                    </div>
-                                                    <div className="flex items-center gap-3 text-sm text-gray-300">
-                                                        <Check className="w-4 h-4 text-green-500" /> 포트폴리오 진단 서비스
-                                                    </div>
-                                                </div>
-
-                                                <div className="flex gap-4 mt-auto">
-                                                    <Link href="/subscription" className="flex-1">
-                                                        <Button className="w-full bg-white text-black hover:bg-gray-200 font-bold h-11">구독 변경</Button>
-                                                    </Link>
-                                                    <Button variant="outline" className="flex-1 border-white/10 text-white hover:bg-white/5 h-11">결제 수단 관리</Button>
-                                                </div>
-                                                <div className="mt-4 text-center">
-                                                     <button className="text-xs text-red-400 hover:text-red-300 hover:underline">구독 해지하기</button>
-                                                </div>
+                                    <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
+                                        {/* Guest Plan */}
+                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-transparent">
+                                            <div className="mb-4">
+                                                <h3 className="text-lg font-bold text-[#4ade80]">Guest</h3>
+                                                <div className="text-2xl font-bold text-white mt-2">무료</div>
                                             </div>
+                                            <div className="text-sm text-gray-400 space-y-1 h-12 mb-6">
+                                                <p>AI 주식 분석의 첫걸음을 내딛으세요</p>
+                                                <p>AI 기반 분석을 처음 경험하는 개인 투자자</p>
+                                            </div>
+                                            <Link href="/licenses">
+                                                <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                    &gt; 자세히 보기
+                                                </Button>
+                                            </Link>
+                                        </div>
+
+                                        {/* Business Plan */}
+                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-transparent flex flex-col">
+                                            <div className="mb-4 flex items-center gap-2">
+                                                <h3 className="text-lg font-bold text-[#60a5fa]">Business</h3>
+                                                <Badge className="bg-[#f87171] hover:bg-[#ef4444] text-white px-2 py-0 h-5 text-[10px]">인기</Badge>
+                                            </div>
+                                            <div className="text-2xl font-bold text-white mt-1 mb-4">50,000원</div>
+                                            <div className="text-sm text-gray-400 space-y-1 h-12 mb-6">
+                                                <p>더 깊이 있는 AI 분석으로 시장을 선도하세요</p>
+                                                <p>데이터 기반 의사결정을 강화하려는 소규모·리서치 팀</p>
+                                            </div>
+                                            <div className="flex items-center justify-between mt-auto">
+                                                <Link href="/licenses">
+                                                    <Button variant="ghost" className="text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                        &gt; 자세히 보기
+                                                    </Button>
+                                                </Link>
+                                                <Button className="bg-[#2dd4bf] hover:bg-[#14b8a6] text-black font-bold rounded-full h-8 px-4 text-xs">
+                                                    플랜변경
+                                                </Button>
+                                            </div>
+                                        </div>
+
+                                        {/* Enterprise Plan (Active) */}
+                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-[#2dd4bf] relative flex flex-col">
+                                            <div className="absolute top-4 right-4 border border-[#2dd4bf] text-[#2dd4bf] text-xs px-2 py-1 rounded-full">구독중</div>
+                                            <div className="mb-4">
+                                                <h3 className="text-lg font-bold text-[#c084fc]">Enterprise</h3>
+                                                <div className="text-2xl font-bold text-white mt-2">150,000원</div>
+                                            </div>
+                                            <div className="text-sm text-gray-400 space-y-1 h-16 mb-4">
+                                                <p>향상된 AI 기반의 정교한 리서치와 포트폴리오 인사이트를</p>
+                                                <p>제공합니다</p>
+                                                <p className="font-bold text-gray-300">애널리스트 및 자산운용사 등 기관 투자자</p>
+                                            </div>
+                                            
+                                            <div className="flex justify-between items-center text-sm border-t border-white/10 pt-4 mt-auto mb-4">
+                                                <span className="text-gray-400 font-bold">결제일</span>
+                                                <span className="text-white font-bold">2027-02-09</span>
+                                            </div>
+
+                                            <Link href="/licenses">
+                                                <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                    &gt; 자세히 보기
+                                                </Button>
+                                            </Link>
                                         </div>
                                     </div>
                                 </div>
