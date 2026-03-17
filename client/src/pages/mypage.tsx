@@ -51,9 +51,6 @@ export default function MyPage() {
                 <button className="absolute bottom-0 right-0 bg-[#1e2330] hover:bg-[#2a303f] text-gray-300 p-1.5 rounded-full border border-white/10 transition-colors shadow-sm z-10" title="프로필 사진 변경">
                   <Camera className="w-4 h-4" />
                 </button>
-                <div className="absolute top-0 right-0 bg-primary text-black text-[10px] font-bold px-2 py-0.5 rounded-full border border-[#151921] -translate-y-1/2 translate-x-1/4">
-                  PRO
-                </div>
               </div>
               <h2 className="text-xl font-bold text-white mb-1">Alex Morgan</h2>
               <p className="text-sm text-gray-400 mb-4">alex.morgan@stocklink.com</p>
