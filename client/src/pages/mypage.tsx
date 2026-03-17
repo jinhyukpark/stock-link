@@ -225,7 +225,7 @@ export default function MyPage() {
                                                 <div className="flex items-center justify-between p-4 hover:bg-white/5 transition-colors rounded">
                                                     <div className="space-y-1">
                                                         <Label className="text-base text-gray-200 font-medium">뉴스레터 알림</Label>
-                                                        <p className="text-sm text-gray-500">주간 시장 분석 리포트 및 주요 증시 브리핑 수신</p>
+                                                        <p className="text-sm text-gray-500">AI 추천 주요 종목 정보 뉴스레터</p>
                                                     </div>
                                                     <Switch defaultChecked />
                                                 </div>
