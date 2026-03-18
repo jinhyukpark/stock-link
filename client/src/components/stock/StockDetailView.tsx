@@ -223,6 +223,7 @@ const chartData = Array.from({ length: 100 }, (_, i) => {
 import { ShortSellingTab } from "./ShortSellingTab";
 import { ForeignerInstTab } from "./ForeignerInstTab";
 import { NewsTab } from "./NewsTab";
+import { DisclosureTab } from "./DisclosureTab";
 
 export default function StockDetailView({ onBack, stockName }: StockDetailViewProps) {
   const [isAutoExpand, setIsAutoExpand] = useState(true);
@@ -856,8 +857,8 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                 <NewsTab />
                             </TabsContent>
 
-                            <TabsContent value="공시" className="mt-0 h-full flex items-center justify-center text-gray-500">
-                                공시 데이터가 없습니다.
+                            <TabsContent value="공시" className="mt-0 h-full">
+                                <DisclosureTab />
                             </TabsContent>
 
                             <TabsContent value="재무분석" className="mt-0 h-full">
