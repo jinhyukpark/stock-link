@@ -21,7 +21,8 @@ import {
   Smartphone,
   Mail,
   Shield,
-  Camera
+  Camera,
+  FileText
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -242,11 +243,12 @@ export default function MyPage() {
                                     <p className="text-sm text-gray-400 mb-6">최근 6개월간의 결제 내역입니다.</p>
                                     
                                     <div className="rounded-xl border border-white/10 overflow-hidden bg-[#0B0E14]">
-                                        <div className="grid grid-cols-4 bg-[#0B0E14] p-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-white/10">
+                                        <div className="grid grid-cols-5 bg-[#0B0E14] p-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-white/10">
                                             <div>날짜</div>
                                             <div>상품명</div>
                                             <div>결제 수단</div>
                                             <div className="text-right">금액</div>
+                                            <div className="text-center">영수증</div>
                                         </div>
                                         <div className="divide-y divide-white/5">
                                             {[
@@ -255,11 +257,16 @@ export default function MyPage() {
                                                 { date: "2024.10.15", item: "StockLink PRO (월간)", method: "KakaoPay", amount: "29,000원" },
                                                 { date: "2024.09.15", item: "StockLink PRO (월간)", method: "KakaoPay", amount: "29,000원" },
                                             ].map((history, i) => (
-                                                <div key={i} className="grid grid-cols-4 p-4 text-sm text-gray-200 hover:bg-white/5 transition-colors items-center">
+                                                <div key={i} className="grid grid-cols-5 p-4 text-sm text-gray-200 hover:bg-white/5 transition-colors items-center">
                                                     <div className="font-mono text-gray-400">{history.date}</div>
                                                     <div className="font-medium text-white">{history.item}</div>
                                                     <div className="text-gray-400">{history.method}</div>
                                                     <div className="text-right font-bold text-white text-base">{history.amount}</div>
+                                                    <div className="flex justify-center">
+                                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10" title="영수증 보기">
+                                                            <FileText className="h-4 w-4" />
+                                                        </Button>
+                                                    </div>
                                                 </div>
                                             ))}
                                         </div>
