@@ -144,12 +144,14 @@ export function NewsTab() {
         <h3 className="text-white font-bold text-lg flex items-center gap-2">
           {selectedDate || '전체'} <span className="text-gray-500 font-normal text-sm">({totalCount}건)</span>
         </h3>
-        <button 
-          onClick={() => { setSelectedDate(null); setSelectedTag('전체'); }}
-          className="text-gray-400 text-xs px-3 py-1.5 rounded-full border border-gray-600 hover:bg-white/5 transition-colors"
-        >
-          전체보기
-        </button>
+        {selectedDate && (
+          <button 
+            onClick={() => { setSelectedDate(null); setSelectedTag('전체'); }}
+            className="text-gray-400 text-xs px-3 py-1.5 rounded-full border border-gray-600 hover:bg-white/5 transition-colors"
+          >
+            전체보기
+          </button>
+        )}
       </div>
 
       {/* Tags */}
