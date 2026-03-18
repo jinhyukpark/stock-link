@@ -220,8 +220,12 @@ const chartData = Array.from({ length: 100 }, (_, i) => {
   };
 });
 
+import { ShortSellingTab } from "./ShortSellingTab";
+import { ForeignerInstTab } from "./ForeignerInstTab";
+
 export default function StockDetailView({ onBack, stockName }: StockDetailViewProps) {
   const [isAutoExpand, setIsAutoExpand] = useState(true);
+  const [activeInfoTab, setActiveInfoTab] = useState<'related' | 'shortSelling' | 'foreignerInst'>('related');
   const chartPanelRef = useRef<ImperativePanelHandle>(null);
   const tabsPanelRef = useRef<ImperativePanelHandle>(null);
 
@@ -1170,95 +1174,115 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                    {/* Related Industries Header */}
                    <div className="mt-6">
                       <div className="flex items-center gap-6 border-b border-white/10 mb-4">
-                         <div className="text-sm font-bold text-teal-400 border-b-2 border-teal-400 pb-2 -mb-px cursor-pointer px-1">관련 업종</div>
-                         <div className="text-sm text-gray-500 pb-2 hover:text-white cursor-pointer transition-colors px-1">공매도 현황</div>
-                         <div className="text-sm text-gray-500 pb-2 hover:text-white cursor-pointer transition-colors px-1">외국인/기관</div>
+                         <div 
+                           className={`text-sm font-bold pb-2 -mb-px cursor-pointer px-1 transition-colors ${activeInfoTab === 'related' ? 'text-teal-400 border-b-2 border-teal-400' : 'text-gray-500 hover:text-white'}`}
+                           onClick={() => setActiveInfoTab('related')}
+                         >
+                           관련 업종
+                         </div>
+                         <div 
+                           className={`text-sm font-bold pb-2 -mb-px cursor-pointer px-1 transition-colors ${activeInfoTab === 'shortSelling' ? 'text-teal-400 border-b-2 border-teal-400' : 'text-gray-500 hover:text-white'}`}
+                           onClick={() => setActiveInfoTab('shortSelling')}
+                         >
+                           공매도 현황
+                         </div>
+                         <div 
+                           className={`text-sm font-bold pb-2 -mb-px cursor-pointer px-1 transition-colors ${activeInfoTab === 'foreignerInst' ? 'text-teal-400 border-b-2 border-teal-400' : 'text-gray-500 hover:text-white'}`}
+                           onClick={() => setActiveInfoTab('foreignerInst')}
+                         >
+                           외국인/기관
+                         </div>
                       </div>
                       
-                      {/* Related Industries Content */}
-                      <div className="min-h-[300px] flex flex-col relative">
-                         <div className="absolute top-0 left-0 z-10">
-                            <div className="text-gray-300 text-sm mb-1">순위</div>
-                            <div className="text-4xl font-bold text-white">1위</div>
-                         </div>
-                         
-                         <div className="flex-1 w-full -mt-4">
-                            <ResponsiveContainer width="100%" height={280}>
-                               <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
-                                  <PolarGrid stroke="#333" />
-                                  <PolarAngleAxis dataKey="subject" tick={{ fill: '#9ca3af', fontSize: 11 }} />
-                                  <PolarRadiusAxis angle={30} domain={[0, 150]} tick={false} axisLine={false} />
-                                  <Radar
-                                     name="2024"
-                                     dataKey="A"
-                                     stroke="#8b5cf6"
-                                     strokeWidth={2}
-                                     fill="#8b5cf6"
-                                     fillOpacity={0.4}
-                                   />
-                                   <Radar
-                                     name="2023"
-                                     dataKey="fullMark" // Mocking other years for visual similarity to screenshot
-                                     stroke="#ef4444"
-                                     strokeWidth={2}
-                                     fill="transparent"
-                                     fillOpacity={0}
-                                   />
-                                   <Radar
-                                     name="2022"
-                                     dataKey="A" // Mocking
-                                     stroke="#3b82f6"
-                                     strokeWidth={2}
-                                     fill="transparent"
-                                     fillOpacity={0}
-                                   />
-                               </RadarChart>
-                            </ResponsiveContainer>
-                         </div>
-                         
-                         <div className="flex justify-center gap-6 mt-[-10px] mb-6">
-                            <div className="flex items-center gap-2 text-xs">
-                               <div className="w-6 h-1 bg-blue-500 rounded-full"></div>
-                               <span className="text-white">2022년</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-xs">
-                               <div className="w-6 h-1 bg-red-500 rounded-full"></div>
-                               <span className="text-white">2023년</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-xs">
-                               <div className="w-6 h-1 bg-purple-500 rounded-full"></div>
-                               <span className="text-white">2024년</span>
-                            </div>
-                         </div>
+                      {/* Tab Content */}
+                      {activeInfoTab === 'related' && (
+                        <div className="min-h-[300px] flex flex-col relative animate-in fade-in duration-300">
+                           <div className="absolute top-0 left-0 z-10">
+                              <div className="text-gray-300 text-sm mb-1">순위</div>
+                              <div className="text-4xl font-bold text-white">1위</div>
+                           </div>
+                           
+                           <div className="flex-1 w-full -mt-4">
+                              <ResponsiveContainer width="100%" height={280}>
+                                 <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
+                                    <PolarGrid stroke="#333" />
+                                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#9ca3af', fontSize: 11 }} />
+                                    <PolarRadiusAxis angle={30} domain={[0, 150]} tick={false} axisLine={false} />
+                                    <Radar
+                                       name="2024"
+                                       dataKey="A"
+                                       stroke="#8b5cf6"
+                                       strokeWidth={2}
+                                       fill="#8b5cf6"
+                                       fillOpacity={0.4}
+                                     />
+                                     <Radar
+                                       name="2023"
+                                       dataKey="fullMark" // Mocking other years for visual similarity to screenshot
+                                       stroke="#ef4444"
+                                       strokeWidth={2}
+                                       fill="transparent"
+                                       fillOpacity={0}
+                                     />
+                                     <Radar
+                                       name="2022"
+                                       dataKey="A" // Mocking
+                                       stroke="#3b82f6"
+                                       strokeWidth={2}
+                                       fill="transparent"
+                                       fillOpacity={0}
+                                     />
+                                 </RadarChart>
+                              </ResponsiveContainer>
+                           </div>
+                           
+                           <div className="flex justify-center gap-6 mt-[-10px] mb-6">
+                              <div className="flex items-center gap-2 text-xs">
+                                 <div className="w-6 h-1 bg-blue-500 rounded-full"></div>
+                                 <span className="text-white">2022년</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-xs">
+                                 <div className="w-6 h-1 bg-red-500 rounded-full"></div>
+                                 <span className="text-white">2023년</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-xs">
+                                 <div className="w-6 h-1 bg-purple-500 rounded-full"></div>
+                                 <span className="text-white">2024년</span>
+                              </div>
+                           </div>
 
-                         <div className="border-t border-white/10 mb-4"></div>
+                           <div className="border-t border-white/10 mb-4"></div>
 
-                         {/* Related Stocks List */}
-                         <div className="space-y-1">
-                            {[
-                                { name: 'SK하이닉스', price: '742,000원', change: '16,000', rate: '+2.20%', isUp: true, color: 'bg-red-500', icon: Cpu },
-                                { name: '삼성전기', price: '267,500원', change: '500', rate: '-0.19%', isUp: false, color: 'bg-blue-600', icon: Smartphone },
-                                { name: 'LG전자', price: '92,300원', change: '1,700', rate: '-1.81%', isUp: false, color: 'bg-pink-600', icon: Tv },
-                                { name: '한화시스템', price: '58,500원', change: '1,000', rate: '-2.99%', isUp: false, color: 'bg-orange-500', icon: Disc }
-                            ].map((stock, i) => (
-                                <div key={i} className="flex items-center justify-between py-3 px-2 hover:bg-white/5 rounded-lg cursor-pointer transition-all group border border-transparent hover:border-white/5">
-                                   <div className="flex items-center gap-3">
-                                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${stock.color} bg-opacity-20`}>
-                                         <stock.icon className={`w-5 h-5 ${stock.color.replace('bg-', 'text-')}`} />
-                                      </div>
-                                      <span className="text-white font-bold text-sm group-hover:text-primary transition-colors">{stock.name}</span>
-                                   </div>
-                                   <div className="text-right">
-                                      <div className="text-white font-bold text-sm tracking-tight">{stock.price}</div>
-                                      <div className={`text-xs font-semibold mt-0.5 flex items-center justify-end gap-1 ${stock.isUp ? 'text-red-400' : 'text-blue-400'}`}>
-                                         <span>{stock.isUp ? '▲' : '▼'} {stock.change}</span>
-                                         <span className="opacity-80">{stock.rate}</span>
-                                      </div>
-                                   </div>
-                                </div>
-                            ))}
-                         </div>
-                      </div>
+                           {/* Related Stocks List */}
+                           <div className="space-y-1">
+                              {[
+                                  { name: 'SK하이닉스', price: '742,000원', change: '16,000', rate: '+2.20%', isUp: true, color: 'bg-red-500', icon: Cpu },
+                                  { name: '삼성전기', price: '267,500원', change: '500', rate: '-0.19%', isUp: false, color: 'bg-blue-600', icon: Smartphone },
+                                  { name: 'LG전자', price: '92,300원', change: '1,700', rate: '-1.81%', isUp: false, color: 'bg-pink-600', icon: Tv },
+                                  { name: '한화시스템', price: '58,500원', change: '1,000', rate: '-2.99%', isUp: false, color: 'bg-orange-500', icon: Disc }
+                              ].map((stock, i) => (
+                                  <div key={i} className="flex items-center justify-between py-3 px-2 hover:bg-white/5 rounded-lg cursor-pointer transition-all group border border-transparent hover:border-white/5">
+                                     <div className="flex items-center gap-3">
+                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${stock.color} bg-opacity-20`}>
+                                           <stock.icon className={`w-5 h-5 ${stock.color.replace('bg-', 'text-')}`} />
+                                        </div>
+                                        <span className="text-white font-bold text-sm group-hover:text-primary transition-colors">{stock.name}</span>
+                                     </div>
+                                     <div className="text-right">
+                                        <div className="text-white font-bold text-sm tracking-tight">{stock.price}</div>
+                                        <div className={`text-xs font-semibold mt-0.5 flex items-center justify-end gap-1 ${stock.isUp ? 'text-red-400' : 'text-blue-400'}`}>
+                                           <span>{stock.isUp ? '▲' : '▼'} {stock.change}</span>
+                                           <span className="opacity-80">{stock.rate}</span>
+                                        </div>
+                                     </div>
+                                  </div>
+                              ))}
+                           </div>
+                        </div>
+                      )}
+                      
+                      {activeInfoTab === 'shortSelling' && <ShortSellingTab />}
+                      {activeInfoTab === 'foreignerInst' && <ForeignerInstTab />}
                    </div>
                 </div>
              </div>
