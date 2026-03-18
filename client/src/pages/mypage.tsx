@@ -275,68 +275,76 @@ export default function MyPage() {
                                     
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
                                         {/* Guest Plan */}
-                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-transparent">
+                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-transparent flex flex-col h-full">
                                             <div className="mb-4">
                                                 <h3 className="text-lg font-bold text-[#4ade80]">Guest</h3>
                                                 <div className="text-2xl font-bold text-white mt-2">무료</div>
                                             </div>
-                                            <div className="text-sm text-gray-400 space-y-1 h-12 mb-6">
+                                            <div className="text-sm text-gray-400 space-y-1 flex-1">
                                                 <p>AI 주식 분석의 첫걸음을 내딛으세요</p>
                                                 <p>AI 기반 분석을 처음 경험하는 개인 투자자</p>
                                             </div>
-                                            <Link href="/licenses">
-                                                <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
-                                                    &gt; 자세히 보기
-                                                </Button>
-                                            </Link>
+                                            <div className="mt-8 pt-4 border-t border-transparent">
+                                                <div className="flex items-center h-8">
+                                                    <Link href="/licenses">
+                                                        <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                            &gt; 자세히 보기
+                                                        </Button>
+                                                    </Link>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         {/* Business Plan */}
-                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-transparent flex flex-col">
+                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-transparent flex flex-col h-full">
                                             <div className="mb-4 flex items-center gap-2">
                                                 <h3 className="text-lg font-bold text-[#60a5fa]">Business</h3>
                                                 <Badge className="bg-[#f87171] hover:bg-[#ef4444] text-white px-2 py-0 h-5 text-[10px]">인기</Badge>
                                             </div>
                                             <div className="text-2xl font-bold text-white mt-1 mb-4">50,000원</div>
-                                            <div className="text-sm text-gray-400 space-y-1 h-12 mb-6">
+                                            <div className="text-sm text-gray-400 space-y-1 flex-1">
                                                 <p>더 깊이 있는 AI 분석으로 시장을 선도하세요</p>
                                                 <p>데이터 기반 의사결정을 강화하려는 소규모·리서치 팀</p>
                                             </div>
-                                            <div className="flex items-center justify-between mt-auto">
-                                                <Link href="/licenses">
-                                                    <Button variant="ghost" className="text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
-                                                        &gt; 자세히 보기
+                                            <div className="mt-8 pt-4 border-t border-transparent">
+                                                <div className="flex items-center justify-between h-8">
+                                                    <Link href="/licenses">
+                                                        <Button variant="ghost" className="text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                            &gt; 자세히 보기
+                                                        </Button>
+                                                    </Link>
+                                                    <Button className="bg-[#2dd4bf] hover:bg-[#14b8a6] text-black font-bold rounded-full h-8 px-4 text-xs">
+                                                        플랜변경
                                                     </Button>
-                                                </Link>
-                                                <Button className="bg-[#2dd4bf] hover:bg-[#14b8a6] text-black font-bold rounded-full h-8 px-4 text-xs">
-                                                    플랜변경
-                                                </Button>
+                                                </div>
                                             </div>
                                         </div>
 
                                         {/* Enterprise Plan (Active) */}
-                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-[#2dd4bf] relative flex flex-col">
+                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-[#2dd4bf] relative flex flex-col h-full">
                                             <div className="absolute top-4 right-4 border border-[#2dd4bf] text-[#2dd4bf] text-xs px-2 py-1 rounded-full">구독중</div>
                                             <div className="mb-4">
                                                 <h3 className="text-lg font-bold text-[#c084fc]">Enterprise</h3>
                                                 <div className="text-2xl font-bold text-white mt-2">150,000원</div>
                                             </div>
-                                            <div className="text-sm text-gray-400 space-y-1 h-16 mb-4">
-                                                <p>향상된 AI 기반의 정교한 리서치와 포트폴리오 인사이트를</p>
-                                                <p>제공합니다</p>
-                                                <p className="font-bold text-gray-300">애널리스트 및 자산운용사 등 기관 투자자</p>
+                                            <div className="text-sm text-gray-400 space-y-1 flex-1">
+                                                <p>향상된 AI 기반의 정교한 리서치와 포트폴리오 인사이트를 제공합니다</p>
+                                                <p className="font-bold text-gray-300 mt-2">애널리스트 및 자산운용사 등 기관 투자자</p>
                                             </div>
                                             
-                                            <div className="flex justify-between items-center text-sm border-t border-white/10 pt-4 mt-auto mb-4">
-                                                <span className="text-gray-400 font-bold">결제일</span>
-                                                <span className="text-white font-bold">2027-02-09</span>
+                                            <div className="mt-8 pt-4 border-t border-white/10">
+                                                <div className="flex justify-between items-center text-sm mb-4">
+                                                    <span className="text-gray-400 font-bold whitespace-nowrap">결제일</span>
+                                                    <span className="text-white font-bold whitespace-nowrap">2027-02-09</span>
+                                                </div>
+                                                <div className="flex items-center h-8">
+                                                    <Link href="/licenses">
+                                                        <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                            &gt; 자세히 보기
+                                                        </Button>
+                                                    </Link>
+                                                </div>
                                             </div>
-
-                                            <Link href="/licenses">
-                                                <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
-                                                    &gt; 자세히 보기
-                                                </Button>
-                                            </Link>
                                         </div>
                                     </div>
                                 </div>
