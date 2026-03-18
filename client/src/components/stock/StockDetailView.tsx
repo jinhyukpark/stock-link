@@ -784,6 +784,73 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                 </div>
                             </TabsContent>
 
+                            <TabsContent value="배당" className="mt-0 h-full">
+                                <div className="flex flex-col h-full gap-6">
+                                    <div className="flex items-end gap-2">
+                                        <h3 className="text-white font-bold text-lg">{stockName}</h3>
+                                        <span className="text-gray-500 text-sm mb-0.5">최근 12개월</span>
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-3 gap-4">
+                                        <div className="bg-[#1E222B] rounded-lg p-5 flex items-center justify-between border border-white/5">
+                                            <span className="text-gray-400 text-sm">지급한 횟수</span>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-white font-bold text-lg">1번</span>
+                                                <span className="text-gray-500 text-xs">3월</span>
+                                            </div>
+                                        </div>
+                                        <div className="bg-[#1E222B] rounded-lg p-5 flex items-center justify-between border border-white/5">
+                                            <span className="text-gray-400 text-sm">1주당 배당금</span>
+                                            <span className="text-white font-bold text-lg">연 1원</span>
+                                        </div>
+                                        <div className="bg-[#1E222B] rounded-lg p-5 flex items-center justify-between border border-white/5">
+                                            <span className="text-gray-400 text-sm">배당 수익률</span>
+                                            <span className="text-white font-bold text-lg">연 0.06%</span>
+                                        </div>
+                                    </div>
+                                    
+                                    <div className="flex flex-col mt-2">
+                                        <div className="flex items-center gap-2 mb-4">
+                                            <h4 className="text-white font-bold text-sm">배당내역</h4>
+                                            <span className="text-gray-500 text-xs">한국시간 기준</span>
+                                        </div>
+                                        
+                                        <div className="bg-[#151921] rounded-lg border border-white/5 overflow-hidden">
+                                            <table className="w-full text-sm text-left">
+                                                <thead className="text-gray-500 bg-[#1E222B] border-b border-white/5">
+                                                    <tr>
+                                                        <th className="p-4 font-medium w-[120px]"></th>
+                                                        <th className="p-4 font-medium">배당락일</th>
+                                                        <th className="p-4 font-medium text-center">배당지급일</th>
+                                                        <th className="p-4 font-medium text-right">1주당 배당금</th>
+                                                    </tr>
+                                                </thead>
+                                                <tbody className="divide-y divide-white/5">
+                                                    <tr className="hover:bg-white/5 transition-colors">
+                                                        <td className="p-4 text-white font-bold">2025년</td>
+                                                        <td className="p-4 text-gray-300">03월 28일</td>
+                                                        <td className="p-4 text-gray-500 text-center">-</td>
+                                                        <td className="p-4 text-white text-right">1원</td>
+                                                    </tr>
+                                                    <tr className="hover:bg-white/5 transition-colors">
+                                                        <td className="p-4 text-white font-bold">2023년</td>
+                                                        <td className="p-4 text-gray-300">12월 28일</td>
+                                                        <td className="p-4 text-gray-500 text-center">-</td>
+                                                        <td className="p-4 text-white text-right">2원</td>
+                                                    </tr>
+                                                    <tr className="hover:bg-white/5 transition-colors">
+                                                        <td className="p-4 text-white font-bold">2022년</td>
+                                                        <td className="p-4 text-gray-300">12월 29일</td>
+                                                        <td className="p-4 text-gray-500 text-center">-</td>
+                                                        <td className="p-4 text-white text-right">5원</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
+                                    </div>
+                                </div>
+                            </TabsContent>
+
                             <TabsContent value="재무분석" className="mt-0 h-full">
                                 <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
                                     <div className="p-4 border-b border-white/5 flex justify-between items-center">
