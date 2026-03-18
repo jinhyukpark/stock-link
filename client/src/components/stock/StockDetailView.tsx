@@ -224,6 +224,9 @@ import { ShortSellingTab } from "./ShortSellingTab";
 import { ForeignerInstTab } from "./ForeignerInstTab";
 import { NewsTab } from "./NewsTab";
 import { DisclosureTab } from "./DisclosureTab";
+import { InvestorTrendTab } from "./InvestorTrendTab";
+import { FinancialAnalysisTab } from "./FinancialAnalysisTab";
+import { InvestmentIndicatorTab } from "./InvestmentIndicatorTab";
 
 export default function StockDetailView({ onBack, stockName }: StockDetailViewProps) {
   const [isAutoExpand, setIsAutoExpand] = useState(true);
@@ -857,216 +860,20 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                 <NewsTab />
                             </TabsContent>
 
-                            <TabsContent value="공시" className="mt-0 h-full">
+                                                        <TabsContent value="공시" className="mt-0 h-full">
                                 <DisclosureTab />
                             </TabsContent>
 
+                            <TabsContent value="투자자동향" className="mt-0 h-full">
+                                <InvestorTrendTab />
+                            </TabsContent>
+
                             <TabsContent value="재무분석" className="mt-0 h-full">
-                                <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
-                                    <div className="p-4 border-b border-white/5 flex justify-between items-center">
-                                        <div className="flex flex-col gap-4 w-full">
-                                          <div className="flex justify-between items-center w-full">
-                                            <h3 className="text-white font-bold text-sm">재무제표</h3>
-                                            <div className="flex text-xs text-gray-500 gap-2">
-                                                <span className="cursor-pointer hover:text-white">연결</span>
-                                                <ChevronDown className="w-3 h-3" />
-                                                <span className="w-px h-3 bg-white/10"></span>
-                                                <span className="cursor-pointer hover:text-white text-white font-medium">분기</span>
-                                                <ChevronDown className="w-3 h-3" />
-                                            </div>
-                                          </div>
-                                          <div className="flex gap-6 border-b border-white/5 -mx-4 px-4">
-                                            {['손익계산서', '재무상태표', '현금흐름표'].map((subtab, i) => (
-                                              <div 
-                                                key={subtab} 
-                                                className={`pb-2 text-xs font-medium cursor-pointer border-b-2 transition-colors ${i === 0 ? 'text-teal-400 border-teal-400' : 'text-gray-500 border-transparent hover:text-white'}`}
-                                              >
-                                                {subtab}
-                                              </div>
-                                            ))}
-                                          </div>
-                                        </div>
-                                    </div>
-                                    
-                                    <div className="flex-1 overflow-y-auto custom-scrollbar">
-                                        <table className="w-full text-xs border-collapse">
-                                            <thead className="bg-[#1E222B] sticky top-0 z-10">
-                                                <tr>
-                                                    <th className="p-3 text-left font-normal text-gray-400 w-[20%] border-b border-white/5">항목</th>
-                                                    {financialPeriods.map((period, idx) => (
-                                                        <th key={idx} className="p-3 text-right font-normal text-gray-400 border-b border-white/5">{period}</th>
-                                                    ))}
-                                                </tr>
-                                            </thead>
-                                            <tbody className="divide-y divide-white/5">
-                                                {financialStatements.map((row, idx) => (
-                                                    <tr key={idx} className={`hover:bg-white/5 transition-colors group ${row.highlight ? 'bg-white/5' : ''}`}>
-                                                        <td className={`p-3 text-left text-white border-r border-white/5 ${row.highlight ? 'font-bold' : ''}`}>
-                                                          <div className="flex items-center gap-1">
-                                                            {row.hasSubItems && <ChevronDown className="w-3 h-3 text-gray-500" />}
-                                                            {row.item}
-                                                          </div>
-                                                        </td>
-                                                        {row.values.map((val, vIdx) => (
-                                                            <td key={vIdx} className={`p-3 text-right font-medium border-r border-white/5 last:border-r-0 ${val.startsWith('-') ? 'text-blue-400' : 'text-white'}`}>
-                                                                {val}
-                                                            </td>
-                                                        ))}
-                                                    </tr>
-                                                ))}
-                                                {/* Mocking expanded rows for Revenue if needed, but per image it's collapsed or just shown as item */}
-                                                {/* Adding empty sub-rows for "매출액(수익)" to match image slightly if desired, but sticking to provided data structure for cleaner code */}
-                                                <tr className="hover:bg-white/5 transition-colors">
-                                                    <td className="p-3 pl-8 text-left text-gray-400 border-r border-white/5">내수</td>
-                                                    {financialPeriods.map((_, i) => <td key={i} className="p-3 text-right text-gray-600 border-r border-white/5 last:border-r-0">-</td>)}
-                                                </tr>
-                                                <tr className="hover:bg-white/5 transition-colors">
-                                                    <td className="p-3 pl-8 text-left text-gray-400 border-r border-white/5">수출</td>
-                                                    {financialPeriods.map((_, i) => <td key={i} className="p-3 text-right text-gray-600 border-r border-white/5 last:border-r-0">-</td>)}
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </div>
-                                </div>
+                                <FinancialAnalysisTab />
                             </TabsContent>
 
                             <TabsContent value="투자지표" className="mt-0 h-full">
-                                <div className="grid grid-cols-2 gap-4 h-full">
-                                    {/* Valuation (Left) */}
-                                    <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
-                                        <div className="p-4 border-b border-white/5 flex justify-between items-center">
-                                            <h3 className="text-white font-bold text-sm">가치성</h3>
-                                            <div className="flex text-xs text-gray-500 gap-2">
-                                                <span className="cursor-pointer hover:text-white">연결</span>
-                                                <ChevronDown className="w-3 h-3" />
-                                                <span className="w-px h-3 bg-white/10"></span>
-                                                <span className="cursor-pointer hover:text-white text-white font-medium">분기</span>
-                                                <ChevronDown className="w-3 h-3" />
-                                            </div>
-                                        </div>
-                                        
-                                        <div className="flex-1 p-4 flex flex-col">
-                                            {/* Chart Area */}
-                                            <div className="flex-1 min-h-0 relative mb-4">
-                                                <ResponsiveContainer width="100%" height="100%">
-                                                    <LineChart data={valuationData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
-                                                        <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
-                                                        <XAxis 
-                                                            dataKey="date" 
-                                                            tick={{ fill: '#9ca3af', fontSize: 11 }} 
-                                                            tickLine={false} 
-                                                            axisLine={{ stroke: '#ffffff10' }} 
-                                                            dy={10}
-                                                        />
-                                                        <YAxis 
-                                                            domain={[0, 100]} 
-                                                            tick={{ fill: '#6b7280', fontSize: 11 }} 
-                                                            tickLine={false} 
-                                                            axisLine={false}
-                                                            tickFormatter={(value) => `${value}%`}
-                                                        />
-                                                        <Tooltip 
-                                                            contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '8px', fontSize: '12px' }}
-                                                            itemStyle={{ color: '#fff' }}
-                                                        />
-                                                        <Line type="monotone" dataKey="per" name="PER" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4, fill: '#3b82f6', strokeWidth: 0 }} />
-                                                        <Line type="monotone" dataKey="pbr" name="PBR" stroke="#5eead4" strokeWidth={2} dot={{ r: 4, fill: '#5eead4', strokeWidth: 0 }} />
-                                                        <Line type="monotone" dataKey="psr" name="PSR" stroke="#a855f7" strokeWidth={2} dot={{ r: 4, fill: '#a855f7', strokeWidth: 0 }} />
-                                                    </LineChart>
-                                                </ResponsiveContainer>
-                                            </div>
-
-                                            {/* Legend / Info */}
-                                            <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-4">
-                                                <div className="text-center">
-                                                    <div className="flex items-center justify-center gap-2 mb-1">
-                                                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                                                        <span className="text-xs text-gray-400">PER</span>
-                                                    </div>
-                                                    <div className="text-sm font-bold text-white">47.07배</div>
-                                                </div>
-                                                <div className="text-center">
-                                                    <div className="flex items-center justify-center gap-2 mb-1">
-                                                        <div className="w-2 h-2 rounded-full bg-teal-400"></div>
-                                                        <span className="text-xs text-gray-400">PBR</span>
-                                                    </div>
-                                                    <div className="text-sm font-bold text-white">1.38배</div>
-                                                </div>
-                                                <div className="text-center">
-                                                    <div className="flex items-center justify-center gap-2 mb-1">
-                                                        <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-                                                        <span className="text-xs text-gray-400">PSR</span>
-                                                    </div>
-                                                    <div className="text-sm font-bold text-white">6.57배</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Stability (Right) */}
-                                    <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
-                                        <div className="p-4 border-b border-white/5 flex justify-between items-center">
-                                            <h3 className="text-white font-bold text-sm">안정성</h3>
-                                            <div className="flex text-xs text-gray-500 gap-2">
-                                                <span className="cursor-pointer hover:text-white">연결</span>
-                                                <ChevronDown className="w-3 h-3" />
-                                                <span className="w-px h-3 bg-white/10"></span>
-                                                <span className="cursor-pointer hover:text-white text-white font-medium">분기</span>
-                                                <ChevronDown className="w-3 h-3" />
-                                            </div>
-                                        </div>
-                                        
-                                        <div className="flex-1 p-4 flex flex-col">
-                                            {/* Chart Area */}
-                                            <div className="flex-1 min-h-0 relative mb-4">
-                                                <ResponsiveContainer width="100%" height="100%">
-                                                    <LineChart data={stabilityData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
-                                                        <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
-                                                        <XAxis 
-                                                            dataKey="date" 
-                                                            tick={{ fill: '#9ca3af', fontSize: 11 }} 
-                                                            tickLine={false} 
-                                                            axisLine={{ stroke: '#ffffff10' }} 
-                                                            dy={10}
-                                                        />
-                                                        <YAxis 
-                                                            domain={[0, 320]} 
-                                                            ticks={[0, 80, 160, 240, 320]}
-                                                            tick={{ fill: '#6b7280', fontSize: 11 }} 
-                                                            tickLine={false} 
-                                                            axisLine={false}
-                                                            tickFormatter={(value) => `${value}%`}
-                                                        />
-                                                        <Tooltip 
-                                                            contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '8px', fontSize: '12px' }}
-                                                            itemStyle={{ color: '#fff' }}
-                                                        />
-                                                        <Line type="monotone" dataKey="currentRatio" name="유동비율" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4, fill: '#3b82f6', strokeWidth: 0 }} />
-                                                        <Line type="monotone" dataKey="debtRatio" name="부채비율" stroke="#5eead4" strokeWidth={2} dot={{ r: 4, fill: '#5eead4', strokeWidth: 0 }} />
-                                                    </LineChart>
-                                                </ResponsiveContainer>
-                                            </div>
-
-                                            {/* Legend / Info */}
-                                            <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-4">
-                                                <div className="text-center">
-                                                    <div className="flex items-center justify-center gap-2 mb-1">
-                                                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                                                        <span className="text-xs text-gray-400">유동비율</span>
-                                                    </div>
-                                                    <div className="text-sm font-bold text-white">251.37배</div>
-                                                </div>
-                                                <div className="text-center">
-                                                    <div className="flex items-center justify-center gap-2 mb-1">
-                                                        <div className="w-2 h-2 rounded-full bg-teal-400"></div>
-                                                        <span className="text-xs text-gray-400">부채비율</span>
-                                                    </div>
-                                                    <div className="text-sm font-bold text-white">26.36배</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <InvestmentIndicatorTab />
                             </TabsContent>
                           </div>
                       </Tabs>
