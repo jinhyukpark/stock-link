@@ -156,6 +156,29 @@ export default function MyPage() {
                                         <div className="pt-4 flex justify-end">
                                             <Button size="lg" className="bg-primary text-black hover:bg-primary/90 font-bold px-8">변경사항 저장</Button>
                                         </div>
+                                        
+                                        <div className="mt-8 pt-8 border-t border-white/5">
+                                            <div className="bg-[#1e2330] rounded-xl p-5 border border-white/5">
+                                                <div className="flex justify-between items-center mb-4">
+                                                    <div className="flex items-center gap-3">
+                                                        <span className="text-gray-300 font-medium">추천인 코드</span>
+                                                        <span className="text-white font-bold text-lg tracking-wider">MXHRC73M</span>
+                                                    </div>
+                                                    <Button variant="ghost" size="sm" className="text-primary hover:text-primary/80 hover:bg-primary/10 gap-1.5 font-medium px-2 h-8">
+                                                        <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                                                        복사하기
+                                                    </Button>
+                                                </div>
+                                                <div className="bg-[#151921] rounded-lg p-4 space-y-3">
+                                                    <p className="text-sm text-gray-400 leading-relaxed break-keep">
+                                                        회원님을 추천한 유저가 결제할 때마다, 결제 금액의 일정 비율이 회원님께 리워드로 지급됩니다.
+                                                    </p>
+                                                    <div className="text-primary font-medium text-[14px]">
+                                                        envitest님의 현재 리워드 비율: 20%
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                             </TabsContent>
