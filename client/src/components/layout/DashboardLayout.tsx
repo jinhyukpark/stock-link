@@ -129,28 +129,10 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                 <Link href="/mypage">
                   <DropdownMenuItem className="focus:bg-white/10 focus:text-white cursor-pointer group">
                     <User className="mr-2 h-4 w-4 text-gray-400 group-hover:text-white" />
-                    <span>내 정보</span>
-                  </DropdownMenuItem>
-                </Link>
-                <Link href="/mypage">
-                  <DropdownMenuItem className="focus:bg-white/10 focus:text-white cursor-pointer group">
-                    <CreditCard className="mr-2 h-4 w-4 text-gray-400 group-hover:text-white" />
-                    <span>결제 내역</span>
-                  </DropdownMenuItem>
-                </Link>
-                <Link href="/mypage">
-                  <DropdownMenuItem className="focus:bg-white/10 focus:text-white cursor-pointer group">
-                    <Crown className="mr-2 h-4 w-4 text-yellow-500 group-hover:text-yellow-400" />
-                    <span>구독 관리</span>
+                    <span>마이페이지</span>
                   </DropdownMenuItem>
                 </Link>
                 <DropdownMenuSeparator className="bg-white/10" />
-                <Link href="/mypage">
-                  <DropdownMenuItem className="focus:bg-white/10 focus:text-white cursor-pointer group">
-                    <Settings className="mr-2 h-4 w-4 text-gray-400 group-hover:text-white" />
-                    <span>설정</span>
-                  </DropdownMenuItem>
-                </Link>
                 <DropdownMenuItem className="focus:bg-red-500/10 focus:text-red-400 text-red-400 cursor-pointer">
                   <LogOut className="mr-2 h-4 w-4" />
                   <span>로그아웃</span>
