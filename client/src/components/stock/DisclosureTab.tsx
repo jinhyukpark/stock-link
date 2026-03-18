@@ -88,7 +88,7 @@ export function DisclosureTab() {
       </div>
 
       {/* Detail Section (Right) */}
-      <div className="w-[55%] h-full bg-white rounded-lg border border-white/5 overflow-y-auto custom-scrollbar text-black p-8">
+      <div className={`w-[55%] h-full rounded-lg border border-white/5 overflow-y-auto custom-scrollbar p-8 ${selectedDisclosure ? 'bg-white text-black' : 'bg-[#151921] text-gray-400'}`}>
         {selectedDisclosure ? (
           <div className="flex flex-col">
             {/* Detail Header */}
