@@ -16,6 +16,8 @@ import MyPage from "@/pages/mypage";
 import SocialPage from "@/pages/social";
 import SubscriptionPage from "@/pages/subscription";
 import InsightPage from "@/pages/insight";
+import SitemapPage from "@/pages/sitemap";
+import LicensesPage from "@/pages/licenses";
 
 function Router() {
   return (
@@ -31,6 +33,8 @@ function Router() {
         <Route path="/community" component={CommunityPage} />
         <Route path="/mypage" component={MyPage} />
         <Route path="/subscription" component={SubscriptionPage} />
+        <Route path="/sitemap" component={SitemapPage} />
+        <Route path="/licenses" component={LicensesPage} />
         {/* Fallback to 404 */}
         <Route component={NotFound} />
       </Switch>
