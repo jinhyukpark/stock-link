@@ -222,6 +222,7 @@ const chartData = Array.from({ length: 100 }, (_, i) => {
 
 import { ShortSellingTab } from "./ShortSellingTab";
 import { ForeignerInstTab } from "./ForeignerInstTab";
+import { NewsTab } from "./NewsTab";
 
 export default function StockDetailView({ onBack, stockName }: StockDetailViewProps) {
   const [isAutoExpand, setIsAutoExpand] = useState(true);
@@ -346,7 +347,7 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                       <Tabs defaultValue="company" className="h-full flex flex-col" onValueChange={handleTabChange}>
                           <div className="border-b border-white/10 px-4 shrink-0 flex items-center justify-between">
                             <TabsList className="bg-transparent justify-start h-auto p-0 gap-6 rounded-none">
-                              {['기업소개', '호가', '실시간/일별시세', '실적', '배당', '뉴스/공시', '투자자동향', '재무분석', '투자지표', '토론'].map((tab) => (
+                              {['기업소개', '호가', '실시간/일별시세', '실적', '배당', '뉴스', '공시', '투자자동향', '재무분석', '투자지표', '토론'].map((tab) => (
                                   <TabsTrigger 
                                     key={tab} 
                                     value={tab === '기업소개' ? 'company' : (tab === '호가' ? 'orderbook' : tab)} 
@@ -849,6 +850,14 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                         </div>
                                     </div>
                                 </div>
+                            </TabsContent>
+
+                            <TabsContent value="뉴스" className="mt-0 h-full overflow-y-auto custom-scrollbar pr-2">
+                                <NewsTab />
+                            </TabsContent>
+
+                            <TabsContent value="공시" className="mt-0 h-full flex items-center justify-center text-gray-500">
+                                공시 데이터가 없습니다.
                             </TabsContent>
 
                             <TabsContent value="재무분석" className="mt-0 h-full">
