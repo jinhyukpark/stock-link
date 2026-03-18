@@ -341,7 +341,7 @@ export default function MyPage() {
                                             
                                             <div className="mt-8 pt-4 border-t border-white/10">
                                                 <div className="flex justify-between items-center text-sm mb-4">
-                                                    <span className="text-gray-400 font-bold whitespace-nowrap">결제일</span>
+                                                    <span className="text-gray-400 font-bold whitespace-nowrap">다음 결제일</span>
                                                     <span className="text-white font-bold whitespace-nowrap">2027-02-09</span>
                                                 </div>
                                                 <div className="flex items-center h-8">
