@@ -153,12 +153,12 @@ export function NewsTab() {
       </div>
 
       {/* Tags */}
-      <div className="flex gap-2 overflow-x-auto custom-scrollbar pb-2">
+      <div className="flex gap-2 overflow-x-auto overflow-y-hidden custom-scrollbar pb-2 min-h-[40px] items-center">
         {tags.map(tag => (
           <button
             key={tag}
             onClick={() => setSelectedTag(tag)}
-            className={`whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-medium transition-colors ${
+            className={`whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-medium transition-colors shrink-0 ${
               selectedTag === tag 
                 ? 'bg-[#4ade80] text-black' 
                 : 'bg-[#1E222B] text-gray-300 hover:bg-[#2a2d36]'
