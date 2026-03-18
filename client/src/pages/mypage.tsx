@@ -21,7 +21,8 @@ import {
   Smartphone,
   Mail,
   Shield,
-  Camera
+  Camera,
+  FileText
 } from "lucide-react";
 import { cn } from "@/lib/utils";
 
@@ -40,6 +41,8 @@ export default function MyPage() {
         </div>
 
         <div className="flex flex-col lg:flex-row gap-8">
+          {/* Left Column (Profile + Referral) */}
+          <div className="flex flex-col gap-4">
           {/* Left Sidebar Profile Summary */}
           <Card className="w-full lg:w-80 h-fit bg-[#151921] border-white/10 shrink-0">
             <CardContent className="pt-6 flex flex-col items-center text-center">
@@ -81,6 +84,29 @@ export default function MyPage() {
               </div>
             </CardContent>
           </Card>
+
+          {/* Referral Code Box */}
+          <div className="w-full lg:w-80 bg-[#151921] rounded-xl border border-white/10 shrink-0 p-5">
+            <div className="flex justify-between items-center mb-4">
+                <div className="flex items-center gap-2.5">
+                    <span className="text-gray-300 font-medium text-[15px]">추천인 코드</span>
+                    <span className="text-white font-bold text-[15px] tracking-wider">MXHRC73M</span>
+                </div>
+                <Button variant="ghost" size="sm" className="text-[#0ea5e9] hover:text-[#0ea5e9]/80 hover:bg-[#0ea5e9]/10 gap-1.5 font-medium px-2 h-8 text-sm">
+                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                    복사하기
+                </Button>
+            </div>
+            <div className="bg-[#1e2330] rounded-lg p-4 space-y-3 border border-white/5">
+                <p className="text-[13px] text-gray-400 leading-relaxed break-keep">
+                    회원님을 추천한 유저가 결제할 때마다, 결제 금액의 일정 비율이 회원님께 리워드로 지급됩니다.
+                </p>
+                <div className="text-[#0ea5e9] font-medium text-[13px]">
+                    envitest님의 현재 리워드 비율: 20%
+                </div>
+            </div>
+          </div>
+          </div>
 
             {/* Right Content Area */}
             <div className="flex-1 min-w-0">
@@ -155,6 +181,8 @@ export default function MyPage() {
                                         <div className="pt-4 flex justify-end">
                                             <Button size="lg" className="bg-primary text-black hover:bg-primary/90 font-bold px-8">변경사항 저장</Button>
                                         </div>
+                                        
+
                                     </div>
                                 </div>
                             </TabsContent>
@@ -242,11 +270,12 @@ export default function MyPage() {
                                     <p className="text-sm text-gray-400 mb-6">최근 6개월간의 결제 내역입니다.</p>
                                     
                                     <div className="rounded-xl border border-white/10 overflow-hidden bg-[#0B0E14]">
-                                        <div className="grid grid-cols-4 bg-[#0B0E14] p-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-white/10">
+                                        <div className="grid grid-cols-5 bg-[#0B0E14] p-4 text-xs font-bold text-gray-500 uppercase tracking-wider border-b border-white/10">
                                             <div>날짜</div>
                                             <div>상품명</div>
                                             <div>결제 수단</div>
                                             <div className="text-right">금액</div>
+                                            <div className="text-center">영수증</div>
                                         </div>
                                         <div className="divide-y divide-white/5">
                                             {[
@@ -255,11 +284,16 @@ export default function MyPage() {
                                                 { date: "2024.10.15", item: "StockLink PRO (월간)", method: "KakaoPay", amount: "29,000원" },
                                                 { date: "2024.09.15", item: "StockLink PRO (월간)", method: "KakaoPay", amount: "29,000원" },
                                             ].map((history, i) => (
-                                                <div key={i} className="grid grid-cols-4 p-4 text-sm text-gray-200 hover:bg-white/5 transition-colors items-center">
+                                                <div key={i} className="grid grid-cols-5 p-4 text-sm text-gray-200 hover:bg-white/5 transition-colors items-center">
                                                     <div className="font-mono text-gray-400">{history.date}</div>
                                                     <div className="font-medium text-white">{history.item}</div>
                                                     <div className="text-gray-400">{history.method}</div>
                                                     <div className="text-right font-bold text-white text-base">{history.amount}</div>
+                                                    <div className="flex justify-center">
+                                                        <Button variant="ghost" size="icon" className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10" title="영수증 보기">
+                                                            <FileText className="h-4 w-4" />
+                                                        </Button>
+                                                    </div>
                                                 </div>
                                             ))}
                                         </div>
@@ -275,68 +309,76 @@ export default function MyPage() {
                                     
                                     <div className="grid grid-cols-1 md:grid-cols-3 gap-4 mt-8">
                                         {/* Guest Plan */}
-                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-transparent">
+                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-transparent flex flex-col h-full">
                                             <div className="mb-4">
                                                 <h3 className="text-lg font-bold text-[#4ade80]">Guest</h3>
                                                 <div className="text-2xl font-bold text-white mt-2">무료</div>
                                             </div>
-                                            <div className="text-sm text-gray-400 space-y-1 h-12 mb-6">
+                                            <div className="text-sm text-gray-400 space-y-1 flex-1">
                                                 <p>AI 주식 분석의 첫걸음을 내딛으세요</p>
                                                 <p>AI 기반 분석을 처음 경험하는 개인 투자자</p>
                                             </div>
-                                            <Link href="/licenses">
-                                                <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
-                                                    &gt; 자세히 보기
-                                                </Button>
-                                            </Link>
+                                            <div className="mt-8 pt-4 border-t border-transparent">
+                                                <div className="flex items-center h-8">
+                                                    <Link href="/licenses">
+                                                        <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                            &gt; 자세히 보기
+                                                        </Button>
+                                                    </Link>
+                                                </div>
+                                            </div>
                                         </div>
 
                                         {/* Business Plan */}
-                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-transparent flex flex-col">
+                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-transparent flex flex-col h-full">
                                             <div className="mb-4 flex items-center gap-2">
                                                 <h3 className="text-lg font-bold text-[#60a5fa]">Business</h3>
                                                 <Badge className="bg-[#f87171] hover:bg-[#ef4444] text-white px-2 py-0 h-5 text-[10px]">인기</Badge>
                                             </div>
                                             <div className="text-2xl font-bold text-white mt-1 mb-4">50,000원</div>
-                                            <div className="text-sm text-gray-400 space-y-1 h-12 mb-6">
+                                            <div className="text-sm text-gray-400 space-y-1 flex-1">
                                                 <p>더 깊이 있는 AI 분석으로 시장을 선도하세요</p>
                                                 <p>데이터 기반 의사결정을 강화하려는 소규모·리서치 팀</p>
                                             </div>
-                                            <div className="flex items-center justify-between mt-auto">
-                                                <Link href="/licenses">
-                                                    <Button variant="ghost" className="text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
-                                                        &gt; 자세히 보기
+                                            <div className="mt-8 pt-4 border-t border-transparent">
+                                                <div className="flex items-center justify-between h-8">
+                                                    <Link href="/licenses">
+                                                        <Button variant="ghost" className="text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                            &gt; 자세히 보기
+                                                        </Button>
+                                                    </Link>
+                                                    <Button className="bg-[#2dd4bf] hover:bg-[#14b8a6] text-black font-bold rounded-full h-8 px-4 text-xs">
+                                                        플랜변경
                                                     </Button>
-                                                </Link>
-                                                <Button className="bg-[#2dd4bf] hover:bg-[#14b8a6] text-black font-bold rounded-full h-8 px-4 text-xs">
-                                                    플랜변경
-                                                </Button>
+                                                </div>
                                             </div>
                                         </div>
 
                                         {/* Enterprise Plan (Active) */}
-                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-[#2dd4bf] relative flex flex-col">
+                                        <div className="bg-[#1e2330] rounded-xl p-6 border border-[#2dd4bf] relative flex flex-col h-full">
                                             <div className="absolute top-4 right-4 border border-[#2dd4bf] text-[#2dd4bf] text-xs px-2 py-1 rounded-full">구독중</div>
                                             <div className="mb-4">
                                                 <h3 className="text-lg font-bold text-[#c084fc]">Enterprise</h3>
                                                 <div className="text-2xl font-bold text-white mt-2">150,000원</div>
                                             </div>
-                                            <div className="text-sm text-gray-400 space-y-1 h-16 mb-4">
-                                                <p>향상된 AI 기반의 정교한 리서치와 포트폴리오 인사이트를</p>
-                                                <p>제공합니다</p>
-                                                <p className="font-bold text-gray-300">애널리스트 및 자산운용사 등 기관 투자자</p>
+                                            <div className="text-sm text-gray-400 space-y-1 flex-1">
+                                                <p>향상된 AI 기반의 정교한 리서치와 포트폴리오 인사이트를 제공합니다</p>
+                                                <p className="font-bold text-gray-300 mt-2">애널리스트 및 자산운용사 등 기관 투자자</p>
                                             </div>
                                             
-                                            <div className="flex justify-between items-center text-sm border-t border-white/10 pt-4 mt-auto mb-4">
-                                                <span className="text-gray-400 font-bold">결제일</span>
-                                                <span className="text-white font-bold">2027-02-09</span>
+                                            <div className="mt-8 pt-4 border-t border-white/10">
+                                                <div className="flex justify-between items-center text-sm mb-4">
+                                                    <span className="text-gray-400 font-bold whitespace-nowrap">다음 결제일</span>
+                                                    <span className="text-white font-bold whitespace-nowrap">2027-02-09</span>
+                                                </div>
+                                                <div className="flex items-center h-8">
+                                                    <Link href="/licenses">
+                                                        <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                            &gt; 자세히 보기
+                                                        </Button>
+                                                    </Link>
+                                                </div>
                                             </div>
-
-                                            <Link href="/licenses">
-                                                <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
-                                                    &gt; 자세히 보기
-                                                </Button>
-                                            </Link>
                                         </div>
                                     </div>
                                 </div>

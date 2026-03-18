@@ -220,8 +220,17 @@ const chartData = Array.from({ length: 100 }, (_, i) => {
   };
 });
 
+import { ShortSellingTab } from "./ShortSellingTab";
+import { ForeignerInstTab } from "./ForeignerInstTab";
+import { NewsTab } from "./NewsTab";
+import { DisclosureTab } from "./DisclosureTab";
+import { InvestorTrendTab } from "./InvestorTrendTab";
+import { FinancialAnalysisTab } from "./FinancialAnalysisTab";
+import { InvestmentIndicatorTab } from "./InvestmentIndicatorTab";
+
 export default function StockDetailView({ onBack, stockName }: StockDetailViewProps) {
   const [isAutoExpand, setIsAutoExpand] = useState(true);
+  const [activeInfoTab, setActiveInfoTab] = useState<'related' | 'shortSelling' | 'foreignerInst'>('related');
   const chartPanelRef = useRef<ImperativePanelHandle>(null);
   const tabsPanelRef = useRef<ImperativePanelHandle>(null);
 
@@ -342,7 +351,7 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                       <Tabs defaultValue="company" className="h-full flex flex-col" onValueChange={handleTabChange}>
                           <div className="border-b border-white/10 px-4 shrink-0 flex items-center justify-between">
                             <TabsList className="bg-transparent justify-start h-auto p-0 gap-6 rounded-none">
-                              {['기업소개', '호가', '실시간/일별시세', '실적', '배당', '뉴스/공시', '투자자동향', '재무분석', '투자지표', '토론'].map((tab) => (
+                              {['기업소개', '호가', '실시간/일별시세', '실적', '배당', '뉴스', '공시', '투자자동향', '재무분석', '투자지표', '토론'].map((tab) => (
                                   <TabsTrigger 
                                     key={tab} 
                                     value={tab === '기업소개' ? 'company' : (tab === '호가' ? 'orderbook' : tab)} 
@@ -780,212 +789,91 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                                 </div>
                             </TabsContent>
 
-                            <TabsContent value="재무분석" className="mt-0 h-full">
-                                <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
-                                    <div className="p-4 border-b border-white/5 flex justify-between items-center">
-                                        <div className="flex flex-col gap-4 w-full">
-                                          <div className="flex justify-between items-center w-full">
-                                            <h3 className="text-white font-bold text-sm">재무제표</h3>
-                                            <div className="flex text-xs text-gray-500 gap-2">
-                                                <span className="cursor-pointer hover:text-white">연결</span>
-                                                <ChevronDown className="w-3 h-3" />
-                                                <span className="w-px h-3 bg-white/10"></span>
-                                                <span className="cursor-pointer hover:text-white text-white font-medium">분기</span>
-                                                <ChevronDown className="w-3 h-3" />
+                            <TabsContent value="배당" className="mt-0 h-full">
+                                <div className="flex flex-col h-full gap-6">
+                                    <div className="flex items-end gap-2">
+                                        <h3 className="text-white font-bold text-lg">{stockName}</h3>
+                                        <span className="text-gray-500 text-sm mb-0.5">최근 12개월</span>
+                                    </div>
+                                    
+                                    <div className="grid grid-cols-3 gap-4">
+                                        <div className="bg-[#1E222B] rounded-lg p-5 flex items-center justify-between border border-white/5">
+                                            <span className="text-gray-400 text-sm">지급한 횟수</span>
+                                            <div className="flex items-center gap-2">
+                                                <span className="text-white font-bold text-lg">1번</span>
+                                                <span className="text-gray-500 text-xs">3월</span>
                                             </div>
-                                          </div>
-                                          <div className="flex gap-6 border-b border-white/5 -mx-4 px-4">
-                                            {['손익계산서', '재무상태표', '현금흐름표'].map((subtab, i) => (
-                                              <div 
-                                                key={subtab} 
-                                                className={`pb-2 text-xs font-medium cursor-pointer border-b-2 transition-colors ${i === 0 ? 'text-teal-400 border-teal-400' : 'text-gray-500 border-transparent hover:text-white'}`}
-                                              >
-                                                {subtab}
-                                              </div>
-                                            ))}
-                                          </div>
+                                        </div>
+                                        <div className="bg-[#1E222B] rounded-lg p-5 flex items-center justify-between border border-white/5">
+                                            <span className="text-gray-400 text-sm">1주당 배당금</span>
+                                            <span className="text-white font-bold text-lg">연 1원</span>
+                                        </div>
+                                        <div className="bg-[#1E222B] rounded-lg p-5 flex items-center justify-between border border-white/5">
+                                            <span className="text-gray-400 text-sm">배당 수익률</span>
+                                            <span className="text-white font-bold text-lg">연 0.06%</span>
                                         </div>
                                     </div>
                                     
-                                    <div className="flex-1 overflow-y-auto custom-scrollbar">
-                                        <table className="w-full text-xs border-collapse">
-                                            <thead className="bg-[#1E222B] sticky top-0 z-10">
-                                                <tr>
-                                                    <th className="p-3 text-left font-normal text-gray-400 w-[20%] border-b border-white/5">항목</th>
-                                                    {financialPeriods.map((period, idx) => (
-                                                        <th key={idx} className="p-3 text-right font-normal text-gray-400 border-b border-white/5">{period}</th>
-                                                    ))}
-                                                </tr>
-                                            </thead>
-                                            <tbody className="divide-y divide-white/5">
-                                                {financialStatements.map((row, idx) => (
-                                                    <tr key={idx} className={`hover:bg-white/5 transition-colors group ${row.highlight ? 'bg-white/5' : ''}`}>
-                                                        <td className={`p-3 text-left text-white border-r border-white/5 ${row.highlight ? 'font-bold' : ''}`}>
-                                                          <div className="flex items-center gap-1">
-                                                            {row.hasSubItems && <ChevronDown className="w-3 h-3 text-gray-500" />}
-                                                            {row.item}
-                                                          </div>
-                                                        </td>
-                                                        {row.values.map((val, vIdx) => (
-                                                            <td key={vIdx} className={`p-3 text-right font-medium border-r border-white/5 last:border-r-0 ${val.startsWith('-') ? 'text-blue-400' : 'text-white'}`}>
-                                                                {val}
-                                                            </td>
-                                                        ))}
+                                    <div className="flex flex-col mt-2">
+                                        <div className="flex items-center gap-2 mb-4">
+                                            <h4 className="text-white font-bold text-sm">배당내역</h4>
+                                            <span className="text-gray-500 text-xs">한국시간 기준</span>
+                                        </div>
+                                        
+                                        <div className="bg-[#151921] rounded-lg border border-white/5 overflow-hidden">
+                                            <table className="w-full text-sm text-left">
+                                                <thead className="text-gray-500 bg-[#1E222B] border-b border-white/5">
+                                                    <tr>
+                                                        <th className="p-4 font-medium w-[120px]"></th>
+                                                        <th className="p-4 font-medium">배당락일</th>
+                                                        <th className="p-4 font-medium text-center">배당지급일</th>
+                                                        <th className="p-4 font-medium text-right">1주당 배당금</th>
                                                     </tr>
-                                                ))}
-                                                {/* Mocking expanded rows for Revenue if needed, but per image it's collapsed or just shown as item */}
-                                                {/* Adding empty sub-rows for "매출액(수익)" to match image slightly if desired, but sticking to provided data structure for cleaner code */}
-                                                <tr className="hover:bg-white/5 transition-colors">
-                                                    <td className="p-3 pl-8 text-left text-gray-400 border-r border-white/5">내수</td>
-                                                    {financialPeriods.map((_, i) => <td key={i} className="p-3 text-right text-gray-600 border-r border-white/5 last:border-r-0">-</td>)}
-                                                </tr>
-                                                <tr className="hover:bg-white/5 transition-colors">
-                                                    <td className="p-3 pl-8 text-left text-gray-400 border-r border-white/5">수출</td>
-                                                    {financialPeriods.map((_, i) => <td key={i} className="p-3 text-right text-gray-600 border-r border-white/5 last:border-r-0">-</td>)}
-                                                </tr>
-                                            </tbody>
-                                        </table>
+                                                </thead>
+                                                <tbody className="divide-y divide-white/5">
+                                                    <tr className="hover:bg-white/5 transition-colors">
+                                                        <td className="p-4 text-white font-bold">2025년</td>
+                                                        <td className="p-4 text-gray-300">03월 28일</td>
+                                                        <td className="p-4 text-gray-500 text-center">-</td>
+                                                        <td className="p-4 text-white text-right">1원</td>
+                                                    </tr>
+                                                    <tr className="hover:bg-white/5 transition-colors">
+                                                        <td className="p-4 text-white font-bold">2023년</td>
+                                                        <td className="p-4 text-gray-300">12월 28일</td>
+                                                        <td className="p-4 text-gray-500 text-center">-</td>
+                                                        <td className="p-4 text-white text-right">2원</td>
+                                                    </tr>
+                                                    <tr className="hover:bg-white/5 transition-colors">
+                                                        <td className="p-4 text-white font-bold">2022년</td>
+                                                        <td className="p-4 text-gray-300">12월 29일</td>
+                                                        <td className="p-4 text-gray-500 text-center">-</td>
+                                                        <td className="p-4 text-white text-right">5원</td>
+                                                    </tr>
+                                                </tbody>
+                                            </table>
+                                        </div>
                                     </div>
                                 </div>
                             </TabsContent>
 
+                            <TabsContent value="뉴스" className="mt-0 h-full overflow-y-auto custom-scrollbar pr-2">
+                                <NewsTab />
+                            </TabsContent>
+
+                                                        <TabsContent value="공시" className="mt-0 h-full">
+                                <DisclosureTab />
+                            </TabsContent>
+
+                            <TabsContent value="투자자동향" className="mt-0 h-full">
+                                <InvestorTrendTab />
+                            </TabsContent>
+
+                            <TabsContent value="재무분석" className="mt-0 h-full">
+                                <FinancialAnalysisTab />
+                            </TabsContent>
+
                             <TabsContent value="투자지표" className="mt-0 h-full">
-                                <div className="grid grid-cols-2 gap-4 h-full">
-                                    {/* Valuation (Left) */}
-                                    <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
-                                        <div className="p-4 border-b border-white/5 flex justify-between items-center">
-                                            <h3 className="text-white font-bold text-sm">가치성</h3>
-                                            <div className="flex text-xs text-gray-500 gap-2">
-                                                <span className="cursor-pointer hover:text-white">연결</span>
-                                                <ChevronDown className="w-3 h-3" />
-                                                <span className="w-px h-3 bg-white/10"></span>
-                                                <span className="cursor-pointer hover:text-white text-white font-medium">분기</span>
-                                                <ChevronDown className="w-3 h-3" />
-                                            </div>
-                                        </div>
-                                        
-                                        <div className="flex-1 p-4 flex flex-col">
-                                            {/* Chart Area */}
-                                            <div className="flex-1 min-h-0 relative mb-4">
-                                                <ResponsiveContainer width="100%" height="100%">
-                                                    <LineChart data={valuationData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
-                                                        <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
-                                                        <XAxis 
-                                                            dataKey="date" 
-                                                            tick={{ fill: '#9ca3af', fontSize: 11 }} 
-                                                            tickLine={false} 
-                                                            axisLine={{ stroke: '#ffffff10' }} 
-                                                            dy={10}
-                                                        />
-                                                        <YAxis 
-                                                            domain={[0, 100]} 
-                                                            tick={{ fill: '#6b7280', fontSize: 11 }} 
-                                                            tickLine={false} 
-                                                            axisLine={false}
-                                                            tickFormatter={(value) => `${value}%`}
-                                                        />
-                                                        <Tooltip 
-                                                            contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '8px', fontSize: '12px' }}
-                                                            itemStyle={{ color: '#fff' }}
-                                                        />
-                                                        <Line type="monotone" dataKey="per" name="PER" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4, fill: '#3b82f6', strokeWidth: 0 }} />
-                                                        <Line type="monotone" dataKey="pbr" name="PBR" stroke="#5eead4" strokeWidth={2} dot={{ r: 4, fill: '#5eead4', strokeWidth: 0 }} />
-                                                        <Line type="monotone" dataKey="psr" name="PSR" stroke="#a855f7" strokeWidth={2} dot={{ r: 4, fill: '#a855f7', strokeWidth: 0 }} />
-                                                    </LineChart>
-                                                </ResponsiveContainer>
-                                            </div>
-
-                                            {/* Legend / Info */}
-                                            <div className="grid grid-cols-3 gap-4 border-t border-white/5 pt-4">
-                                                <div className="text-center">
-                                                    <div className="flex items-center justify-center gap-2 mb-1">
-                                                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                                                        <span className="text-xs text-gray-400">PER</span>
-                                                    </div>
-                                                    <div className="text-sm font-bold text-white">47.07배</div>
-                                                </div>
-                                                <div className="text-center">
-                                                    <div className="flex items-center justify-center gap-2 mb-1">
-                                                        <div className="w-2 h-2 rounded-full bg-teal-400"></div>
-                                                        <span className="text-xs text-gray-400">PBR</span>
-                                                    </div>
-                                                    <div className="text-sm font-bold text-white">1.38배</div>
-                                                </div>
-                                                <div className="text-center">
-                                                    <div className="flex items-center justify-center gap-2 mb-1">
-                                                        <div className="w-2 h-2 rounded-full bg-purple-500"></div>
-                                                        <span className="text-xs text-gray-400">PSR</span>
-                                                    </div>
-                                                    <div className="text-sm font-bold text-white">6.57배</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    {/* Stability (Right) */}
-                                    <div className="bg-[#151921] rounded-lg border border-white/5 flex flex-col h-full overflow-hidden">
-                                        <div className="p-4 border-b border-white/5 flex justify-between items-center">
-                                            <h3 className="text-white font-bold text-sm">안정성</h3>
-                                            <div className="flex text-xs text-gray-500 gap-2">
-                                                <span className="cursor-pointer hover:text-white">연결</span>
-                                                <ChevronDown className="w-3 h-3" />
-                                                <span className="w-px h-3 bg-white/10"></span>
-                                                <span className="cursor-pointer hover:text-white text-white font-medium">분기</span>
-                                                <ChevronDown className="w-3 h-3" />
-                                            </div>
-                                        </div>
-                                        
-                                        <div className="flex-1 p-4 flex flex-col">
-                                            {/* Chart Area */}
-                                            <div className="flex-1 min-h-0 relative mb-4">
-                                                <ResponsiveContainer width="100%" height="100%">
-                                                    <LineChart data={stabilityData} margin={{ top: 20, right: 20, bottom: 20, left: 0 }}>
-                                                        <CartesianGrid strokeDasharray="3 3" stroke="#ffffff10" vertical={false} />
-                                                        <XAxis 
-                                                            dataKey="date" 
-                                                            tick={{ fill: '#9ca3af', fontSize: 11 }} 
-                                                            tickLine={false} 
-                                                            axisLine={{ stroke: '#ffffff10' }} 
-                                                            dy={10}
-                                                        />
-                                                        <YAxis 
-                                                            domain={[0, 320]} 
-                                                            ticks={[0, 80, 160, 240, 320]}
-                                                            tick={{ fill: '#6b7280', fontSize: 11 }} 
-                                                            tickLine={false} 
-                                                            axisLine={false}
-                                                            tickFormatter={(value) => `${value}%`}
-                                                        />
-                                                        <Tooltip 
-                                                            contentStyle={{ backgroundColor: '#1f2937', border: 'none', borderRadius: '8px', fontSize: '12px' }}
-                                                            itemStyle={{ color: '#fff' }}
-                                                        />
-                                                        <Line type="monotone" dataKey="currentRatio" name="유동비율" stroke="#3b82f6" strokeWidth={2} dot={{ r: 4, fill: '#3b82f6', strokeWidth: 0 }} />
-                                                        <Line type="monotone" dataKey="debtRatio" name="부채비율" stroke="#5eead4" strokeWidth={2} dot={{ r: 4, fill: '#5eead4', strokeWidth: 0 }} />
-                                                    </LineChart>
-                                                </ResponsiveContainer>
-                                            </div>
-
-                                            {/* Legend / Info */}
-                                            <div className="grid grid-cols-2 gap-4 border-t border-white/5 pt-4">
-                                                <div className="text-center">
-                                                    <div className="flex items-center justify-center gap-2 mb-1">
-                                                        <div className="w-2 h-2 rounded-full bg-blue-500"></div>
-                                                        <span className="text-xs text-gray-400">유동비율</span>
-                                                    </div>
-                                                    <div className="text-sm font-bold text-white">251.37배</div>
-                                                </div>
-                                                <div className="text-center">
-                                                    <div className="flex items-center justify-center gap-2 mb-1">
-                                                        <div className="w-2 h-2 rounded-full bg-teal-400"></div>
-                                                        <span className="text-xs text-gray-400">부채비율</span>
-                                                    </div>
-                                                    <div className="text-sm font-bold text-white">26.36배</div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </div>
-                                </div>
+                                <InvestmentIndicatorTab />
                             </TabsContent>
                           </div>
                       </Tabs>
@@ -1170,95 +1058,115 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                    {/* Related Industries Header */}
                    <div className="mt-6">
                       <div className="flex items-center gap-6 border-b border-white/10 mb-4">
-                         <div className="text-sm font-bold text-teal-400 border-b-2 border-teal-400 pb-2 -mb-px cursor-pointer px-1">관련 업종</div>
-                         <div className="text-sm text-gray-500 pb-2 hover:text-white cursor-pointer transition-colors px-1">공매도 현황</div>
-                         <div className="text-sm text-gray-500 pb-2 hover:text-white cursor-pointer transition-colors px-1">외국인/기관</div>
+                         <div 
+                           className={`text-sm font-bold pb-2 -mb-px cursor-pointer px-1 transition-colors ${activeInfoTab === 'related' ? 'text-teal-400 border-b-2 border-teal-400' : 'text-gray-500 hover:text-white'}`}
+                           onClick={() => setActiveInfoTab('related')}
+                         >
+                           관련 업종
+                         </div>
+                         <div 
+                           className={`text-sm font-bold pb-2 -mb-px cursor-pointer px-1 transition-colors ${activeInfoTab === 'shortSelling' ? 'text-teal-400 border-b-2 border-teal-400' : 'text-gray-500 hover:text-white'}`}
+                           onClick={() => setActiveInfoTab('shortSelling')}
+                         >
+                           공매도 현황
+                         </div>
+                         <div 
+                           className={`text-sm font-bold pb-2 -mb-px cursor-pointer px-1 transition-colors ${activeInfoTab === 'foreignerInst' ? 'text-teal-400 border-b-2 border-teal-400' : 'text-gray-500 hover:text-white'}`}
+                           onClick={() => setActiveInfoTab('foreignerInst')}
+                         >
+                           외국인/기관
+                         </div>
                       </div>
                       
-                      {/* Related Industries Content */}
-                      <div className="min-h-[300px] flex flex-col relative">
-                         <div className="absolute top-0 left-0 z-10">
-                            <div className="text-gray-300 text-sm mb-1">순위</div>
-                            <div className="text-4xl font-bold text-white">1위</div>
-                         </div>
-                         
-                         <div className="flex-1 w-full -mt-4">
-                            <ResponsiveContainer width="100%" height={280}>
-                               <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
-                                  <PolarGrid stroke="#333" />
-                                  <PolarAngleAxis dataKey="subject" tick={{ fill: '#9ca3af', fontSize: 11 }} />
-                                  <PolarRadiusAxis angle={30} domain={[0, 150]} tick={false} axisLine={false} />
-                                  <Radar
-                                     name="2024"
-                                     dataKey="A"
-                                     stroke="#8b5cf6"
-                                     strokeWidth={2}
-                                     fill="#8b5cf6"
-                                     fillOpacity={0.4}
-                                   />
-                                   <Radar
-                                     name="2023"
-                                     dataKey="fullMark" // Mocking other years for visual similarity to screenshot
-                                     stroke="#ef4444"
-                                     strokeWidth={2}
-                                     fill="transparent"
-                                     fillOpacity={0}
-                                   />
-                                   <Radar
-                                     name="2022"
-                                     dataKey="A" // Mocking
-                                     stroke="#3b82f6"
-                                     strokeWidth={2}
-                                     fill="transparent"
-                                     fillOpacity={0}
-                                   />
-                               </RadarChart>
-                            </ResponsiveContainer>
-                         </div>
-                         
-                         <div className="flex justify-center gap-6 mt-[-10px] mb-6">
-                            <div className="flex items-center gap-2 text-xs">
-                               <div className="w-6 h-1 bg-blue-500 rounded-full"></div>
-                               <span className="text-white">2022년</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-xs">
-                               <div className="w-6 h-1 bg-red-500 rounded-full"></div>
-                               <span className="text-white">2023년</span>
-                            </div>
-                            <div className="flex items-center gap-2 text-xs">
-                               <div className="w-6 h-1 bg-purple-500 rounded-full"></div>
-                               <span className="text-white">2024년</span>
-                            </div>
-                         </div>
+                      {/* Tab Content */}
+                      {activeInfoTab === 'related' && (
+                        <div className="min-h-[300px] flex flex-col relative animate-in fade-in duration-300">
+                           <div className="absolute top-0 left-0 z-10">
+                              <div className="text-gray-300 text-sm mb-1">순위</div>
+                              <div className="text-4xl font-bold text-white">1위</div>
+                           </div>
+                           
+                           <div className="flex-1 w-full -mt-4">
+                              <ResponsiveContainer width="100%" height={280}>
+                                 <RadarChart cx="50%" cy="50%" outerRadius="70%" data={radarData}>
+                                    <PolarGrid stroke="#333" />
+                                    <PolarAngleAxis dataKey="subject" tick={{ fill: '#9ca3af', fontSize: 11 }} />
+                                    <PolarRadiusAxis angle={30} domain={[0, 150]} tick={false} axisLine={false} />
+                                    <Radar
+                                       name="2024"
+                                       dataKey="A"
+                                       stroke="#8b5cf6"
+                                       strokeWidth={2}
+                                       fill="#8b5cf6"
+                                       fillOpacity={0.4}
+                                     />
+                                     <Radar
+                                       name="2023"
+                                       dataKey="fullMark" // Mocking other years for visual similarity to screenshot
+                                       stroke="#ef4444"
+                                       strokeWidth={2}
+                                       fill="transparent"
+                                       fillOpacity={0}
+                                     />
+                                     <Radar
+                                       name="2022"
+                                       dataKey="A" // Mocking
+                                       stroke="#3b82f6"
+                                       strokeWidth={2}
+                                       fill="transparent"
+                                       fillOpacity={0}
+                                     />
+                                 </RadarChart>
+                              </ResponsiveContainer>
+                           </div>
+                           
+                           <div className="flex justify-center gap-6 mt-[-10px] mb-6">
+                              <div className="flex items-center gap-2 text-xs">
+                                 <div className="w-6 h-1 bg-blue-500 rounded-full"></div>
+                                 <span className="text-white">2022년</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-xs">
+                                 <div className="w-6 h-1 bg-red-500 rounded-full"></div>
+                                 <span className="text-white">2023년</span>
+                              </div>
+                              <div className="flex items-center gap-2 text-xs">
+                                 <div className="w-6 h-1 bg-purple-500 rounded-full"></div>
+                                 <span className="text-white">2024년</span>
+                              </div>
+                           </div>
 
-                         <div className="border-t border-white/10 mb-4"></div>
+                           <div className="border-t border-white/10 mb-4"></div>
 
-                         {/* Related Stocks List */}
-                         <div className="space-y-1">
-                            {[
-                                { name: 'SK하이닉스', price: '742,000원', change: '16,000', rate: '+2.20%', isUp: true, color: 'bg-red-500', icon: Cpu },
-                                { name: '삼성전기', price: '267,500원', change: '500', rate: '-0.19%', isUp: false, color: 'bg-blue-600', icon: Smartphone },
-                                { name: 'LG전자', price: '92,300원', change: '1,700', rate: '-1.81%', isUp: false, color: 'bg-pink-600', icon: Tv },
-                                { name: '한화시스템', price: '58,500원', change: '1,000', rate: '-2.99%', isUp: false, color: 'bg-orange-500', icon: Disc }
-                            ].map((stock, i) => (
-                                <div key={i} className="flex items-center justify-between py-3 px-2 hover:bg-white/5 rounded-lg cursor-pointer transition-all group border border-transparent hover:border-white/5">
-                                   <div className="flex items-center gap-3">
-                                      <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${stock.color} bg-opacity-20`}>
-                                         <stock.icon className={`w-5 h-5 ${stock.color.replace('bg-', 'text-')}`} />
-                                      </div>
-                                      <span className="text-white font-bold text-sm group-hover:text-primary transition-colors">{stock.name}</span>
-                                   </div>
-                                   <div className="text-right">
-                                      <div className="text-white font-bold text-sm tracking-tight">{stock.price}</div>
-                                      <div className={`text-xs font-semibold mt-0.5 flex items-center justify-end gap-1 ${stock.isUp ? 'text-red-400' : 'text-blue-400'}`}>
-                                         <span>{stock.isUp ? '▲' : '▼'} {stock.change}</span>
-                                         <span className="opacity-80">{stock.rate}</span>
-                                      </div>
-                                   </div>
-                                </div>
-                            ))}
-                         </div>
-                      </div>
+                           {/* Related Stocks List */}
+                           <div className="space-y-1">
+                              {[
+                                  { name: 'SK하이닉스', price: '742,000원', change: '16,000', rate: '+2.20%', isUp: true, color: 'bg-red-500', icon: Cpu },
+                                  { name: '삼성전기', price: '267,500원', change: '500', rate: '-0.19%', isUp: false, color: 'bg-blue-600', icon: Smartphone },
+                                  { name: 'LG전자', price: '92,300원', change: '1,700', rate: '-1.81%', isUp: false, color: 'bg-pink-600', icon: Tv },
+                                  { name: '한화시스템', price: '58,500원', change: '1,000', rate: '-2.99%', isUp: false, color: 'bg-orange-500', icon: Disc }
+                              ].map((stock, i) => (
+                                  <div key={i} className="flex items-center justify-between py-3 px-2 hover:bg-white/5 rounded-lg cursor-pointer transition-all group border border-transparent hover:border-white/5">
+                                     <div className="flex items-center gap-3">
+                                        <div className={`w-10 h-10 rounded-xl flex items-center justify-center ${stock.color} bg-opacity-20`}>
+                                           <stock.icon className={`w-5 h-5 ${stock.color.replace('bg-', 'text-')}`} />
+                                        </div>
+                                        <span className="text-white font-bold text-sm group-hover:text-primary transition-colors">{stock.name}</span>
+                                     </div>
+                                     <div className="text-right">
+                                        <div className="text-white font-bold text-sm tracking-tight">{stock.price}</div>
+                                        <div className={`text-xs font-semibold mt-0.5 flex items-center justify-end gap-1 ${stock.isUp ? 'text-red-400' : 'text-blue-400'}`}>
+                                           <span>{stock.isUp ? '▲' : '▼'} {stock.change}</span>
+                                           <span className="opacity-80">{stock.rate}</span>
+                                        </div>
+                                     </div>
+                                  </div>
+                              ))}
+                           </div>
+                        </div>
+                      )}
+                      
+                      {activeInfoTab === 'shortSelling' && <ShortSellingTab />}
+                      {activeInfoTab === 'foreignerInst' && <ForeignerInstTab />}
                    </div>
                 </div>
              </div>

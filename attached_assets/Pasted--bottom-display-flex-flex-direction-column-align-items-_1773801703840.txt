@@ -1,0 +1,5222 @@
+/* bottom-투자자동향 */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 8px 0px 16px;
+gap: 20px;
+
+position: relative;
+width: 1320px;
+height: 574px;
+min-height: 380px;
+left: 5054px;
+top: 1509px;
+
+background: #100F13;
+
+
+/* tab */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px 16px;
+gap: 20px;
+
+width: 1320px;
+height: 44px;
+
+border-bottom: 1px solid #37373D;
+backdrop-filter: blur(10px);
+/* 참고: 배경 필터는 최소한의 브라우저만 지원합니다 */
+border-radius: 0px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* part/tab */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 4px;
+gap: 4px;
+
+width: 59px;
+height: 44px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* document */
+
+display: none;
+width: 16px;
+height: 16px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 탭 메뉴 */
+
+width: 51px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* part/tab */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 4px;
+gap: 4px;
+
+width: 34px;
+height: 44px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* document */
+
+display: none;
+width: 16px;
+height: 16px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 탭 메뉴 */
+
+width: 26px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #66666E;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* part/tab */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 4px;
+gap: 4px;
+
+width: 104px;
+height: 44px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* document */
+
+display: none;
+width: 16px;
+height: 16px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 탭 메뉴 */
+
+width: 96px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* part/tab */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 4px;
+gap: 4px;
+
+width: 34px;
+height: 44px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* document */
+
+display: none;
+width: 16px;
+height: 16px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 탭 메뉴 */
+
+width: 26px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* part/tab */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 4px;
+gap: 4px;
+
+width: 34px;
+height: 44px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* document */
+
+display: none;
+width: 16px;
+height: 16px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 탭 메뉴 */
+
+width: 26px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* part/tab */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 4px;
+gap: 4px;
+
+width: 34px;
+height: 44px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* document */
+
+display: none;
+width: 16px;
+height: 16px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 탭 메뉴 */
+
+width: 26px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* part/tab */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 4px;
+gap: 4px;
+
+width: 34px;
+height: 44px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 6;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* document */
+
+display: none;
+width: 16px;
+height: 16px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 탭 메뉴 */
+
+width: 26px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* part/tab */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 4px;
+gap: 4px;
+
+width: 71px;
+height: 44px;
+
+border-bottom: 2px solid #59D1CD;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 7;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* document */
+
+display: none;
+width: 16px;
+height: 16px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 탭 메뉴 */
+
+width: 63px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #59D1CD;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* part/tab */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 4px;
+gap: 4px;
+
+width: 59px;
+height: 44px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 8;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* document */
+
+display: none;
+width: 16px;
+height: 16px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 탭 메뉴 */
+
+width: 51px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* part/tab */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 4px;
+gap: 4px;
+
+width: 59px;
+height: 44px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 9;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* document */
+
+display: none;
+width: 16px;
+height: 16px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 탭 메뉴 */
+
+width: 51px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* part/tab */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 4px;
+gap: 4px;
+
+width: 34px;
+height: 44px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 10;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* document */
+
+display: none;
+width: 16px;
+height: 16px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 탭 메뉴 */
+
+width: 26px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #66666E;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* con */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px 16px;
+gap: 24px;
+
+width: 1320px;
+height: 486px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* L */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+gap: 20px;
+
+width: 632px;
+height: 482px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* card / 모멘텀 분석 */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+align-items: flex-end;
+padding: 16px;
+gap: 12px;
+
+width: 632px;
+height: 170px;
+
+background: #1B1A1D;
+border-radius: 8px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* body */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+
+width: 600px;
+height: 97px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* top */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 12px;
+
+width: 576px;
+height: 38px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* item / ai 모멘텀 분석 */
+
+box-sizing: border-box;
+
+width: 36px;
+height: 36px;
+
+background: #1B1A1D;
+border: 1px solid #3F3E44;
+border-radius: 9999px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* ai */
+
+position: absolute;
+width: 20px;
+height: 20px;
+left: calc(50% - 20px/2 + 0.5px);
+top: calc(50% - 20px/2);
+
+
+
+/* vector */
+
+position: absolute;
+width: 16.67px;
+height: 15.28px;
+left: 1.67px;
+top: 1.67px;
+
+background: #30C6C1;
+
+
+/* Vector */
+
+position: absolute;
+left: 8.33%;
+right: 22.22%;
+top: 15.28%;
+bottom: 15.28%;
+
+background: #FFFFFF;
+
+
+/* Vector */
+
+position: absolute;
+left: 56.94%;
+right: 18.75%;
+top: 8.33%;
+bottom: 67.36%;
+
+background: #000000;
+
+
+/* Vector */
+
+position: absolute;
+left: 67.36%;
+right: 8.33%;
+top: 60.42%;
+bottom: 15.28%;
+
+background: #000000;
+
+
+/* wrap */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+
+width: 528px;
+height: 38px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* wrap */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 6px;
+
+width: 202px;
+height: 21px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* AI 투자지표 분석 요약 */
+
+width: 122px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_B */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 700;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+letter-spacing: -0.03em;
+
+color: #FFFFFF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* tag */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 2px 10px;
+gap: 10px;
+
+width: 74px;
+height: 21px;
+
+border: 1px solid #26252A;
+border-radius: 9999px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 뱃지 */
+
+width: 54px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_M */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 500;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #59D1CD;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 25년 4분기 기준 */
+
+width: 79px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #66666E;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 현재 주가수익비율(PER)은 47.07배로 동종 업계 평균 대비 다소 높은 수준이나, 향후 이익 성장성을 감안할 때 정당화될 수 있는 구간입니다. 유동비율은 251.37%로 단기 채무 지급 능력이 매우 우수하며, 부채비율 또한 26.36%로 재무적 안정성이 탁월합니다. */
+
+width: 600px;
+height: 51px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 또는 17px */
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* tag-group */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+flex-wrap: wrap;
+align-items: center;
+align-content: flex-start;
+padding: 0px;
+gap: 12px 6px;
+
+width: 600px;
+height: 29px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* item / card / 모멘텀 분석 */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 6px 12px;
+gap: 4px;
+
+width: 115px;
+height: 29px;
+
+background: #26252A;
+border: 1px solid #555867;
+border-radius: 4px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 수급점수 */
+
+width: 54px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #7F8390;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 수급점수 */
+
+width: 33px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #F9338F;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* item / card / 모멘텀 분석 */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 6px 12px;
+gap: 4px;
+
+width: 104px;
+height: 29px;
+
+background: #26252A;
+border: 1px solid #555867;
+border-radius: 4px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 수급점수 */
+
+width: 54px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #7F8390;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 수급점수 */
+
+width: 22px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #30C6C1;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 기간별 거래량 */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 16px;
+gap: 8px;
+
+width: 632px;
+height: 292px;
+
+border: 1px solid #37373D;
+border-radius: 8px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* header */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px 0px 12px;
+gap: 174px;
+
+width: 600px;
+height: 36px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* 기간별 거래량 */
+
+width: 326px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_M */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+letter-spacing: -0.03em;
+
+color: #FFFFFF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* Toggle button group */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+
+width: 100px;
+height: 24px;
+
+background: #31333E;
+border-radius: 2px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Toggle button group / part */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+width: 33.33px;
+height: 24px;
+
+background: #5B5F6D;
+border-radius: 2px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* text-height */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 1px 0px 0px;
+gap: 8px;
+isolation: isolate;
+
+width: 10px;
+height: 15px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 버튼 */
+
+width: 10px;
+height: 14px;
+
+/* KR_PC/button/Btn3/Btn3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 14px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #FFFFFF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* badge */
+
+position: absolute;
+display: none;
+width: 4px;
+height: 4px;
+right: -6.5px;
+top: 0.5px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Toggle button group / part */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+width: 33.33px;
+height: 24px;
+
+border-radius: 2px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* text-height */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 1px 0px 0px;
+gap: 8px;
+isolation: isolate;
+
+width: 10px;
+height: 15px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 버튼 */
+
+width: 10px;
+height: 14px;
+
+/* KR_PC/button/Btn3/Btn3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 14px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* badge */
+
+position: absolute;
+display: none;
+width: 4px;
+height: 4px;
+right: -6.5px;
+top: 0.5px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Toggle button group / part */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px 6px;
+
+width: 33.33px;
+height: 24px;
+
+border-radius: 2px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* text-height */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 1px 0px 0px;
+gap: 8px;
+isolation: isolate;
+
+width: 10px;
+height: 15px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 버튼 */
+
+width: 10px;
+height: 14px;
+
+/* KR_PC/button/Btn3/Btn3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 14px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* badge */
+
+position: absolute;
+display: none;
+width: 4px;
+height: 4px;
+right: -6.5px;
+top: 0.5px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Toggle button group / part */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px 6px;
+
+display: none;
+width: 31px;
+height: 24px;
+
+border-radius: 2px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* Toggle button group / part */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px 6px;
+
+display: none;
+width: 31px;
+height: 24px;
+
+border-radius: 2px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* contents */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 0px;
+
+width: 600px;
+height: 216px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 1;
+
+
+/* graph */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+align-items: center;
+padding: 0px;
+gap: 16px;
+isolation: isolate;
+
+width: 600px;
+height: 153px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 1;
+
+
+/* line */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+justify-content: space-between;
+align-items: flex-start;
+padding: 0px;
+gap: 48px;
+
+width: 600px;
+height: 123px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 1;
+z-index: 0;
+
+
+/* Rectangle 279 */
+
+margin: 0 auto;
+width: 600px;
+height: 1px;
+
+background: #37363B;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Rectangle 280 */
+
+margin: 0 auto;
+width: 600px;
+height: 1px;
+
+background: #37363B;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Rectangle 281 */
+
+margin: 0 auto;
+width: 600px;
+height: 1px;
+
+background: #37363B;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Rectangle 282 */
+
+margin: 0 auto;
+width: 600px;
+height: 1px;
+
+background: #37363B;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Rectangle 283 */
+
+margin: 0 auto;
+width: 600px;
+height: 1px;
+
+background: #37363B;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* date */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px 16px;
+gap: 48px;
+
+width: 600px;
+height: 14px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+z-index: 1;
+
+
+/* 23년 6월 */
+
+width: 56px;
+height: 14px;
+
+/* KR_PC/body/B4/B4_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 14px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #7F8390;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 23년 6월 */
+
+width: 56px;
+height: 14px;
+
+/* KR_PC/body/B4/B4_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 14px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #7F8390;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 23년 6월 */
+
+width: 56px;
+height: 14px;
+
+/* KR_PC/body/B4/B4_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 14px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #7F8390;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* 23년 6월 */
+
+width: 56px;
+height: 14px;
+
+/* KR_PC/body/B4/B4_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 14px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #7F8390;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+flex-grow: 0;
+
+
+/* 23년 6월 */
+
+width: 56px;
+height: 14px;
+
+/* KR_PC/body/B4/B4_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 14px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #7F8390;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+flex-grow: 0;
+
+
+/* chart */
+
+position: absolute;
+width: 472px;
+height: 105px;
+left: 80px;
+top: 23px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 0;
+z-index: 2;
+
+
+/* graph */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+position: absolute;
+width: 56px;
+height: 48px;
+left: 0px;
+top: 27px;
+
+opacity: 0.3;
+
+
+/* top */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+align-items: flex-end;
+padding: 0px;
+gap: 4px;
+
+width: 56px;
+height: 28px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* 매출 */
+
+display: none;
+width: 16px;
+height: 54px;
+
+background: #0095FF;
+border-radius: 4px 4px 0px 0px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 영업이익 */
+
+width: 16px;
+height: 28px;
+
+background: #FF6F00;
+border-radius: 4px 4px 0px 0px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 순이익 */
+
+width: 16px;
+height: 10px;
+
+background: #30C6C1;
+border-radius: 4px 4px 0px 0px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* under */
+
+width: 16px;
+height: 20px;
+
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 매출 */
+
+position: absolute;
+width: 16px;
+height: 19px;
+left: 0px;
+top: 0.25px;
+
+background: #0095FF;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* 영업이익 */
+
+position: absolute;
+visibility: hidden;
+width: 16px;
+height: 7px;
+left: 20px;
+top: 19.25px;
+
+background: #FF6F00;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* 순이익 */
+
+position: absolute;
+visibility: hidden;
+width: 16px;
+height: 11px;
+left: 40px;
+top: 19.25px;
+
+background: #30C6C1;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* graph */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+position: absolute;
+width: 56px;
+height: 85px;
+left: 104px;
+top: 0px;
+
+opacity: 0.3;
+
+
+/* top */
+
+width: 56px;
+height: 55px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 매출 */
+
+position: absolute;
+width: 16px;
+height: 54px;
+left: 0px;
+top: 0.75px;
+
+background: #0095FF;
+border-radius: 4px 4px 0px 0px;
+
+
+/* 영업이익 */
+
+position: absolute;
+visibility: hidden;
+width: 16px;
+height: 28px;
+left: 20px;
+top: 25.75px;
+
+background: #FF6F00;
+border-radius: 4px 4px 0px 0px;
+
+
+/* 순이익 */
+
+position: absolute;
+width: 16px;
+height: 12px;
+left: 40px;
+top: 42.75px;
+
+background: #30C6C1;
+border-radius: 4px 4px 0px 0px;
+
+
+/* under */
+
+width: 16px;
+height: 30px;
+
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 매출 */
+
+position: absolute;
+visibility: hidden;
+width: 16px;
+height: 20px;
+left: -20px;
+top: 21px;
+
+background: #0095FF;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* 영업이익 */
+
+position: absolute;
+width: 16px;
+height: 30px;
+left: 0px;
+top: 0px;
+
+background: #FF6F00;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* 순이익 */
+
+position: absolute;
+visibility: hidden;
+width: 16px;
+height: 12px;
+left: 20px;
+top: 21px;
+
+background: #30C6C1;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* graph */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+
+position: absolute;
+width: 56px;
+height: 47px;
+left: 208px;
+top: 22px;
+
+opacity: 0.3;
+
+
+/* top */
+
+width: 16px;
+height: 33px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 매출 */
+
+position: absolute;
+width: 16px;
+height: 33px;
+left: 0px;
+top: 0px;
+
+background: #0095FF;
+border-radius: 4px 4px 0px 0px;
+
+
+/* 영업이익 */
+
+position: absolute;
+visibility: hidden;
+width: 16px;
+height: 28px;
+left: 20px;
+top: 9px;
+
+background: #FF6F00;
+border-radius: 4px 4px 0px 0px;
+
+
+/* 순이익 */
+
+position: absolute;
+visibility: hidden;
+width: 16px;
+height: 12px;
+left: 40px;
+top: 25px;
+
+background: #30C6C1;
+border-radius: 4px 4px 0px 0px;
+
+
+/* under */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: flex-end;
+align-items: flex-end;
+padding: 0px;
+gap: 4px;
+
+width: 56px;
+height: 14px;
+
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* 매출 */
+
+display: none;
+width: 16px;
+height: 19px;
+
+background: #0095FF;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 영업이익 */
+
+width: 16px;
+height: 14px;
+
+background: #FF6F00;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 순이익 */
+
+width: 16px;
+height: 10px;
+
+background: #30C6C1;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 0;
+
+
+/* graph */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+position: absolute;
+width: 56px;
+height: 101px;
+left: 312px;
+top: 4px;
+
+opacity: 0.3;
+
+
+/* top */
+
+width: 56px;
+height: 51px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 매출 */
+
+position: absolute;
+width: 16px;
+height: 50px;
+left: 0px;
+top: 0.75px;
+
+background: #0095FF;
+border-radius: 4px 4px 0px 0px;
+
+
+/* 영업이익 */
+
+position: absolute;
+visibility: hidden;
+width: 16px;
+height: 28px;
+left: 20px;
+top: 23px;
+
+background: #FF6F00;
+border-radius: 4px 4px 0px 0px;
+
+
+/* 순이익 */
+
+position: absolute;
+width: 16px;
+height: 19px;
+left: 40px;
+top: 31.75px;
+
+background: #30C6C1;
+border-radius: 4px 4px 0px 0px;
+
+
+/* under */
+
+width: 16px;
+height: 50px;
+
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 매출 */
+
+position: absolute;
+visibility: hidden;
+width: 16px;
+height: 19px;
+left: -20px;
+top: 14.75px;
+
+background: #0095FF;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* 영업이익 */
+
+position: absolute;
+width: 16px;
+height: 50px;
+left: 0px;
+top: 0px;
+
+background: #FF6F00;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* 순이익 */
+
+position: absolute;
+visibility: hidden;
+width: 16px;
+height: 11px;
+left: 20px;
+top: 14.75px;
+
+background: #30C6C1;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* graph */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+position: absolute;
+width: 56px;
+height: 21px;
+left: 416px;
+top: 47px;
+
+
+
+/* top */
+
+width: 16px;
+height: 8px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 매출 */
+
+position: absolute;
+visibility: hidden;
+width: 16px;
+height: 54px;
+left: -20px;
+top: -45.75px;
+
+background: #0095FF;
+border-radius: 4px 4px 0px 0px;
+
+
+/* 영업이익 */
+
+position: absolute;
+width: 16px;
+height: 7px;
+left: 0px;
+top: 0.25px;
+
+background: #FF6F00;
+border-radius: 4px 4px 0px 0px;
+
+
+/* 순이익 */
+
+position: absolute;
+visibility: hidden;
+width: 16px;
+height: 10px;
+left: 20px;
+top: 9.25px;
+
+background: #30C6C1;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* under */
+
+width: 56px;
+height: 13px;
+
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 매출 */
+
+position: absolute;
+width: 16px;
+height: 13px;
+left: 0px;
+top: 0px;
+
+background: #0095FF;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* 영업이익 */
+
+position: absolute;
+visibility: hidden;
+width: 16px;
+height: 7px;
+left: 20px;
+top: 17px;
+
+background: #FF6F00;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* 순이익 */
+
+position: absolute;
+width: 16px;
+height: 7px;
+left: 40px;
+top: 0px;
+
+background: #30C6C1;
+border-radius: 4px 4px 0px 0px;
+transform: matrix(1, 0, 0, -1, 0, 0);
+
+
+/* 범례 */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 24px 16px 0px;
+gap: 16px;
+
+width: 600px;
+height: 63px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* graph / 범례 */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 2px;
+
+width: 178.67px;
+height: 39px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* data-title */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 4px;
+
+width: 48px;
+height: 17px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* graph-color */
+
+width: 8px;
+height: 8px;
+
+background: #0095FF;
+border-radius: 9999px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* text */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 2px;
+
+width: 36px;
+height: 17px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 범례 */
+
+width: 22px;
+height: 17px;
+
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* tooltip */
+
+width: 12px;
+height: 12px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* circle-question */
+
+position: absolute;
+left: 0%;
+right: 0%;
+top: 0%;
+bottom: 0%;
+
+
+
+/* Vector */
+
+position: absolute;
+width: 9.75px;
+height: 9.75px;
+left: 1.12px;
+top: 1.12px;
+
+background: #98989F;
+
+
+/* Vector */
+
+position: absolute;
+left: 37.5%;
+right: 37.5%;
+top: 29.17%;
+bottom: 27.31%;
+
+/* grayscale/#000000 */
+background: #000000;
+
+
+/* Vector (Stroke) */
+
+position: absolute;
+left: 9.37%;
+right: 9.38%;
+top: 9.37%;
+bottom: 9.38%;
+
+background: #000000;
+transform: rotate(90deg);
+
+
+/* 값 */
+
+width: 66px;
+height: 20px;
+
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #EFEFEF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 202 */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 2px;
+
+width: 178.67px;
+height: 39px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* data-title */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 4px;
+
+width: 45px;
+height: 17px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* graph-color */
+
+width: 8px;
+height: 8px;
+
+background: #FF6F00;
+border-radius: 9999px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* text */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 2px;
+
+width: 33px;
+height: 17px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 범례 */
+
+width: 33px;
+height: 17px;
+
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* tooltip */
+
+display: none;
+width: 12px;
+height: 12px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 값 */
+
+width: 61px;
+height: 20px;
+
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #EFEFEF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Frame 203 */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+padding: 0px;
+gap: 2px;
+
+width: 178.67px;
+height: 39px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* data-title */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 4px;
+
+width: 34px;
+height: 17px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* graph-color */
+
+width: 8px;
+height: 8px;
+
+background: #30C6C1;
+border-radius: 9999px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* text */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 0px;
+gap: 2px;
+
+width: 22px;
+height: 17px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 범례 */
+
+width: 22px;
+height: 17px;
+
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* tooltip */
+
+display: none;
+width: 12px;
+height: 12px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 값 */
+
+width: 66px;
+height: 20px;
+
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #EFEFEF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* R */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 16px 0px 0px;
+
+width: 632px;
+height: 486px;
+
+border: 1px solid #37373D;
+border-radius: 8px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 1;
+
+
+/* header */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: flex-start;
+padding: 0px 16px 16px;
+gap: 8px;
+
+width: 632px;
+height: 92px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* title */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px;
+gap: 8px;
+
+width: 600px;
+height: 20px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* 일별 거래량 */
+
+width: 523px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_M */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 500;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+letter-spacing: -0.03em;
+
+color: #FFFFFF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* 단위 : 수량(주) */
+
+width: 69px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #7F8390;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* Toggle button group */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 4px;
+
+width: 600px;
+height: 48px;
+
+background: #31333E;
+border-radius: 2px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* Toggle button group / part */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+width: 118.4px;
+height: 40px;
+
+background: #5B5F6D;
+border-radius: 2px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 1;
+
+
+/* text-height */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 1px 0px 0px;
+gap: 8px;
+isolation: isolate;
+
+width: 38px;
+height: 21px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 버튼 */
+
+width: 38px;
+height: 20px;
+
+/* KR_PC/button/Btn1/Btn1_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #FFFFFF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* badge */
+
+position: absolute;
+display: none;
+width: 4px;
+height: 4px;
+right: -6.5px;
+top: 0.5px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Toggle button group / part */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+width: 118.4px;
+height: 40px;
+
+border-radius: 2px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* text-height */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 1px 0px 0px;
+gap: 8px;
+isolation: isolate;
+
+width: 26px;
+height: 21px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 버튼 */
+
+width: 26px;
+height: 20px;
+
+/* KR_PC/button/Btn1/Btn1_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* badge */
+
+position: absolute;
+display: none;
+width: 4px;
+height: 4px;
+right: -6.5px;
+top: 0.5px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Toggle button group / part */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+width: 118.4px;
+height: 40px;
+
+border-radius: 2px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* text-height */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 1px 0px 0px;
+gap: 8px;
+isolation: isolate;
+
+width: 26px;
+height: 21px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 버튼 */
+
+width: 26px;
+height: 20px;
+
+/* KR_PC/button/Btn1/Btn1_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* badge */
+
+position: absolute;
+display: none;
+width: 4px;
+height: 4px;
+right: -6.5px;
+top: 0.5px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Toggle button group / part */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+width: 118.4px;
+height: 40px;
+
+border-radius: 2px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* text-height */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 1px 0px 0px;
+gap: 8px;
+isolation: isolate;
+
+width: 38px;
+height: 21px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 버튼 */
+
+width: 38px;
+height: 20px;
+
+/* KR_PC/button/Btn1/Btn1_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* badge */
+
+position: absolute;
+display: none;
+width: 4px;
+height: 4px;
+right: -6.5px;
+top: 0.5px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* Toggle button group / part */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 0px;
+
+width: 118.4px;
+height: 40px;
+
+border-radius: 2px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* text-height */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 1px 0px 0px;
+gap: 8px;
+isolation: isolate;
+
+width: 26px;
+height: 21px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 버튼 */
+
+width: 26px;
+height: 20px;
+
+/* KR_PC/button/Btn1/Btn1_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+text-align: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+z-index: 0;
+
+
+/* badge */
+
+position: absolute;
+display: none;
+width: 4px;
+height: 4px;
+right: -6.5px;
+top: 0.5px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+z-index: 1;
+
+
+/* table */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+
+width: 632px;
+height: 382px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* tab */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: flex-start;
+padding: 0px 16px;
+gap: 20px;
+
+width: 632px;
+height: 44px;
+
+border-bottom: 1px solid #37373D;
+backdrop-filter: blur(10px);
+/* 참고: 배경 필터는 최소한의 브라우저만 지원합니다 */
+border-radius: 0px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* part/tab */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 12px 4px;
+gap: 4px;
+
+width: 59px;
+height: 44px;
+
+border-bottom: 2px solid #59D1CD;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* document */
+
+display: none;
+width: 16px;
+height: 16px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 탭 메뉴 */
+
+width: 51px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #59D1CD;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* part/tab */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: center;
+padding: 12px 4px;
+gap: 4px;
+
+width: 46px;
+height: 44px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* document */
+
+display: none;
+width: 16px;
+height: 16px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 탭 메뉴 */
+
+width: 38px;
+height: 20px;
+
+/* KR_PC/body/B2/B2_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 14px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 20px */
+display: flex;
+align-items: center;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* contents */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+
+width: 632px;
+height: 338px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* TH */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 12px 20px 12px 16px;
+gap: 16px;
+
+width: 632px;
+height: 41px;
+
+background: #2F2E33;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* 1 */
+
+display: none;
+width: 19px;
+height: 7px;
+
+/* Number/Headline/Small_r */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 10px;
+line-height: 16px;
+/* 또는 160% */
+/* leading-trim and text-edge are draft CSS properties.
+
+Read more: https://drafts.csswg.org/css-inline-3/#leading-trim
+*/
+leading-trim: both;
+text-edge: cap;
+text-align: center;
+
+color: #7F8390;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 날짜 */
+
+width: 80px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 0;
+
+
+/* 개인 */
+
+width: 113px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* 외국인 */
+
+width: 113px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* 기관 */
+
+width: 113px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* 기타법인 */
+
+width: 113px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 5;
+flex-grow: 1;
+
+
+/* TD */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: column;
+align-items: flex-start;
+padding: 0px;
+isolation: isolate;
+
+width: 632px;
+height: 297px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* table / 거래량 / 투자자 */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 16px;
+gap: 16px;
+
+width: 632px;
+height: 33px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+align-self: stretch;
+flex-grow: 0;
+z-index: 0;
+
+
+/* 07.15 */
+
+width: 80px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* table / 거래량 / 투자자 */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 16px;
+gap: 16px;
+
+width: 632px;
+height: 33px;
+
+background: #1B1A1D;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+align-self: stretch;
+flex-grow: 0;
+z-index: 1;
+
+
+/* 07.15 */
+
+width: 80px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* table / 거래량 / 투자자 */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 16px;
+gap: 16px;
+
+width: 632px;
+height: 33px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+z-index: 2;
+
+
+/* 07.15 */
+
+width: 80px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* table / 거래량 / 투자자 */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 16px;
+gap: 16px;
+
+width: 632px;
+height: 33px;
+
+background: #1B1A1D;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+align-self: stretch;
+flex-grow: 0;
+z-index: 3;
+
+
+/* 07.15 */
+
+width: 80px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* table / 거래량 / 투자자 */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 16px;
+gap: 16px;
+
+width: 632px;
+height: 33px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+align-self: stretch;
+flex-grow: 0;
+z-index: 4;
+
+
+/* 07.15 */
+
+width: 80px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* table / 거래량 / 투자자 */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 16px;
+gap: 16px;
+
+width: 632px;
+height: 33px;
+
+background: #1B1A1D;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 5;
+align-self: stretch;
+flex-grow: 0;
+z-index: 5;
+
+
+/* 07.15 */
+
+width: 80px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* table / 거래량 / 투자자 */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 16px;
+gap: 16px;
+
+width: 632px;
+height: 33px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 6;
+align-self: stretch;
+flex-grow: 0;
+z-index: 6;
+
+
+/* 07.15 */
+
+width: 80px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* table / 거래량 / 투자자 */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 16px;
+gap: 16px;
+
+width: 632px;
+height: 33px;
+
+background: #1B1A1D;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 7;
+align-self: stretch;
+flex-grow: 0;
+z-index: 7;
+
+
+/* 07.15 */
+
+width: 80px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* table / 거래량 / 투자자 */
+
+box-sizing: border-box;
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+align-items: center;
+padding: 8px 16px;
+gap: 16px;
+
+width: 632px;
+height: 33px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 8;
+align-self: stretch;
+flex-grow: 0;
+z-index: 8;
+
+
+/* 07.15 */
+
+width: 80px;
+height: 17px;
+
+/* KR_PC/body/B3/B3_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+letter-spacing: -0.03em;
+
+color: #CDCDD0;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 1;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #0095FF;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 3;
+flex-grow: 1;
+
+
+/* 1.14 */
+
+width: 114px;
+height: 17px;
+
+/* KR_PC/caption/caption_R */
+font-family: 'Spoqa Han Sans Neo';
+font-style: normal;
+font-weight: 400;
+font-size: 12px;
+line-height: 140%;
+/* 상자 높이와 동일 또는 17px */
+text-align: right;
+letter-spacing: -0.03em;
+
+color: #FF0000;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 4;
+flex-grow: 1;
+
+
+/* scroll */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+position: absolute;
+width: 6px;
+height: 95px;
+right: 4px;
+top: 6px;
+
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 9;
+flex-grow: 0;
+z-index: 9;
+
+
+/* scroll */
+
+width: 6px;
+height: 39px;
+
+background: #3F3E44;
+border-radius: 9999px;
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
+
+
+/* scroll */
+
+/* 오토레이아웃 */
+display: flex;
+flex-direction: row;
+justify-content: center;
+align-items: flex-start;
+padding: 0px;
+gap: 10px;
+
+display: none;
+width: 6px;
+height: 750px;
+
+transform: rotate(-90deg);
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 2;
+align-self: stretch;
+flex-grow: 0;
+
+
+/* scroll */
+
+width: 6px;
+height: 80px;
+
+background: #3F3E44;
+border-radius: 9999px;
+transform: rotate(-90deg);
+
+/* 내부 오토레이아웃 */
+flex: none;
+order: 0;
+flex-grow: 0;
