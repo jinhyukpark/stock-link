@@ -88,7 +88,7 @@ export function InvestmentIndicatorTab() {
       </div>
 
       {/* Bottom Panel - Charts */}
-      <div className="grid grid-cols-3 gap-4 flex-1 min-h-[300px]">
+      <div className="grid grid-cols-2 gap-4 flex-1 min-h-[300px]">
         {/* 가치성 */}
         <div className="bg-[#151921] rounded-lg border border-white/5 p-5 flex flex-col">
           <div className="flex justify-between items-center">
@@ -129,50 +129,6 @@ export function InvestmentIndicatorTab() {
                  PSR
                </div>
                <div className="text-white text-sm font-medium">4.37배</div>
-             </div>
-          </div>
-        </div>
-
-        {/* 수익성 */}
-        <div className="bg-[#151921] rounded-lg border border-white/5 p-5 flex flex-col">
-          <div className="flex justify-between items-center">
-            <h3 className="text-white font-bold text-[15px]">수익성</h3>
-            <div className="flex text-xs text-gray-500 gap-2 items-center">
-              <span className="cursor-pointer hover:text-white">연결</span>
-              <ChevronDown className="w-3 h-3" />
-              <span className="w-px h-3 bg-white/10"></span>
-              <span className="cursor-pointer hover:text-white text-white font-medium">분기</span>
-              <ChevronDown className="w-3 h-3" />
-            </div>
-          </div>
-          
-          {renderChart(profitData, [
-            { key: 'roe', color: '#0ea5e9', name: 'ROE' },
-            { key: 'roa', color: '#2dd4bf', name: 'ROA' },
-            { key: 'ros', color: '#a855f7', name: 'ROS' }
-          ], '%')}
-
-          <div className="grid grid-cols-3 gap-2 mt-4 pt-4 border-t border-white/5">
-             <div className="text-center">
-               <div className="flex items-center justify-center gap-1.5 mb-1 text-gray-400 text-[11px]">
-                 <div className="w-2 h-2 rounded-full bg-[#0ea5e9]"></div>
-                 ROE
-               </div>
-               <div className="text-white text-sm font-medium">4.37%</div>
-             </div>
-             <div className="text-center">
-               <div className="flex items-center justify-center gap-1.5 mb-1 text-gray-400 text-[11px]">
-                 <div className="w-2 h-2 rounded-full bg-[#2dd4bf]"></div>
-                 ROA
-               </div>
-               <div className="text-white text-sm font-medium">0.38%</div>
-             </div>
-             <div className="text-center">
-               <div className="flex items-center justify-center gap-1.5 mb-1 text-gray-400 text-[11px]">
-                 <div className="w-2 h-2 rounded-full bg-[#a855f7]"></div>
-                 ROS
-               </div>
-               <div className="text-white text-sm font-medium">4.37%</div>
              </div>
           </div>
         </div>
