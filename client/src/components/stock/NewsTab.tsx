@@ -27,47 +27,69 @@ export function NewsTab() {
   };
 
   // Mock tags
-  const tags = ['전체', '금융소비자보호', '스테이블 코인', '카테고리1', '카테고리2', '카테고리3'];
+  const tags = ['전체', '주주환원정책', '자사주소각', '기준금리동결', '주주가치제고', '자본시장체질개선', '실적개선', '주주총회', '내부통제강화', '대출갈아타기'];
 
   // Mock news items
   const allNews = [
     {
       id: 1,
-      date: '12.22',
-      sentiment: '긍정',
-      tags: ['카테고리1', '카테고리2', '카3'],
-      extraTags: '+22',
-      title: '뉴스 타이틀은 한줄까지 보여지고 한줄 넘어갈 경우 ... 처리 됩니다.',
-      publisher: '한경뉴스',
-      time: '12개월전',
-      fullDate: '12.22'
+      date: '03.19',
+      sentiment: '부정',
+      tags: ['주주가치제고'],
+      extraTags: '+1',
+      title: '"이사 보수 과해"···국민연금, 한화오션·삼성카드·롯데칠성에 반대표',
+      publisher: '아이뉴스24',
+      time: '1시간 전',
+      fullDate: '2026.03.19'
     },
     {
       id: 2,
-      date: '12.22',
+      date: '03.19',
       sentiment: '부정',
-      tags: ['카테고리1', '카2', '카3'],
-      extraTags: '+22',
-      title: '뉴스 타이틀은 한줄까지 보여지고 한줄 넘어갈 경우 ... 처리 됩니다.',
-      publisher: '한경뉴스',
-      time: '12개월전',
-      fullDate: '12.22'
+      tags: ['자본시장체질개선'],
+      extraTags: '',
+      title: "'실질적 지배'까지 중복상장 기준 확대···HD·SK·LS 계열사 자금 조달 '비상'",
+      publisher: '연합인포맥스',
+      time: '1시간 전',
+      fullDate: '2026.03.19'
     },
     {
       id: 3,
-      date: '12.22',
-      sentiment: '중립',
-      tags: ['카1', '카2', '카테고리3'],
-      extraTags: '+22',
-      title: '뉴스 타이틀은 한줄까지 보여지고 한줄 넘어갈 경우 ... 처리 됩니다.',
-      publisher: '한경뉴스',
-      time: '12개월전',
-      fullDate: '12.22'
+      date: '03.19',
+      sentiment: '부정',
+      tags: ['기준금리동결'],
+      extraTags: '+1',
+      title: "'제자리' 금리 속 치솟은 유가···뉴욕증시 하락",
+      publisher: '연합뉴스TV',
+      time: '1시간 전',
+      fullDate: '2026.03.19'
+    },
+    {
+      id: 4,
+      date: '03.19',
+      sentiment: '긍정',
+      tags: ['실적개선'],
+      extraTags: '',
+      title: 'CJ, 올리브영 호실적이 연결 실적 견인···목표주가 23만원으로 상향-SK',
+      publisher: '이데일리',
+      time: '1시간 전',
+      fullDate: '2026.03.19'
+    },
+    {
+      id: 5,
+      date: '03.19',
+      sentiment: '긍정',
+      tags: ['자사주소각'],
+      extraTags: '',
+      title: '휴마시스, 211억 규모 자사주 소각 결정···기업가치 제고',
+      publisher: '뉴시스',
+      time: '1시간 전',
+      fullDate: '2026.03.19'
     }
   ];
 
   // Fill up to look like the image
-  const displayNews = [...allNews, ...allNews.map(n => ({...n, id: n.id + 3}))].slice(0, 5);
+  const displayNews = [...allNews, ...allNews.map(n => ({...n, id: n.id + 5}))];
 
   const totalCount = 92; // Hardcoded to match image "92건"
 
@@ -149,25 +171,28 @@ export function NewsTab() {
       {/* Right Panel - News List */}
       <div className="w-[55%] bg-[#151921] rounded-lg border border-white/5 flex flex-col p-6 h-full">
         {/* Header */}
-        <div className="flex items-center justify-between mb-6">
-          <h3 className="text-white font-medium text-[15px] flex items-center gap-2">
-            뉴스 {selectedDate ? '선택일' : '전체'}
-          </h3>
-          <span className="text-gray-400 text-sm">{totalCount}건</span>
+        <div className="flex items-center justify-between mb-4">
+          <div className="flex items-baseline gap-1.5">
+            <h3 className="text-white font-bold text-[16px]">전체</h3>
+            <span className="text-gray-400 text-[14px]">({totalCount}건)</span>
+          </div>
+          <button className="text-gray-400 text-[12px] px-3 py-1.5 rounded-full border border-white/10 hover:bg-white/5 transition-colors">
+            전체보기
+          </button>
         </div>
 
         {/* Tags Row */}
-        <div className="flex gap-2 overflow-x-auto overflow-y-hidden custom-scrollbar pb-3 mb-4 min-h-[36px] items-center shrink-0">
+        <div className="flex gap-2 overflow-x-auto overflow-y-hidden custom-scrollbar pb-2 mb-3 min-h-[36px] items-center shrink-0">
           {tags.map(tag => (
             <button
               key={tag}
               onClick={() => setSelectedTag(tag)}
-              className={`whitespace-nowrap px-4 py-1.5 rounded-full text-xs font-medium transition-colors shrink-0 ${
-                selectedTag === tag && tag !== '전체'
-                  ? 'bg-teal-500/20 text-teal-400' 
-                  : selectedTag === tag && tag === '전체'
-                  ? 'bg-[#374151] text-white'
-                  : 'bg-[#1e2330] text-gray-400 hover:bg-[#2a303f] border border-white/5'
+              className={`whitespace-nowrap px-3.5 py-1.5 rounded-full text-[13px] font-medium transition-colors shrink-0 ${
+                selectedTag === tag && tag === '전체'
+                  ? 'bg-[#7EE7D2] text-black' 
+                  : selectedTag === tag
+                  ? 'bg-white/10 text-white'
+                  : 'bg-[#1A1E27] text-gray-400 hover:bg-white/5'
               }`}
             >
               {tag}
@@ -176,11 +201,11 @@ export function NewsTab() {
         </div>
 
         {/* News Items */}
-        <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 flex flex-col">
+        <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 flex flex-col gap-3">
           {displayNews.map((news, index) => (
-            <div key={news.id} className="py-4 group border-b border-white/5 last:border-0 flex flex-col gap-2">
+            <div key={news.id} className="p-4 bg-[#1A1E27] rounded-xl border border-white/5 flex flex-col gap-2 hover:border-white/10 transition-colors">
               <div className="flex items-center gap-2">
-                <span className={`px-2 py-0.5 rounded text-[10px] font-bold shrink-0 ${
+                <span className={`px-2 py-0.5 rounded-full text-[11px] font-bold shrink-0 ${
                   news.sentiment === '긍정' ? 'bg-[#19a14c] text-white' : 
                   news.sentiment === '부정' ? 'bg-[#ff7c7e] text-white' : 
                   'bg-[#555867] text-white'
@@ -190,23 +215,28 @@ export function NewsTab() {
                 
                 <div className="flex gap-1.5 overflow-hidden items-center">
                   {news.tags.map(tag => (
-                    <span key={tag} className="text-[11px] text-gray-400 shrink-0 before:content-['#'] before:mr-0.5">
+                    <span key={tag} className="text-[11px] text-gray-300 bg-transparent border border-white/10 px-2.5 py-0.5 rounded-full shrink-0">
                       {tag}
                     </span>
                   ))}
                   {news.extraTags && (
-                    <span className="text-[11px] text-gray-500 shrink-0">{news.extraTags}</span>
+                    <span className="text-[11px] text-white font-medium shrink-0 ml-1">{news.extraTags}</span>
                   )}
                 </div>
               </div>
               
-              <div className="flex items-start justify-between gap-4">
-                <h4 className="text-gray-200 text-[14px] leading-snug group-hover:text-white transition-colors cursor-pointer flex-1 text-left line-clamp-2">
+              <div className="flex items-center justify-between gap-4 mt-2">
+                <h4 className="text-gray-200 text-[15px] font-medium leading-snug group-hover:text-white transition-colors cursor-pointer flex-1 text-left line-clamp-2">
                   {news.title}
                 </h4>
-                <div className="text-gray-500 text-[11px] shrink-0 text-right mt-0.5">
-                  <div className="mb-0.5">{news.publisher}</div>
-                  <div>{news.fullDate}</div>
+              </div>
+              <div className="flex items-center justify-between mt-2">
+                <div className="text-gray-400 text-[12px] flex items-center w-full">
+                  <span>{news.publisher}</span>
+                  <div className="flex-1"></div>
+                  <span>{news.time}</span>
+                  <span className="text-gray-500 mx-1">•</span>
+                  <span>{news.fullDate}</span>
                 </div>
               </div>
             </div>
