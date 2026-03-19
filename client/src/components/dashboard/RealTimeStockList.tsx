@@ -67,20 +67,23 @@ export default function RealTimeStockList() {
       <CardContent className="p-0 flex-1 overflow-auto">
          <div className="w-full text-sm">
             {/* Table Header */}
-            <div className="grid grid-cols-12 gap-4 px-6 py-2 text-xs text-muted-foreground border-b border-border/50 sticky top-0 bg-[#0B0E14]/95 backdrop-blur z-10">
-               <div className="col-span-5 md:col-span-4">Stock</div>
-               <div className="col-span-2 md:col-span-2 text-right">Price</div>
+            <div className="grid grid-cols-12 gap-2 px-4 sm:px-6 py-2 text-xs text-muted-foreground border-b border-border/50 sticky top-0 bg-[#0B0E14]/95 backdrop-blur z-10">
+               <div className="col-span-4 md:col-span-3">Stock</div>
+               <div className="col-span-2 md:col-span-2 text-right truncate">Price</div>
                <div className="col-span-2 md:col-span-2 text-right">Change</div>
-               <div className="hidden md:block col-span-2 text-right">Volume</div>
-               <div className="col-span-3 md:col-span-2 text-right">AI Score <span className="text-[10px] text-muted-foreground/70 font-normal ml-1">(03-18)</span></div>
+               <div className="hidden md:block md:col-span-2 text-right">Volume</div>
+               <div className="col-span-4 md:col-span-3 text-right flex justify-end items-center gap-1 whitespace-nowrap">
+                  <span>AI Score</span>
+                  <span className="text-[10px] text-muted-foreground/70 font-normal hidden sm:inline-block">(03-18)</span>
+               </div>
             </div>
             
             {/* Table Body */}
             <div className="flex flex-col">
                {stockData.map((stock) => (
-                  <div key={stock.rank} className="grid grid-cols-12 gap-4 px-6 py-3 border-b border-border/30 hover:bg-white/5 transition-colors items-center group cursor-pointer">
+                  <div key={stock.rank} className="grid grid-cols-12 gap-2 px-4 sm:px-6 py-3 border-b border-border/30 hover:bg-white/5 transition-colors items-center group cursor-pointer">
                      {/* Stock Name Column */}
-                     <div className="col-span-5 md:col-span-4 flex items-center gap-3">
+                     <div className="col-span-4 md:col-span-3 flex items-center gap-2 sm:gap-3 overflow-hidden">
                         <div className="flex items-center gap-2 min-w-[32px]">
                            <Star className={cn("w-3.5 h-3.5 cursor-pointer transition-colors", stock.isFavorite ? "fill-yellow-500 text-yellow-500" : "text-muted-foreground/50 hover:text-muted-foreground")} />
                            <span className="font-bold text-muted-foreground w-4">{stock.rank}</span>
@@ -95,14 +98,14 @@ export default function RealTimeStockList() {
                      </div>
                      
                      {/* Price Column */}
-                     <div className="col-span-2 md:col-span-2 text-right font-mono font-medium">
+                     <div className="col-span-2 md:col-span-2 text-right font-mono font-medium text-[13px] sm:text-sm truncate">
                         {stock.price}
                      </div>
                      
                      {/* Change Column */}
                      <div className="col-span-2 md:col-span-2 text-right">
                         <span className={cn(
-                           "font-mono font-medium",
+                           "font-mono font-medium text-[13px] sm:text-sm",
                            stock.change.startsWith('+') ? "text-red-400" : "text-blue-400"
                         )}>
                            {stock.change}
@@ -110,12 +113,12 @@ export default function RealTimeStockList() {
                      </div>
                      
                      {/* Volume Column */}
-                     <div className="hidden md:block col-span-2 text-right text-muted-foreground text-xs font-mono">
+                     <div className="hidden md:block md:col-span-2 text-right text-muted-foreground text-xs font-mono truncate">
                         {stock.volume}
                      </div>
 
                      {/* AI Score Column */}
-                     <div className="col-span-3 md:col-span-2 flex items-center justify-end">
+                     <div className="col-span-4 md:col-span-3 flex items-center justify-end">
                         <div className={cn(
                            "flex items-center justify-between gap-3 py-1 px-2.5 rounded-lg border w-full max-w-[110px] backdrop-blur-sm transition-all",
                            stock.aiScore >= 9.0 ? "bg-blue-500/10 border-blue-500/30 shadow-[0_0_10px_rgba(59,130,246,0.1)]" :
