@@ -149,7 +149,7 @@ export default function LicensesPage() {
                   <span className="text-xl text-gray-400 font-normal">원 / 월</span>
                 </div>
                 <div className="text-sm text-gray-500 pb-2">기업 및 기관을 위한 최고급 플랜</div>
-                <Button disabled className="w-full bg-[#7EE7D2]/10 text-[#7EE7D2] border border-[#7EE7D2]/50 mt-4 rounded-xl py-6 font-bold cursor-default opacity-100">
+                <Button disabled className="w-full bg-gradient-to-r from-[#7EE7D2] to-[#3b82f6] text-[#0B0E14] border-0 mt-4 rounded-xl py-6 font-bold cursor-default opacity-100 shadow-[0_0_15px_rgba(126,231,210,0.4)]">
                   적용 중
                 </Button>
               </div>
