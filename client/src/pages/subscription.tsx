@@ -112,6 +112,7 @@ export default function SubscriptionPage() {
           { name: "GPT 주식 검색", value: "무제한", included: true },
           { name: "AI 주식 레포트", value: "무제한", included: true },
           { name: "모멘텀 분석 기능", value: "무제한", included: true },
+          { name: "시장 분석 기능", value: "무제한", included: true },
         ]
       }
     }
