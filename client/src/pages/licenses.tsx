@@ -1,5 +1,5 @@
 import DashboardLayout from "@/components/layout/DashboardLayout";
-import { Check } from "lucide-react";
+import { Check, X } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "wouter";
 
@@ -37,21 +37,40 @@ export default function LicensesPage() {
 
               <div className="space-y-8 flex-1">
                 <div className="space-y-4">
-                  <h4 className="text-sm font-bold text-gray-300">커뮤니티</h4>
+                  <div className="flex items-baseline gap-2">
+                    <h4 className="text-sm font-bold text-gray-300">커뮤니티</h4>
+                    <span className="text-[10px] text-gray-500">(정식버전 제공 예정)</span>
+                  </div>
                   <ul className="space-y-3">
-                    <li className="flex items-start gap-3 text-sm text-gray-400"><Check className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span className="leading-snug">커뮤니티 참여 (읽기 전용)</span></li>
-                    <li className="flex items-start justify-between gap-3 text-sm text-gray-400"><div className="flex gap-3"><Check className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span>커뮤니티 방 만들기</span></div> <span className="font-medium text-gray-500">1개</span></li>
-                    <li className="flex items-start justify-between gap-3 text-sm text-gray-400"><div className="flex gap-3"><Check className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span>커뮤니티 초대하기</span></div> <span className="font-medium text-gray-500">5명</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-500"><X className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span>커뮤니티 참여</span></li>
+                    <li className="flex items-start justify-between gap-3 text-sm text-gray-500"><div className="flex gap-3"><X className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span>커뮤니티 방 만들기</span></div> <span className="font-medium">1개</span></li>
+                    <li className="flex items-start justify-between gap-3 text-sm text-gray-500"><div className="flex gap-3"><X className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span>커뮤니티 초대하기</span></div> <span className="font-medium">5명</span></li>
                   </ul>
                 </div>
 
                 <div className="space-y-4">
                   <h4 className="text-sm font-bold text-gray-300">온톨로지 분석</h4>
                   <ul className="space-y-3">
-                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-[#7EE7D2] mt-0.5 shrink-0" /> <span>노드 사이즈 / 다중선택</span></li>
-                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-[#7EE7D2] mt-0.5 shrink-0" /> <span>증권 테마 / 산업분류</span></li>
-                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-[#7EE7D2] mt-0.5 shrink-0" /> <span>기본 클러스터링</span></li>
-                    <li className="flex items-start gap-3 text-sm text-gray-500"><Check className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span className="line-through">데이터 추출 및 고급 필터</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>노드 사이즈</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>타임라인</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>증권 - 테마</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>노드 형태</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>증권 - 산업분류</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>클러스터링</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>선택 노드 추출</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>Graph 분석</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>확장 · 축소</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-500"><X className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span>데이터 추출</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-500"><X className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span>필터</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-500"><X className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span>투명</span></li>
+                  </ul>
+                </div>
+
+                <div className="space-y-4">
+                  <h4 className="text-sm font-bold text-gray-300">주식 분석</h4>
+                  <ul className="space-y-3">
+                    <li className="flex items-start justify-between gap-3 text-sm text-gray-300"><div className="flex gap-3"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>GPT 주식 검색</span></div> <span className="font-medium text-gray-400">50회 / 월</span></li>
+                    <li className="flex items-start justify-between gap-3 text-sm text-gray-300"><div className="flex gap-3"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>AI 주식 레포트</span></div> <span className="font-medium text-gray-400">50회 / 월</span></li>
                   </ul>
                 </div>
               </div>
@@ -61,42 +80,56 @@ export default function LicensesPage() {
             <div className="bg-[#151921] border border-white/10 rounded-2xl p-8 flex flex-col h-full hover:border-white/20 transition-all hover:translate-y-[-4px] shadow-lg">
               <div className="text-center space-y-4 mb-8 pb-8 border-b border-white/5">
                 <div className="flex justify-center items-center h-8">
-                  <span className="text-xs font-semibold bg-blue-500/10 text-blue-400 px-3 py-1 rounded-full border border-blue-500/20">Popular</span>
+                  <span className="text-xs font-semibold bg-transparent text-transparent px-3 py-1 rounded-full border border-transparent"></span>
                 </div>
                 <h3 className="text-2xl font-bold text-white">Business</h3>
                 <div className="flex items-center justify-center gap-2 pt-2">
                   <span className="text-4xl font-bold text-white">50,000</span>
                   <span className="text-xl text-gray-400 font-normal">원 / 월</span>
                 </div>
-                <div className="text-sm text-gray-500 pb-2">전문 투자자를 위한 무제한 분석</div>
-                <Button className="w-full bg-[#3b82f6] hover:bg-[#2563eb] text-white border-0 mt-4 rounded-xl py-6 font-medium shadow-[0_0_15px_rgba(59,130,246,0.3)]">
-                  업그레이드
+                <div className="text-sm text-gray-500 pb-2">&nbsp;</div>
+                <Button className="w-full bg-white text-black hover:bg-gray-200 border-0 mt-4 rounded-xl py-6 font-medium">
+                  변경하기
                 </Button>
               </div>
 
               <div className="space-y-8 flex-1">
                 <div className="space-y-4">
-                  <h4 className="text-sm font-bold text-gray-300">커뮤니티</h4>
+                  <div className="flex items-baseline gap-2">
+                    <h4 className="text-sm font-bold text-gray-300">커뮤니티</h4>
+                    <span className="text-[10px] text-gray-500">(정식버전 제공 예정)</span>
+                  </div>
                   <ul className="space-y-3">
-                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-[#3b82f6] mt-0.5 shrink-0" /> <span>커뮤니티 전체 기능 참여</span></li>
-                    <li className="flex items-start justify-between gap-3 text-sm text-gray-300"><div className="flex gap-3"><Check className="w-4 h-4 text-[#3b82f6] mt-0.5 shrink-0" /> <span>커뮤니티 방 만들기</span></div> <span className="font-medium text-white">5개</span></li>
-                    <li className="flex items-start justify-between gap-3 text-sm text-gray-300"><div className="flex gap-3"><Check className="w-4 h-4 text-[#3b82f6] mt-0.5 shrink-0" /> <span>커뮤니티 초대하기</span></div> <span className="font-medium text-white">100명</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-500"><X className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span>커뮤니티 참여</span></li>
+                    <li className="flex items-start justify-between gap-3 text-sm text-gray-500"><div className="flex gap-3"><X className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span>커뮤니티 방 만들기</span></div> <span className="font-medium">5개</span></li>
+                    <li className="flex items-start justify-between gap-3 text-sm text-gray-500"><div className="flex gap-3"><X className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span>커뮤니티 초대하기</span></div> <span className="font-medium">100명</span></li>
                   </ul>
                 </div>
 
                 <div className="space-y-4">
                   <h4 className="text-sm font-bold text-gray-300">온톨로지 분석</h4>
                   <ul className="space-y-3">
-                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-[#3b82f6] mt-0.5 shrink-0" /> <span>모든 분석 기능 무제한</span></li>
-                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-[#3b82f6] mt-0.5 shrink-0" /> <span>노드 추출 및 Graph 문서화</span></li>
-                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-[#3b82f6] mt-0.5 shrink-0" /> <span>고급 데이터 필터링</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>노드 사이즈</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>타임라인</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>증권 - 테마</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>노드 형태</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>증권 - 산업분류</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>클러스터링</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>선택 노드 추출</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>Graph 분석</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>확장 · 축소</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>데이터 추출</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-300"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>필터</span></li>
+                    <li className="flex items-start gap-3 text-sm text-gray-500"><X className="w-4 h-4 text-gray-600 mt-0.5 shrink-0" /> <span>투명</span></li>
                   </ul>
                 </div>
 
                 <div className="space-y-4">
                   <h4 className="text-sm font-bold text-gray-300">주식 분석</h4>
                   <ul className="space-y-3">
-                    <li className="flex items-start justify-between gap-3 text-sm text-gray-300"><div className="flex gap-3"><Check className="w-4 h-4 text-[#3b82f6] mt-0.5 shrink-0" /> <span>AI 주식 검색 및 레포트</span></div> <span className="font-medium text-[#7EE7D2]">무제한</span></li>
+                    <li className="flex items-start justify-between gap-3 text-sm text-gray-300"><div className="flex gap-3"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>AI Scoring letter</span></div> <span className="font-medium text-gray-400">1회/주</span></li>
+                    <li className="flex items-start justify-between gap-3 text-sm text-gray-300"><div className="flex gap-3"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>GPT 주식 검색</span></div> <span className="font-medium text-gray-400">무제한</span></li>
+                    <li className="flex items-start justify-between gap-3 text-sm text-gray-300"><div className="flex gap-3"><Check className="w-4 h-4 text-white mt-0.5 shrink-0" /> <span>AI 주식 레포트</span></div> <span className="font-medium text-gray-400">무제한</span></li>
                   </ul>
                 </div>
               </div>
