@@ -132,6 +132,12 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                     <span>마이페이지</span>
                   </DropdownMenuItem>
                 </Link>
+                <Link href="/licenses">
+                  <DropdownMenuItem className="focus:bg-white/10 focus:text-white cursor-pointer group">
+                    <Sparkles className="mr-2 h-4 w-4 text-[#7EE7D2] group-hover:text-[#90f2de]" />
+                    <span className="text-[#7EE7D2] group-hover:text-[#90f2de] font-medium">플랜 업그레이드</span>
+                  </DropdownMenuItem>
+                </Link>
                 <DropdownMenuSeparator className="bg-white/10" />
                 <DropdownMenuItem className="focus:bg-red-500/10 focus:text-red-400 text-red-400 cursor-pointer">
                   <LogOut className="mr-2 h-4 w-4" />

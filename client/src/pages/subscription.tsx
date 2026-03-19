@@ -35,7 +35,7 @@ export default function SubscriptionPage() {
           { name: "확장-축소", included: true },
           { name: "데이터 추출", included: false },
           { name: "필터", included: false },
-          { name: "투영", included: false },
+          { name: "투명", included: false },
         ],
         stock: [
           { name: "GPT 주식 검색", value: "50회 / 월", included: true },
@@ -70,7 +70,7 @@ export default function SubscriptionPage() {
           { name: "확장-축소", included: true },
           { name: "데이터 추출", included: true },
           { name: "필터", included: true },
-          { name: "투영", included: false },
+          { name: "투명", included: false },
         ],
         stock: [
           { name: "AI Scoring letter", value: "1회 / 주", included: true },
@@ -105,13 +105,14 @@ export default function SubscriptionPage() {
           { name: "확장-축소", included: true },
           { name: "데이터 추출", included: true },
           { name: "필터", included: true },
-          { name: "투영", included: true },
+          { name: "투명", included: true },
         ],
         stock: [
           { name: "AI Scoring letter", value: "1회 / 주", included: true },
           { name: "GPT 주식 검색", value: "무제한", included: true },
           { name: "AI 주식 레포트", value: "무제한", included: true },
           { name: "모멘텀 분석 기능", value: "무제한", included: true },
+          { name: "시장 분석 기능", value: "무제한", included: true },
         ]
       }
     }

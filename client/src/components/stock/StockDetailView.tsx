@@ -349,29 +349,31 @@ export default function StockDetailView({ onBack, stockName }: StockDetailViewPr
                   >
                     <div className="h-full flex flex-col bg-[#151921]">
                       <Tabs defaultValue="company" className="h-full flex flex-col" onValueChange={handleTabChange}>
-                          <div className="border-b border-white/10 px-4 shrink-0 flex items-center justify-between">
-                            <TabsList className="bg-transparent justify-start h-auto p-0 gap-6 rounded-none">
-                              {['기업소개', '호가', '실시간/일별시세', '실적', '배당', '뉴스', '공시', '투자자동향', '재무분석', '투자지표', '토론'].map((tab) => (
-                                  <TabsTrigger 
-                                    key={tab} 
-                                    value={tab === '기업소개' ? 'company' : (tab === '호가' ? 'orderbook' : tab)} 
-                                    className="rounded-none border-b-2 border-transparent data-[state=active]:border-white data-[state=active]:bg-transparent data-[state=active]:text-white text-gray-400 py-3 px-0 transition-all hover:text-white"
-                                  >
-                                    {tab}
-                                  </TabsTrigger>
-                              ))}
-                            </TabsList>
-                            
-                            <div className="flex items-center gap-2">
-                               <div className="flex items-center space-x-2">
-                                  <label htmlFor="auto-expand" className="text-xs text-gray-400 cursor-pointer hover:text-white transition-colors">화면 자동 확장</label>
-                                  <Switch 
-                                    id="auto-expand" 
-                                    checked={isAutoExpand} 
-                                    onCheckedChange={setIsAutoExpand} 
-                                    className="scale-75"
-                                  />
-                               </div>
+                          <div className="border-b border-white/5 shrink-0">
+                            <div className="flex items-center justify-between px-4">
+                              <TabsList className="bg-transparent justify-start h-auto p-0 gap-6 rounded-none flex-nowrap overflow-x-auto custom-scrollbar">
+                                {['기업소개', '호가', '실시간/일별시세', '실적', '배당', '뉴스', '공시', '투자자동향', '재무분석', '투자지표', '토론'].map((tab) => (
+                                    <TabsTrigger 
+                                      key={tab} 
+                                      value={tab === '기업소개' ? 'company' : (tab === '호가' ? 'orderbook' : tab)} 
+                                      className="rounded-none border-b-[3px] border-transparent data-[state=active]:border-white data-[state=active]:bg-transparent data-[state=active]:text-white text-gray-400 py-3 px-1 font-medium text-[15px] whitespace-nowrap transition-all hover:text-gray-300"
+                                    >
+                                      {tab}
+                                    </TabsTrigger>
+                                ))}
+                              </TabsList>
+                              
+                              <div className="flex items-center gap-2 pl-4 shrink-0 border-l border-white/5 ml-2 h-8">
+                                 <div className="flex items-center space-x-2">
+                                    <label htmlFor="auto-expand" className="text-[13px] text-gray-400 cursor-pointer hover:text-white transition-colors whitespace-nowrap">화면 자동 확장</label>
+                                    <Switch 
+                                      id="auto-expand" 
+                                      checked={isAutoExpand} 
+                                      onCheckedChange={setIsAutoExpand} 
+                                      className="data-[state=checked]:bg-white"
+                                    />
+                                 </div>
+                              </div>
                             </div>
                           </div>
                           
