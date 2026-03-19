@@ -78,7 +78,24 @@ export function NewsTab() {
         <div className="flex items-center justify-between mb-8">
           <h3 className="text-white font-medium text-[15px]">뉴스 발생 추이</h3>
           
-          <div className="flex bg-[#1e2330] rounded-md p-1 border border-white/5">
+          <div className="flex items-center gap-4">
+            {/* Legend */}
+            <div className="flex items-center gap-3 mr-2">
+              <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                <div className="w-2.5 h-2.5 rounded-sm bg-[#19a14c]"></div>
+                긍정
+              </div>
+              <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                <div className="w-2.5 h-2.5 rounded-sm bg-[#555867]"></div>
+                중립
+              </div>
+              <div className="flex items-center gap-1.5 text-xs text-gray-400">
+                <div className="w-2.5 h-2.5 rounded-sm bg-[#ff7c7e]"></div>
+                부정
+              </div>
+            </div>
+
+            <div className="flex bg-[#1e2330] rounded-md p-1 border border-white/5">
             {['일', '주', '월', '년'].map(filter => (
               <button
                 key={filter}
@@ -160,9 +177,9 @@ export function NewsTab() {
         {/* News Items */}
         <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 flex flex-col">
           {displayNews.map((news, index) => (
-            <div key={news.id} className="py-3 group border-b border-[#2a303f]/50 last:border-0 flex flex-col">
-              <div className="flex items-center gap-2 mb-1.5">
-                <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
+            <div key={news.id} className="py-4 group border-b border-white/5 last:border-0 flex flex-col gap-2">
+              <div className="flex items-center gap-2">
+                <span className={`px-2 py-0.5 rounded text-[10px] font-bold shrink-0 ${
                   news.sentiment === '긍정' ? 'bg-[#19a14c] text-white' : 
                   news.sentiment === '부정' ? 'bg-[#ff7c7e] text-white' : 
                   'bg-[#555867] text-white'
@@ -172,25 +189,23 @@ export function NewsTab() {
                 
                 <div className="flex gap-1.5 overflow-hidden items-center">
                   {news.tags.map(tag => (
-                    <span key={tag} className="px-2.5 py-0.5 rounded-full text-[10px] text-gray-400 border border-[#374151] bg-[#1e2330] shrink-0">
+                    <span key={tag} className="text-[11px] text-gray-400 shrink-0 before:content-['#'] before:mr-0.5">
                       {tag}
                     </span>
                   ))}
                   {news.extraTags && (
-                    <span className="text-[10px] text-gray-500 shrink-0">{news.extraTags}</span>
+                    <span className="text-[11px] text-gray-500 shrink-0">{news.extraTags}</span>
                   )}
                 </div>
               </div>
               
-              <div className="flex items-center justify-between gap-3">
-                <div className="flex items-center gap-3 overflow-hidden flex-1">
-                  <span className="text-gray-400 text-[13px] shrink-0">{news.fullDate}</span>
-                  <h4 className="text-gray-300 text-[13px] font-medium truncate group-hover:text-white transition-colors cursor-pointer flex-1 text-left">
-                    {news.title}
-                  </h4>
-                </div>
-                <div className="text-gray-500 text-[11px] shrink-0 whitespace-nowrap ml-4">
-                  {news.time} · {news.publisher}
+              <div className="flex items-start justify-between gap-4">
+                <h4 className="text-gray-200 text-[14px] leading-snug group-hover:text-white transition-colors cursor-pointer flex-1 text-left line-clamp-2">
+                  {news.title}
+                </h4>
+                <div className="text-gray-500 text-[11px] shrink-0 text-right mt-0.5">
+                  <div className="mb-0.5">{news.publisher}</div>
+                  <div>{news.fullDate}</div>
                 </div>
               </div>
             </div>
