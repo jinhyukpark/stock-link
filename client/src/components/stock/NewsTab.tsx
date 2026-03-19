@@ -96,19 +96,20 @@ export function NewsTab() {
             </div>
 
             <div className="flex bg-[#1e2330] rounded-md p-1 border border-white/5">
-            {['일', '주', '월', '년'].map(filter => (
-              <button
-                key={filter}
-                onClick={() => setTimeFilter(filter as any)}
-                className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
-                  timeFilter === filter 
-                    ? 'bg-[#374151] text-white shadow-sm' 
-                    : 'text-gray-500 hover:text-gray-300'
-                }`}
-              >
-                {filter}
-              </button>
-            ))}
+              {['일', '주', '월', '년'].map(filter => (
+                <button
+                  key={filter}
+                  onClick={() => setTimeFilter(filter as any)}
+                  className={`px-3 py-1 rounded text-xs font-medium transition-colors ${
+                    timeFilter === filter 
+                      ? 'bg-[#374151] text-white shadow-sm' 
+                      : 'text-gray-500 hover:text-gray-300'
+                  }`}
+                >
+                  {filter}
+                </button>
+              ))}
+            </div>
           </div>
         </div>
 
