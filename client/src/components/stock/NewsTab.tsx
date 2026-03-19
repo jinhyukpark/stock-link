@@ -79,22 +79,6 @@ export function NewsTab() {
           <h3 className="text-white font-medium text-[15px]">뉴스 발생 추이</h3>
           
           <div className="flex items-center gap-4">
-            {/* Legend */}
-            <div className="flex items-center gap-3 mr-2">
-              <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                <div className="w-2.5 h-2.5 rounded-sm bg-[#19a14c]"></div>
-                긍정
-              </div>
-              <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                <div className="w-2.5 h-2.5 rounded-sm bg-[#555867]"></div>
-                중립
-              </div>
-              <div className="flex items-center gap-1.5 text-xs text-gray-400">
-                <div className="w-2.5 h-2.5 rounded-sm bg-[#ff7c7e]"></div>
-                부정
-              </div>
-            </div>
-
             <div className="flex bg-[#1e2330] rounded-md p-1 border border-white/5">
               {['일', '주', '월', '년'].map(filter => (
                 <button
@@ -143,6 +127,22 @@ export function NewsTab() {
               <Bar dataKey="긍정" stackId="a" fill="#19a14c" barSize={32} radius={[4, 4, 0, 0]} onClick={handleBarClick} cursor="pointer" />
             </BarChart>
           </ResponsiveContainer>
+        </div>
+
+        {/* Legend */}
+        <div className="flex items-center justify-center gap-6 mt-6">
+          <div className="flex items-center gap-1.5 text-xs text-gray-400">
+            <div className="w-2.5 h-2.5 rounded-sm bg-[#19a14c]"></div>
+            긍정
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-gray-400">
+            <div className="w-2.5 h-2.5 rounded-sm bg-[#555867]"></div>
+            중립
+          </div>
+          <div className="flex items-center gap-1.5 text-xs text-gray-400">
+            <div className="w-2.5 h-2.5 rounded-sm bg-[#ff7c7e]"></div>
+            부정
+          </div>
         </div>
       </div>
 
