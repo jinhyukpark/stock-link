@@ -175,9 +175,9 @@ export function NewsTab() {
             <div key={news.id} className="py-4 group border-b border-white/5 last:border-0 flex flex-col gap-2">
               <div className="flex items-center gap-2">
                 <span className={`px-2.5 py-0.5 rounded-full text-[10px] font-bold shrink-0 ${
-                  news.sentiment === '긍정' ? 'bg-[#10b981] text-white' : 
-                  news.sentiment === '부정' ? 'bg-[#ef4444] text-white' : 
-                  'bg-[#6b7280] text-white'
+                  news.sentiment === '긍정' ? 'bg-[#19a14c] text-white' : 
+                  news.sentiment === '부정' ? 'bg-[#ff7c7e] text-white' : 
+                  'bg-[#555867] text-white'
                 }`}>
                   {news.sentiment}
                 </span>
