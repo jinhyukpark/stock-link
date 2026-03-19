@@ -72,7 +72,7 @@ export default function RealTimeStockList() {
                <div className="col-span-2 md:col-span-2 text-right">Price</div>
                <div className="col-span-2 md:col-span-2 text-right">Change</div>
                <div className="hidden md:block col-span-2 text-right">Volume</div>
-               <div className="col-span-3 md:col-span-2 text-right">AI Score</div>
+               <div className="col-span-3 md:col-span-2 text-right">AI Score <span className="text-[10px] text-muted-foreground/70 font-normal ml-1">(03-18)</span></div>
             </div>
             
             {/* Table Body */}
