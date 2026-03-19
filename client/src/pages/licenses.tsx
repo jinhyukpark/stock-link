@@ -30,9 +30,9 @@ export default function LicensesPage() {
                   <span className="text-xl text-gray-400 font-normal">원 / 월</span>
                 </div>
                 <div className="text-sm text-gray-500 pb-2">기본적인 분석 기능 체험</div>
-                <Button className="w-full bg-[#1e2330] hover:bg-[#2a303f] text-white border border-white/10 mt-4 rounded-xl py-6 font-medium">
+                <div className="w-full flex items-center justify-center bg-[#1e2330] text-white border border-white/10 mt-4 rounded-xl py-4 font-medium cursor-pointer hover:bg-[#2a303f] transition-colors">
                   현재 플랜
-                </Button>
+                </div>
               </div>
 
               <div className="space-y-8 flex-1">
@@ -88,9 +88,9 @@ export default function LicensesPage() {
                   <span className="text-xl text-gray-400 font-normal">원 / 월</span>
                 </div>
                 <div className="text-sm text-gray-500 pb-2">&nbsp;</div>
-                <Button className="w-full bg-white text-black hover:bg-gray-200 border-0 mt-4 rounded-xl py-6 font-medium">
+                <div className="w-full flex items-center justify-center bg-white text-black hover:bg-gray-200 mt-4 rounded-xl py-4 font-medium cursor-pointer transition-colors">
                   변경하기
-                </Button>
+                </div>
               </div>
 
               <div className="space-y-8 flex-1">
@@ -136,8 +136,8 @@ export default function LicensesPage() {
             </div>
 
             {/* Enterprise Plan (Active) */}
-            <div className="bg-[#151921] border-2 border-[#7EE7D2] rounded-2xl p-8 flex flex-col h-full relative overflow-hidden shadow-[0_0_30px_rgba(126,231,210,0.15)] transform md:-translate-y-2">
-              <div className="absolute top-0 left-0 w-full h-1.5 bg-gradient-to-r from-[#7EE7D2] to-[#3b82f6]"></div>
+            <div className="bg-[#151921] border-2 border-[#7EE7D2] rounded-2xl p-8 flex flex-col h-full relative overflow-hidden shadow-[0_0_30px_rgba(126,231,210,0.15)] md:-translate-y-2">
+              <div className="absolute top-0 left-0 w-full h-1.5 bg-[#7EE7D2]"></div>
               
               <div className="text-center space-y-4 mb-8 pb-8 border-b border-white/5">
                 <div className="flex justify-center items-center h-8">
@@ -149,9 +149,9 @@ export default function LicensesPage() {
                   <span className="text-xl text-gray-400 font-normal">원 / 월</span>
                 </div>
                 <div className="text-sm text-gray-500 pb-2">기업 및 기관을 위한 최고급 플랜</div>
-                <Button disabled className="w-full bg-gradient-to-r from-[#7EE7D2] to-[#3b82f6] text-[#0B0E14] border-0 mt-4 rounded-xl py-6 font-bold cursor-default opacity-100 shadow-[0_0_15px_rgba(126,231,210,0.4)]">
+                <div className="w-full flex items-center justify-center bg-gradient-to-r from-[#7EE7D2] to-[#3b82f6] text-[#0B0E14] mt-4 rounded-xl py-4 font-bold shadow-[0_0_15px_rgba(126,231,210,0.4)]">
                   적용 중
-                </Button>
+                </div>
               </div>
 
               <div className="space-y-8 flex-1">
