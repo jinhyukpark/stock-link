@@ -4,7 +4,8 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Slider } from "@/components/ui/slider";
 import { Switch } from "@/components/ui/switch";
-import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { 
   Star, 
   Search, 
@@ -165,21 +166,25 @@ export default function MomentumView() {
             </Button>
           </div>
 
-          <Dialog open={isFilterOpen} onOpenChange={setIsFilterOpen}>
-            <Button 
-              variant="outline" 
-              className="h-9 border-white/10 bg-[#0B0E14] hover:bg-white/5 text-xs text-gray-300 gap-2 px-3"
-              onClick={() => setIsFilterOpen(true)}
+          <Popover open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+            <PopoverTrigger asChild>
+              <Button 
+                variant="outline" 
+                className="h-9 border-white/10 bg-[#0B0E14] hover:bg-white/5 text-xs text-gray-300 gap-2 px-3"
+              >
+                <SlidersHorizontal className="w-4 h-4 text-primary" />
+                필터
+              </Button>
+            </PopoverTrigger>
+            <PopoverContent 
+              align="end" 
+              className="w-[400px] bg-[#151921] border-white/10 text-white p-6 shadow-2xl z-50 relative mt-2"
             >
-              <SlidersHorizontal className="w-4 h-4 text-primary" />
-              필터
-            </Button>
-            <DialogContent className="max-w-[400px] bg-[#151921] border-white/10 text-white p-6 shadow-2xl [&>button]:right-4 [&>button]:top-4 [&>button]:text-gray-400 [&>button:hover]:text-white [&>button]:bg-transparent [&>button:hover]:bg-white/10 [&>button]:w-8 [&>button]:h-8 [&>button]:flex [&>button]:items-center [&>button]:justify-center [&>button]:rounded-full [&>button]:transition-colors">
               <div className="mb-6">
-                <DialogTitle className="text-lg font-bold mb-1">모멘텀 필터 설정</DialogTitle>
-                <DialogDescription className="text-xs text-gray-400">
+                <div className="text-lg font-bold mb-1">모멘텀 필터 설정</div>
+                <div className="text-xs text-gray-400">
                   모멘텀 분석 조건을 설정해보세요.
-                </DialogDescription>
+                </div>
               </div>
 
               <div className="space-y-6">
@@ -259,8 +264,8 @@ export default function MomentumView() {
                   </Button>
                 </div>
               </div>
-            </DialogContent>
-          </Dialog>
+            </PopoverContent>
+          </Popover>
 
           <Button size="icon" variant="outline" className="h-9 w-9 border-white/10 bg-[#0B0E14] hover:bg-white/5">
             <RotateCw className="w-4 h-4 text-gray-400" />
