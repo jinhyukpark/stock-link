@@ -175,10 +175,10 @@ export default function FearGreedIndex() {
                     <div className="p-6">
                       <TabsContent value="1w" className="m-0 focus-visible:ring-0">
                         <div className="flex flex-col md:flex-row gap-6">
-                          <div className="w-full md:w-1/3 shrink-0">
-                            <div className="bg-[#8b5cf6] rounded-xl p-8 flex flex-col items-center justify-center text-white h-full min-h-[160px]">
-                              <span className="text-7xl font-bold font-display leading-none mb-2">33</span>
-                              <span className="text-sm font-medium opacity-90">공포 지수</span>
+                          <div className="w-full md:w-1/4 shrink-0">
+                            <div className="bg-[#8b5cf6] rounded-xl p-6 flex flex-col items-center justify-center text-white h-full min-h-[140px]">
+                              <span className="text-[100px] font-bold font-display leading-none mb-1">33</span>
+                              <span className="text-base font-medium opacity-90">공포 지수</span>
                               <span className="text-sm font-medium opacity-90">(1주일)</span>
                             </div>
                           </div>
@@ -236,10 +236,10 @@ export default function FearGreedIndex() {
                       {/* 1 Month Tab Content */}
                       <TabsContent value="1m" className="m-0 focus-visible:ring-0">
                         <div className="flex flex-col md:flex-row gap-6">
-                          <div className="w-full md:w-1/3 shrink-0">
-                            <div className="bg-[#8b5cf6] rounded-xl p-8 flex flex-col items-center justify-center text-white h-full min-h-[160px]">
-                              <span className="text-7xl font-bold font-display leading-none mb-2">28</span>
-                              <span className="text-sm font-medium opacity-90">공포 지수</span>
+                          <div className="w-full md:w-1/4 shrink-0">
+                            <div className="bg-[#8b5cf6] rounded-xl p-6 flex flex-col items-center justify-center text-white h-full min-h-[140px]">
+                              <span className="text-[100px] font-bold font-display leading-none mb-1">28</span>
+                              <span className="text-base font-medium opacity-90">공포 지수</span>
                               <span className="text-sm font-medium opacity-90">(1달)</span>
                             </div>
                           </div>
@@ -291,10 +291,10 @@ export default function FearGreedIndex() {
                       {/* 3 Months Tab Content */}
                       <TabsContent value="3m" className="m-0 focus-visible:ring-0">
                         <div className="flex flex-col md:flex-row gap-6">
-                          <div className="w-full md:w-1/3 shrink-0">
-                            <div className="bg-[#a855f7] rounded-xl p-8 flex flex-col items-center justify-center text-white h-full min-h-[160px]">
-                              <span className="text-7xl font-bold font-display leading-none mb-2">51</span>
-                              <span className="text-sm font-medium opacity-90">중립 지수</span>
+                          <div className="w-full md:w-1/4 shrink-0">
+                            <div className="bg-[#a855f7] rounded-xl p-6 flex flex-col items-center justify-center text-white h-full min-h-[140px]">
+                              <span className="text-[100px] font-bold font-display leading-none mb-1">51</span>
+                              <span className="text-base font-medium opacity-90">중립 지수</span>
                               <span className="text-sm font-medium opacity-90">(3개월)</span>
                             </div>
                           </div>
@@ -346,10 +346,10 @@ export default function FearGreedIndex() {
                       {/* 6 Months Tab Content */}
                       <TabsContent value="6m" className="m-0 focus-visible:ring-0">
                         <div className="flex flex-col md:flex-row gap-6">
-                          <div className="w-full md:w-1/3 shrink-0">
-                            <div className="bg-[#a855f7] rounded-xl p-8 flex flex-col items-center justify-center text-white h-full min-h-[160px]">
-                              <span className="text-7xl font-bold font-display leading-none mb-2">52</span>
-                              <span className="text-sm font-medium opacity-90">중립 지수</span>
+                          <div className="w-full md:w-1/4 shrink-0">
+                            <div className="bg-[#a855f7] rounded-xl p-6 flex flex-col items-center justify-center text-white h-full min-h-[140px]">
+                              <span className="text-[100px] font-bold font-display leading-none mb-1">52</span>
+                              <span className="text-base font-medium opacity-90">중립 지수</span>
                               <span className="text-sm font-medium opacity-90">(6개월)</span>
                             </div>
                           </div>
