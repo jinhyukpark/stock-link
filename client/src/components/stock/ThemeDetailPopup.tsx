@@ -46,23 +46,25 @@ export default function ThemeDetailPopup({ isOpen, onClose, themeName }: ThemeDe
           </button>
         </div>
 
-        <div className="p-5 flex-1 overflow-hidden flex flex-col">
+        <div className="p-6 flex-1 overflow-hidden flex flex-col gap-6">
           {/* Theme Info */}
-          <div className="mb-4 shrink-0">
-            <h2 className="text-xl font-bold mb-1">{mockData.name}</h2>
-            <p className="text-xs text-gray-400 mb-2">{mockData.stockCount}개 종목</p>
-            <p className="text-xs text-gray-300 leading-relaxed break-keep line-clamp-3">
+          <div className="shrink-0 space-y-3">
+            <div className="flex items-baseline gap-3">
+              <h2 className="text-2xl font-bold">{mockData.name}</h2>
+              <span className="text-sm text-gray-400 font-medium">{mockData.stockCount}개 종목</span>
+            </div>
+            <p className="text-sm text-gray-300 leading-relaxed break-keep">
               {mockData.description}
             </p>
           </div>
 
           {/* Performance Grid */}
-          <div className="grid grid-cols-4 gap-2 mb-4 shrink-0">
+          <div className="grid grid-cols-4 gap-3 shrink-0">
             {mockData.performance.map((item, index) => (
-              <div key={index} className="bg-[#1e2330] rounded-lg p-2.5 flex flex-col items-center justify-center border border-white/5">
-                <span className="text-[10px] text-gray-400 mb-1">{item.label}</span>
+              <div key={index} className="bg-[#1e2330] rounded-xl p-4 flex flex-col items-center justify-center border border-white/5">
+                <span className="text-xs text-gray-400 mb-1.5">{item.label}</span>
                 <span className={cn(
-                  "text-sm font-bold font-display",
+                  "text-lg font-bold font-display",
                   item.isPositive ? "text-red-500" : "text-blue-500"
                 )}>
                   {item.value}
@@ -72,42 +74,44 @@ export default function ThemeDetailPopup({ isOpen, onClose, themeName }: ThemeDe
           </div>
 
           {/* Stock List */}
-          <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 mt-2">
-            <div className="space-y-0">
-              {mockData.stocks.map((stock) => (
-                <div 
-                  key={stock.id} 
-                  className="flex items-center justify-between py-2 px-1 rounded hover:bg-white/5 transition-colors group cursor-pointer border border-transparent hover:border-white/10"
-                >
-                  <div className="flex items-center gap-3">
-                    <span className="text-xs font-bold text-gray-500 w-4 text-center">{stock.id}</span>
-                    <div className={cn("w-7 h-7 rounded flex items-center justify-center text-white font-bold text-[10px] shadow-sm", stock.logo)}>
-                      {stock.name.substring(0, 1)}
+          <div className="flex-1 overflow-hidden flex flex-col min-h-0 bg-[#1e2330]/30 rounded-xl border border-white/5 p-2">
+            <div className="flex-1 overflow-y-auto custom-scrollbar pr-2">
+              <div className="space-y-1">
+                {mockData.stocks.map((stock) => (
+                  <div 
+                    key={stock.id} 
+                    className="flex items-center justify-between py-3 px-3 rounded-lg hover:bg-white/5 transition-colors group cursor-pointer border border-transparent hover:border-white/10"
+                  >
+                    <div className="flex items-center gap-4">
+                      <span className="text-sm font-bold text-gray-500 w-5 text-center">{stock.id}</span>
+                      <div className={cn("w-9 h-9 rounded-lg flex items-center justify-center text-white font-bold text-xs shadow-sm", stock.logo)}>
+                        {stock.name.substring(0, 1)}
+                      </div>
+                      <span className="font-bold text-base group-hover:text-primary transition-colors">{stock.name}</span>
                     </div>
-                    <span className="font-bold text-sm group-hover:text-primary transition-colors">{stock.name}</span>
-                  </div>
-                  
-                  <div className="flex items-center gap-4">
-                    <div className="flex flex-col items-end">
-                      <span className="font-bold text-sm">{stock.price}</span>
-                      <span className={cn(
-                        "text-[10px] font-medium flex items-center gap-1",
+                    
+                    <div className="flex items-center gap-5">
+                      <div className="flex flex-col items-end">
+                        <span className="font-bold text-base">{stock.price}</span>
+                        <span className={cn(
+                          "text-xs font-medium flex items-center gap-1",
+                          stock.isPositive === true ? "text-red-500" : 
+                          stock.isPositive === false ? "text-blue-500" : "text-gray-400"
+                        )}>
+                          {stock.changeValue}
+                        </span>
+                      </div>
+                      <div className={cn(
+                        "w-16 text-right font-bold text-sm",
                         stock.isPositive === true ? "text-red-500" : 
                         stock.isPositive === false ? "text-blue-500" : "text-gray-400"
                       )}>
-                        {stock.changeValue}
-                      </span>
-                    </div>
-                    <div className={cn(
-                      "w-14 text-right font-bold text-xs",
-                      stock.isPositive === true ? "text-red-500" : 
-                      stock.isPositive === false ? "text-blue-500" : "text-gray-400"
-                    )}>
-                      {stock.change}
+                        {stock.change}
+                      </div>
                     </div>
                   </div>
-                </div>
-              ))}
+                ))}
+              </div>
             </div>
           </div>
         </div>
