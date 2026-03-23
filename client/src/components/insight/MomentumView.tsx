@@ -11,7 +11,8 @@ import {
   List, 
   Loader2,
   X,
-  Info
+  Info,
+  ChevronsUpDown
 } from "lucide-react";
 import {
   Select,
@@ -353,22 +354,22 @@ export default function MomentumView() {
                   <th colSpan={2} className="px-4 py-2 border-r border-white/5 text-center font-medium">10일간 주가 강도</th>
                   <th colSpan={2} className="px-4 py-2 text-center font-medium">20일간 주가 강도</th>
                 </tr>
-                <tr className="border-b border-white/10">
-                  <th className="px-3 py-2 font-medium text-center border-r border-white/5">기준일</th>
-                  <th className="px-4 py-2 font-medium text-left border-r border-white/5 min-w-[200px]">종목명</th>
+                <tr className="border-b border-white/10 text-gray-400">
+                  <th className="px-3 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-center gap-1">기준일<ChevronsUpDown className="w-3 h-3" /></div></th>
+                  <th className="px-4 py-2 font-medium border-r border-white/5 min-w-[200px] cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-start gap-1">종목명<ChevronsUpDown className="w-3 h-3" /></div></th>
                   <th className="px-3 py-2 font-medium text-center border-r border-white/5">종목구분</th>
-                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">현재가</th>
-                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">전일대비</th>
-                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">등락률</th>
-                  <th className="px-4 py-2 font-medium text-center border-r border-white/5">예측범위</th>
-                  <th className="px-4 py-2 font-medium text-center border-r border-white/5">스코어(10)</th>
-                  <th className="px-4 py-2 font-medium text-center border-r border-white/5">예측일</th>
-                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">10일 평균</th>
-                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">20일 평균</th>
-                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">상승 탄력</th>
-                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">하락 방어</th>
-                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">상승 탄력</th>
-                  <th className="px-4 py-2 font-medium text-right">하락 방어</th>
+                  <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-end gap-1">현재가<ChevronsUpDown className="w-3 h-3" /></div></th>
+                  <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-end gap-1">전일대비<ChevronsUpDown className="w-3 h-3" /></div></th>
+                  <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-end gap-1">등락률<ChevronsUpDown className="w-3 h-3" /></div></th>
+                  <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-center gap-1">예측범위<ChevronsUpDown className="w-3 h-3" /></div></th>
+                  <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-center gap-1">스코어(10)<ChevronsUpDown className="w-3 h-3" /></div></th>
+                  <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-center gap-1">예측일<ChevronsUpDown className="w-3 h-3" /></div></th>
+                  <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-end gap-1">10일 평균<ChevronsUpDown className="w-3 h-3" /></div></th>
+                  <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-end gap-1">20일 평균<ChevronsUpDown className="w-3 h-3" /></div></th>
+                  <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-end gap-1">상승 탄력<ChevronsUpDown className="w-3 h-3" /></div></th>
+                  <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-end gap-1">하락 방어<ChevronsUpDown className="w-3 h-3" /></div></th>
+                  <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-end gap-1">상승 탄력<ChevronsUpDown className="w-3 h-3" /></div></th>
+                  <th className="px-4 py-2 font-medium cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-end gap-1">하락 방어<ChevronsUpDown className="w-3 h-3" /></div></th>
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
