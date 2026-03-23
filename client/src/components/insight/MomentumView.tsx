@@ -200,156 +200,286 @@ export default function MomentumView() {
       </div>
       </div>
 
-      {/* Stock Grid */}
-      <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-        {stocks.map((stock) => (
-          <Card key={stock.id} className="bg-[#151921] border-white/5 shadow-lg hover:border-white/10 transition-colors group">
-            <CardContent className="p-0">
-              {/* Header */}
-              <div className="p-3 flex justify-between items-start">
+      {/* Content Area */}
+      {viewMode === 'grid' ? (
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
+          {stocks.map((stock) => (
+            <Card key={stock.id} className="bg-[#151921] border-white/5 shadow-lg hover:border-white/10 transition-colors group">
+              <CardContent className="p-0">
+                {/* Header */}
+                <div className="p-3 flex justify-between items-start">
+                  <div>
+                    <div className="text-[10px] text-gray-500 font-mono mb-0.5">{stock.id}</div>
+                    <div className="font-bold text-gray-200 text-sm truncate pr-2" title={stock.name}>{stock.name}</div>
+                  </div>
+                  <Button variant="ghost" size="icon" className="h-6 w-6 -mr-1 -mt-1 text-gray-600 hover:text-yellow-400 group-hover:text-gray-500">
+                    <Star className="w-4 h-4 fill-current" />
+                  </Button>
+                </div>
+
+                {/* Chart & Score Area */}
+                <div className="flex items-center gap-0 p-3 pb-2 min-h-[80px]">
+                  {/* Left: Chart - Reduced Width */}
+                  <div className="w-[60%] h-14 relative pr-3">
+                    <ResponsiveContainer width="100%" height="100%">
+                      <AreaChart data={generateChartData(stock.trend as any)}>
+                        <defs>
+                          <linearGradient id={`grad_${stock.id}`} x1="0" y1="0" x2="0" y2="1">
+                            <stop offset="5%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0.3}/>
+                            <stop offset="95%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0}/>
+                          </linearGradient>
+                        </defs>
+                        <Area 
+                          type="monotone" 
+                          dataKey="value" 
+                          stroke={stock.change > 0 ? "#ef4444" : "#3b82f6"} 
+                          fill={`url(#grad_${stock.id})`} 
+                          strokeWidth={1.5}
+                        />
+                        <YAxis domain={['dataMin', 'dataMax']} hide />
+                      </AreaChart>
+                    </ResponsiveContainer>
+                  </div>
+
+                  {/* Vertical Divider */}
+                  <div className="w-px h-10 bg-white/10 mx-1"></div>
+
+                  {/* Right: AI Score - Expanded Area */}
+                  <div className="flex-1 flex flex-col items-center justify-center pl-1">
+                    <div className="text-[9px] text-gray-500 font-bold mb-0.5 tracking-tighter">AI SCORE</div>
+                    <div className="flex items-baseline gap-1">
+                      <div className={`text-4xl font-bold leading-none ${
+                        stock.score >= 9 ? 'text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]' :
+                        stock.score >= 7 ? 'text-blue-400' :
+                        stock.score >= 5 ? 'text-green-400' :
+                        stock.score >= 3 ? 'text-yellow-400' : 'text-red-400'
+                      }`}>
+                        {stock.score.toFixed(1)}
+                      </div>
+                      <div className="text-[10px] text-gray-600 font-bold">/ 10.0</div>
+                    </div>
+                  </div>
+                </div>
+
+                {/* Price Info */}
+                <div className="px-3 pb-3 border-b border-white/5">
+                  <div className="flex items-baseline gap-2">
+                    <span className={`text-[10px] font-mono ${stock.change > 0 ? 'text-red-400' : 'text-blue-400'}`}>
+                      종가
+                    </span>
+                    <span className={`text-sm font-bold font-mono ${stock.change > 0 ? 'text-red-400' : 'text-blue-400'}`}>
+                      {stock.price.toLocaleString()}원
+                    </span>
+                    <span className={`text-xs font-medium ${stock.change > 0 ? 'text-red-400' : 'text-blue-400'} bg-${stock.change > 0 ? 'red' : 'blue'}-500/10 px-1 rounded`}>
+                      {stock.change > 0 ? '+' : ''}{stock.change}%
+                    </span>
+                  </div>
+                </div>
+
+                {/* Metrics Grid */}
                 <div>
-                  <div className="text-[10px] text-gray-500 font-mono mb-0.5">{stock.id}</div>
-                  <div className="font-bold text-gray-200 text-sm truncate pr-2" title={stock.name}>{stock.name}</div>
-                </div>
-                <Button variant="ghost" size="icon" className="h-6 w-6 -mr-1 -mt-1 text-gray-600 hover:text-yellow-400 group-hover:text-gray-500">
-                  <Star className="w-4 h-4 fill-current" />
-                </Button>
-              </div>
+                  {/* Headers (Dark) */}
+                  <div className="grid grid-cols-3 border-t border-white/5 text-[10px] bg-[#1a1f2b]">
+                    <div className="py-2 text-center text-gray-400 border-r border-white/5">시장대비 상승률</div>
+                    <div className="py-2 text-center text-gray-400 border-r border-white/5">10일간 주가 강도</div>
+                    <div className="py-2 text-center text-gray-400">20일간 주가 강도</div>
+                  </div>
 
-              {/* Chart & Score Area */}
-              <div className="flex items-center gap-0 p-3 pb-2 min-h-[80px]">
-                {/* Left: Chart - Reduced Width */}
-                <div className="w-[60%] h-14 relative pr-3">
-                  <ResponsiveContainer width="100%" height="100%">
-                    <AreaChart data={generateChartData(stock.trend as any)}>
-                      <defs>
-                        <linearGradient id={`grad_${stock.id}`} x1="0" y1="0" x2="0" y2="1">
-                          <stop offset="5%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0.3}/>
-                          <stop offset="95%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0}/>
-                        </linearGradient>
-                      </defs>
-                      <Area 
-                        type="monotone" 
-                        dataKey="value" 
-                        stroke={stock.change > 0 ? "#ef4444" : "#3b82f6"} 
-                        fill={`url(#grad_${stock.id})`} 
-                        strokeWidth={1.5}
-                      />
-                      <YAxis domain={['dataMin', 'dataMax']} hide />
-                    </AreaChart>
-                  </ResponsiveContainer>
-                </div>
-
-                {/* Vertical Divider */}
-                <div className="w-px h-10 bg-white/10 mx-1"></div>
-
-                {/* Right: AI Score - Expanded Area */}
-                <div className="flex-1 flex flex-col items-center justify-center pl-1">
-                  <div className="text-[9px] text-gray-500 font-bold mb-0.5 tracking-tighter">AI SCORE</div>
-                  <div className="flex items-baseline gap-1">
-                    <div className={`text-4xl font-bold leading-none ${
-                      stock.score >= 9 ? 'text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]' :
-                      stock.score >= 7 ? 'text-blue-400' :
-                      stock.score >= 5 ? 'text-green-400' :
-                      stock.score >= 3 ? 'text-yellow-400' : 'text-red-400'
-                    }`}>
-                      {stock.score.toFixed(1)}
+                  {/* Values (White) */}
+                  <div className="grid grid-cols-3 text-[11px] bg-white rounded-b-lg">
+                    {/* Column 1 */}
+                    <div className="p-2 border-r border-gray-100">
+                      <div className="flex justify-around text-gray-500 mb-1.5 font-medium">
+                        <span>10일</span>
+                        <span>20일</span>
+                      </div>
+                      <div className="flex justify-around font-bold text-xs">
+                        <span className={stock.market_rel_10 > 0 ? 'text-red-500' : 'text-blue-500'}>
+                          {stock.market_rel_10 > 0 ? '+' : ''}{stock.market_rel_10}%
+                        </span>
+                        <span className={stock.market_rel_20 > 0 ? 'text-red-500' : 'text-blue-500'}>
+                          {stock.market_rel_20 > 0 ? '+' : ''}{stock.market_rel_20}%
+                        </span>
+                      </div>
                     </div>
-                    <div className="text-[10px] text-gray-600 font-bold">/ 10.0</div>
+
+                    {/* Column 2 */}
+                    <div className="p-2 border-r border-gray-100">
+                      <div className="flex justify-around text-gray-500 mb-1.5 font-medium">
+                        <span>상승 탄력</span>
+                        <span>하락 방어</span>
+                      </div>
+                      <div className="flex justify-around font-bold text-xs">
+                        <span className={stock.strength_10_up > 0 ? 'text-red-500' : 'text-blue-500'}>
+                          {stock.strength_10_up > 0 ? '+' : ''}{stock.strength_10_up}%
+                        </span>
+                        <span className={stock.strength_10_down > 0 ? 'text-red-500' : 'text-blue-500'}>
+                          {stock.strength_10_down > 0 ? '+' : ''}{stock.strength_10_down}%
+                        </span>
+                      </div>
+                    </div>
+
+                    {/* Column 3 */}
+                    <div className="p-2">
+                      <div className="flex justify-around text-gray-500 mb-1.5 font-medium">
+                        <span>상승 탄력</span>
+                        <span>하락 방어</span>
+                      </div>
+                      <div className="flex justify-around font-bold text-xs">
+                        <span className={stock.strength_20_up > 0 ? 'text-red-500' : 'text-blue-500'}>
+                           {stock.strength_20_up > 0 ? '+' : ''}{stock.strength_20_up}%
+                        </span>
+                        <span className={stock.strength_20_down > 0 ? 'text-red-500' : 'text-blue-500'}>
+                           {stock.strength_20_down > 0 ? '+' : ''}{stock.strength_20_down}%
+                        </span>
+                      </div>
+                    </div>
                   </div>
                 </div>
-              </div>
-
-              {/* Price Info */}
-              <div className="px-3 pb-3 border-b border-white/5">
-                <div className="flex items-baseline gap-2">
-                  <span className={`text-[10px] font-mono ${stock.change > 0 ? 'text-red-400' : 'text-blue-400'}`}>
-                    종가
-                  </span>
-                  <span className={`text-sm font-bold font-mono ${stock.change > 0 ? 'text-red-400' : 'text-blue-400'}`}>
-                    {stock.price.toLocaleString()}원
-                  </span>
-                  <span className={`text-xs font-medium ${stock.change > 0 ? 'text-red-400' : 'text-blue-400'} bg-${stock.change > 0 ? 'red' : 'blue'}-500/10 px-1 rounded`}>
-                    {stock.change > 0 ? '+' : ''}{stock.change}%
-                  </span>
-                </div>
-              </div>
-
-              {/* Metrics Grid */}
-              <div>
-                {/* Headers (Dark) */}
-                <div className="grid grid-cols-3 border-t border-white/5 text-[10px] bg-[#1a1f2b]">
-                  <div className="py-2 text-center text-gray-400 border-r border-white/5">시장대비 상승률</div>
-                  <div className="py-2 text-center text-gray-400 border-r border-white/5">10일간 주가 강도</div>
-                  <div className="py-2 text-center text-gray-400">20일간 주가 강도</div>
-                </div>
-
-                {/* Values (White) */}
-                <div className="grid grid-cols-3 text-[11px] bg-white rounded-b-lg">
-                  {/* Column 1 */}
-                  <div className="p-2 border-r border-gray-100">
-                    <div className="flex justify-around text-gray-500 mb-1.5 font-medium">
-                      <span>10일</span>
-                      <span>20일</span>
-                    </div>
-                    <div className="flex justify-around font-bold text-xs">
-                      <span className={stock.market_rel_10 > 0 ? 'text-red-500' : 'text-blue-500'}>
+              </CardContent>
+            </Card>
+          ))}
+        </div>
+      ) : (
+        <div className="w-full">
+          <div className="w-full overflow-x-auto border border-white/10 rounded-lg bg-[#151921]">
+            <table className="w-full text-xs whitespace-nowrap">
+              <thead className="bg-[#1a1f2b] text-gray-400">
+                <tr className="border-b border-white/5">
+                  <th rowSpan={2} className="px-3 py-2 border-r border-white/5 w-10 text-center">MY</th>
+                  <th colSpan={6} className="px-4 py-2 border-r border-white/5 text-center font-medium">종목정보</th>
+                  <th colSpan={3} className="px-4 py-2 border-r border-white/5 text-center font-medium">AI예측</th>
+                  <th colSpan={2} className="px-4 py-2 border-r border-white/5 text-center font-medium">시장대비 주가 상승률(%)</th>
+                  <th colSpan={2} className="px-4 py-2 border-r border-white/5 text-center font-medium">10일간 주가 강도</th>
+                  <th colSpan={2} className="px-4 py-2 text-center font-medium">20일간 주가 강도</th>
+                </tr>
+                <tr className="border-b border-white/10">
+                  <th className="px-3 py-2 font-medium text-center border-r border-white/5">기준일</th>
+                  <th className="px-4 py-2 font-medium text-left border-r border-white/5 min-w-[200px]">종목명</th>
+                  <th className="px-3 py-2 font-medium text-center border-r border-white/5">종목구분</th>
+                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">현재가</th>
+                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">전일대비</th>
+                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">등락률</th>
+                  <th className="px-4 py-2 font-medium text-center border-r border-white/5">예측범위</th>
+                  <th className="px-4 py-2 font-medium text-center border-r border-white/5">스코어(10)</th>
+                  <th className="px-4 py-2 font-medium text-center border-r border-white/5">예측일</th>
+                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">10일 평균</th>
+                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">20일 평균</th>
+                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">상승 탄력</th>
+                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">하락 방어</th>
+                  <th className="px-4 py-2 font-medium text-right border-r border-white/5">상승 탄력</th>
+                  <th className="px-4 py-2 font-medium text-right">하락 방어</th>
+                </tr>
+              </thead>
+              <tbody className="divide-y divide-white/5">
+                {stocks.map((stock) => {
+                  const isKospi = Math.random() > 0.5;
+                  const changeValue = (stock.price * stock.change / 100).toFixed(0);
+                  
+                  return (
+                    <tr key={stock.id} className="hover:bg-white/5 transition-colors">
+                      <td className="px-3 py-2.5 text-center border-r border-white/5">
+                        <button className="text-gray-600 hover:text-yellow-400">
+                          <Star className="w-4 h-4 fill-current" />
+                        </button>
+                      </td>
+                      <td className="px-3 py-2.5 text-center text-gray-400 border-r border-white/5">03-23</td>
+                      <td className="px-4 py-2.5 text-left border-r border-white/5">
+                        <div className="flex items-center gap-3">
+                          <span className="font-bold text-gray-200">{stock.name}</span>
+                          <div className="w-16 h-5 opacity-70">
+                            <ResponsiveContainer width="100%" height="100%">
+                              <AreaChart data={generateChartData(stock.trend as any)}>
+                                <defs>
+                                  <linearGradient id={`list_grad_${stock.id}`} x1="0" y1="0" x2="0" y2="1">
+                                    <stop offset="5%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0.5}/>
+                                    <stop offset="95%" stopColor={stock.change > 0 ? "#ef4444" : "#3b82f6"} stopOpacity={0}/>
+                                  </linearGradient>
+                                </defs>
+                                <Area 
+                                  type="monotone" 
+                                  dataKey="value" 
+                                  stroke={stock.change > 0 ? "#ef4444" : "#3b82f6"} 
+                                  fill={`url(#list_grad_${stock.id})`} 
+                                  strokeWidth={1.5}
+                                />
+                                <YAxis domain={['dataMin', 'dataMax']} hide />
+                              </AreaChart>
+                            </ResponsiveContainer>
+                          </div>
+                        </div>
+                      </td>
+                      <td className="px-3 py-2.5 text-center text-gray-400 text-[11px] border-r border-white/5">
+                        {isKospi ? 'KOSPI' : 'KOSDAQ'}
+                      </td>
+                      <td className="px-4 py-2.5 text-right font-mono font-medium border-r border-white/5">
+                        {stock.price.toLocaleString()}
+                      </td>
+                      <td className={`px-4 py-2.5 text-right font-mono border-r border-white/5 ${stock.change > 0 ? 'text-red-400' : 'text-blue-400'}`}>
+                        {stock.change > 0 ? '▲' : '▼'} {Math.abs(Number(changeValue)).toLocaleString()}
+                      </td>
+                      <td className={`px-4 py-2.5 text-right font-mono border-r border-white/5 ${stock.change > 0 ? 'text-red-400' : 'text-blue-400'}`}>
+                        {stock.change > 0 ? '+' : ''}{stock.change}%
+                      </td>
+                      <td className="px-4 py-2.5 text-center text-gray-300 border-r border-white/5">1주 이내</td>
+                      <td className="px-4 py-2.5 text-center font-bold text-red-400 border-r border-white/5">
+                        {stock.score.toFixed(1)}점
+                      </td>
+                      <td className="px-4 py-2.5 text-center text-gray-400 border-r border-white/5">03-27</td>
+                      
+                      <td className={`px-4 py-2.5 text-right font-mono border-r border-white/5 ${stock.market_rel_10 > 0 ? 'text-red-500' : 'text-blue-500'}`}>
                         {stock.market_rel_10 > 0 ? '+' : ''}{stock.market_rel_10}%
-                      </span>
-                      <span className={stock.market_rel_20 > 0 ? 'text-red-500' : 'text-blue-500'}>
+                      </td>
+                      <td className={`px-4 py-2.5 text-right font-mono border-r border-white/5 ${stock.market_rel_20 > 0 ? 'text-red-500' : 'text-blue-500'}`}>
                         {stock.market_rel_20 > 0 ? '+' : ''}{stock.market_rel_20}%
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Column 2 */}
-                  <div className="p-2 border-r border-gray-100">
-                    <div className="flex justify-around text-gray-500 mb-1.5 font-medium">
-                      <span>상승 탄력</span>
-                      <span>하락 방어</span>
-                    </div>
-                    <div className="flex justify-around font-bold text-xs">
-                      <span className={stock.strength_10_up > 0 ? 'text-red-500' : 'text-blue-500'}>
+                      </td>
+                      
+                      <td className={`px-4 py-2.5 text-right font-mono border-r border-white/5 ${stock.strength_10_up > 0 ? 'text-red-500' : 'text-blue-500'}`}>
                         {stock.strength_10_up > 0 ? '+' : ''}{stock.strength_10_up}%
-                      </span>
-                      <span className={stock.strength_10_down > 0 ? 'text-red-500' : 'text-blue-500'}>
+                      </td>
+                      <td className={`px-4 py-2.5 text-right font-mono border-r border-white/5 ${stock.strength_10_down > 0 ? 'text-red-500' : 'text-blue-500'}`}>
                         {stock.strength_10_down > 0 ? '+' : ''}{stock.strength_10_down}%
-                      </span>
-                    </div>
-                  </div>
-
-                  {/* Column 3 */}
-                  <div className="p-2">
-                    <div className="flex justify-around text-gray-500 mb-1.5 font-medium">
-                      <span>상승 탄력</span>
-                      <span>하락 방어</span>
-                    </div>
-                    <div className="flex justify-around font-bold text-xs">
-                      <span className={stock.strength_20_up > 0 ? 'text-red-500' : 'text-blue-500'}>
-                         {stock.strength_20_up > 0 ? '+' : ''}{stock.strength_20_up}%
-                      </span>
-                      <span className={stock.strength_20_down > 0 ? 'text-red-500' : 'text-blue-500'}>
-                         {stock.strength_20_down > 0 ? '+' : ''}{stock.strength_20_down}%
-                      </span>
-                    </div>
-                  </div>
-                </div>
-              </div>
-            </CardContent>
-          </Card>
-        ))}
-      </div>
-
-      {/* Loading Indicator for Infinite Scroll */}
-      <div ref={loaderRef} className="flex justify-center py-8">
-        {isLoading && (
-          <div className="flex items-center gap-2 text-muted-foreground">
-            <Loader2 className="w-6 h-6 animate-spin text-primary" />
-            <span className="text-sm">Loading more stocks...</span>
+                      </td>
+                      
+                      <td className={`px-4 py-2.5 text-right font-mono border-r border-white/5 ${stock.strength_20_up > 0 ? 'text-red-500' : 'text-blue-500'}`}>
+                        {stock.strength_20_up > 0 ? '+' : ''}{stock.strength_20_up}%
+                      </td>
+                      <td className={`px-4 py-2.5 text-right font-mono ${stock.strength_20_down > 0 ? 'text-red-500' : 'text-blue-500'}`}>
+                        {stock.strength_20_down > 0 ? '+' : ''}{stock.strength_20_down}%
+                      </td>
+                    </tr>
+                  );
+                })}
+              </tbody>
+            </table>
           </div>
-        )}
-      </div>
-
+          
+          {/* Pagination */}
+          <div className="flex justify-center items-center gap-1 mt-6 text-gray-500 text-sm pb-4">
+            <button className="px-2 py-1 hover:text-white transition-colors">&lt;&lt;</button>
+            <button className="px-2 py-1 hover:text-white transition-colors">&lt;</button>
+            <button className="w-7 h-7 rounded bg-[#7EE7D2] text-black font-bold mx-1">1</button>
+            <button className="w-7 h-7 rounded hover:bg-white/10 hover:text-white transition-colors mx-1">2</button>
+            <button className="w-7 h-7 rounded hover:bg-white/10 hover:text-white transition-colors mx-1">3</button>
+            <button className="w-7 h-7 rounded hover:bg-white/10 hover:text-white transition-colors mx-1">4</button>
+            <button className="w-7 h-7 rounded hover:bg-white/10 hover:text-white transition-colors mx-1">5</button>
+            <button className="px-2 py-1 hover:text-white transition-colors">&gt;</button>
+            <button className="px-2 py-1 hover:text-white transition-colors">&gt;&gt;</button>
+          </div>
+        </div>
+      )}
+      
+      {/* Loading Indicator for Infinite Scroll (Grid View Only) */}
+      {viewMode === 'grid' && (
+        <div ref={loaderRef} className="flex justify-center py-8">
+          {isLoading && (
+            <div className="flex items-center gap-2 text-muted-foreground">
+              <Loader2 className="w-6 h-6 animate-spin text-primary" />
+              <span className="text-sm">Loading more stocks...</span>
+            </div>
+          )}
+        </div>
+      )}
     </div>
   );
 }
