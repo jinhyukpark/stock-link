@@ -34,7 +34,7 @@ export default function ThemeDetailPopup({ isOpen, onClose, themeName }: ThemeDe
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-[450px] bg-[#151921] border-white/10 text-white p-0 gap-0 shadow-2xl hide-close-button overflow-hidden flex flex-col h-[600px]">
+      <DialogContent className="max-w-[600px] w-[600px] bg-[#151921] border-white/10 text-white p-0 gap-0 shadow-2xl hide-close-button overflow-hidden flex flex-col h-[840px]">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-white/10 bg-[#1e2330]">
           <DialogTitle className="text-lg font-bold">{mockData.name}</DialogTitle>
