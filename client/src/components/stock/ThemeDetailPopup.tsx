@@ -34,7 +34,7 @@ export default function ThemeDetailPopup({ isOpen, onClose, themeName }: ThemeDe
 
   return (
     <Dialog open={isOpen} onOpenChange={onClose}>
-      <DialogContent className="max-w-2xl bg-[#151921] border-white/10 text-white p-0 gap-0 shadow-2xl hide-close-button overflow-hidden">
+      <DialogContent className="max-w-[450px] bg-[#151921] border-white/10 text-white p-0 gap-0 shadow-2xl hide-close-button overflow-hidden flex flex-col h-[600px]">
         {/* Header */}
         <div className="flex items-center justify-between p-4 border-b border-white/10 bg-[#1e2330]">
           <DialogTitle className="text-lg font-bold">{mockData.name}</DialogTitle>
@@ -46,23 +46,23 @@ export default function ThemeDetailPopup({ isOpen, onClose, themeName }: ThemeDe
           </button>
         </div>
 
-        <div className="p-6 md:p-8 max-h-[80vh] overflow-y-auto custom-scrollbar">
+        <div className="p-5 flex-1 overflow-hidden flex flex-col">
           {/* Theme Info */}
-          <div className="mb-8">
-            <h2 className="text-3xl font-bold mb-2">{mockData.name}</h2>
-            <p className="text-sm text-gray-400 mb-6">{mockData.stockCount}개 종목</p>
-            <p className="text-sm text-gray-300 leading-relaxed break-keep">
+          <div className="mb-4 shrink-0">
+            <h2 className="text-xl font-bold mb-1">{mockData.name}</h2>
+            <p className="text-xs text-gray-400 mb-2">{mockData.stockCount}개 종목</p>
+            <p className="text-xs text-gray-300 leading-relaxed break-keep line-clamp-3">
               {mockData.description}
             </p>
           </div>
 
           {/* Performance Grid */}
-          <div className="grid grid-cols-4 gap-2 md:gap-4 mb-8">
+          <div className="grid grid-cols-4 gap-2 mb-4 shrink-0">
             {mockData.performance.map((item, index) => (
-              <div key={index} className="bg-[#1e2330] rounded-lg p-4 flex flex-col items-center justify-center border border-white/5">
-                <span className="text-xs text-gray-400 mb-2">{item.label}</span>
+              <div key={index} className="bg-[#1e2330] rounded-lg p-2.5 flex flex-col items-center justify-center border border-white/5">
+                <span className="text-[10px] text-gray-400 mb-1">{item.label}</span>
                 <span className={cn(
-                  "text-lg md:text-xl font-bold font-display",
+                  "text-sm font-bold font-display",
                   item.isPositive ? "text-red-500" : "text-blue-500"
                 )}>
                   {item.value}
@@ -72,41 +72,43 @@ export default function ThemeDetailPopup({ isOpen, onClose, themeName }: ThemeDe
           </div>
 
           {/* Stock List */}
-          <div className="space-y-1">
-            {mockData.stocks.map((stock) => (
-              <div 
-                key={stock.id} 
-                className="flex items-center justify-between p-3 md:p-4 rounded-lg hover:bg-white/5 transition-colors group cursor-pointer border border-transparent hover:border-white/10"
-              >
-                <div className="flex items-center gap-4">
-                  <span className="text-sm font-bold text-gray-500 w-4 text-center">{stock.id}</span>
-                  <div className={cn("w-10 h-10 rounded-full flex items-center justify-center text-white font-bold text-xs shadow-md", stock.logo)}>
-                    {stock.name.substring(0, 1)}
+          <div className="flex-1 overflow-y-auto custom-scrollbar pr-2 mt-2">
+            <div className="space-y-0">
+              {mockData.stocks.map((stock) => (
+                <div 
+                  key={stock.id} 
+                  className="flex items-center justify-between py-2 px-1 rounded hover:bg-white/5 transition-colors group cursor-pointer border border-transparent hover:border-white/10"
+                >
+                  <div className="flex items-center gap-3">
+                    <span className="text-xs font-bold text-gray-500 w-4 text-center">{stock.id}</span>
+                    <div className={cn("w-7 h-7 rounded flex items-center justify-center text-white font-bold text-[10px] shadow-sm", stock.logo)}>
+                      {stock.name.substring(0, 1)}
+                    </div>
+                    <span className="font-bold text-sm group-hover:text-primary transition-colors">{stock.name}</span>
                   </div>
-                  <span className="font-bold text-base md:text-lg group-hover:text-primary transition-colors">{stock.name}</span>
-                </div>
-                
-                <div className="flex items-center gap-6">
-                  <div className="flex flex-col items-end">
-                    <span className="font-bold text-base">{stock.price}</span>
-                    <span className={cn(
-                      "text-xs font-medium flex items-center gap-1",
+                  
+                  <div className="flex items-center gap-4">
+                    <div className="flex flex-col items-end">
+                      <span className="font-bold text-sm">{stock.price}</span>
+                      <span className={cn(
+                        "text-[10px] font-medium flex items-center gap-1",
+                        stock.isPositive === true ? "text-red-500" : 
+                        stock.isPositive === false ? "text-blue-500" : "text-gray-400"
+                      )}>
+                        {stock.changeValue}
+                      </span>
+                    </div>
+                    <div className={cn(
+                      "w-14 text-right font-bold text-xs",
                       stock.isPositive === true ? "text-red-500" : 
                       stock.isPositive === false ? "text-blue-500" : "text-gray-400"
                     )}>
-                      {stock.changeValue}
-                    </span>
-                  </div>
-                  <div className={cn(
-                    "w-20 text-right font-bold text-sm md:text-base",
-                    stock.isPositive === true ? "text-red-500" : 
-                    stock.isPositive === false ? "text-blue-500" : "text-gray-400"
-                  )}>
-                    {stock.change}
+                      {stock.change}
+                    </div>
                   </div>
                 </div>
-              </div>
-            ))}
+              ))}
+            </div>
           </div>
         </div>
       </DialogContent>
