@@ -5,6 +5,7 @@ import { Input } from "@/components/ui/input";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import { cn } from "@/lib/utils";
 import StockDetailView from "@/components/stock/StockDetailView";
+import ThemeDetailPopup from "@/components/stock/ThemeDetailPopup";
 import { 
   Star, 
   Download, 
@@ -97,9 +98,15 @@ const stocks = [
 export default function StockPage() {
   const [filter, setFilter] = useState("volume"); // volume, amount, cap, change
   const [selectedStock, setSelectedStock] = useState<typeof stocks[0] | null>(null);
+  const [selectedThemePopup, setSelectedThemePopup] = useState<string | null>(null);
 
   return (
     <DashboardLayout>
+      <ThemeDetailPopup 
+        isOpen={selectedThemePopup !== null} 
+        onClose={() => setSelectedThemePopup(null)} 
+        themeName={selectedThemePopup || ""} 
+      />
       <div className="flex h-[calc(100vh-4rem)] bg-[#0B0E14] text-gray-200 font-sans overflow-hidden">
         
         {/* Left Sidebar */}
@@ -133,7 +140,11 @@ export default function StockPage() {
             <ScrollArea className="flex-1 px-2">
               <div className="space-y-0.5 pb-4">
                 {themes.map((theme, idx) => (
-                  <div key={idx} className="flex items-center justify-between px-3 py-2.5 rounded hover:bg-white/5 cursor-pointer group">
+                  <div 
+                    key={idx} 
+                    className="flex items-center justify-between px-3 py-2.5 rounded hover:bg-white/5 cursor-pointer group"
+                    onClick={() => setSelectedThemePopup(theme.name)}
+                  >
                     <div className="flex items-center gap-3 overflow-hidden">
                       <div className="w-6 h-6 rounded-full bg-gray-800 flex items-center justify-center shrink-0 group-hover:bg-gray-700">
                         <theme.icon className="w-3.5 h-3.5 text-gray-400 group-hover:text-white" />

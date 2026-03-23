@@ -1,8 +1,10 @@
+import { useState } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ScrollArea, ScrollBar } from "@/components/ui/scroll-area";
 import { Plug, Bot, Printer, Globe, Tractor, Factory, CircuitBoard, Pill, Rocket, Gamepad, Wind, Car } from "lucide-react";
 import { cn } from "@/lib/utils";
+import ThemeDetailPopup from "../stock/ThemeDetailPopup";
 
 const themes = [
   {
@@ -163,8 +165,15 @@ const themes = [
 ];
 
 export default function TrendingThemes() {
+  const [selectedTheme, setSelectedTheme] = useState<string | null>(null);
+
   return (
     <div className="space-y-4">
+      <ThemeDetailPopup 
+        isOpen={selectedTheme !== null} 
+        onClose={() => setSelectedTheme(null)} 
+        themeName={selectedTheme || ""} 
+      />
       <div className="flex items-center justify-between">
          <div className="space-y-1">
             <h2 className="text-lg font-bold font-display flex items-center gap-2">
@@ -176,7 +185,11 @@ export default function TrendingThemes() {
       <ScrollArea className="w-full whitespace-nowrap pb-4">
         <div className="flex gap-4">
           {themes.map((theme, i) => (
-            <Card key={i} className="min-w-[280px] w-[280px] bg-card/40 border-border/50 hover:bg-card/60 transition-colors group overflow-hidden">
+            <Card 
+              key={i} 
+              className="min-w-[280px] w-[280px] bg-card/40 border-border/50 hover:bg-card/60 transition-colors group overflow-hidden cursor-pointer"
+              onClick={() => setSelectedTheme(theme.name)}
+            >
               {/* Featured Image Area */}
               <div className={cn("h-32 relative flex items-center justify-center overflow-hidden", theme.color)}>
                  <div className="absolute inset-0 bg-black/20" />
