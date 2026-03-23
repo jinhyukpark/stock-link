@@ -178,8 +178,8 @@ export default function FearGreedIndex() {
                           <div className="w-full md:w-1/4 shrink-0">
                             <div className="bg-[#8b5cf6] rounded-xl p-6 flex flex-col items-center justify-center text-white h-full min-h-[140px]">
                               <span className="text-[100px] font-bold font-display leading-none mb-1">33</span>
-                              <span className="text-lg font-medium opacity-90">공포 지수</span>
-                              <span className="text-base font-medium opacity-90">(1주일)</span>
+                              <span className="text-base font-medium opacity-90">공포 지수</span>
+                              <span className="text-sm font-medium opacity-90">(1주일)</span>
                             </div>
                           </div>
                           <div className="flex-1 space-y-3">
@@ -207,26 +207,26 @@ export default function FearGreedIndex() {
 
                         <div className="bg-[#1e2330] rounded-xl p-6 space-y-6">
                           <div>
-                            <h5 className="text-[24px] font-bold text-white mb-2">1. 포트폴리오 다각화</h5>
-                            <p className="text-[18px] text-gray-400 leading-relaxed break-keep">
+                            <h5 className="text-base font-bold text-white mb-2">1. 포트폴리오 다각화</h5>
+                            <p className="text-sm text-gray-400 leading-relaxed break-keep">
                               다양한 자산군에 투자하여 리스크를 분산시키는 전략을 고려하세요. 주식뿐만 아니라 채권, 금, 부동산 등 다양한 자산에 투자함으로써 시장의 변동성에 대비할 수 있습니다.
                             </p>
                           </div>
                           <div>
-                            <h5 className="text-[24px] font-bold text-white mb-2">2. 방어적 투자</h5>
-                            <p className="text-[18px] text-gray-400 leading-relaxed break-keep">
+                            <h5 className="text-base font-bold text-white mb-2">2. 방어적 투자</h5>
+                            <p className="text-sm text-gray-400 leading-relaxed break-keep">
                               시장의 불확실성이 높아지는 상황에서는 방어적 섹터에 투자하는 것이 유리할 수 있습니다. 필수 소비재, 헬스케어 등 경기 변동에 덜 민감한 섹터에 집중하여 안정성을 확보하세요.
                             </p>
                           </div>
                           <div>
-                            <h5 className="text-[24px] font-bold text-white mb-2">3. 기술적 분석 활용</h5>
-                            <p className="text-[18px] text-gray-400 leading-relaxed break-keep">
+                            <h5 className="text-base font-bold text-white mb-2">3. 기술적 분석 활용</h5>
+                            <p className="text-sm text-gray-400 leading-relaxed break-keep">
                               최근 기울기와 같은 기술적 지표를 활용하여 시장의 심리적 변화를 모니터링하고, 매수 및 매도 시점을 판단하는 데 도움을 받을 수 있습니다.
                             </p>
                           </div>
                           <div>
-                            <h5 className="text-[24px] font-bold text-white mb-2">4. 현금 비중 확대</h5>
-                            <p className="text-[18px] text-gray-400 leading-relaxed break-keep">
+                            <h5 className="text-base font-bold text-white mb-2">4. 현금 비중 확대</h5>
+                            <p className="text-sm text-gray-400 leading-relaxed break-keep">
                               시장의 불확실성이 높아질 때는 현금 비중을 늘려 유동성을 확보하는 것이 중요합니다. 이는 급격한 시장 변동에 대비할 수 있는 안전장치가 될 수 있습니다.
                             </p>
                           </div>
@@ -239,8 +239,8 @@ export default function FearGreedIndex() {
                           <div className="w-full md:w-1/4 shrink-0">
                             <div className="bg-[#8b5cf6] rounded-xl p-6 flex flex-col items-center justify-center text-white h-full min-h-[140px]">
                               <span className="text-[100px] font-bold font-display leading-none mb-1">28</span>
-                              <span className="text-lg font-medium opacity-90">공포 지수</span>
-                              <span className="text-base font-medium opacity-90">(1달)</span>
+                              <span className="text-base font-medium opacity-90">공포 지수</span>
+                              <span className="text-sm font-medium opacity-90">(1달)</span>
                             </div>
                           </div>
                           <div className="flex-1 space-y-3">
@@ -268,20 +268,20 @@ export default function FearGreedIndex() {
 
                         <div className="bg-[#1e2330] rounded-xl p-6 space-y-6">
                           <div>
-                            <h5 className="text-[24px] font-bold text-white mb-2">1. 리스크 관리 우선</h5>
-                            <p className="text-[18px] text-gray-400 leading-relaxed break-keep">
+                            <h5 className="text-base font-bold text-white mb-2">1. 리스크 관리 우선</h5>
+                            <p className="text-sm text-gray-400 leading-relaxed break-keep">
                               손절매 라인을 명확히 설정하고, 변동성이 큰 자산의 비중을 축소하여 포트폴리오의 안정성을 높이세요.
                             </p>
                           </div>
                           <div>
-                            <h5 className="text-[24px] font-bold text-white mb-2">2. 우량주 중심의 관심</h5>
-                            <p className="text-[18px] text-gray-400 leading-relaxed break-keep">
+                            <h5 className="text-base font-bold text-white mb-2">2. 우량주 중심의 관심</h5>
+                            <p className="text-sm text-gray-400 leading-relaxed break-keep">
                               시장이 안정화될 때 반등 탄력이 좋을 수 있는 재무 구조가 탄탄하고 배당 수익률이 높은 우량주 위주로 관심 종목을 압축하세요.
                             </p>
                           </div>
                           <div>
-                            <h5 className="text-[24px] font-bold text-white mb-2">3. 분할 매수 고려</h5>
-                            <p className="text-[18px] text-gray-400 leading-relaxed break-keep">
+                            <h5 className="text-base font-bold text-white mb-2">3. 분할 매수 고려</h5>
+                            <p className="text-sm text-gray-400 leading-relaxed break-keep">
                               장기적인 관점에서 접근한다면, 극단적인 공포 구간은 저가 매수의 기회가 될 수 있습니다. 한 번에 큰 금액을 투자하기보다는 일정 기간 동안 분할 매수하는 전략을 고려해볼 수 있습니다.
                             </p>
                           </div>
@@ -294,8 +294,8 @@ export default function FearGreedIndex() {
                           <div className="w-full md:w-1/4 shrink-0">
                             <div className="bg-[#a855f7] rounded-xl p-6 flex flex-col items-center justify-center text-white h-full min-h-[140px]">
                               <span className="text-[100px] font-bold font-display leading-none mb-1">51</span>
-                              <span className="text-lg font-medium opacity-90">중립 지수</span>
-                              <span className="text-base font-medium opacity-90">(3개월)</span>
+                              <span className="text-base font-medium opacity-90">중립 지수</span>
+                              <span className="text-sm font-medium opacity-90">(3개월)</span>
                             </div>
                           </div>
                           <div className="flex-1 space-y-3">
@@ -323,20 +323,20 @@ export default function FearGreedIndex() {
 
                         <div className="bg-[#1e2330] rounded-xl p-6 space-y-6">
                           <div>
-                            <h5 className="text-[24px] font-bold text-white mb-2">1. 개별 종목 선별 강화</h5>
-                            <p className="text-[18px] text-gray-400 leading-relaxed break-keep">
+                            <h5 className="text-base font-bold text-white mb-2">1. 개별 종목 선별 강화</h5>
+                            <p className="text-sm text-gray-400 leading-relaxed break-keep">
                               섹터 전체의 움직임보다는 실적 개선세가 뚜렷하거나 새로운 성장 동력을 확보한 개별 기업을 발굴하는 데 집중하세요.
                             </p>
                           </div>
                           <div>
-                            <h5 className="text-[24px] font-bold text-white mb-2">2. 밸류에이션 점검</h5>
-                            <p className="text-[18px] text-gray-400 leading-relaxed break-keep">
+                            <h5 className="text-base font-bold text-white mb-2">2. 밸류에이션 점검</h5>
+                            <p className="text-sm text-gray-400 leading-relaxed break-keep">
                               현재 보유 중인 종목의 밸류에이션을 재점검하고, 고평가된 종목은 비중을 축소하여 현금을 확보해 두는 것도 좋은 전략입니다.
                             </p>
                           </div>
                           <div>
-                            <h5 className="text-[24px] font-bold text-white mb-2">3. 트레이딩 관점 접근</h5>
-                            <p className="text-[18px] text-gray-400 leading-relaxed break-keep">
+                            <h5 className="text-base font-bold text-white mb-2">3. 트레이딩 관점 접근</h5>
+                            <p className="text-sm text-gray-400 leading-relaxed break-keep">
                               박스권 장세에서는 지지선과 저항선을 활용한 짧은 호흡의 트레이딩이 유효할 수 있습니다. 단, 확실한 추세 이탈 시에는 빠르게 대응해야 합니다.
                             </p>
                           </div>
@@ -349,8 +349,8 @@ export default function FearGreedIndex() {
                           <div className="w-full md:w-1/4 shrink-0">
                             <div className="bg-[#a855f7] rounded-xl p-6 flex flex-col items-center justify-center text-white h-full min-h-[140px]">
                               <span className="text-[100px] font-bold font-display leading-none mb-1">52</span>
-                              <span className="text-lg font-medium opacity-90">중립 지수</span>
-                              <span className="text-base font-medium opacity-90">(6개월)</span>
+                              <span className="text-base font-medium opacity-90">중립 지수</span>
+                              <span className="text-sm font-medium opacity-90">(6개월)</span>
                             </div>
                           </div>
                           <div className="flex-1 space-y-3">
@@ -378,20 +378,20 @@ export default function FearGreedIndex() {
 
                         <div className="bg-[#1e2330] rounded-xl p-6 space-y-6">
                           <div>
-                            <h5 className="text-[24px] font-bold text-white mb-2">1. 장기 메가트렌드 투자</h5>
-                            <p className="text-[18px] text-gray-400 leading-relaxed break-keep">
+                            <h5 className="text-base font-bold text-white mb-2">1. 장기 메가트렌드 투자</h5>
+                            <p className="text-sm text-gray-400 leading-relaxed break-keep">
                               단기적인 지수 변동에 흔들리지 않고, 인공지능(AI), 친환경 에너지 등 3~5년 이상 지속될 장기 성장 트렌드에 꾸준히 투자하는 핵심 자산 비중을 유지하세요.
                             </p>
                           </div>
                           <div>
-                            <h5 className="text-[24px] font-bold text-white mb-2">2. 유연한 자산 배분</h5>
-                            <p className="text-[18px] text-gray-400 leading-relaxed break-keep">
+                            <h5 className="text-base font-bold text-white mb-2">2. 유연한 자산 배분</h5>
+                            <p className="text-sm text-gray-400 leading-relaxed break-keep">
                               나머지 전술적 자산은 금리 인하 기대감 축소나 지정학적 리스크 부각 등 시장의 단기 이벤트에 따라 유연하게 대응할 수 있도록 일정 부분 유동성을 확보해 두는 것이 좋습니다.
                             </p>
                           </div>
                           <div>
-                            <h5 className="text-[24px] font-bold text-white mb-2">3. 배당 수익률 확인</h5>
-                            <p className="text-[18px] text-gray-400 leading-relaxed break-keep">
+                            <h5 className="text-base font-bold text-white mb-2">3. 배당 수익률 확인</h5>
+                            <p className="text-sm text-gray-400 leading-relaxed break-keep">
                               지수 상승을 통한 자본 이득(Capital Gain)이 제한적일 수 있으므로, 안정적인 인컴(Income) 수익을 창출할 수 있는 고배당주에 대한 투자를 포트폴리오에 포함시키는 것을 권장합니다.
                             </p>
                           </div>
