@@ -2,6 +2,9 @@ import { useState, useRef, useEffect } from "react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Slider } from "@/components/ui/slider";
+import { Switch } from "@/components/ui/switch";
+import { Dialog, DialogContent, DialogTitle, DialogDescription } from "@/components/ui/dialog";
 import { 
   Star, 
   Search, 
@@ -12,7 +15,8 @@ import {
   Loader2,
   X,
   Info,
-  ChevronsUpDown
+  ChevronsUpDown,
+  SlidersHorizontal
 } from "lucide-react";
 import {
   Select,
@@ -60,6 +64,7 @@ export default function MomentumView() {
   const [stocks, setStocks] = useState(initialMockStocks);
   const [isLoading, setIsLoading] = useState(false);
   const [showDescription, setShowDescription] = useState(true);
+  const [isFilterOpen, setIsFilterOpen] = useState(false);
   const loaderRef = useRef(null);
 
   // Infinite Scroll Implementation
@@ -159,6 +164,103 @@ export default function MomentumView() {
               <Search className="w-4 h-4" />
             </Button>
           </div>
+
+          <Dialog open={isFilterOpen} onOpenChange={setIsFilterOpen}>
+            <Button 
+              variant="outline" 
+              className="h-9 border-white/10 bg-[#0B0E14] hover:bg-white/5 text-xs text-gray-300 gap-2 px-3"
+              onClick={() => setIsFilterOpen(true)}
+            >
+              <SlidersHorizontal className="w-4 h-4 text-primary" />
+              필터
+            </Button>
+            <DialogContent className="max-w-[400px] bg-[#151921] border-white/10 text-white p-6 shadow-2xl [&>button]:right-4 [&>button]:top-4 [&>button]:text-gray-400 [&>button:hover]:text-white [&>button]:bg-transparent [&>button:hover]:bg-white/10 [&>button]:w-8 [&>button]:h-8 [&>button]:flex [&>button]:items-center [&>button]:justify-center [&>button]:rounded-full [&>button]:transition-colors">
+              <div className="mb-6">
+                <DialogTitle className="text-lg font-bold mb-1">모멘텀 필터 설정</DialogTitle>
+                <DialogDescription className="text-xs text-gray-400">
+                  모멘텀 분석 조건을 설정해보세요.
+                </DialogDescription>
+              </div>
+
+              <div className="space-y-6">
+                {/* 주가범위 */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">주가범위</span>
+                    <span className="text-xs text-primary font-medium">1만 80원 ~ 255만</span>
+                  </div>
+                  <Slider
+                    defaultValue={[20, 80]}
+                    max={100}
+                    step={1}
+                    className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:border-primary [&_[role=slider]]:border-2 [&_[role=slider]]:bg-[#151921] [&_.bg-primary]:bg-primary [&_.bg-secondary]:bg-[#1e2330]"
+                  />
+                </div>
+
+                {/* 거래량 */}
+                <div className="space-y-4">
+                  <div className="flex items-center justify-between">
+                    <span className="text-sm font-medium">거래량 <span className="text-xs text-gray-400 font-normal">(일일)</span></span>
+                    <span className="text-xs text-primary font-medium">0주 ~ 79,442,507주</span>
+                  </div>
+                  <Slider
+                    defaultValue={[0, 100]}
+                    max={100}
+                    step={1}
+                    className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:border-primary [&_[role=slider]]:border-2 [&_[role=slider]]:bg-[#151921] [&_.bg-primary]:bg-primary [&_.bg-secondary]:bg-[#1e2330]"
+                  />
+                </div>
+
+                <div className="pt-2 border-t border-white/5 space-y-6">
+                  {/* 외국인 순매수 */}
+                  <div className="space-y-4">
+                    <div className="flex items-center justify-between mb-2">
+                      <span className="text-sm font-bold text-gray-300">재무 건전성</span>
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">외국인 순매수 지속</span>
+                      <span className="text-xs text-primary font-medium">0일 ~ 10일</span>
+                    </div>
+                    <Slider
+                      defaultValue={[0, 100]}
+                      max={100}
+                      step={1}
+                      className="[&_[role=slider]]:h-4 [&_[role=slider]]:w-4 [&_[role=slider]]:border-primary [&_[role=slider]]:border-2 [&_[role=slider]]:bg-[#151921] [&_.bg-primary]:bg-primary [&_.bg-secondary]:bg-[#1e2330]"
+                    />
+                  </div>
+
+                  {/* 스위치 항목들 */}
+                  <div className="space-y-4 pt-2">
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">영업이익 흑자 <span className="text-xs text-gray-400 font-normal">(최근 1년)</span></span>
+                      <Switch className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-[#1e2330]" />
+                    </div>
+                    <div className="flex items-center justify-between">
+                      <span className="text-sm font-medium">부채비율 200% 이하</span>
+                      <Switch className="data-[state=checked]:bg-primary data-[state=unchecked]:bg-[#1e2330]" />
+                    </div>
+                  </div>
+                </div>
+
+                {/* 하단 버튼 */}
+                <div className="flex items-center justify-end gap-2 pt-4 border-t border-white/5 mt-6">
+                  <Button 
+                    variant="ghost" 
+                    className="h-9 px-4 text-xs text-gray-400 hover:text-white hover:bg-white/5 border border-transparent"
+                    onClick={() => {}}
+                  >
+                    초기화
+                  </Button>
+                  <Button 
+                    className="h-9 px-6 text-xs bg-[#2A303C] hover:bg-[#3A404C] text-white border border-white/10 shadow-none transition-colors"
+                    onClick={() => setIsFilterOpen(false)}
+                  >
+                    적용
+                  </Button>
+                </div>
+              </div>
+            </DialogContent>
+          </Dialog>
 
           <Button size="icon" variant="outline" className="h-9 w-9 border-white/10 bg-[#0B0E14] hover:bg-white/5">
             <RotateCw className="w-4 h-4 text-gray-400" />
