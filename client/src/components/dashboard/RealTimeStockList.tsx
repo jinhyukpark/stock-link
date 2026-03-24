@@ -125,7 +125,7 @@ export default function RealTimeStockList() {
                               window.location.hash = '/subscription';
                            }}
                            size="sm" 
-                           className="h-8 w-full max-w-[110px] bg-blue-600 hover:bg-blue-500 text-white border-none flex items-center justify-center gap-1.5 rounded-lg shadow-[0_0_15px_rgba(37,99,235,0.4)] transition-all font-bold group-hover:-translate-y-0.5"
+                           className="h-8 w-full max-w-[110px] bg-[#1E2330] hover:bg-[#2A303C] text-blue-400 border border-blue-500/20 flex items-center justify-center gap-1.5 rounded-lg shadow-none transition-all font-medium"
                         >
                            <Lock className="w-3.5 h-3.5" />
                            <span className="text-[11px]">Business</span>
