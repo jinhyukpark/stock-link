@@ -117,47 +117,19 @@ export default function RealTimeStockList() {
                         {stock.volume}
                      </div>
 
-                     {/* AI Score Column */}
-                     <div className="col-span-4 md:col-span-3 flex items-center justify-end relative group/score">
-                        {/* Premium Block Overlay (shows on hover/always depending on auth state - currently mocked for mockup) */}
-                        <div className="absolute inset-0 z-10 flex items-center justify-end">
-                           <Button 
-                              onClick={() => window.location.hash = '/subscription'}
-                              size="sm" 
-                              className="h-7 bg-primary/20 hover:bg-primary/30 text-primary border border-primary/30 px-2 flex items-center gap-1 shadow-[0_0_15px_rgba(126,231,210,0.15)] rounded-md opacity-90 hover:opacity-100 transition-opacity"
-                           >
-                              <Lock className="w-3 h-3" />
-                              <span className="text-[10px] font-bold">Business Plan</span>
-                           </Button>
-                        </div>
-                        
-                        {/* Blurred Score Content */}
-                        <div className={cn(
-                           "flex items-center justify-between gap-3 py-1 px-2.5 rounded-lg border w-full max-w-[110px] backdrop-blur-md transition-all opacity-40 blur-[3px] select-none",
-                           stock.aiScore >= 9.0 ? "bg-blue-500/10 border-blue-500/30 shadow-[0_0_10px_rgba(59,130,246,0.1)]" :
-                           stock.aiScore >= 7.0 ? "bg-primary/10 border-primary/20" :
-                           stock.aiScore >= 5.0 ? "bg-yellow-500/5 border-yellow-500/10" :
-                           "bg-muted/10 border-white/5"
-                        )}>
-                           <div className="h-1.5 flex-1 bg-black/40 rounded-full overflow-hidden hidden sm:block max-w-[40px]">
-                              <div 
-                                 className={cn("h-full rounded-full", 
-                                    stock.aiScore >= 9.0 ? "bg-blue-400" :
-                                    stock.aiScore >= 7.0 ? "bg-primary" : 
-                                    stock.aiScore >= 5.0 ? "bg-yellow-500" : "bg-muted-foreground"
-                                 )} 
-                                 style={{ width: `${(stock.aiScore / 10) * 100}%` }}
-                              />
-                           </div>
-                           <span className={cn(
-                              "font-mono font-bold text-sm ml-auto",
-                              stock.aiScore >= 9.0 ? "text-blue-400" :
-                              stock.aiScore >= 7.0 ? "text-primary" : 
-                              stock.aiScore >= 5.0 ? "text-yellow-500" : "text-muted-foreground"
-                           )}>
-                              {stock.aiScore}
-                           </span>
-                        </div>
+                     {/* AI Score Column - Premium Locked */}
+                     <div className="col-span-4 md:col-span-3 flex items-center justify-end">
+                        <Button 
+                           onClick={(e) => {
+                              e.stopPropagation();
+                              window.location.hash = '/subscription';
+                           }}
+                           size="sm" 
+                           className="h-8 w-full max-w-[110px] bg-gradient-to-r from-[#7EE7D2] to-[#5BC2A8] hover:from-[#6CD6C1] hover:to-[#4AB197] text-[#0B0E14] border-none flex items-center justify-center gap-1.5 rounded-lg shadow-[0_0_10px_rgba(126,231,210,0.2)] hover:shadow-[0_0_20px_rgba(126,231,210,0.4)] transition-all font-bold group-hover:-translate-y-0.5"
+                        >
+                           <Lock className="w-3.5 h-3.5" />
+                           <span className="text-xs">Business</span>
+                        </Button>
                      </div>
                   </div>
                ))}
