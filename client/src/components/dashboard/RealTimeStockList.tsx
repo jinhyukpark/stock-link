@@ -6,6 +6,27 @@ import { Star, ChevronRight, Info, Sparkles, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+const getScoreColor = (score: number) => {
+  // score is 0 to 10
+  // blue: #3b82f6 (59, 130, 246)
+  // purple: #a855f7 (168, 85, 247) 
+  // red: #ef4444 (239, 68, 68)
+  
+  let r, g, b;
+  if (score <= 5) {
+    const ratio = score / 5;
+    r = Math.round(59 + (168 - 59) * ratio);
+    g = Math.round(130 + (85 - 130) * ratio);
+    b = Math.round(246 + (247 - 246) * ratio);
+  } else {
+    const ratio = (score - 5) / 5;
+    r = Math.round(168 + (239 - 168) * ratio);
+    g = Math.round(85 + (68 - 85) * ratio);
+    b = Math.round(247 + (68 - 247) * ratio);
+  }
+  return `rgb(${r}, ${g}, ${b})`;
+};
+
 const stockData = [
   { rank: 1, name: "SK Hynix", code: "000660", price: "164,000", change: "+6.84%", volume: "2.6T", isFavorite: true, icon: "SK", aiScore: 9.2 },
   { rank: 2, name: "Samsung Elec", code: "005930", price: "72,500", change: "+2.14%", volume: "1.2T", isFavorite: true, icon: "S", aiScore: 8.5 },
@@ -119,31 +140,22 @@ export default function RealTimeStockList() {
 
                      {/* AI Score Column */}
                      <div className="col-span-4 md:col-span-3 flex items-center justify-end">
-                        <div className={cn(
-                           "flex items-center gap-1.5 px-2 py-1 rounded border backdrop-blur-sm transition-all group-hover:bg-white/10",
-                           stock.aiScore >= 9.0 ? "bg-blue-500/10 border-blue-500/30 shadow-[0_0_10px_rgba(59,130,246,0.1)]" :
-                           stock.aiScore >= 7.0 ? "bg-[#7EE7D2]/10 border-[#7EE7D2]/20" :
-                           stock.aiScore >= 5.0 ? "bg-yellow-500/5 border-yellow-500/10" :
-                           "bg-muted/10 border-white/5"
-                        )}>
-                           <Sparkles className={cn("w-3 h-3", 
-                              stock.aiScore >= 9.0 ? "text-blue-400 animate-pulse" : 
-                              stock.aiScore >= 7.0 ? "text-[#7EE7D2]" : 
-                              stock.aiScore >= 5.0 ? "text-yellow-400" : "text-muted-foreground"
-                           )} />
+                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#151921] border border-white/5 backdrop-blur-sm transition-all group-hover:bg-white/5">
+                           <Sparkles 
+                              className={cn(
+                                 "w-3.5 h-3.5",
+                                 stock.aiScore >= 8.5 && "animate-pulse"
+                              )} 
+                              style={{ color: getScoreColor(stock.aiScore) }}
+                           />
                            <div className="font-mono flex items-baseline">
-                              <span className="text-muted-foreground/40 text-[10px] mr-0.5">[</span>
-                              <span className={cn(
-                                 "font-bold text-[13px] tracking-tight",
-                                 stock.aiScore >= 9.0 ? "text-blue-400" :
-                                 stock.aiScore >= 7.0 ? "text-[#7EE7D2]" :
-                                 stock.aiScore >= 5.0 ? "text-yellow-400" :
-                                 "text-gray-400"
-                              )}>
+                              <span 
+                                 className="font-bold text-[14px] tracking-tight"
+                                 style={{ color: getScoreColor(stock.aiScore) }}
+                              >
                                  {(stock.aiScore * 10).toFixed(1)}
                               </span>
-                              <span className="text-[10px] text-muted-foreground/60 ml-0.5">/100</span>
-                              <span className="text-muted-foreground/40 text-[10px] ml-0.5">]</span>
+                              <span className="text-[10px] text-muted-foreground/50 ml-0.5">/100</span>
                            </div>
                         </div>
                      </div>
