@@ -6,25 +6,33 @@ import { Star, ChevronRight, Info, Sparkles, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
-const getScoreColor = (score: number) => {
-  // score is 0 to 10
-  // blue: #3b82f6 (59, 130, 246)
-  // purple: #a855f7 (168, 85, 247) 
-  // red: #ef4444 (239, 68, 68)
-  
-  let r, g, b;
-  if (score <= 5) {
-    const ratio = score / 5;
-    r = Math.round(59 + (168 - 59) * ratio);
-    g = Math.round(130 + (85 - 130) * ratio);
-    b = Math.round(246 + (247 - 246) * ratio);
-  } else {
-    const ratio = (score - 5) / 5;
-    r = Math.round(168 + (239 - 168) * ratio);
-    g = Math.round(85 + (68 - 85) * ratio);
-    b = Math.round(247 + (68 - 247) * ratio);
-  }
-  return `rgb(${r}, ${g}, ${b})`;
+const getScoreClasses = (score: number) => {
+  const s = score * 10;
+  if (s >= 80) return {
+    badge: "bg-rose-500/20 border-rose-500/30",
+    text: "text-rose-400",
+    muted: "text-rose-400/50"
+  };
+  if (s >= 60) return {
+    badge: "bg-purple-500/20 border-purple-500/30",
+    text: "text-purple-400",
+    muted: "text-purple-400/50"
+  };
+  if (s >= 40) return {
+    badge: "bg-blue-500/20 border-blue-500/30",
+    text: "text-blue-400",
+    muted: "text-blue-400/50"
+  };
+  if (s >= 20) return {
+    badge: "bg-teal-500/20 border-teal-500/30",
+    text: "text-teal-400",
+    muted: "text-teal-400/50"
+  };
+  return {
+    badge: "bg-slate-500/20 border-slate-500/30",
+    text: "text-slate-400",
+    muted: "text-slate-400/50"
+  };
 };
 
 const stockData = [
@@ -140,22 +148,26 @@ export default function RealTimeStockList() {
 
                      {/* AI Score Column */}
                      <div className="col-span-4 md:col-span-3 flex items-center justify-end">
-                        <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md bg-[#151921] border border-white/5 backdrop-blur-sm transition-all group-hover:bg-white/5">
+                        <div 
+                           className={cn(
+                              "flex items-center gap-1.5 px-2.5 py-1 rounded-md border backdrop-blur-sm transition-all hover:brightness-110",
+                              getScoreClasses(stock.aiScore).badge
+                           )}
+                        >
                            <Sparkles 
                               className={cn(
                                  "w-3.5 h-3.5",
-                                 stock.aiScore >= 8.5 && "animate-pulse"
+                                 stock.aiScore >= 8.5 && "animate-pulse",
+                                 getScoreClasses(stock.aiScore).text
                               )} 
-                              style={{ color: getScoreColor(stock.aiScore) }}
                            />
                            <div className="font-mono flex items-baseline">
                               <span 
-                                 className="font-bold text-[14px] tracking-tight"
-                                 style={{ color: getScoreColor(stock.aiScore) }}
+                                 className={cn("font-bold text-[14px] tracking-tight", getScoreClasses(stock.aiScore).text)}
                               >
                                  {(stock.aiScore * 10).toFixed(1)}
                               </span>
-                              <span className="text-[10px] text-muted-foreground/50 ml-0.5">/100</span>
+                              <span className={cn("text-[10px] ml-0.5", getScoreClasses(stock.aiScore).muted)}>/100</span>
                            </div>
                         </div>
                      </div>
