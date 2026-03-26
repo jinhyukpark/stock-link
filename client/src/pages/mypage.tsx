@@ -24,6 +24,7 @@ import {
   Camera,
   FileText
 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { cn } from "@/lib/utils";
 
 export default function MyPage() {
@@ -169,8 +170,25 @@ export default function MyPage() {
                                                 <Input id="phone" defaultValue="+82 10-1234-5678" className="bg-[#0B0E14] border-white/10 text-white h-11" />
                                             </div>
                                             <div className="space-y-2">
-                                                <Label htmlFor="job" className="text-gray-300">직업 / 소속</Label>
-                                                <Input id="job" defaultValue="Professional Trader" className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                                <Label htmlFor="job" className="text-gray-300">직업</Label>
+                                                <Select defaultValue="trader">
+                                                    <SelectTrigger id="job" className="bg-[#0B0E14] border-white/10 text-white h-11">
+                                                        <SelectValue placeholder="직업을 선택하세요" />
+                                                    </SelectTrigger>
+                                                    <SelectContent className="bg-[#0B0E14] border-white/10 text-white">
+                                                        <SelectItem value="student">학생</SelectItem>
+                                                        <SelectItem value="worker">직장인</SelectItem>
+                                                        <SelectItem value="trader">전업 투자자</SelectItem>
+                                                        <SelectItem value="business">사업가</SelectItem>
+                                                        <SelectItem value="freelancer">프리랜서</SelectItem>
+                                                        <SelectItem value="none">무직</SelectItem>
+                                                        <SelectItem value="other">기타</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="company" className="text-gray-300">소속</Label>
+                                                <Input id="company" placeholder="소속을 입력하세요 (예: 학교명, 직장명)" className="bg-[#0B0E14] border-white/10 text-white h-11" />
                                             </div>
                                         </div>
                                         <div className="space-y-2">
