@@ -242,6 +242,18 @@ export default function CompareView() {
         </div>
 
         <div className="flex items-center gap-4 flex-wrap pt-1">
+          {selectedStocks.length > 0 && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-9 text-xs bg-red-500/10 border-red-500/30 text-red-400 hover:text-red-300 hover:bg-red-500/20 px-4 rounded-full font-medium"
+              onClick={() => setSelectedStocks([])}
+              title="전체 초기화"
+            >
+              초기화
+            </Button>
+          )}
+
           {selectedStocks.map((stock) => (
             <div 
               key={stock.id}
@@ -293,18 +305,6 @@ export default function CompareView() {
                   <Plus className="w-4 h-4" />
                   종목 추가
                 </Button>
-                
-                {selectedStocks.length > 0 && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="h-9 text-xs bg-red-500/10 border-red-500/30 text-red-400 hover:text-red-300 hover:bg-red-500/20 px-4 rounded-full font-medium ml-2"
-                    onClick={() => setSelectedStocks([])}
-                    title="전체 초기화"
-                  >
-                    초기화
-                  </Button>
-                )}
               </div>
             )}
             
