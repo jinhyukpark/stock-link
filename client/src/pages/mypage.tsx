@@ -25,10 +25,22 @@ import {
   FileText
 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
 export default function MyPage() {
   const [activeTab, setActiveTab] = useState("profile");
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const [showCancelDialog, setShowCancelDialog] = useState(false);
+
+  const handleCancelEdit = () => {
+    setShowCancelDialog(true);
+  };
+
+  const confirmCancelEdit = () => {
+    setShowCancelDialog(false);
+    setIsEditingProfile(false);
+  };
 
   return (
     <DashboardLayout>
@@ -152,14 +164,27 @@ export default function MyPage() {
                             {/* 1. Profile Info */}
                             <TabsContent value="profile" className="mt-0 space-y-6 h-full animate-in fade-in slide-in-from-bottom-2 duration-300">
                                 <div>
-                                    <h2 className="text-xl font-bold text-white mb-1">기본 정보</h2>
-                                    <p className="text-sm text-gray-400 mb-6">서비스에서 사용되는 기본 프로필 정보입니다.</p>
+                                    <div className="flex items-center justify-between mb-6">
+                                        <div>
+                                            <h2 className="text-xl font-bold text-white mb-1">기본 정보</h2>
+                                            <p className="text-sm text-gray-400">서비스에서 사용되는 기본 프로필 정보입니다.</p>
+                                        </div>
+                                        {!isEditingProfile && (
+                                            <Button 
+                                                variant="outline" 
+                                                className="border-white/10 bg-[#1e2330] hover:bg-white/5 text-white"
+                                                onClick={() => setIsEditingProfile(true)}
+                                            >
+                                                프로필 수정
+                                            </Button>
+                                        )}
+                                    </div>
                                     
                                     <div className="space-y-6 max-w-2xl">
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
                                                 <Label htmlFor="name" className="text-gray-300">이름</Label>
-                                                <Input id="name" defaultValue="Alex Morgan" className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                                <Input id="name" defaultValue="Alex Morgan" disabled={!isEditingProfile} className="bg-[#0B0E14] border-white/10 text-white h-11 disabled:opacity-70" />
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="email" className="text-gray-300">이메일</Label>
@@ -167,12 +192,12 @@ export default function MyPage() {
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="phone" className="text-gray-300">연락처</Label>
-                                                <Input id="phone" defaultValue="+82 10-1234-5678" className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                                <Input id="phone" defaultValue="+82 10-1234-5678" disabled={!isEditingProfile} className="bg-[#0B0E14] border-white/10 text-white h-11 disabled:opacity-70" />
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="job" className="text-gray-300">직업</Label>
-                                                <Select defaultValue="trader">
-                                                    <SelectTrigger id="job" className="bg-[#0B0E14] border-white/10 text-white h-11">
+                                                <Select defaultValue="trader" disabled={!isEditingProfile}>
+                                                    <SelectTrigger id="job" className="bg-[#0B0E14] border-white/10 text-white h-11 disabled:opacity-70">
                                                         <SelectValue placeholder="직업을 선택하세요" />
                                                     </SelectTrigger>
                                                     <SelectContent className="bg-[#0B0E14] border-white/10 text-white">
@@ -188,22 +213,57 @@ export default function MyPage() {
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="company" className="text-gray-300">소속</Label>
-                                                <Input id="company" placeholder="소속을 입력하세요 (예: 학교명, 직장명)" className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                                <Input id="company" defaultValue="StockLink Inc." placeholder="소속을 입력하세요 (예: 학교명, 직장명)" disabled={!isEditingProfile} className="bg-[#0B0E14] border-white/10 text-white h-11 disabled:opacity-70" />
                                             </div>
                                         </div>
                                         <div className="space-y-2">
                                             <Label htmlFor="bio" className="text-gray-300">자기소개</Label>
-                                            <Input id="bio" defaultValue="퀀트 투자와 알고리즘 트레이딩에 관심이 많습니다." className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                            <Input id="bio" defaultValue="퀀트 투자와 알고리즘 트레이딩에 관심이 많습니다." disabled={!isEditingProfile} className="bg-[#0B0E14] border-white/10 text-white h-11 disabled:opacity-70" />
                                         </div>
                                         
-                                        <div className="pt-4 flex justify-end">
-                                            <Button size="lg" className="bg-primary text-black hover:bg-primary/90 font-bold px-8">변경사항 저장</Button>
-                                        </div>
+                                        {isEditingProfile && (
+                                            <div className="pt-4 flex justify-end gap-3 animate-in fade-in duration-200">
+                                                <Button 
+                                                    variant="ghost" 
+                                                    size="lg" 
+                                                    className="text-gray-400 hover:text-white hover:bg-white/5 px-6"
+                                                    onClick={handleCancelEdit}
+                                                >
+                                                    취소
+                                                </Button>
+                                                <Button 
+                                                    size="lg" 
+                                                    className="bg-primary text-black hover:bg-primary/90 font-bold px-8"
+                                                    onClick={() => setIsEditingProfile(false)}
+                                                >
+                                                    변경사항 저장
+                                                </Button>
+                                            </div>
+                                        )}
                                         
-
                                     </div>
                                 </div>
                             </TabsContent>
+
+                            {/* Cancel Edit Dialog */}
+                            <Dialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
+                                <DialogContent className="bg-[#151921] border-white/10 text-white sm:max-w-md">
+                                    <DialogHeader>
+                                        <DialogTitle>프로필 수정 취소</DialogTitle>
+                                        <DialogDescription className="text-gray-400">
+                                            변경 사항이 저장되지 않습니다. 프로필 수정을 취소하시겠습니까?
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <DialogFooter className="mt-4 flex gap-2 sm:justify-end">
+                                        <Button variant="ghost" onClick={() => setShowCancelDialog(false)} className="text-gray-400 hover:text-white hover:bg-white/5">
+                                            계속 수정하기
+                                        </Button>
+                                        <Button onClick={confirmCancelEdit} className="bg-red-500 hover:bg-red-600 text-white">
+                                            네, 취소합니다
+                                        </Button>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
 
                             {/* 2. Change Password */}
                             <TabsContent value="password" className="mt-0 h-full animate-in fade-in slide-in-from-bottom-2 duration-300">
