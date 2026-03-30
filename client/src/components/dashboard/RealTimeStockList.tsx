@@ -6,6 +6,33 @@ import { Star, ChevronRight, Info, Sparkles, Lock } from "lucide-react";
 import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
+const getScoreClasses = (score: number) => {
+  // 90~100 (9.0~10.0): Red
+  if (score >= 9.0) return {
+    badge: "border-red-500/40 bg-transparent",
+    text: "text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]",
+    muted: "text-red-500/70"
+  };
+  // 70~90 (7.0~8.9): Orange
+  if (score >= 7.0) return {
+    badge: "border-orange-500/40 bg-transparent",
+    text: "text-orange-500",
+    muted: "text-orange-500/70"
+  };
+  // 30~70 (3.0~6.9): Purple
+  if (score >= 3.0) return {
+    badge: "border-purple-500/40 bg-transparent",
+    text: "text-purple-400",
+    muted: "text-purple-400/70"
+  };
+  // 0~30 (0~2.9): Blue
+  return {
+    badge: "border-blue-500/40 bg-transparent",
+    text: "text-blue-400",
+    muted: "text-blue-400/70"
+  };
+};
+
 const stockData = [
   { rank: 1, name: "SK Hynix", code: "000660", price: "164,000", change: "+6.84%", volume: "2.6T", isFavorite: true, icon: "SK", aiScore: 9.2 },
   { rank: 2, name: "Samsung Elec", code: "005930", price: "72,500", change: "+2.14%", volume: "1.2T", isFavorite: true, icon: "S", aiScore: 8.5 },
@@ -118,45 +145,28 @@ export default function RealTimeStockList() {
                      </div>
 
                      {/* AI Score Column */}
-                     <div className="col-span-4 md:col-span-3 flex items-center justify-end relative group/score">
-                        {/* Premium Block Overlay (shows on hover/always depending on auth state - currently mocked for mockup) */}
-                        <div className="absolute inset-0 z-10 flex items-center justify-end">
-                           <Button 
-                              onClick={() => window.location.hash = '/subscription'}
-                              size="sm" 
-                              className="h-7 bg-primary/20 hover:bg-primary/30 text-primary border border-primary/30 px-2 flex items-center gap-1 shadow-[0_0_15px_rgba(126,231,210,0.15)] rounded-md opacity-90 hover:opacity-100 transition-opacity"
-                           >
-                              <Lock className="w-3 h-3" />
-                              <span className="text-[10px] font-bold">Business Plan</span>
-                           </Button>
-                        </div>
-                        
-                        {/* Blurred Score Content */}
-                        <div className={cn(
-                           "flex items-center justify-between gap-3 py-1 px-2.5 rounded-lg border w-full max-w-[110px] backdrop-blur-md transition-all opacity-40 blur-[3px] select-none",
-                           stock.aiScore >= 9.0 ? "bg-blue-500/10 border-blue-500/30 shadow-[0_0_10px_rgba(59,130,246,0.1)]" :
-                           stock.aiScore >= 7.0 ? "bg-primary/10 border-primary/20" :
-                           stock.aiScore >= 5.0 ? "bg-yellow-500/5 border-yellow-500/10" :
-                           "bg-muted/10 border-white/5"
-                        )}>
-                           <div className="h-1.5 flex-1 bg-black/40 rounded-full overflow-hidden hidden sm:block max-w-[40px]">
-                              <div 
-                                 className={cn("h-full rounded-full", 
-                                    stock.aiScore >= 9.0 ? "bg-blue-400" :
-                                    stock.aiScore >= 7.0 ? "bg-primary" : 
-                                    stock.aiScore >= 5.0 ? "bg-yellow-500" : "bg-muted-foreground"
-                                 )} 
-                                 style={{ width: `${(stock.aiScore / 10) * 100}%` }}
-                              />
+                     <div className="col-span-4 md:col-span-3 flex items-center justify-end">
+                        <div 
+                           className={cn(
+                              "flex items-center gap-1.5 px-2.5 py-1 rounded-md border backdrop-blur-sm transition-all hover:brightness-110",
+                              getScoreClasses(stock.aiScore).badge
+                           )}
+                        >
+                           <Sparkles 
+                              className={cn(
+                                 "w-3.5 h-3.5",
+                                 stock.aiScore >= 8.5 && "animate-pulse",
+                                 getScoreClasses(stock.aiScore).text
+                              )} 
+                           />
+                           <div className="font-mono flex items-baseline">
+                              <span 
+                                 className={cn("font-bold text-[14px] tracking-tight", getScoreClasses(stock.aiScore).text)}
+                              >
+                                 {(stock.aiScore * 10).toFixed(1)}
+                              </span>
+                              <span className={cn("text-[10px] ml-0.5", getScoreClasses(stock.aiScore).muted)}>/100</span>
                            </div>
-                           <span className={cn(
-                              "font-mono font-bold text-sm ml-auto",
-                              stock.aiScore >= 9.0 ? "text-blue-400" :
-                              stock.aiScore >= 7.0 ? "text-primary" : 
-                              stock.aiScore >= 5.0 ? "text-yellow-500" : "text-muted-foreground"
-                           )}>
-                              {stock.aiScore}
-                           </span>
                         </div>
                      </div>
                   </div>

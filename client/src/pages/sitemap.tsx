@@ -26,20 +26,18 @@ export default function SitemapPage() {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
           {routes.map((route) => (
-            <Link key={route.path} href={route.path}>
-              <a className="block p-6 rounded-xl border border-white/5 bg-[#0F1218] hover:bg-white/5 hover:border-primary/50 transition-all group">
-                <div className="flex items-center justify-between mb-2">
-                  <h2 className="text-lg font-bold text-white group-hover:text-primary transition-colors">
-                    {route.name}
-                  </h2>
-                  <span className="text-xs font-mono text-gray-500 bg-black/50 px-2 py-1 rounded">
-                    {route.path}
-                  </span>
-                </div>
-                <p className="text-sm text-gray-400">
-                  {route.description}
-                </p>
-              </a>
+            <Link key={route.path} href={route.path} className="block p-6 rounded-xl border border-white/5 bg-[#0F1218] hover:bg-white/5 hover:border-primary/50 transition-all group">
+              <div className="flex items-center justify-between mb-2">
+                <h2 className="text-lg font-bold text-white group-hover:text-primary transition-colors">
+                  {route.name}
+                </h2>
+                <span className="text-xs font-mono text-gray-500 bg-black/50 px-2 py-1 rounded">
+                  {route.path}
+                </span>
+              </div>
+              <p className="text-sm text-gray-400">
+                {route.description}
+              </p>
             </Link>
           ))}
         </div>

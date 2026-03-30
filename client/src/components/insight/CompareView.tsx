@@ -106,7 +106,17 @@ const metricCategories = {
 };
 
 export default function CompareView() {
-  const [selectedStocks, setSelectedStocks] = useState<Stock[]>(stockDatabase);
+  const stockGroups = [
+    { id: 'semi', label: '💻 반도체/AI', stocks: ['samsung', 'sk'] },
+    { id: 'auto', label: '🚗 자동차', stocks: ['hyundai-car', 'kia'] },
+    { id: 'battery', label: '🔋 이차전지', stocks: ['lg-energy', 'posco'] },
+    { id: 'platform', label: '📱 플랫폼', stocks: ['naver', 'kakao'] }
+  ];
+
+  const [selectedStocks, setSelectedStocks] = useState<Stock[]>(() => {
+    const initialStocks = stockDatabase.filter(s => stockGroups[0].stocks.includes(s.id));
+    return initialStocks;
+  });
   const [searchQuery, setSearchQuery] = useState("");
   const [showSearch, setShowSearch] = useState(false);
   const [showFieldSelector, setShowFieldSelector] = useState(false);
@@ -183,7 +193,7 @@ export default function CompareView() {
     if (allSelected) {
       setTempVisibleFields(prev => prev.filter(k => !category.items.includes(k)));
     } else {
-      setTempVisibleFields(prev => [...new Set([...prev, ...category.items])]);
+      setTempVisibleFields(prev => Array.from(new Set([...prev, ...category.items])));
     }
   };
 
@@ -192,30 +202,78 @@ export default function CompareView() {
     setShowFieldSelector(false);
   };
 
+  const addGroup = (groupStockIds: string[]) => {
+    const stocksToAdd = stockDatabase.filter(stock => 
+      groupStockIds.includes(stock.id) && !selectedStocks.find(s => s.id === stock.id)
+    );
+    if (stocksToAdd.length > 0) {
+      setSelectedStocks([...selectedStocks, ...stocksToAdd]);
+    }
+  };
+
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       
-      <div className="flex items-center gap-4 flex-wrap">
-        {selectedStocks.map((stock) => (
-          <div 
-            key={stock.id}
-            className="flex items-center gap-2 bg-[#151921] border border-white/10 rounded-full pl-4 pr-2 py-2"
-          >
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: stock.color }} />
-            <span className="font-medium text-white text-sm">{stock.name}</span>
-            <span className="text-gray-500 text-xs font-mono">{stock.code}</span>
-            <button 
-              onClick={() => removeStock(stock.id)}
-              className="ml-2 w-6 h-6 rounded-full bg-white/5 hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center text-gray-400 transition-colors"
+      <div className="flex flex-col gap-3 bg-[#151921] border border-white/5 rounded-xl p-4 shadow-sm">
+        {/* Quick Add Groups */}
+        <div className="flex items-center gap-2 pb-2 border-b border-white/5 overflow-x-auto no-scrollbar">
+          {stockGroups.map(group => {
+            const isGroupSelected = group.stocks.every(stockId => 
+              selectedStocks.some(s => s.id === stockId)
+            ) && group.stocks.length === selectedStocks.length;
+
+            return (
+              <Button
+                key={group.id}
+                variant="outline"
+                size="sm"
+                className={cn(
+                  "h-7 text-xs px-3 py-0 rounded-full shrink-0 transition-colors",
+                  isGroupSelected 
+                    ? "bg-primary/20 border-primary/50 text-primary hover:bg-primary/30" 
+                    : "bg-white/5 border-white/10 text-gray-300 hover:text-white hover:bg-white/10 hover:border-white/20"
+                )}
+                onClick={() => addGroup(group.stocks)}
+              >
+                {group.label}
+              </Button>
+            );
+          })}
+        </div>
+
+        <div className="flex items-center gap-4 flex-wrap pt-1">
+          {selectedStocks.length > 0 && (
+            <Button
+              variant="outline"
+              size="sm"
+              className="h-9 text-xs bg-red-500/10 border-red-500/30 text-red-400 hover:text-red-300 hover:bg-red-500/20 px-4 rounded-full font-medium"
+              onClick={() => setSelectedStocks([])}
+              title="전체 초기화"
             >
-              <X className="w-3 h-3" />
-            </button>
-          </div>
-        ))}
-        
-        {selectedStocks.length < stockDatabase.length && (
-          <div className="relative">
-            {showSearch ? (
+              초기화
+            </Button>
+          )}
+
+          {selectedStocks.map((stock) => (
+            <div 
+              key={stock.id}
+              className="flex items-center gap-2 bg-[#151921] border border-white/10 rounded-full pl-4 pr-2 py-2"
+            >
+              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: stock.color }} />
+              <span className="font-medium text-white text-sm">{stock.name}</span>
+              <span className="text-gray-500 text-xs font-mono">{stock.code}</span>
+              <button 
+                onClick={() => removeStock(stock.id)}
+                className="ml-2 w-6 h-6 rounded-full bg-white/5 hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center text-gray-400 transition-colors"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+          ))}
+
+          {selectedStocks.length < stockDatabase.length && (
+            <div className="relative">
+              {showSearch ? (
               <div className="flex items-center gap-2">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
@@ -237,83 +295,86 @@ export default function CompareView() {
                 </Button>
               </div>
             ) : (
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="rounded-full gap-2 bg-primary/10 border-primary/30 text-primary hover:bg-primary/20"
-                onClick={() => setShowSearch(true)}
-              >
-                <Plus className="w-4 h-4" />
-                종목 추가
-              </Button>
-            )}
-            
-            {showSearch && searchQuery && filteredStocks.length > 0 && (
-              <div className="absolute top-12 left-0 w-64 bg-[#151921] border border-white/10 rounded-lg shadow-xl z-10 overflow-hidden">
-                {filteredStocks.slice(0, 5).map((stock) => (
-                  <button
-                    key={stock.id}
-                    onClick={() => addStock(stock)}
-                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 text-left transition-colors"
-                  >
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: stock.color }} />
-                    <div>
-                      <div className="text-white text-sm font-medium">{stock.name}</div>
-                      <div className="text-gray-500 text-xs font-mono">{stock.code}</div>
-                    </div>
-                  </button>
-                ))}
+              <div className="flex items-center gap-2">
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="rounded-full gap-2 bg-primary/10 border-primary/30 text-primary hover:bg-primary/20"
+                  onClick={() => setShowSearch(true)}
+                >
+                  <Plus className="w-4 h-4" />
+                  종목 추가
+                </Button>
               </div>
             )}
-          </div>
-        )}
+            
+              {showSearch && searchQuery && filteredStocks.length > 0 && (
+                <div className="absolute top-12 left-0 w-64 bg-[#151921] border border-white/10 rounded-lg shadow-xl z-10 overflow-hidden">
+                  {filteredStocks.slice(0, 5).map((stock) => (
+                    <button
+                      key={stock.id}
+                      onClick={() => addStock(stock)}
+                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 text-left transition-colors"
+                    >
+                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: stock.color }} />
+                      <div>
+                        <div className="text-white text-sm font-medium">{stock.name}</div>
+                        <div className="text-gray-500 text-xs font-mono">{stock.code}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
       </div>
 
       {showFieldSelector && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50" onClick={() => setShowFieldSelector(false)}>
-          <div className="bg-white rounded-xl w-[700px] max-h-[80vh] overflow-auto shadow-2xl" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+          <div className="bg-white rounded-xl w-[800px] max-h-[85vh] overflow-hidden shadow-2xl flex flex-col" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-8 py-5 border-b border-gray-100 shrink-0">
               <h3 className="text-lg font-bold text-gray-900">컬럼</h3>
-              <button onClick={() => setShowFieldSelector(false)} className="text-gray-400 hover:text-gray-600">
-                <X className="w-5 h-5" />
+              <button onClick={() => setShowFieldSelector(false)} className="text-gray-400 hover:text-gray-600 transition-colors">
+                <X className="w-6 h-6" strokeWidth={1.5} />
               </button>
             </div>
             
-            <div className="p-6">
-              <label className="flex items-center gap-3 mb-6 cursor-pointer">
+            <div className="p-8 overflow-y-auto bg-white">
+              <label className="flex items-center gap-3 mb-10 cursor-pointer w-fit group">
                 <div className={cn(
-                  "w-5 h-5 rounded border-2 flex items-center justify-center transition-colors",
-                  tempVisibleFields.length === allMetrics.length ? "bg-cyan-500 border-cyan-500" : "border-gray-300"
+                  "w-5 h-5 rounded flex items-center justify-center transition-colors",
+                  tempVisibleFields.length === allMetrics.length ? "bg-[#00bcd4] border-none" : "border-2 border-gray-200 group-hover:border-[#00bcd4]"
                 )}>
-                  {tempVisibleFields.length === allMetrics.length && <Check className="w-3 h-3 text-white" />}
+                  {tempVisibleFields.length === allMetrics.length && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
                 </div>
-                <span className="text-gray-900 font-medium">모든 컬럼 <span className="text-gray-400">({tempVisibleFields.length} 선택됨)</span></span>
+                <span className="text-gray-900 font-bold text-[15px]">모든 컬럼 <span className="text-gray-400 font-medium">({tempVisibleFields.length} 선택됨)</span></span>
               </label>
 
-              <div className="grid grid-cols-3 gap-8">
+              <div className="grid grid-cols-3 gap-x-12 gap-y-12">
                 {Object.entries(metricCategories).map(([catKey, category]) => (
                   <div key={catKey}>
-                    <label className="flex items-center gap-3 mb-3 cursor-pointer" onClick={() => toggleCategory(catKey)}>
+                    <label className="flex items-center gap-3 mb-5 cursor-pointer w-fit group" onClick={() => toggleCategory(catKey)}>
                       <div className={cn(
-                        "w-5 h-5 rounded border-2 flex items-center justify-center transition-colors",
-                        category.items.every(item => tempVisibleFields.includes(item)) ? "bg-cyan-500 border-cyan-500" : "border-gray-300"
+                        "w-5 h-5 rounded flex items-center justify-center transition-colors",
+                        category.items.every(item => tempVisibleFields.includes(item)) ? "bg-[#00bcd4] border-none" : "border-2 border-gray-200 group-hover:border-[#00bcd4]"
                       )}>
-                        {category.items.every(item => tempVisibleFields.includes(item)) && <Check className="w-3 h-3 text-white" />}
+                        {category.items.every(item => tempVisibleFields.includes(item)) && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
                       </div>
-                      <span className="text-gray-900 font-semibold">{category.label}</span>
+                      <span className="text-gray-900 font-bold text-[15px]">{category.label}</span>
                     </label>
-                    <div className="space-y-2 ml-8">
+                    <div className="space-y-4 ml-8">
                       {category.items.map(itemKey => {
                         const metric = allMetrics.find(m => m.key === itemKey);
                         return (
-                          <label key={itemKey} className="flex items-center gap-3 cursor-pointer" onClick={() => toggleField(itemKey)}>
+                          <label key={itemKey} className="flex items-center gap-3 cursor-pointer w-fit group" onClick={() => toggleField(itemKey)}>
                             <div className={cn(
-                              "w-5 h-5 rounded border-2 flex items-center justify-center transition-colors",
-                              tempVisibleFields.includes(itemKey) ? "bg-cyan-500 border-cyan-500" : "border-gray-300"
+                              "w-5 h-5 rounded flex items-center justify-center transition-colors",
+                              tempVisibleFields.includes(itemKey) ? "bg-[#00bcd4] border-none" : "border-2 border-gray-200 group-hover:border-[#00bcd4]"
                             )}>
-                              {tempVisibleFields.includes(itemKey) && <Check className="w-3 h-3 text-white" />}
+                              {tempVisibleFields.includes(itemKey) && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
                             </div>
-                            <span className="text-gray-700 text-sm">{metric?.label}</span>
+                            <span className="text-gray-600 text-[14px]">{metric?.label}</span>
                           </label>
                         );
                       })}
@@ -323,44 +384,14 @@ export default function CompareView() {
               </div>
             </div>
 
-            <div className="flex items-center justify-center gap-3 px-6 py-4 border-t border-gray-200">
-              <Button variant="outline" onClick={() => setShowFieldSelector(false)} className="px-8">
-                취소
-              </Button>
-              <Button onClick={applyFieldSelection} className="px-8 bg-cyan-500 hover:bg-cyan-600 text-white">
+            <div className="flex items-center justify-center py-6 border-t border-gray-100 shrink-0 bg-white">
+              <Button onClick={applyFieldSelection} className="px-12 bg-[#00bcd4] hover:bg-[#00acc1] text-white font-bold h-11 rounded-md text-base min-w-[120px]">
                 적용
               </Button>
             </div>
           </div>
         </div>
       )}
-
-      <div className="rounded-lg border border-blue-500/30 bg-blue-900/10 overflow-hidden">
-        <div className="bg-blue-500/20 px-4 py-2 flex items-center gap-2 border-b border-blue-500/20">
-          <Sparkles className="w-4 h-4 text-blue-400" />
-          <h4 className="text-sm font-bold text-blue-400 uppercase tracking-wider font-mono">AI 비교 분석</h4>
-        </div>
-        <div className="p-4">
-          <div className="text-sm text-gray-300 leading-relaxed">
-            {selectedStocks.length >= 2 ? (
-              <span>
-                <span className="text-white font-bold">{selectedStocks[0].name}</span>과 <span className="text-white font-bold">{selectedStocks[1].name}</span>을 비교 분석한 결과, 
-                <br /><br />
-                {selectedStocks[0].change > selectedStocks[1].change ? (
-                  <span><span className="text-green-400 font-semibold">{selectedStocks[0].name}</span>이 단기 모멘텀에서 더 우수한 성과를 보이고 있습니다.</span>
-                ) : (
-                  <span><span className="text-green-400 font-semibold">{selectedStocks[1].name}</span>이 단기 모멘텀에서 더 우수한 성과를 보이고 있습니다.</span>
-                )}
-                <br /><br />
-                밸류에이션 측면에서 <span className="text-yellow-400 font-semibold">PER 기준</span>으로는 {Number(selectedStocks[0].metrics.per) < Number(selectedStocks[1].metrics.per) ? selectedStocks[0].name : selectedStocks[1].name}이 더 저평가되어 있으며, 
-                <span className="text-cyan-400 font-semibold"> ROE</span> 측면에서는 수익성의 차이가 확인됩니다.
-              </span>
-            ) : (
-              <span className="text-gray-500">2개 이상의 종목을 선택하면 AI 비교 분석이 표시됩니다.</span>
-            )}
-          </div>
-        </div>
-      </div>
 
       <div className="bg-[#151921] border border-white/5 rounded-xl p-6">
         <h3 className="text-sm font-bold text-white mb-4 flex items-center gap-2">
@@ -442,7 +473,10 @@ export default function CompareView() {
               className="rounded-lg gap-2 bg-white/5 border-white/10 text-gray-300 hover:bg-white/10"
               onClick={() => {
                 const headers = ['항목', ...selectedStocks.map(s => s.name)];
-                const rows = metrics.map(m => [m.label, ...selectedStocks.map(s => stockData[s.id]?.[m.key] ?? '-')]);
+                const rows = metrics.map(m => [m.label, ...selectedStocks.map(s => {
+                  const value = s.metrics[m.key];
+                  return value ?? '-';
+                })]);
                 const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
                 const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
                 const url = URL.createObjectURL(blob);

@@ -32,24 +32,22 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
       {navItems.map((item) => {
         const isActive = location === item.href;
         return (
-          <Link key={item.href} href={item.href}>
-            <a className={cn(
-              "flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-200 text-sm font-medium",
-              isActive 
-                ? "bg-primary text-primary-foreground shadow-[0_0_15px_rgba(59,130,246,0.5)]" 
-                : "text-muted-foreground hover:text-foreground hover:bg-secondary/50",
-              vertical && "w-full justify-start rounded-lg px-4 py-3"
-            )}>
-              {item.label === "Insight" ? (
-                 <div className="relative">
-                    <item.icon className={cn("w-4 h-4", isActive ? "text-white" : "text-muted-foreground")} />
-                    <Sparkles className="absolute -top-2 -right-2 w-3 h-3 text-yellow-400 fill-yellow-400 animate-pulse" />
-                 </div>
-              ) : (
-                 <item.icon className={cn("w-4 h-4", isActive ? "text-white" : "text-muted-foreground")} />
-              )}
-              <span>{item.label}</span>
-            </a>
+          <Link key={item.href} href={item.href} className={cn(
+            "flex items-center gap-2 px-4 py-2 rounded-full transition-all duration-200 text-sm font-medium",
+            isActive 
+              ? "bg-primary text-primary-foreground shadow-[0_0_15px_rgba(59,130,246,0.5)]" 
+              : "text-muted-foreground hover:text-foreground hover:bg-secondary/50",
+            vertical && "w-full justify-start rounded-lg px-4 py-3"
+          )}>
+            {item.label === "Insight" ? (
+               <div className="relative">
+                  <item.icon className={cn("w-4 h-4", isActive ? "text-white" : "text-muted-foreground")} />
+                  <Sparkles className="absolute -top-2 -right-2 w-3 h-3 text-yellow-400 fill-yellow-400 animate-pulse" />
+               </div>
+            ) : (
+               <item.icon className={cn("w-4 h-4", isActive ? "text-white" : "text-muted-foreground")} />
+            )}
+            <span>{item.label}</span>
           </Link>
         );
       })}
@@ -126,17 +124,13 @@ export default function DashboardLayout({ children }: { children: React.ReactNod
                   </div>
                 </DropdownMenuLabel>
                 <DropdownMenuSeparator className="bg-white/10" />
-                <Link href="/mypage">
-                  <DropdownMenuItem className="focus:bg-white/10 focus:text-white cursor-pointer group">
+                <Link href="/mypage" className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:bg-white/10 focus:text-white cursor-pointer group">
                     <User className="mr-2 h-4 w-4 text-gray-400 group-hover:text-white" />
                     <span>마이페이지</span>
-                  </DropdownMenuItem>
                 </Link>
-                <Link href="/licenses">
-                  <DropdownMenuItem className="focus:bg-white/10 focus:text-white cursor-pointer group">
+                <Link href="/licenses" className="relative flex cursor-default select-none items-center rounded-sm px-2 py-1.5 text-sm outline-none transition-colors focus:bg-accent focus:text-accent-foreground data-[disabled]:pointer-events-none data-[disabled]:opacity-50 focus:bg-white/10 focus:text-white cursor-pointer group">
                     <Sparkles className="mr-2 h-4 w-4 text-[#7EE7D2] group-hover:text-[#90f2de]" />
                     <span className="text-[#7EE7D2] group-hover:text-[#90f2de] font-medium">플랜 업그레이드</span>
-                  </DropdownMenuItem>
                 </Link>
                 <DropdownMenuSeparator className="bg-white/10" />
                 <DropdownMenuItem className="focus:bg-red-500/10 focus:text-red-400 text-red-400 cursor-pointer">

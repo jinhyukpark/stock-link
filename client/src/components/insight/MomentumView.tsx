@@ -357,14 +357,13 @@ export default function MomentumView() {
                     <div className="text-[9px] text-gray-500 font-bold mb-0.5 tracking-tighter">AI SCORE</div>
                     <div className="flex items-baseline gap-1">
                       <div className={`text-4xl font-bold leading-none ${
-                        stock.score >= 9 ? 'text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]' :
-                        stock.score >= 7 ? 'text-blue-400' :
-                        stock.score >= 5 ? 'text-green-400' :
-                        stock.score >= 3 ? 'text-yellow-400' : 'text-red-400'
+                        stock.score >= 9 ? 'text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]' :
+                        stock.score >= 7 ? 'text-orange-500' :
+                        stock.score >= 3 ? 'text-purple-400' : 'text-blue-400'
                       }`}>
-                        {stock.score.toFixed(1)}
+                        {(stock.score * 10).toFixed(1)}
                       </div>
-                      <div className="text-[10px] text-gray-600 font-bold">/ 10.0</div>
+                      <div className="text-[10px] text-gray-600 font-bold">/ 100</div>
                     </div>
                   </div>
                 </div>
@@ -469,7 +468,7 @@ export default function MomentumView() {
                   <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-end gap-1">전일대비<ChevronsUpDown className="w-3 h-3" /></div></th>
                   <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-end gap-1">등락률<ChevronsUpDown className="w-3 h-3" /></div></th>
                   <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-center gap-1">예측범위<ChevronsUpDown className="w-3 h-3" /></div></th>
-                  <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-center gap-1">스코어(10)<ChevronsUpDown className="w-3 h-3" /></div></th>
+                  <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-center gap-1">스코어(100)<ChevronsUpDown className="w-3 h-3" /></div></th>
                   <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-center gap-1">예측일<ChevronsUpDown className="w-3 h-3" /></div></th>
                   <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-end gap-1">10일 평균<ChevronsUpDown className="w-3 h-3" /></div></th>
                   <th className="px-4 py-2 font-medium border-r border-white/5 cursor-pointer hover:text-white transition-colors"><div className="flex items-center justify-end gap-1">20일 평균<ChevronsUpDown className="w-3 h-3" /></div></th>
@@ -531,7 +530,7 @@ export default function MomentumView() {
                       </td>
                       <td className="px-4 py-2.5 text-center text-gray-300 border-r border-white/5">1주 이내</td>
                       <td className="px-4 py-2.5 text-center font-bold text-red-400 border-r border-white/5">
-                        {stock.score.toFixed(1)}점
+                        {(stock.score * 10).toFixed(1)}점
                       </td>
                       <td className="px-4 py-2.5 text-center text-gray-400 border-r border-white/5">03-27</td>
                       

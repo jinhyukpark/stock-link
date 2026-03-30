@@ -124,10 +124,8 @@ export default function SubscriptionPage() {
         {/* Header */}
         <div className="flex flex-col items-center text-center mb-12 space-y-4">
           <div className="w-full flex justify-start mb-4">
-            <Link href="/mypage">
-                <Button variant="ghost" className="gap-2 text-gray-400 hover:text-white pl-0">
-                    <ArrowLeft className="w-4 h-4" /> 뒤로가기
-                </Button>
+            <Link href="/mypage" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm font-medium ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:bg-accent h-10 px-4 py-2 gap-2 text-gray-400 hover:text-white pl-0">
+                <ArrowLeft className="w-4 h-4" /> 뒤로가기
             </Link>
           </div>
           <h1 className="text-4xl font-bold text-white tracking-tight">Pricing</h1>

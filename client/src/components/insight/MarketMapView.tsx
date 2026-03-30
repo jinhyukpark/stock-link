@@ -210,22 +210,36 @@ export default function MarketMapView() {
           <div className="w-80 flex flex-col shrink-0 bg-[#151921]">
               
               {/* AI Insight */}
-              <div className="p-6 flex-1 flex flex-col border-b border-white/10">
+              <div className="p-6 flex-1 flex flex-col border-b border-white/10 overflow-hidden relative pb-16">
                   <div className="flex items-center gap-2 mb-4 text-blue-400">
                       <Sparkles className="w-4 h-4" />
                       <h3 className="font-bold text-sm">AI Market Insight</h3>
                   </div>
                   <div className="space-y-4 text-sm text-gray-400 leading-relaxed overflow-y-auto pr-2 custom-scrollbar">
-                      <p>
-                        The <span className="text-white font-bold">semiconductor sector</span> is currently leading the market with strong buying pressure, driven by increased demand for AI chips.
-                      </p>
-                      <p>
-                        <span className="text-red-400 font-bold">Samsung Electronics</span> and <span className="text-red-400 font-bold">SK Hynix</span> are showing significant gains, contributing to the overall bullish sentiment.
-                      </p>
-                      <div className="h-px bg-white/5 my-2" />
-                      <p>
-                        Conversely, the <span className="text-white font-bold">secondary battery sector</span> is experiencing a slight correction, with <span className="text-blue-400 font-bold">LG Energy Solution</span> and <span className="text-blue-400 font-bold">POSCO Holdings</span> trading lower.
-                      </p>
+                      <div className="bg-[#1e293b]/30 border border-[#0ea5e9]/30 rounded-lg p-3">
+                          <div className="flex items-center gap-2 mb-2">
+                              <div className="w-1 h-3.5 bg-[#0ea5e9] rounded-full"></div>
+                              <span className="text-white font-bold text-[13px]">모멘텀 총평</span>
+                          </div>
+                          <p className="text-[13px] text-gray-300">
+                              <span className="text-[#0ea5e9] font-bold">반도체 섹터</span>는 전반적인 일반 모멘텀이 크게 강화되고 있으며, 특히 상승 모멘텀이 뚜렷한 회복세를 보이고 있습니다. 하락 모멘텀은 지속적으로 감소하는 추세이며, 최근 기관 자금 유입으로 인해 단기 모멘텀 에너지가 중기 평균을 강하게 돌파했습니다.
+                          </p>
+                      </div>
+                      
+                      <div className="bg-[#3b0764]/20 border border-[#a855f7]/30 rounded-lg p-3">
+                          <div className="flex items-center gap-2 mb-2">
+                              <div className="w-1 h-3.5 bg-[#a855f7] rounded-full"></div>
+                              <span className="text-white font-bold text-[13px]">기대 수익률 총평</span>
+                          </div>
+                          <p className="text-[13px] text-gray-300">
+                              <span className="text-[#a855f7] font-bold">이차전지 섹터</span>는 단기 기대 수익률이 약세를 보이고 있으며, 상승 기대 수익률 또한 제한적인 박스권에 머물고 있습니다. 하방 압력이 여전히 높은 수준을 유지하고 있어, 의미 있는 반등 전까지는 보수적인 접근이 요구되는 구간입니다.
+                          </p>
+                      </div>
+                  </div>
+                  <div className="absolute bottom-4 right-4">
+                      <Button variant="outline" size="sm" className="h-8 text-xs bg-white/5 border-white/10 hover:bg-white/10 text-gray-300">
+                          모멘텀 상세 <ArrowUpRight className="w-3 h-3 ml-1" />
+                      </Button>
                   </div>
               </div>
 

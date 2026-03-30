@@ -24,10 +24,24 @@ import {
   Camera,
   FileText
 } from "lucide-react";
+import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { cn } from "@/lib/utils";
 
 export default function MyPage() {
   const [activeTab, setActiveTab] = useState("profile");
+  const [isEditingProfile, setIsEditingProfile] = useState(false);
+  const [showCancelDialog, setShowCancelDialog] = useState(false);
+  const [showReferralList, setShowReferralList] = useState(false);
+
+  const handleCancelEdit = () => {
+    setShowCancelDialog(true);
+  };
+
+  const confirmCancelEdit = () => {
+    setShowCancelDialog(false);
+    setIsEditingProfile(false);
+  };
 
   return (
     <DashboardLayout>
@@ -92,17 +106,29 @@ export default function MyPage() {
                     <span className="text-gray-300 font-medium text-[15px]">추천인 코드</span>
                     <span className="text-white font-bold text-[15px] tracking-wider">MXHRC73M</span>
                 </div>
-                <Button variant="ghost" size="sm" className="text-[#0ea5e9] hover:text-[#0ea5e9]/80 hover:bg-[#0ea5e9]/10 gap-1.5 font-medium px-2 h-8 text-sm">
-                    <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
-                    복사하기
-                </Button>
+                <div className="flex items-center gap-1.5">
+                  <Button variant="outline" size="icon" className="h-8 w-8 text-[#0ea5e9] bg-transparent border-white/10 hover:text-[#0ea5e9]/80 hover:bg-[#0ea5e9]/10" title="복사하기">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                  </Button>
+                  <Button 
+                    variant="outline" 
+                    size="icon" 
+                    className="h-8 w-8 text-gray-400 bg-transparent border-white/10 hover:text-white hover:bg-white/10" 
+                    title="추천 유저 목록"
+                    onClick={() => setShowReferralList(true)}
+                  >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </Button>
+                </div>
             </div>
             <div className="bg-[#1e2330] rounded-lg p-4 space-y-3 border border-white/5">
                 <p className="text-[13px] text-gray-400 leading-relaxed break-keep">
                     회원님을 추천한 유저가 결제할 때마다, 결제 금액의 일정 비율이 회원님께 리워드로 지급됩니다.
                 </p>
-                <div className="text-[#0ea5e9] font-medium text-[13px]">
-                    envitest님의 현재 리워드 비율: 20%
+                <div className="flex items-center justify-between">
+                  <div className="text-[#0ea5e9] font-medium text-[13px]">
+                      현재 리워드 비율: 20%
+                  </div>
                 </div>
             </div>
           </div>
@@ -151,14 +177,27 @@ export default function MyPage() {
                             {/* 1. Profile Info */}
                             <TabsContent value="profile" className="mt-0 space-y-6 h-full animate-in fade-in slide-in-from-bottom-2 duration-300">
                                 <div>
-                                    <h2 className="text-xl font-bold text-white mb-1">기본 정보</h2>
-                                    <p className="text-sm text-gray-400 mb-6">서비스에서 사용되는 기본 프로필 정보입니다.</p>
+                                    <div className="flex items-center justify-between mb-6">
+                                        <div>
+                                            <h2 className="text-xl font-bold text-white mb-1">기본 정보</h2>
+                                            <p className="text-sm text-gray-400">서비스에서 사용되는 기본 프로필 정보입니다.</p>
+                                        </div>
+                                        {!isEditingProfile && (
+                                            <Button 
+                                                variant="outline" 
+                                                className="border-white/10 bg-[#1e2330] hover:bg-white/5 text-white"
+                                                onClick={() => setIsEditingProfile(true)}
+                                            >
+                                                프로필 수정
+                                            </Button>
+                                        )}
+                                    </div>
                                     
                                     <div className="space-y-6 max-w-2xl">
                                         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                                             <div className="space-y-2">
                                                 <Label htmlFor="name" className="text-gray-300">이름</Label>
-                                                <Input id="name" defaultValue="Alex Morgan" className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                                <Input id="name" defaultValue="Alex Morgan" disabled={!isEditingProfile} className="bg-[#0B0E14] border-white/10 text-white h-11 disabled:opacity-70" />
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="email" className="text-gray-300">이메일</Label>
@@ -166,26 +205,78 @@ export default function MyPage() {
                                             </div>
                                             <div className="space-y-2">
                                                 <Label htmlFor="phone" className="text-gray-300">연락처</Label>
-                                                <Input id="phone" defaultValue="+82 10-1234-5678" className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                                <Input id="phone" defaultValue="+82 10-1234-5678" disabled={!isEditingProfile} className="bg-[#0B0E14] border-white/10 text-white h-11 disabled:opacity-70" />
                                             </div>
                                             <div className="space-y-2">
-                                                <Label htmlFor="job" className="text-gray-300">직업 / 소속</Label>
-                                                <Input id="job" defaultValue="Professional Trader" className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                                <Label htmlFor="job" className="text-gray-300">직업</Label>
+                                                <Select defaultValue="trader" disabled={!isEditingProfile}>
+                                                    <SelectTrigger id="job" className="bg-[#0B0E14] border-white/10 text-white h-11 disabled:opacity-70">
+                                                        <SelectValue placeholder="직업을 선택하세요" />
+                                                    </SelectTrigger>
+                                                    <SelectContent className="bg-[#0B0E14] border-white/10 text-white">
+                                                        <SelectItem value="student">학생</SelectItem>
+                                                        <SelectItem value="worker">직장인</SelectItem>
+                                                        <SelectItem value="trader">전업 투자자</SelectItem>
+                                                        <SelectItem value="business">사업가</SelectItem>
+                                                        <SelectItem value="freelancer">프리랜서</SelectItem>
+                                                        <SelectItem value="none">무직</SelectItem>
+                                                        <SelectItem value="other">기타</SelectItem>
+                                                    </SelectContent>
+                                                </Select>
+                                            </div>
+                                            <div className="space-y-2">
+                                                <Label htmlFor="company" className="text-gray-300">소속</Label>
+                                                <Input id="company" defaultValue="StockLink Inc." placeholder="소속을 입력하세요 (예: 학교명, 직장명)" disabled={!isEditingProfile} className="bg-[#0B0E14] border-white/10 text-white h-11 disabled:opacity-70" />
                                             </div>
                                         </div>
                                         <div className="space-y-2">
                                             <Label htmlFor="bio" className="text-gray-300">자기소개</Label>
-                                            <Input id="bio" defaultValue="퀀트 투자와 알고리즘 트레이딩에 관심이 많습니다." className="bg-[#0B0E14] border-white/10 text-white h-11" />
+                                            <Input id="bio" defaultValue="퀀트 투자와 알고리즘 트레이딩에 관심이 많습니다." disabled={!isEditingProfile} className="bg-[#0B0E14] border-white/10 text-white h-11 disabled:opacity-70" />
                                         </div>
                                         
-                                        <div className="pt-4 flex justify-end">
-                                            <Button size="lg" className="bg-primary text-black hover:bg-primary/90 font-bold px-8">변경사항 저장</Button>
-                                        </div>
+                                        {isEditingProfile && (
+                                            <div className="pt-4 flex justify-end gap-3 animate-in fade-in duration-200">
+                                                <Button 
+                                                    variant="ghost" 
+                                                    size="lg" 
+                                                    className="text-gray-400 hover:text-white hover:bg-white/5 px-6"
+                                                    onClick={handleCancelEdit}
+                                                >
+                                                    취소
+                                                </Button>
+                                                <Button 
+                                                    size="lg" 
+                                                    className="bg-primary text-black hover:bg-primary/90 font-bold px-8"
+                                                    onClick={() => setIsEditingProfile(false)}
+                                                >
+                                                    변경사항 저장
+                                                </Button>
+                                            </div>
+                                        )}
                                         
-
                                     </div>
                                 </div>
                             </TabsContent>
+
+                            {/* Cancel Edit Dialog */}
+                            <Dialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
+                                <DialogContent className="bg-[#151921] border-white/10 text-white sm:max-w-md">
+                                    <DialogHeader>
+                                        <DialogTitle>프로필 수정 취소</DialogTitle>
+                                        <DialogDescription className="text-gray-400">
+                                            변경 사항이 저장되지 않습니다. 프로필 수정을 취소하시겠습니까?
+                                        </DialogDescription>
+                                    </DialogHeader>
+                                    <DialogFooter className="mt-4 flex gap-2 sm:justify-end">
+                                        <Button variant="ghost" onClick={() => setShowCancelDialog(false)} className="text-gray-400 hover:text-white hover:bg-white/5">
+                                            계속 수정하기
+                                        </Button>
+                                        <Button onClick={confirmCancelEdit} className="bg-red-500 hover:bg-red-600 text-white">
+                                            네, 취소합니다
+                                        </Button>
+                                    </DialogFooter>
+                                </DialogContent>
+                            </Dialog>
 
                             {/* 2. Change Password */}
                             <TabsContent value="password" className="mt-0 h-full animate-in fade-in slide-in-from-bottom-2 duration-300">
@@ -320,10 +411,8 @@ export default function MyPage() {
                                             </div>
                                             <div className="mt-8 pt-4 border-t border-transparent">
                                                 <div className="flex items-center h-8">
-                                                    <Link href="/licenses">
-                                                        <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
-                                                            &gt; 자세히 보기
-                                                        </Button>
+                                                    <Link href="/licenses" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                        &gt; 자세히 보기
                                                     </Link>
                                                 </div>
                                             </div>
@@ -342,10 +431,8 @@ export default function MyPage() {
                                             </div>
                                             <div className="mt-8 pt-4 border-t border-transparent">
                                                 <div className="flex items-center justify-between h-8">
-                                                    <Link href="/licenses">
-                                                        <Button variant="ghost" className="text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
-                                                            &gt; 자세히 보기
-                                                        </Button>
+                                                    <Link href="/licenses" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                        &gt; 자세히 보기
                                                     </Link>
                                                     <Button className="bg-[#2dd4bf] hover:bg-[#14b8a6] text-black font-bold rounded-full h-8 px-4 text-xs">
                                                         플랜변경
@@ -372,10 +459,8 @@ export default function MyPage() {
                                                     <span className="text-white font-bold whitespace-nowrap">2027-02-09</span>
                                                 </div>
                                                 <div className="flex items-center h-8">
-                                                    <Link href="/licenses">
-                                                        <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
-                                                            &gt; 자세히 보기
-                                                        </Button>
+                                                    <Link href="/licenses" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                        &gt; 자세히 보기
                                                     </Link>
                                                 </div>
                                             </div>
@@ -389,6 +474,78 @@ export default function MyPage() {
             </div>
         </div>
       </div>
+
+      <Dialog open={showCancelDialog} onOpenChange={setShowCancelDialog}>
+        <DialogContent className="bg-[#151921] border-white/10 sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-white">수정 취소</DialogTitle>
+            <DialogDescription className="text-gray-400">
+              수정 중인 내용이 저장되지 않습니다. 정말 취소하시겠습니까?
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex space-x-2 justify-end mt-4">
+            <Button variant="outline" onClick={() => setShowCancelDialog(false)} className="bg-transparent border-white/10 text-white hover:bg-white/5">
+              아니오
+            </Button>
+            <Button variant="default" onClick={confirmCancelEdit} className="bg-red-500 hover:bg-red-600 text-white">
+              예, 취소합니다
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showReferralList} onOpenChange={setShowReferralList}>
+        <DialogContent className="bg-[#151921] border-white/10 sm:max-w-lg">
+          <DialogHeader>
+            <DialogTitle className="text-white flex items-center gap-2">
+              <span className="bg-[#0ea5e9]/20 text-[#0ea5e9] p-1.5 rounded-md">
+                <User className="w-5 h-5" />
+              </span>
+              나를 추천한 유저
+            </DialogTitle>
+            <DialogDescription className="text-gray-400">
+              내 추천인 코드를 입력하고 가입한 유저 목록입니다.
+            </DialogDescription>
+          </DialogHeader>
+          
+          <div className="mt-4 max-h-[300px] overflow-y-auto pr-2 custom-scrollbar">
+            <div className="space-y-3">
+              {[
+                { email: "user123@gmail.com", date: "2024.03.15 14:30" },
+                { email: "investor_pro@naver.com", date: "2024.03.12 09:15" },
+                { email: "stock_king@daum.net", date: "2024.02.28 18:45" },
+                { email: "alex.kim@company.com", date: "2024.02.10 11:20" },
+                { email: "trader_007@gmail.com", date: "2024.01.05 16:50" },
+              ].map((user, i) => {
+                const parts = user.email.split('@');
+                const maskedEmail = parts[0].length > 3 
+                  ? `${parts[0].substring(0, 3)}${'*'.repeat(parts[0].length - 3)}@${parts[1]}`
+                  : `${parts[0]}***@${parts[1]}`;
+                  
+                return (
+                  <div key={i} className="flex items-center justify-between p-3 rounded-lg border border-white/5 bg-[#1e2330]">
+                    <div className="flex items-center gap-3">
+                      <div className="w-8 h-8 rounded-full bg-[#2a303f] flex items-center justify-center text-gray-400 text-xs font-medium">
+                        {parts[0].substring(0, 1).toUpperCase()}
+                      </div>
+                      <div>
+                        <div className="text-sm font-medium text-gray-200">{maskedEmail}</div>
+                        <div className="text-xs text-gray-500 mt-0.5">가입일: {user.date}</div>
+                      </div>
+                    </div>
+                  </div>
+                );
+              })}
+            </div>
+          </div>
+          
+          <DialogFooter className="mt-6 border-t border-white/10 pt-4">
+            <Button onClick={() => setShowReferralList(false)} className="w-full bg-[#2a303f] hover:bg-[#3a404f] text-white">
+              닫기
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
     </DashboardLayout>
   );
 }
