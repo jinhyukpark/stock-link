@@ -30,7 +30,7 @@ const sectors = [
 
 // Generate random return data for sectors
 const generateSectorData = () => {
-  return sectors.map(sector => {
+  const allData = sectors.map(sector => {
     // Generate a value between -5 and +3
     const value = (Math.random() * 8) - 5; 
     return {
@@ -38,6 +38,20 @@ const generateSectorData = () => {
       value: Number(value.toFixed(1))
     };
   }).sort((a, b) => b.value - a.value); // Sort descending
+  
+  // Get top 20 and bottom 20, filtering out duplicates if total is less than 40
+  const top20 = allData.slice(0, 20);
+  const bottom20 = allData.slice(-20);
+  
+  // Combine them, removing any potential overlap just in case
+  const combined = [...top20];
+  bottom20.forEach(item => {
+    if (!combined.some(c => c.name === item.name)) {
+      combined.push(item);
+    }
+  });
+  
+  return combined;
 };
 
 const periods = [
