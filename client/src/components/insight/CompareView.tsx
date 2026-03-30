@@ -306,49 +306,49 @@ export default function CompareView() {
 
       {showFieldSelector && (
         <div className="fixed inset-0 bg-black/60 flex items-center justify-center z-50" onClick={() => setShowFieldSelector(false)}>
-          <div className="bg-white rounded-xl w-[700px] max-h-[80vh] overflow-auto shadow-2xl" onClick={e => e.stopPropagation()}>
-            <div className="flex items-center justify-between px-6 py-4 border-b border-gray-200">
+          <div className="bg-white rounded-xl w-[800px] max-h-[85vh] overflow-hidden shadow-2xl flex flex-col" onClick={e => e.stopPropagation()}>
+            <div className="flex items-center justify-between px-8 py-5 border-b border-gray-100 shrink-0">
               <h3 className="text-lg font-bold text-gray-900">컬럼</h3>
-              <button onClick={() => setShowFieldSelector(false)} className="text-gray-400 hover:text-gray-600">
-                <X className="w-5 h-5" />
+              <button onClick={() => setShowFieldSelector(false)} className="text-gray-400 hover:text-gray-600 transition-colors">
+                <X className="w-6 h-6" strokeWidth={1.5} />
               </button>
             </div>
             
-            <div className="p-6">
-              <label className="flex items-center gap-3 mb-6 cursor-pointer">
+            <div className="p-8 overflow-y-auto bg-white">
+              <label className="flex items-center gap-3 mb-10 cursor-pointer w-fit group">
                 <div className={cn(
-                  "w-5 h-5 rounded border-2 flex items-center justify-center transition-colors",
-                  tempVisibleFields.length === allMetrics.length ? "bg-cyan-500 border-cyan-500" : "border-gray-300"
+                  "w-5 h-5 rounded flex items-center justify-center transition-colors",
+                  tempVisibleFields.length === allMetrics.length ? "bg-[#00bcd4] border-none" : "border-2 border-gray-200 group-hover:border-[#00bcd4]"
                 )}>
-                  {tempVisibleFields.length === allMetrics.length && <Check className="w-3 h-3 text-white" />}
+                  {tempVisibleFields.length === allMetrics.length && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
                 </div>
-                <span className="text-gray-900 font-medium">모든 컬럼 <span className="text-gray-400">({tempVisibleFields.length} 선택됨)</span></span>
+                <span className="text-gray-900 font-bold text-[15px]">모든 컬럼 <span className="text-gray-400 font-medium">({tempVisibleFields.length} 선택됨)</span></span>
               </label>
 
-              <div className="grid grid-cols-3 gap-8">
+              <div className="grid grid-cols-3 gap-x-12 gap-y-12">
                 {Object.entries(metricCategories).map(([catKey, category]) => (
                   <div key={catKey}>
-                    <label className="flex items-center gap-3 mb-3 cursor-pointer" onClick={() => toggleCategory(catKey)}>
+                    <label className="flex items-center gap-3 mb-5 cursor-pointer w-fit group" onClick={() => toggleCategory(catKey)}>
                       <div className={cn(
-                        "w-5 h-5 rounded border-2 flex items-center justify-center transition-colors",
-                        category.items.every(item => tempVisibleFields.includes(item)) ? "bg-cyan-500 border-cyan-500" : "border-gray-300"
+                        "w-5 h-5 rounded flex items-center justify-center transition-colors",
+                        category.items.every(item => tempVisibleFields.includes(item)) ? "bg-[#00bcd4] border-none" : "border-2 border-gray-200 group-hover:border-[#00bcd4]"
                       )}>
-                        {category.items.every(item => tempVisibleFields.includes(item)) && <Check className="w-3 h-3 text-white" />}
+                        {category.items.every(item => tempVisibleFields.includes(item)) && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
                       </div>
-                      <span className="text-gray-900 font-semibold">{category.label}</span>
+                      <span className="text-gray-900 font-bold text-[15px]">{category.label}</span>
                     </label>
-                    <div className="space-y-2 ml-8">
+                    <div className="space-y-4 ml-8">
                       {category.items.map(itemKey => {
                         const metric = allMetrics.find(m => m.key === itemKey);
                         return (
-                          <label key={itemKey} className="flex items-center gap-3 cursor-pointer" onClick={() => toggleField(itemKey)}>
+                          <label key={itemKey} className="flex items-center gap-3 cursor-pointer w-fit group" onClick={() => toggleField(itemKey)}>
                             <div className={cn(
-                              "w-5 h-5 rounded border-2 flex items-center justify-center transition-colors",
-                              tempVisibleFields.includes(itemKey) ? "bg-cyan-500 border-cyan-500" : "border-gray-300"
+                              "w-5 h-5 rounded flex items-center justify-center transition-colors",
+                              tempVisibleFields.includes(itemKey) ? "bg-[#00bcd4] border-none" : "border-2 border-gray-200 group-hover:border-[#00bcd4]"
                             )}>
-                              {tempVisibleFields.includes(itemKey) && <Check className="w-3 h-3 text-white" />}
+                              {tempVisibleFields.includes(itemKey) && <Check className="w-3.5 h-3.5 text-white" strokeWidth={3} />}
                             </div>
-                            <span className="text-gray-700 text-sm">{metric?.label}</span>
+                            <span className="text-gray-600 text-[14px]">{metric?.label}</span>
                           </label>
                         );
                       })}
@@ -358,11 +358,8 @@ export default function CompareView() {
               </div>
             </div>
 
-            <div className="flex items-center justify-center gap-3 px-6 py-4 border-t border-gray-200">
-              <Button variant="outline" onClick={() => setShowFieldSelector(false)} className="px-8">
-                취소
-              </Button>
-              <Button onClick={applyFieldSelection} className="px-8 bg-cyan-500 hover:bg-cyan-600 text-white">
+            <div className="flex items-center justify-center py-6 border-t border-gray-100 shrink-0 bg-white">
+              <Button onClick={applyFieldSelection} className="px-12 bg-[#00bcd4] hover:bg-[#00acc1] text-white font-bold h-11 rounded-md text-base min-w-[120px]">
                 적용
               </Button>
             </div>
