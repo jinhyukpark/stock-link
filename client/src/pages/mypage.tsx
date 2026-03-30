@@ -110,6 +110,15 @@ export default function MyPage() {
                   <Button variant="ghost" size="icon" className="h-8 w-8 text-[#0ea5e9] hover:text-[#0ea5e9]/80 hover:bg-[#0ea5e9]/10" title="복사하기">
                       <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                   </Button>
+                  <Button 
+                    variant="ghost" 
+                    size="icon" 
+                    className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10" 
+                    title="추천 유저 목록"
+                    onClick={() => setShowReferralList(true)}
+                  >
+                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><path d="M16 21v-2a4 4 0 0 0-4-4H6a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M22 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+                  </Button>
                 </div>
             </div>
             <div className="bg-[#1e2330] rounded-lg p-4 space-y-3 border border-white/5">
@@ -120,14 +129,6 @@ export default function MyPage() {
                   <div className="text-[#0ea5e9] font-medium text-[13px]">
                       현재 리워드 비율: 20%
                   </div>
-                  <Button 
-                    variant="link" 
-                    size="sm" 
-                    className="h-auto p-0 text-gray-400 hover:text-white text-xs underline underline-offset-2"
-                    onClick={() => setShowReferralList(true)}
-                  >
-                    자세히 보기
-                  </Button>
                 </div>
             </div>
           </div>
