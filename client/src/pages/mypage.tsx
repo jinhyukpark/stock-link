@@ -532,9 +532,6 @@ export default function MyPage() {
                         <div className="text-xs text-gray-500 mt-0.5">가입일: {user.date}</div>
                       </div>
                     </div>
-                    <Badge variant="outline" className="bg-[#0ea5e9]/10 text-[#0ea5e9] border-[#0ea5e9]/20 font-normal">
-                      추천완료
-                    </Badge>
                   </div>
                 );
               })}
