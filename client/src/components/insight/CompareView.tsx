@@ -212,7 +212,24 @@ export default function CompareView() {
     <div className="space-y-6 animate-in fade-in duration-500">
       
       <div className="flex flex-col gap-3 bg-[#151921] border border-white/5 rounded-xl p-4 shadow-sm">
-        <div className="flex items-center gap-4 flex-wrap">
+        {/* Quick Add Groups */}
+        <div className="flex items-center gap-2 pb-2 border-b border-white/5 overflow-x-auto no-scrollbar">
+          <span className="text-xs text-gray-500 font-medium whitespace-nowrap mr-1">빠른 추가 그룹:</span>
+          {stockGroups.map(group => (
+            <Button
+              key={group.id}
+              variant="outline"
+              size="sm"
+              className="h-7 text-xs bg-white/5 border-white/10 text-gray-300 hover:text-white hover:bg-white/10 hover:border-white/20 px-3 py-0 rounded-full shrink-0"
+              onClick={() => addGroup(group.stocks)}
+            >
+              {group.label}
+              <Plus className="w-3 h-3 ml-1.5 opacity-70" />
+            </Button>
+          ))}
+        </div>
+
+        <div className="flex items-center gap-4 flex-wrap pt-1">
           {selectedStocks.map((stock) => (
             <div 
               key={stock.id}
@@ -284,23 +301,6 @@ export default function CompareView() {
               )}
             </div>
           )}
-        </div>
-        
-        {/* Quick Add Groups */}
-        <div className="flex items-center gap-2 pt-2 border-t border-white/5 overflow-x-auto pb-1 no-scrollbar">
-          <span className="text-xs text-gray-500 font-medium whitespace-nowrap mr-1">빠른 추가 그룹:</span>
-          {stockGroups.map(group => (
-            <Button
-              key={group.id}
-              variant="outline"
-              size="sm"
-              className="h-7 text-xs bg-white/5 border-white/10 text-gray-300 hover:text-white hover:bg-white/10 hover:border-white/20 px-3 py-0 rounded-full shrink-0"
-              onClick={() => addGroup(group.stocks)}
-            >
-              {group.label}
-              <Plus className="w-3 h-3 ml-1.5 opacity-70" />
-            </Button>
-          ))}
         </div>
       </div>
 
