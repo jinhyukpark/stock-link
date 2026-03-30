@@ -217,14 +217,6 @@ export default function CompareView() {
       <div className="flex flex-col gap-3 bg-[#151921] border border-white/5 rounded-xl p-4 shadow-sm">
         {/* Quick Add Groups */}
         <div className="flex items-center gap-2 pb-2 border-b border-white/5 overflow-x-auto no-scrollbar">
-          <Button
-            variant="outline"
-            size="sm"
-            className="h-7 text-xs bg-white/5 border-white/10 text-red-400 hover:text-red-300 hover:bg-red-500/10 hover:border-red-500/30 px-3 py-0 rounded-full shrink-0 mr-1"
-            onClick={() => setSelectedStocks([])}
-          >
-            초기화
-          </Button>
           {stockGroups.map(group => (
             <Button
               key={group.id}
@@ -240,23 +232,6 @@ export default function CompareView() {
         </div>
 
         <div className="flex items-center gap-4 flex-wrap pt-1">
-          {selectedStocks.map((stock) => (
-            <div 
-              key={stock.id}
-              className="flex items-center gap-2 bg-[#151921] border border-white/10 rounded-full pl-4 pr-2 py-2"
-            >
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: stock.color }} />
-              <span className="font-medium text-white text-sm">{stock.name}</span>
-              <span className="text-gray-500 text-xs font-mono">{stock.code}</span>
-              <button 
-                onClick={() => removeStock(stock.id)}
-                className="ml-2 w-6 h-6 rounded-full bg-white/5 hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center text-gray-400 transition-colors"
-              >
-                <X className="w-3 h-3" />
-              </button>
-            </div>
-          ))}
-          
           {selectedStocks.length < stockDatabase.length && (
             <div className="relative">
               {showSearch ? (
@@ -281,15 +256,29 @@ export default function CompareView() {
                 </Button>
               </div>
             ) : (
-              <Button 
-                variant="outline" 
-                size="sm"
-                className="rounded-full gap-2 bg-primary/10 border-primary/30 text-primary hover:bg-primary/20"
-                onClick={() => setShowSearch(true)}
-              >
-                <Plus className="w-4 h-4" />
-                종목 추가
-              </Button>
+              <div className="flex items-center gap-2">
+                {selectedStocks.length > 0 && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-9 text-xs bg-red-500/10 border-red-500/30 text-red-400 hover:text-red-300 hover:bg-red-500/20 px-4 rounded-full font-medium"
+                    onClick={() => setSelectedStocks([])}
+                    title="전체 초기화"
+                  >
+                    초기화
+                  </Button>
+                )}
+                
+                <Button 
+                  variant="outline" 
+                  size="sm"
+                  className="rounded-full gap-2 bg-primary/10 border-primary/30 text-primary hover:bg-primary/20"
+                  onClick={() => setShowSearch(true)}
+                >
+                  <Plus className="w-4 h-4" />
+                  종목 추가
+                </Button>
+              </div>
             )}
             
               {showSearch && searchQuery && filteredStocks.length > 0 && (
@@ -311,6 +300,23 @@ export default function CompareView() {
               )}
             </div>
           )}
+
+          {selectedStocks.map((stock) => (
+            <div 
+              key={stock.id}
+              className="flex items-center gap-2 bg-[#151921] border border-white/10 rounded-full pl-4 pr-2 py-2"
+            >
+              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: stock.color }} />
+              <span className="font-medium text-white text-sm">{stock.name}</span>
+              <span className="text-gray-500 text-xs font-mono">{stock.code}</span>
+              <button 
+                onClick={() => removeStock(stock.id)}
+                className="ml-2 w-6 h-6 rounded-full bg-white/5 hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center text-gray-400 transition-colors"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+          ))}
         </div>
       </div>
 
