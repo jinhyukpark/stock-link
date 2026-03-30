@@ -503,7 +503,7 @@ export default function MyPage() {
               나를 추천한 유저
             </DialogTitle>
             <DialogDescription className="text-gray-400">
-              추천인 코드를 입력하고 가입한 유저 목록입니다.
+              내 추천인 코드를 입력하고 가입한 유저 목록입니다.
             </DialogDescription>
           </DialogHeader>
           
