@@ -193,7 +193,7 @@ export default function CompareView() {
     if (allSelected) {
       setTempVisibleFields(prev => prev.filter(k => !category.items.includes(k)));
     } else {
-      setTempVisibleFields(prev => [...new Set([...prev, ...category.items])]);
+      setTempVisibleFields(prev => Array.from(new Set([...prev, ...category.items])));
     }
   };
 
@@ -201,13 +201,6 @@ export default function CompareView() {
     setVisibleFields(tempVisibleFields);
     setShowFieldSelector(false);
   };
-
-  const stockGroups = [
-    { id: "semi", label: "💻 반도체/AI", stocks: ["samsung", "sk"] },
-    { id: "auto", label: "🚗 자동차", stocks: ["hyundai-car", "kia"] },
-    { id: "battery", label: "🔋 이차전지", stocks: ["lg-energy", "posco"] },
-    { id: "platform", label: "📱 플랫폼", stocks: ["naver", "kakao"] },
-  ];
 
   const addGroup = (groupStockIds: string[]) => {
     const stocksToAdd = stockDatabase.filter(stock => 
@@ -494,7 +487,10 @@ export default function CompareView() {
               className="rounded-lg gap-2 bg-white/5 border-white/10 text-gray-300 hover:bg-white/10"
               onClick={() => {
                 const headers = ['항목', ...selectedStocks.map(s => s.name)];
-                const rows = metrics.map(m => [m.label, ...selectedStocks.map(s => stockData[s.id]?.[m.key] ?? '-')]);
+                const rows = metrics.map(m => [m.label, ...selectedStocks.map(s => {
+                  const value = s.metrics[m.key];
+                  return value ?? '-';
+                })]);
                 const csv = [headers.join(','), ...rows.map(r => r.join(','))].join('\n');
                 const blob = new Blob(['\uFEFF' + csv], { type: 'text/csv;charset=utf-8;' });
                 const url = URL.createObjectURL(blob);
