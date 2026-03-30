@@ -297,11 +297,16 @@ export default function ThemeView() {
             <div className="bg-[#1C212B] rounded-xl border border-white/5 p-6 shadow-2xl relative">
               {/* Header */}
               <div className="flex justify-between items-start mb-4">
-                <div className="flex items-baseline gap-3">
-                  <h3 className="text-2xl font-bold text-white">{selectedSector}</h3>
-                  <span className="text-sm text-gray-400 font-medium">
-                    {getStocksForSector(selectedSector).length}개 종목
-                  </span>
+                <div className="flex items-center gap-3">
+                  <div className="w-10 h-10 rounded-xl bg-gradient-to-br from-primary/20 to-blue-500/20 border border-primary/30 flex items-center justify-center">
+                    <Sparkles className="w-5 h-5 text-primary" />
+                  </div>
+                  <div className="flex items-baseline gap-3">
+                    <h3 className="text-2xl font-bold text-white">{selectedSector}</h3>
+                    <span className="text-sm text-gray-400 font-medium">
+                      {getStocksForSector(selectedSector).length}개 종목
+                    </span>
+                  </div>
                 </div>
                 <button 
                   onClick={() => setSelectedSector(null)}
