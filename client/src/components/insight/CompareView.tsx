@@ -242,6 +242,23 @@ export default function CompareView() {
         </div>
 
         <div className="flex items-center gap-4 flex-wrap pt-1">
+          {selectedStocks.map((stock) => (
+            <div 
+              key={stock.id}
+              className="flex items-center gap-2 bg-[#151921] border border-white/10 rounded-full pl-4 pr-2 py-2"
+            >
+              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: stock.color }} />
+              <span className="font-medium text-white text-sm">{stock.name}</span>
+              <span className="text-gray-500 text-xs font-mono">{stock.code}</span>
+              <button 
+                onClick={() => removeStock(stock.id)}
+                className="ml-2 w-6 h-6 rounded-full bg-white/5 hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center text-gray-400 transition-colors"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+          ))}
+
           {selectedStocks.length < stockDatabase.length && (
             <div className="relative">
               {showSearch ? (
@@ -267,18 +284,6 @@ export default function CompareView() {
               </div>
             ) : (
               <div className="flex items-center gap-2">
-                {selectedStocks.length > 0 && (
-                  <Button
-                    variant="outline"
-                    size="sm"
-                    className="h-9 text-xs bg-red-500/10 border-red-500/30 text-red-400 hover:text-red-300 hover:bg-red-500/20 px-4 rounded-full font-medium"
-                    onClick={() => setSelectedStocks([])}
-                    title="전체 초기화"
-                  >
-                    초기화
-                  </Button>
-                )}
-                
                 <Button 
                   variant="outline" 
                   size="sm"
@@ -288,6 +293,18 @@ export default function CompareView() {
                   <Plus className="w-4 h-4" />
                   종목 추가
                 </Button>
+                
+                {selectedStocks.length > 0 && (
+                  <Button
+                    variant="outline"
+                    size="sm"
+                    className="h-9 text-xs bg-red-500/10 border-red-500/30 text-red-400 hover:text-red-300 hover:bg-red-500/20 px-4 rounded-full font-medium ml-2"
+                    onClick={() => setSelectedStocks([])}
+                    title="전체 초기화"
+                  >
+                    초기화
+                  </Button>
+                )}
               </div>
             )}
             
@@ -310,23 +327,6 @@ export default function CompareView() {
               )}
             </div>
           )}
-
-          {selectedStocks.map((stock) => (
-            <div 
-              key={stock.id}
-              className="flex items-center gap-2 bg-[#151921] border border-white/10 rounded-full pl-4 pr-2 py-2"
-            >
-              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: stock.color }} />
-              <span className="font-medium text-white text-sm">{stock.name}</span>
-              <span className="text-gray-500 text-xs font-mono">{stock.code}</span>
-              <button 
-                onClick={() => removeStock(stock.id)}
-                className="ml-2 w-6 h-6 rounded-full bg-white/5 hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center text-gray-400 transition-colors"
-              >
-                <X className="w-3 h-3" />
-              </button>
-            </div>
-          ))}
         </div>
       </div>
 
