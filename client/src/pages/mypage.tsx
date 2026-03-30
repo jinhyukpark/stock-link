@@ -106,14 +106,14 @@ export default function MyPage() {
                     <span className="text-gray-300 font-medium text-[15px]">추천인 코드</span>
                     <span className="text-white font-bold text-[15px] tracking-wider">MXHRC73M</span>
                 </div>
-                <div className="flex items-center gap-1">
-                  <Button variant="ghost" size="icon" className="h-8 w-8 text-[#0ea5e9] hover:text-[#0ea5e9]/80 hover:bg-[#0ea5e9]/10" title="복사하기">
-                      <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
+                <div className="flex items-center gap-1.5">
+                  <Button variant="outline" size="icon" className="h-8 w-8 text-[#0ea5e9] bg-transparent border-white/10 hover:text-[#0ea5e9]/80 hover:bg-[#0ea5e9]/10" title="복사하기">
+                      <svg xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round"><rect width="14" height="14" x="8" y="8" rx="2" ry="2"/><path d="M4 16c-1.1 0-2-.9-2-2V4c0-1.1.9-2 2-2h10c1.1 0 2 .9 2 2"/></svg>
                   </Button>
                   <Button 
-                    variant="ghost" 
+                    variant="outline" 
                     size="icon" 
-                    className="h-8 w-8 text-gray-400 hover:text-white hover:bg-white/10" 
+                    className="h-8 w-8 text-gray-400 bg-transparent border-white/10 hover:text-white hover:bg-white/10" 
                     title="추천 유저 목록"
                     onClick={() => setShowReferralList(true)}
                   >
