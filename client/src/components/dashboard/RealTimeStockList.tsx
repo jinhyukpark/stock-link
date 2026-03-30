@@ -7,35 +7,29 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const getScoreClasses = (score: number) => {
-  // 9~10 (90~100): Purple
+  // 90~100 (9.0~10.0): Red
   if (score >= 9.0) return {
-    badge: "bg-purple-500/20 border-purple-500/40",
-    text: "text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]",
+    badge: "border-red-500/40 bg-transparent",
+    text: "text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]",
+    muted: "text-red-500/70"
+  };
+  // 70~90 (7.0~8.9): Orange
+  if (score >= 7.0) return {
+    badge: "border-orange-500/40 bg-transparent",
+    text: "text-orange-500",
+    muted: "text-orange-500/70"
+  };
+  // 30~70 (3.0~6.9): Purple
+  if (score >= 3.0) return {
+    badge: "border-purple-500/40 bg-transparent",
+    text: "text-purple-400",
     muted: "text-purple-400/70"
   };
-  // 7~9 (70~90): Blue
-  if (score >= 7.0) return {
-    badge: "bg-blue-500/20 border-blue-500/40",
+  // 0~30 (0~2.9): Blue
+  return {
+    badge: "border-blue-500/40 bg-transparent",
     text: "text-blue-400",
     muted: "text-blue-400/70"
-  };
-  // 5~7 (50~70): Green
-  if (score >= 5.0) return {
-    badge: "bg-green-500/20 border-green-500/40",
-    text: "text-green-400",
-    muted: "text-green-400/70"
-  };
-  // 3~5 (30~50): Yellow
-  if (score >= 3.0) return {
-    badge: "bg-yellow-500/20 border-yellow-500/40",
-    text: "text-yellow-400",
-    muted: "text-yellow-400/70"
-  };
-  // 0~3 (0~30): Red
-  return {
-    badge: "bg-red-500/20 border-red-500/40",
-    text: "text-red-400",
-    muted: "text-red-400/70"
   };
 };
 

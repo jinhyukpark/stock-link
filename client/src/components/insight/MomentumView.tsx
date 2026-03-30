@@ -357,10 +357,9 @@ export default function MomentumView() {
                     <div className="text-[9px] text-gray-500 font-bold mb-0.5 tracking-tighter">AI SCORE</div>
                     <div className="flex items-baseline gap-1">
                       <div className={`text-4xl font-bold leading-none ${
-                        stock.score >= 9 ? 'text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]' :
-                        stock.score >= 7 ? 'text-blue-400' :
-                        stock.score >= 5 ? 'text-green-400' :
-                        stock.score >= 3 ? 'text-yellow-400' : 'text-red-400'
+                        stock.score >= 9 ? 'text-red-500 drop-shadow-[0_0_8px_rgba(239,68,68,0.5)]' :
+                        stock.score >= 7 ? 'text-orange-500' :
+                        stock.score >= 3 ? 'text-purple-400' : 'text-blue-400'
                       }`}>
                         {(stock.score * 10).toFixed(1)}
                       </div>
