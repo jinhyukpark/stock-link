@@ -293,39 +293,93 @@ export default function ThemeView() {
         </div>
 
         {selectedSector && (
-          <div className="mt-6 pt-6 border-t border-white/10">
-            <div className="flex items-center justify-between mb-4">
-              <h3 className="text-lg font-bold text-white flex items-center gap-2">
-                <span className="text-primary">{selectedSector}</span> 섹터 종목
-              </h3>
-              <button 
-                onClick={() => setSelectedSector(null)}
-                className="text-gray-400 hover:text-white text-sm"
-              >
-                닫기
-              </button>
-            </div>
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-4">
-              {getStocksForSector(selectedSector).map((stock, idx) => (
-                <div 
-                  key={idx}
-                  className="bg-[#0f1318] border border-white/5 rounded-lg p-4 hover:border-primary/30 transition-colors cursor-pointer"
+          <div className="mt-6 pt-6 border-t border-white/10 animate-in fade-in duration-300">
+            <div className="bg-[#1C212B] rounded-xl border border-white/5 p-6 shadow-2xl relative">
+              {/* Header */}
+              <div className="flex justify-between items-start mb-4">
+                <div className="flex items-baseline gap-3">
+                  <h3 className="text-2xl font-bold text-white">{selectedSector}</h3>
+                  <span className="text-sm text-gray-400 font-medium">
+                    {getStocksForSector(selectedSector).length}개 종목
+                  </span>
+                </div>
+                <button 
+                  onClick={() => setSelectedSector(null)}
+                  className="p-1 hover:bg-white/10 rounded transition-colors text-gray-400 hover:text-white"
                 >
-                  <div className="flex items-center justify-between mb-2">
-                    <span className="font-bold text-white">{stock.name}</span>
-                    <span className="text-xs text-gray-500 font-mono">{stock.code}</span>
-                  </div>
-                  <div className="flex items-center justify-between">
-                    <span className="text-gray-300">{stock.price}원</span>
-                    <span className={cn(
-                      "font-bold text-sm",
-                      stock.change > 0 ? "text-red-400" : stock.change < 0 ? "text-blue-400" : "text-gray-400"
-                    )}>
-                      {stock.change > 0 ? "▲" : stock.change < 0 ? "▼" : ""} {Math.abs(stock.change).toFixed(2)}%
+                  <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                    <line x1="18" y1="6" x2="6" y2="18"></line>
+                    <line x1="6" y1="6" x2="18" y2="18"></line>
+                  </svg>
+                </button>
+              </div>
+
+              {/* Description */}
+              <p className="text-sm text-gray-300 leading-relaxed mb-6">
+                {selectedSector} 관련 산업은 최근 기술 혁신과 글로벌 트렌드 변화에 따라 시장의 주목을 받고 있습니다. 
+                이 섹터의 주요 기업들은 새로운 비즈니스 모델 구축과 시장 점유율 확대를 통해 성장 모멘텀을 확보하고 있으며, 
+                단기적인 이슈뿐만 아니라 중장기적인 관점에서도 기관 및 외국인 투자자들의 꾸준한 자금 유입이 관찰되고 있는 핵심 테마입니다.
+              </p>
+
+              {/* Performance Blocks */}
+              <div className="grid grid-cols-4 gap-3 mb-6">
+                {[
+                  { label: "하루", value: `+${(Math.random() * 2).toFixed(2)}%`, isPositive: true },
+                  { label: "1개월", value: `+${(Math.random() * 10 + 2).toFixed(2)}%`, isPositive: true },
+                  { label: "6개월", value: `+${(Math.random() * 20 + 10).toFixed(2)}%`, isPositive: true },
+                  { label: "1년", value: `+${(Math.random() * 30 + 20).toFixed(2)}%`, isPositive: true },
+                ].map((perf, idx) => (
+                  <div key={idx} className="bg-[#151921] rounded-lg p-4 text-center border border-white/5 flex flex-col justify-center gap-2">
+                    <span className="text-xs text-gray-400">{perf.label}</span>
+                    <span className={`font-bold ${perf.isPositive ? 'text-red-500' : 'text-blue-500'}`}>
+                      {perf.value}
                     </span>
                   </div>
+                ))}
+              </div>
+
+              {/* Stock List */}
+              <div className="bg-[#151921] rounded-lg border border-white/5 overflow-hidden">
+                <div className="max-h-[300px] overflow-y-auto overflow-x-hidden custom-scrollbar">
+                  {getStocksForSector(selectedSector).map((stock, idx) => {
+                    const changeValue = Math.floor((Number(stock.price.replace(/,/g, '')) * stock.change) / 100);
+                    const isPositive = stock.change > 0;
+                    const isNegative = stock.change < 0;
+                    
+                    // Generate badge color based on index
+                    const badgeColors = [
+                      "bg-red-500", "bg-green-500", "bg-emerald-500", 
+                      "bg-cyan-500", "bg-blue-500", "bg-indigo-500"
+                    ];
+                    const badgeColor = badgeColors[idx % badgeColors.length];
+                    const firstChar = stock.name.charAt(0);
+
+                    return (
+                      <div 
+                        key={idx}
+                        className="flex items-center px-4 py-4 border-b border-white/5 hover:bg-white/5 transition-colors cursor-pointer"
+                      >
+                        <div className="w-8 text-center text-sm text-gray-500 font-mono mr-2">{idx + 1}</div>
+                        <div className={`w-8 h-8 rounded-lg flex items-center justify-center text-white font-bold text-sm mr-4 ${badgeColor}`}>
+                          {firstChar}
+                        </div>
+                        <div className="flex-1 font-bold text-white text-base">
+                          {stock.name}
+                        </div>
+                        <div className="flex flex-col items-end mr-6">
+                          <span className="font-bold text-white text-base">{stock.price}</span>
+                          <span className={`text-xs font-medium flex items-center gap-0.5 ${isPositive ? 'text-red-500' : isNegative ? 'text-blue-500' : 'text-gray-400'}`}>
+                            {isPositive ? '▲' : isNegative ? '▼' : ''} {Math.abs(changeValue).toLocaleString()}
+                          </span>
+                        </div>
+                        <div className={`w-20 text-right font-bold text-base ${isPositive ? 'text-red-500' : isNegative ? 'text-blue-500' : 'text-gray-400'}`}>
+                          {isPositive ? '+' : ''}{stock.change.toFixed(2)}%
+                        </div>
+                      </div>
+                    );
+                  })}
                 </div>
-              ))}
+              </div>
             </div>
           </div>
         )}
