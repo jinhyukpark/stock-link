@@ -192,30 +192,47 @@ export default function CompareView() {
     setShowFieldSelector(false);
   };
 
+  const stockGroups = [
+    { id: "semi", label: "💻 반도체/AI", stocks: ["samsung", "sk"] },
+    { id: "auto", label: "🚗 자동차", stocks: ["hyundai-car", "kia"] },
+    { id: "battery", label: "🔋 이차전지", stocks: ["lg-energy", "posco"] },
+    { id: "platform", label: "📱 플랫폼", stocks: ["naver", "kakao"] },
+  ];
+
+  const addGroup = (groupStockIds: string[]) => {
+    const stocksToAdd = stockDatabase.filter(stock => 
+      groupStockIds.includes(stock.id) && !selectedStocks.find(s => s.id === stock.id)
+    );
+    if (stocksToAdd.length > 0) {
+      setSelectedStocks([...selectedStocks, ...stocksToAdd]);
+    }
+  };
+
   return (
     <div className="space-y-6 animate-in fade-in duration-500">
       
-      <div className="flex items-center gap-4 flex-wrap">
-        {selectedStocks.map((stock) => (
-          <div 
-            key={stock.id}
-            className="flex items-center gap-2 bg-[#151921] border border-white/10 rounded-full pl-4 pr-2 py-2"
-          >
-            <div className="w-3 h-3 rounded-full" style={{ backgroundColor: stock.color }} />
-            <span className="font-medium text-white text-sm">{stock.name}</span>
-            <span className="text-gray-500 text-xs font-mono">{stock.code}</span>
-            <button 
-              onClick={() => removeStock(stock.id)}
-              className="ml-2 w-6 h-6 rounded-full bg-white/5 hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center text-gray-400 transition-colors"
+      <div className="flex flex-col gap-3 bg-[#151921] border border-white/5 rounded-xl p-4 shadow-sm">
+        <div className="flex items-center gap-4 flex-wrap">
+          {selectedStocks.map((stock) => (
+            <div 
+              key={stock.id}
+              className="flex items-center gap-2 bg-[#151921] border border-white/10 rounded-full pl-4 pr-2 py-2"
             >
-              <X className="w-3 h-3" />
-            </button>
-          </div>
-        ))}
-        
-        {selectedStocks.length < stockDatabase.length && (
-          <div className="relative">
-            {showSearch ? (
+              <div className="w-3 h-3 rounded-full" style={{ backgroundColor: stock.color }} />
+              <span className="font-medium text-white text-sm">{stock.name}</span>
+              <span className="text-gray-500 text-xs font-mono">{stock.code}</span>
+              <button 
+                onClick={() => removeStock(stock.id)}
+                className="ml-2 w-6 h-6 rounded-full bg-white/5 hover:bg-red-500/20 hover:text-red-400 flex items-center justify-center text-gray-400 transition-colors"
+              >
+                <X className="w-3 h-3" />
+              </button>
+            </div>
+          ))}
+          
+          {selectedStocks.length < stockDatabase.length && (
+            <div className="relative">
+              {showSearch ? (
               <div className="flex items-center gap-2">
                 <div className="relative">
                   <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-gray-500" />
@@ -248,25 +265,43 @@ export default function CompareView() {
               </Button>
             )}
             
-            {showSearch && searchQuery && filteredStocks.length > 0 && (
-              <div className="absolute top-12 left-0 w-64 bg-[#151921] border border-white/10 rounded-lg shadow-xl z-10 overflow-hidden">
-                {filteredStocks.slice(0, 5).map((stock) => (
-                  <button
-                    key={stock.id}
-                    onClick={() => addStock(stock)}
-                    className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 text-left transition-colors"
-                  >
-                    <div className="w-2 h-2 rounded-full" style={{ backgroundColor: stock.color }} />
-                    <div>
-                      <div className="text-white text-sm font-medium">{stock.name}</div>
-                      <div className="text-gray-500 text-xs font-mono">{stock.code}</div>
-                    </div>
-                  </button>
-                ))}
-              </div>
-            )}
-          </div>
-        )}
+              {showSearch && searchQuery && filteredStocks.length > 0 && (
+                <div className="absolute top-12 left-0 w-64 bg-[#151921] border border-white/10 rounded-lg shadow-xl z-10 overflow-hidden">
+                  {filteredStocks.slice(0, 5).map((stock) => (
+                    <button
+                      key={stock.id}
+                      onClick={() => addStock(stock)}
+                      className="w-full flex items-center gap-3 px-4 py-3 hover:bg-white/5 text-left transition-colors"
+                    >
+                      <div className="w-2 h-2 rounded-full" style={{ backgroundColor: stock.color }} />
+                      <div>
+                        <div className="text-white text-sm font-medium">{stock.name}</div>
+                        <div className="text-gray-500 text-xs font-mono">{stock.code}</div>
+                      </div>
+                    </button>
+                  ))}
+                </div>
+              )}
+            </div>
+          )}
+        </div>
+        
+        {/* Quick Add Groups */}
+        <div className="flex items-center gap-2 pt-2 border-t border-white/5 overflow-x-auto pb-1 no-scrollbar">
+          <span className="text-xs text-gray-500 font-medium whitespace-nowrap mr-1">빠른 추가 그룹:</span>
+          {stockGroups.map(group => (
+            <Button
+              key={group.id}
+              variant="outline"
+              size="sm"
+              className="h-7 text-xs bg-white/5 border-white/10 text-gray-300 hover:text-white hover:bg-white/10 hover:border-white/20 px-3 py-0 rounded-full shrink-0"
+              onClick={() => addGroup(group.stocks)}
+            >
+              {group.label}
+              <Plus className="w-3 h-3 ml-1.5 opacity-70" />
+            </Button>
+          ))}
+        </div>
       </div>
 
       {showFieldSelector && (

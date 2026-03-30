@@ -398,10 +398,8 @@ export default function MyPage() {
                                             </div>
                                             <div className="mt-8 pt-4 border-t border-transparent">
                                                 <div className="flex items-center h-8">
-                                                    <Link href="/licenses">
-                                                        <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
-                                                            &gt; 자세히 보기
-                                                        </Button>
+                                                    <Link href="/licenses" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                        &gt; 자세히 보기
                                                     </Link>
                                                 </div>
                                             </div>
@@ -420,10 +418,8 @@ export default function MyPage() {
                                             </div>
                                             <div className="mt-8 pt-4 border-t border-transparent">
                                                 <div className="flex items-center justify-between h-8">
-                                                    <Link href="/licenses">
-                                                        <Button variant="ghost" className="text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
-                                                            &gt; 자세히 보기
-                                                        </Button>
+                                                    <Link href="/licenses" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                        &gt; 자세히 보기
                                                     </Link>
                                                     <Button className="bg-[#2dd4bf] hover:bg-[#14b8a6] text-black font-bold rounded-full h-8 px-4 text-xs">
                                                         플랜변경
@@ -450,10 +446,8 @@ export default function MyPage() {
                                                     <span className="text-white font-bold whitespace-nowrap">2027-02-09</span>
                                                 </div>
                                                 <div className="flex items-center h-8">
-                                                    <Link href="/licenses">
-                                                        <Button variant="ghost" className="w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
-                                                            &gt; 자세히 보기
-                                                        </Button>
+                                                    <Link href="/licenses" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground w-full text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
+                                                        &gt; 자세히 보기
                                                     </Link>
                                                 </div>
                                             </div>
