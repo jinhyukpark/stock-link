@@ -7,36 +7,35 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const getScoreClasses = (score: number) => {
-  const s = score * 10;
-  // 80~100: Dark Red (Strong Bullish) - similar to heatmap red-500
-  if (s >= 80) return {
-    badge: "bg-red-500/20 border-red-500/40",
-    text: "text-red-500",
-    muted: "text-red-500/70"
+  // 9~10 (90~100): Purple
+  if (score >= 9.0) return {
+    badge: "bg-purple-500/20 border-purple-500/40",
+    text: "text-purple-400 drop-shadow-[0_0_8px_rgba(168,85,247,0.5)]",
+    muted: "text-purple-400/70"
   };
-  // 60~80: Light Red/Pink (Mild Bullish) - similar to heatmap red-400
-  if (s >= 60) return {
-    badge: "bg-red-400/20 border-red-400/40",
-    text: "text-red-400",
-    muted: "text-red-400/70"
-  };
-  // 40~60: Gray (Neutral) - similar to neutral market
-  if (s >= 40) return {
-    badge: "bg-slate-400/20 border-slate-400/40",
-    text: "text-slate-400",
-    muted: "text-slate-400/70"
-  };
-  // 20~40: Light Blue (Mild Bearish) - similar to heatmap blue-400
-  if (s >= 20) return {
-    badge: "bg-blue-400/20 border-blue-400/40",
+  // 7~9 (70~90): Blue
+  if (score >= 7.0) return {
+    badge: "bg-blue-500/20 border-blue-500/40",
     text: "text-blue-400",
     muted: "text-blue-400/70"
   };
-  // 0~20: Dark Blue (Strong Bearish) - similar to heatmap blue-500
+  // 5~7 (50~70): Green
+  if (score >= 5.0) return {
+    badge: "bg-green-500/20 border-green-500/40",
+    text: "text-green-400",
+    muted: "text-green-400/70"
+  };
+  // 3~5 (30~50): Yellow
+  if (score >= 3.0) return {
+    badge: "bg-yellow-500/20 border-yellow-500/40",
+    text: "text-yellow-400",
+    muted: "text-yellow-400/70"
+  };
+  // 0~3 (0~30): Red
   return {
-    badge: "bg-blue-500/20 border-blue-500/40",
-    text: "text-blue-500",
-    muted: "text-blue-500/70"
+    badge: "bg-red-500/20 border-red-500/40",
+    text: "text-red-400",
+    muted: "text-red-400/70"
   };
 };
 
