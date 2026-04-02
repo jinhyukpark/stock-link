@@ -59,7 +59,8 @@ const periods = [
   { id: "5d", label: "5일 (1주)" },
   { id: "20d", label: "20일 (1개월)" },
   { id: "60d", label: "60일 (3개월)" },
-  { id: "120d", label: "120일 (6개월)" }
+  { id: "120d", label: "120일 (6개월)" },
+  { id: "rs", label: "RS 점수" }
 ];
 
 const CustomTooltip = ({ active, payload, label }: any) => {
@@ -159,8 +160,8 @@ export default function ThemeView() {
     <div className="space-y-6 animate-in fade-in duration-500">
       
       {/* Description Banner */}
-      <div className="flex flex-col md:flex-row md:items-center justify-between gap-4 mb-2">
-         <div className="flex items-center gap-3 bg-purple-950/20 border border-purple-500/20 rounded-lg px-4 py-3 text-sm text-purple-100 w-full md:w-auto flex-1">
+      <div className="flex items-center gap-4 mb-2">
+         <div className="flex items-center gap-3 bg-purple-950/20 border border-purple-500/20 rounded-lg px-4 py-3 text-sm text-purple-100 w-full">
            <Info className="w-5 h-5 text-purple-400 shrink-0" />
            <div>
              <span className="font-bold text-purple-300 mr-2">테마 분석 (Theme Analysis)</span>
@@ -168,27 +169,6 @@ export default function ThemeView() {
                시장 전체의 자금 흐름을 섹터별로 시각화하여 주도 테마와 소외 테마를 한눈에 파악합니다.
              </span>
            </div>
-         </div>
-
-         {/* Global Period Selector */}
-         <div className="flex items-center gap-2 bg-[#151921] border border-white/5 rounded-lg px-4 py-3 shrink-0">
-            <span className="text-xs font-bold text-gray-500 mr-2 uppercase tracking-wider">Period</span>
-            <div className="flex gap-1.5">
-              {periods.map((period) => (
-                <button
-                  key={period.id}
-                  onClick={() => handlePeriodChange(period.id)}
-                  className={cn(
-                    "px-3 py-1.5 rounded-md text-xs font-bold transition-all border",
-                    selectedPeriod === period.id
-                      ? "bg-primary/20 text-primary border-primary/50 shadow-[0_0_10px_rgba(59,130,246,0.2)]"
-                      : "bg-white/5 text-gray-400 border-transparent hover:bg-white/10 hover:text-gray-200"
-                  )}
-                >
-                  {period.label}
-                </button>
-              ))}
-            </div>
          </div>
       </div>
 
@@ -255,6 +235,27 @@ export default function ThemeView() {
                <p className="text-xs text-gray-500 font-mono">Based on 2026-01-08 15:00 (Updated hourly)</p>
              </div>
              {/* Optional: Add Export/Options button here if needed later */}
+          </div>
+
+          {/* Controls - Left Aligned (Toolbar style) */}
+          <div className="w-full border-b border-white/5 pb-4">
+             <div className="flex flex-wrap items-center gap-2">
+                <span className="text-xs font-bold text-gray-500 mr-2 uppercase tracking-wider">Period</span>
+                {periods.map((period) => (
+                  <button
+                    key={period.id}
+                    onClick={() => handlePeriodChange(period.id)}
+                    className={cn(
+                      "px-3 py-1.5 rounded-md text-xs font-bold transition-all border",
+                      selectedPeriod === period.id
+                        ? "bg-primary/20 text-primary border-primary/50 shadow-[0_0_10px_rgba(59,130,246,0.2)]"
+                        : "bg-white/5 text-gray-400 border-transparent hover:bg-white/10 hover:text-gray-200"
+                    )}
+                  >
+                    {period.label}
+                  </button>
+                ))}
+             </div>
           </div>
         </div>
 
