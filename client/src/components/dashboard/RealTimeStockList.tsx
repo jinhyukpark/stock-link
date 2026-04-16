@@ -148,21 +148,21 @@ export default function RealTimeStockList() {
                      <div className="col-span-4 md:col-span-3 flex items-center justify-end">
                         <div 
                            className={cn(
-                              "flex items-center gap-1.5 px-2.5 py-1 rounded-md border backdrop-blur-sm transition-all hover:brightness-110",
+                              "flex items-center justify-center gap-1.5 px-2 py-1 rounded-md border backdrop-blur-sm transition-all hover:brightness-110 w-[88px]",
                               getScoreClasses(stock.aiScore).badge
                            )}
                         >
                            <Sparkles 
                               className={cn(
-                                 "w-3.5 h-3.5",
+                                 "w-3.5 h-3.5 shrink-0",
                                  stock.aiScore >= 8.5 && "animate-pulse",
                                  getScoreClasses(stock.aiScore).text
                               )} 
                            />
                            <div className="font-mono flex items-baseline">
                               {stock.aiScore === 0 ? (
-                                 <span className={cn("font-bold text-[11px] tracking-tight", getScoreClasses(stock.aiScore).text)}>
-                                    Out of Model
+                                 <span className={cn("font-bold text-[10px] tracking-tighter", getScoreClasses(stock.aiScore).text)}>
+                                    OFF MODEL
                                  </span>
                               ) : (
                                  <>
