@@ -66,6 +66,7 @@ export default function MomentumView() {
   const [isLoading, setIsLoading] = useState(false);
   const [showDescription, setShowDescription] = useState(true);
   const [isFilterOpen, setIsFilterOpen] = useState(false);
+  const [marketFilter, setMarketFilter] = useState<'all' | 'strong' | 'weak'>('all');
   const loaderRef = useRef(null);
 
   // Infinite Scroll Implementation
@@ -107,6 +108,12 @@ export default function MomentumView() {
     }, 1000);
   };
 
+  const filteredStocks = stocks.filter(stock => {
+    if (marketFilter === 'strong') return stock.change > 0 && stock.score >= 7;
+    if (marketFilter === 'weak') return stock.change < 0 && stock.score < 5;
+    return true;
+  });
+
   return (
     <div className="space-y-6">
       
@@ -138,6 +145,27 @@ export default function MomentumView() {
             </Button>
 
             <div className="flex bg-black/40 rounded-md p-1 border border-white/10">
+              <button 
+                onClick={() => setMarketFilter(marketFilter === 'strong' ? 'all' : 'strong')}
+                className={`px-3 py-1 text-xs font-bold rounded transition-colors mr-1 ${
+                  marketFilter === 'strong' 
+                    ? 'bg-red-500/30 text-red-400 border border-red-500/50 shadow-[0_0_10px_rgba(239,68,68,0.2)]' 
+                    : 'bg-red-500/10 text-red-500/70 border border-transparent hover:bg-red-500/20 hover:text-red-400'
+                }`}
+              >
+                Market Strong
+              </button>
+              <button 
+                onClick={() => setMarketFilter(marketFilter === 'weak' ? 'all' : 'weak')}
+                className={`px-3 py-1 text-xs font-bold rounded transition-colors mr-3 ${
+                  marketFilter === 'weak'
+                    ? 'bg-blue-500/30 text-blue-400 border border-blue-500/50 shadow-[0_0_10px_rgba(59,130,246,0.2)]'
+                    : 'bg-blue-500/10 text-blue-500/70 border border-transparent hover:bg-blue-500/20 hover:text-blue-400'
+                }`}
+              >
+                Market Weak
+              </button>
+              
             {['1주', '2주', '4주', '6주'].map((label, idx) => (
               <button
                 key={idx}
@@ -311,7 +339,7 @@ export default function MomentumView() {
       {/* Content Area */}
       {viewMode === 'grid' ? (
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 2xl:grid-cols-5 gap-4">
-          {stocks.map((stock) => (
+          {filteredStocks.map((stock) => (
             <Card key={stock.id} className="bg-[#151921] border-white/5 shadow-lg hover:border-white/10 transition-colors group">
               <CardContent className="p-0">
                 {/* Header */}
@@ -479,7 +507,7 @@ export default function MomentumView() {
                 </tr>
               </thead>
               <tbody className="divide-y divide-white/5">
-                {stocks.map((stock) => {
+                {filteredStocks.map((stock) => {
                   const isKospi = Math.random() > 0.5;
                   const changeValue = (stock.price * stock.change / 100).toFixed(0);
                   
