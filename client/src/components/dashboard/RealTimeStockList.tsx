@@ -7,12 +7,6 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const getScoreClasses = (score: number) => {
-  // Not applicable (e.g. ETF, Leverage)
-  if (score === 0) return {
-    badge: "border-gray-500/30 bg-transparent",
-    text: "text-gray-400",
-    muted: "text-gray-500/50"
-  };
   // 90~100 (9.0~10.0): Red
   if (score >= 9.0) return {
     badge: "border-red-500/40 bg-transparent",
@@ -152,34 +146,36 @@ export default function RealTimeStockList() {
 
                      {/* AI Score Column */}
                      <div className="col-span-4 md:col-span-3 flex items-center justify-end">
-                        {stock.aiScore === 0 ? (
-                           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-gray-500/20 bg-gray-500/5 backdrop-blur-sm">
-                              <span className="text-[11px] font-medium text-gray-500">산정제외</span>
-                           </div>
-                        ) : (
-                           <div 
+                        <div 
+                           className={cn(
+                              "flex items-center gap-1.5 px-2.5 py-1 rounded-md border backdrop-blur-sm transition-all hover:brightness-110",
+                              getScoreClasses(stock.aiScore).badge
+                           )}
+                        >
+                           <Sparkles 
                               className={cn(
-                                 "flex items-center gap-1.5 px-2.5 py-1 rounded-md border backdrop-blur-sm transition-all hover:brightness-110",
-                                 getScoreClasses(stock.aiScore).badge
-                              )}
-                           >
-                              <Sparkles 
-                                 className={cn(
-                                    "w-3.5 h-3.5",
-                                    stock.aiScore >= 8.5 && "animate-pulse",
-                                    getScoreClasses(stock.aiScore).text
-                                 )} 
-                              />
-                              <div className="font-mono flex items-baseline">
-                                 <span 
-                                    className={cn("font-bold text-[14px] tracking-tight", getScoreClasses(stock.aiScore).text)}
-                                 >
-                                    {(stock.aiScore * 10).toFixed(1)}
+                                 "w-3.5 h-3.5",
+                                 stock.aiScore >= 8.5 && "animate-pulse",
+                                 getScoreClasses(stock.aiScore).text
+                              )} 
+                           />
+                           <div className="font-mono flex items-baseline">
+                              {stock.aiScore === 0 ? (
+                                 <span className={cn("font-bold text-[11px] tracking-tight", getScoreClasses(stock.aiScore).text)}>
+                                    Out of Model
                                  </span>
-                                 <span className={cn("text-[10px] ml-0.5", getScoreClasses(stock.aiScore).muted)}>/100</span>
-                              </div>
+                              ) : (
+                                 <>
+                                    <span 
+                                       className={cn("font-bold text-[14px] tracking-tight", getScoreClasses(stock.aiScore).text)}
+                                    >
+                                       {(stock.aiScore * 10).toFixed(1)}
+                                    </span>
+                                    <span className={cn("text-[10px] ml-0.5", getScoreClasses(stock.aiScore).muted)}>/100</span>
+                                 </>
+                              )}
                            </div>
-                        )}
+                        </div>
                      </div>
                   </div>
                ))}
