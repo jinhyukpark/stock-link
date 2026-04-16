@@ -148,7 +148,7 @@ export default function RealTimeStockList() {
                      <div className="col-span-4 md:col-span-3 flex items-center justify-end">
                         <div 
                            className={cn(
-                              "flex items-center justify-center gap-1.5 px-2 py-1 rounded-md border backdrop-blur-sm transition-all hover:brightness-110 w-[88px]",
+                              "flex items-center justify-between px-2.5 py-1 rounded-md border backdrop-blur-sm transition-all hover:brightness-110 w-[92px]",
                               getScoreClasses(stock.aiScore).badge
                            )}
                         >
@@ -159,9 +159,9 @@ export default function RealTimeStockList() {
                                  getScoreClasses(stock.aiScore).text
                               )} 
                            />
-                           <div className="font-mono flex items-baseline">
+                           <div className="font-mono flex items-baseline justify-end flex-1">
                               {stock.aiScore === 0 ? (
-                                 <span className={cn("font-bold text-[10px] tracking-tighter", getScoreClasses(stock.aiScore).text)}>
+                                 <span className={cn("font-bold text-[9px] tracking-tighter", getScoreClasses(stock.aiScore).text)}>
                                     OFF MODEL
                                  </span>
                               ) : (
