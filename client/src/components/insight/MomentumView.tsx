@@ -145,27 +145,6 @@ export default function MomentumView() {
             </Button>
 
             <div className="flex bg-black/40 rounded-md p-1 border border-white/10">
-              <button 
-                onClick={() => setMarketFilter(marketFilter === 'strong' ? 'all' : 'strong')}
-                className={`px-3 py-1 text-xs font-bold rounded transition-colors mr-1 ${
-                  marketFilter === 'strong' 
-                    ? 'bg-red-500/30 text-red-400 border border-red-500/50 shadow-[0_0_10px_rgba(239,68,68,0.2)]' 
-                    : 'bg-red-500/10 text-red-500/70 border border-transparent hover:bg-red-500/20 hover:text-red-400'
-                }`}
-              >
-                Market Strong
-              </button>
-              <button 
-                onClick={() => setMarketFilter(marketFilter === 'weak' ? 'all' : 'weak')}
-                className={`px-3 py-1 text-xs font-bold rounded transition-colors mr-3 ${
-                  marketFilter === 'weak'
-                    ? 'bg-blue-500/30 text-blue-400 border border-blue-500/50 shadow-[0_0_10px_rgba(59,130,246,0.2)]'
-                    : 'bg-blue-500/10 text-blue-500/70 border border-transparent hover:bg-blue-500/20 hover:text-blue-400'
-                }`}
-              >
-                Market Weak
-              </button>
-              
             {['1주', '2주', '4주', '6주'].map((label, idx) => (
               <button
                 key={idx}
@@ -180,6 +159,29 @@ export default function MomentumView() {
           
           <div className="px-3 py-1.5 bg-black/40 rounded border border-white/10 text-xs text-gray-400 font-mono">
             2025-12-26
+          </div>
+          
+          <div className="flex items-center bg-black/40 rounded-md p-1 border border-white/10">
+            <button 
+              onClick={() => setMarketFilter(marketFilter === 'strong' ? 'all' : 'strong')}
+              className={`px-3 py-1 text-xs font-bold rounded transition-colors mr-1 ${
+                marketFilter === 'strong' 
+                  ? 'bg-red-500/30 text-red-400 border border-red-500/50 shadow-[0_0_10px_rgba(239,68,68,0.2)]' 
+                  : 'bg-red-500/10 text-red-500/70 border border-transparent hover:bg-red-500/20 hover:text-red-400'
+              }`}
+            >
+              Market Strong
+            </button>
+            <button 
+              onClick={() => setMarketFilter(marketFilter === 'weak' ? 'all' : 'weak')}
+              className={`px-3 py-1 text-xs font-bold rounded transition-colors ${
+                marketFilter === 'weak'
+                  ? 'bg-blue-500/30 text-blue-400 border border-blue-500/50 shadow-[0_0_10px_rgba(59,130,246,0.2)]'
+                  : 'bg-blue-500/10 text-blue-500/70 border border-transparent hover:bg-blue-500/20 hover:text-blue-400'
+              }`}
+            >
+              Market Weak
+            </button>
           </div>
         </div>
 
