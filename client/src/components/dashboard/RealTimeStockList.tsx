@@ -7,6 +7,12 @@ import { cn } from "@/lib/utils";
 import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 
 const getScoreClasses = (score: number) => {
+  // Not applicable (e.g. ETF, Leverage)
+  if (score === 0) return {
+    badge: "border-gray-500/30 bg-transparent",
+    text: "text-gray-400",
+    muted: "text-gray-500/50"
+  };
   // 90~100 (9.0~10.0): Red
   if (score >= 9.0) return {
     badge: "border-red-500/40 bg-transparent",
@@ -37,9 +43,9 @@ const stockData = [
   { rank: 1, name: "SK Hynix", code: "000660", price: "164,000", change: "+6.84%", volume: "2.6T", isFavorite: true, icon: "SK", aiScore: 9.2 },
   { rank: 2, name: "Samsung Elec", code: "005930", price: "72,500", change: "+2.14%", volume: "1.2T", isFavorite: true, icon: "S", aiScore: 8.5 },
   { rank: 3, name: "Wonik Holdings", code: "030530", price: "4,750", change: "+19.08%", volume: "89B", isFavorite: true, icon: "W", aiScore: 9.8 },
-  { rank: 4, name: "KODEX Leverage", code: "122630", price: "17,540", change: "+5.4%", volume: "767B", isFavorite: false, icon: "K", aiScore: 7.4 },
+  { rank: 4, name: "KODEX Leverage", code: "122630", price: "17,540", change: "+5.4%", volume: "767B", isFavorite: false, icon: "K", aiScore: 0 },
   { rank: 5, name: "Hyulim Robot", code: "090710", price: "2,980", change: "+28.71%", volume: "743B", isFavorite: true, icon: "H", aiScore: 9.5 },
-  { rank: 6, name: "KODEX 200", code: "069500", price: "34,720", change: "+2.72%", volume: "695B", isFavorite: false, icon: "K", aiScore: 6.8 },
+  { rank: 6, name: "KODEX 200", code: "069500", price: "34,720", change: "+2.72%", volume: "695B", isFavorite: false, icon: "K", aiScore: 0 },
   { rank: 7, name: "Samsung C&T", code: "028260", price: "139,000", change: "+8.68%", volume: "531B", isFavorite: false, icon: "S", aiScore: 8.1 },
   { rank: 8, name: "POSCO Holdings", code: "005490", price: "398,500", change: "-0.88%", volume: "320B", isFavorite: true, icon: "P", aiScore: 4.2 },
   { rank: 9, name: "NAVER", code: "035420", price: "185,400", change: "+1.2%", volume: "245B", isFavorite: false, icon: "N", aiScore: 6.5 },
@@ -146,28 +152,34 @@ export default function RealTimeStockList() {
 
                      {/* AI Score Column */}
                      <div className="col-span-4 md:col-span-3 flex items-center justify-end">
-                        <div 
-                           className={cn(
-                              "flex items-center gap-1.5 px-2.5 py-1 rounded-md border backdrop-blur-sm transition-all hover:brightness-110",
-                              getScoreClasses(stock.aiScore).badge
-                           )}
-                        >
-                           <Sparkles 
-                              className={cn(
-                                 "w-3.5 h-3.5",
-                                 stock.aiScore >= 8.5 && "animate-pulse",
-                                 getScoreClasses(stock.aiScore).text
-                              )} 
-                           />
-                           <div className="font-mono flex items-baseline">
-                              <span 
-                                 className={cn("font-bold text-[14px] tracking-tight", getScoreClasses(stock.aiScore).text)}
-                              >
-                                 {(stock.aiScore * 10).toFixed(1)}
-                              </span>
-                              <span className={cn("text-[10px] ml-0.5", getScoreClasses(stock.aiScore).muted)}>/100</span>
+                        {stock.aiScore === 0 ? (
+                           <div className="flex items-center gap-1.5 px-2.5 py-1 rounded-md border border-gray-500/20 bg-gray-500/5 backdrop-blur-sm">
+                              <span className="text-[11px] font-medium text-gray-500">산정제외</span>
                            </div>
-                        </div>
+                        ) : (
+                           <div 
+                              className={cn(
+                                 "flex items-center gap-1.5 px-2.5 py-1 rounded-md border backdrop-blur-sm transition-all hover:brightness-110",
+                                 getScoreClasses(stock.aiScore).badge
+                              )}
+                           >
+                              <Sparkles 
+                                 className={cn(
+                                    "w-3.5 h-3.5",
+                                    stock.aiScore >= 8.5 && "animate-pulse",
+                                    getScoreClasses(stock.aiScore).text
+                                 )} 
+                              />
+                              <div className="font-mono flex items-baseline">
+                                 <span 
+                                    className={cn("font-bold text-[14px] tracking-tight", getScoreClasses(stock.aiScore).text)}
+                                 >
+                                    {(stock.aiScore * 10).toFixed(1)}
+                                 </span>
+                                 <span className={cn("text-[10px] ml-0.5", getScoreClasses(stock.aiScore).muted)}>/100</span>
+                              </div>
+                           </div>
+                        )}
                      </div>
                   </div>
                ))}
