@@ -173,21 +173,10 @@ export default function TrendAnalysisWidget() {
               {selectedTrend} <span className="text-gray-400 font-normal text-sm ml-1">(4건)</span>
             </DialogTitle>
           </div>
-          <Button variant="outline" className="h-8 px-4 border-white/10 bg-transparent hover:bg-white/5 text-xs text-gray-300 rounded-full">
-            전체보기
-          </Button>
-        </div>
-
-        {/* Related Keywords Filters */}
-        <div className="px-6 pb-4 flex items-center gap-2">
-          <Badge variant="secondary" className="bg-white/10 hover:bg-white/20 text-white border-transparent cursor-pointer rounded-full px-3 py-1 font-medium">전체</Badge>
-          <Badge variant="outline" className="bg-transparent text-gray-400 border-white/10 hover:bg-white/5 cursor-pointer rounded-full px-3 py-1 font-medium">AI전력수요</Badge>
-          <Badge variant="outline" className="bg-transparent text-gray-400 border-white/10 hover:bg-white/5 cursor-pointer rounded-full px-3 py-1 font-medium">전력기기수요확대</Badge>
-          <Badge variant="outline" className="bg-transparent text-gray-400 border-white/10 hover:bg-white/5 cursor-pointer rounded-full px-3 py-1 font-medium">전력인프라투자</Badge>
         </div>
 
         {/* Scrollable News List Area */}
-        <div className="px-6 pb-6 max-h-[500px] overflow-y-auto">
+        <div className="px-6 max-h-[400px] overflow-y-auto">
           <div className="space-y-4">
             {mockNews.map((news) => (
               <div key={news.id} className="border border-white/10 rounded-xl bg-[#1e2330]/50 p-5 group hover:border-white/20 transition-colors">
@@ -216,13 +205,13 @@ export default function TrendAnalysisWidget() {
               </div>
             ))}
           </div>
-          
-          {/* Added details button area (disabled as requested) */}
-          <div className="mt-6 flex justify-end">
-            <Button disabled className="bg-white/5 text-white/50 border border-white/10 cursor-not-allowed px-6">
-              자세히 보기
-            </Button>
-          </div>
+        </div>
+
+        {/* Added details button area (disabled as requested) */}
+        <div className="p-6 flex justify-center bg-[#151921]">
+          <Button disabled className="bg-white/5 text-white/50 border border-white/10 cursor-not-allowed px-8 py-2 h-auto rounded-full font-medium">
+            자세히 보기
+          </Button>
         </div>
       </DialogContent>
     </Dialog>
