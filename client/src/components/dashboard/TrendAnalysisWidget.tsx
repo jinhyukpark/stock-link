@@ -1,6 +1,7 @@
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { Dialog, DialogContent, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Button } from "@/components/ui/button";
 import { ArrowUpRight, ArrowDownRight, ChevronRight, Zap } from "lucide-react";
 import { cn } from "@/lib/utils";
@@ -9,6 +10,7 @@ import { motion } from "framer-motion";
 
 export default function TrendAnalysisWidget() {
   const [selectedTrend, setSelectedTrend] = useState("AI Semiconductors");
+  const [isPopupOpen, setIsPopupOpen] = useState(false);
 
   const words = [
     { text: "AI Semiconductors", value: 98, type: "up" },
@@ -46,8 +48,53 @@ export default function TrendAnalysisWidget() {
     { rank: 5, name: "HPSP", price: "45,600", change: "+3.40%", volume: "120B", trend: "up" },
   ];
 
+  // Mock news articles for the selected keyword
+  const mockNews = [
+    {
+      id: 1,
+      sentiment: "긍정",
+      sentimentColor: "bg-green-500",
+      relatedKeywords: ["AI전력수요", "+2"],
+      title: "AI 수요 등에 업고 전력 질주하는 전력주",
+      source: "조선일보",
+      time: "약 2시간 전",
+      date: "2026.04.29"
+    },
+    {
+      id: 2,
+      sentiment: "긍정",
+      sentimentColor: "bg-green-500",
+      relatedKeywords: ["AI전력수요", "전력기기"],
+      title: "슈퍼사이클 진입한 전력기기, 하반기 실적도 맑음",
+      source: "한국경제",
+      time: "약 3시간 전",
+      date: "2026.04.29"
+    },
+    {
+      id: 3,
+      sentiment: "중립",
+      sentimentColor: "bg-gray-500",
+      relatedKeywords: ["인프라투자"],
+      title: "글로벌 빅테크들, AI 데이터센터 구축에 수십조 쏟아붓는다",
+      source: "매일경제",
+      time: "약 5시간 전",
+      date: "2026.04.29"
+    },
+    {
+      id: 4,
+      sentiment: "긍정",
+      sentimentColor: "bg-green-500",
+      relatedKeywords: ["AI전력수요", "슈퍼사이클"],
+      title: "끝모를 전력기기 호황... 수주 잔고 역대 최고치 경신",
+      source: "파이낸셜뉴스",
+      time: "약 8시간 전",
+      date: "2026.04.29"
+    }
+  ];
+
   return (
-    <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 flex flex-col overflow-hidden">
+    <>
+      <Card className="h-full bg-card/50 backdrop-blur-sm border-border/50 flex flex-col overflow-hidden">
       {/* Top Panel: Trend Word Cloud */}
       <div className="flex-1 flex flex-col h-full">
         <CardHeader className="py-2 px-4 shrink-0">
@@ -91,13 +138,16 @@ export default function TrendAnalysisWidget() {
                     type: "spring",
                     stiffness: 100 
                   }}
-                  onClick={() => setSelectedTrend(word.text)}
+                  onClick={() => {
+                    setSelectedTrend(word.text);
+                    setTimeout(() => setIsPopupOpen(true), 0);
+                  }}
                   style={{ 
                       fontSize: `${size}rem`,
                   }}
                   className={cn(
-                    `font-display font-bold cursor-pointer transition-all duration-300 ${color} leading-none`,
-                    isSelected ? "scale-110 underline decoration-2 underline-offset-4 z-10" : "hover:scale-110 hover:opacity-100 hover:z-10"
+                    `font-display font-bold cursor-pointer transition-all duration-300 ${color} leading-none relative z-[100] pointer-events-auto`,
+                    isSelected ? "scale-110 underline decoration-2 underline-offset-4" : "hover:scale-110 hover:opacity-100"
                   )}
                 >
                   {word.text}
@@ -113,5 +163,58 @@ export default function TrendAnalysisWidget() {
         </CardContent>
       </div>
     </Card>
+
+    <Dialog open={isPopupOpen} onOpenChange={setIsPopupOpen}>
+      <DialogContent className="sm:max-w-[700px] bg-[#151921] border-white/10 text-white p-0 gap-0 overflow-hidden shadow-2xl">
+        {/* Header */}
+        <div className="flex items-center justify-between p-6 pb-4">
+          <div className="flex items-center gap-2">
+            <DialogTitle className="text-xl font-bold text-white m-0 p-0">
+              {selectedTrend} 관련 뉴스 <span className="text-gray-400 font-normal text-sm ml-1">({mockNews.length}건)</span>
+            </DialogTitle>
+          </div>
+        </div>
+
+        {/* Scrollable News List Area */}
+        <div className="px-6 max-h-[400px] overflow-y-auto">
+          <div className="space-y-4">
+            {mockNews.map((news) => (
+              <div key={news.id} className="border border-white/10 rounded-xl bg-[#1e2330]/50 p-5 group hover:border-white/20 transition-colors">
+                {/* Labels */}
+                <div className="flex items-center gap-2 mb-4">
+                  <Badge className={`${news.sentimentColor} hover:${news.sentimentColor} text-white border-transparent rounded-full px-3 py-0.5 text-xs font-bold`}>
+                    {news.sentiment}
+                  </Badge>
+                  <div className="flex items-center gap-2 text-xs font-bold">
+                    {news.relatedKeywords.map((kw, idx) => (
+                      <span key={idx} className={idx === 0 ? "text-gray-300" : "text-white"}>{kw}</span>
+                    ))}
+                  </div>
+                </div>
+                
+                {/* Title */}
+                <h3 className="text-lg font-bold text-white mb-6 group-hover:text-[#7EE7D2] transition-colors cursor-pointer">
+                  {news.title}
+                </h3>
+                
+                {/* Footer */}
+                <div className="flex items-center justify-between text-xs text-gray-400 font-medium">
+                  <span>{news.source}</span>
+                  <span>{news.time} · {news.date}</span>
+                </div>
+              </div>
+            ))}
+          </div>
+        </div>
+
+        {/* Added details button area (disabled as requested) */}
+        <div className="p-6 flex justify-end bg-[#151921]">
+          <Button disabled className="bg-white/5 text-white/50 border border-white/10 cursor-not-allowed px-8 py-2 h-auto rounded-full font-medium">
+            자세히 보기
+          </Button>
+        </div>
+      </DialogContent>
+    </Dialog>
+    </>
   );
 }
