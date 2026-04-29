@@ -170,7 +170,7 @@ export default function TrendAnalysisWidget() {
         <div className="flex items-center justify-between p-6 pb-4">
           <div className="flex items-center gap-2">
             <DialogTitle className="text-xl font-bold text-white m-0 p-0">
-              {selectedTrend} <span className="text-gray-400 font-normal text-sm ml-1">(4건)</span>
+              {selectedTrend} <span className="text-gray-400 font-normal text-sm ml-1">({mockNews.length}건) 관련 뉴스</span>
             </DialogTitle>
           </div>
         </div>
@@ -208,7 +208,7 @@ export default function TrendAnalysisWidget() {
         </div>
 
         {/* Added details button area (disabled as requested) */}
-        <div className="p-6 flex justify-center bg-[#151921]">
+        <div className="p-6 flex justify-end bg-[#151921]">
           <Button disabled className="bg-white/5 text-white/50 border border-white/10 cursor-not-allowed px-8 py-2 h-auto rounded-full font-medium">
             자세히 보기
           </Button>
