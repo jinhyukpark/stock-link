@@ -500,7 +500,7 @@ export default function MyPage() {
                                     {/* Voucher Registration */}
                                     <div className="mt-12 pt-8 border-t border-white/10">
                                         <h3 className="text-lg font-bold text-white mb-2">이용권 등록</h3>
-                                        <p className="text-sm text-gray-400 mb-6">프로모션 코드나 이용권을 등록하여 구독 기간을 연장하세요.</p>
+                                        <p className="text-sm text-gray-400 mb-6">보유하신 이용권 코드를 등록하세요.</p>
                                         
                                         <div className="flex flex-col sm:flex-row gap-3 max-w-lg">
                                             <Input 
