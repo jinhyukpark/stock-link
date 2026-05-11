@@ -37,6 +37,8 @@ export default function MyPage() {
   const [showReferralList, setShowReferralList] = useState(false);
   const [voucherCode, setVoucherCode] = useState("");
   const [currentPlanMonths, setCurrentPlanMonths] = useState(0);
+  const [showVoucherConfirmDialog, setShowVoucherConfirmDialog] = useState(false);
+  const [parsedVoucher, setParsedVoucher] = useState({ grade: "", months: 0 });
 
   const handleCancelEdit = () => {
     setShowCancelDialog(true);
@@ -47,7 +49,7 @@ export default function MyPage() {
     setIsEditingProfile(false);
   };
 
-  const handleRegisterVoucher = () => {
+  const handleRegisterClick = () => {
     if (!voucherCode.trim()) {
       toast({
         title: "이용권 코드를 입력해주세요.",
@@ -56,20 +58,30 @@ export default function MyPage() {
       return;
     }
 
-    // Mock voucher validation (e.g., "PRO-1M" for 1 month, "PRO-12M" for 12 months)
-    let monthsToAdd = 0;
-    if (voucherCode.toUpperCase().includes("-1M")) monthsToAdd = 1;
-    else if (voucherCode.toUpperCase().includes("-3M")) monthsToAdd = 3;
-    else if (voucherCode.toUpperCase().includes("-6M")) monthsToAdd = 6;
-    else if (voucherCode.toUpperCase().includes("-12M")) monthsToAdd = 12;
-    else monthsToAdd = 1; // Default to 1 month for any other valid-looking code
+    // Parse voucher for confirmation dialog
+    let grade = "PRO";
+    if (voucherCode.toUpperCase().includes("BUSINESS")) grade = "Business";
+    if (voucherCode.toUpperCase().includes("ENTERPRISE")) grade = "Enterprise";
 
-    setCurrentPlanMonths((prev) => prev + monthsToAdd);
+    let months = 0;
+    if (voucherCode.toUpperCase().includes("-1M")) months = 1;
+    else if (voucherCode.toUpperCase().includes("-3M")) months = 3;
+    else if (voucherCode.toUpperCase().includes("-6M")) months = 6;
+    else if (voucherCode.toUpperCase().includes("-12M")) months = 12;
+    else months = 1;
+
+    setParsedVoucher({ grade, months });
+    setShowVoucherConfirmDialog(true);
+  };
+
+  const handleRegisterVoucher = () => {
+    setCurrentPlanMonths((prev) => prev + parsedVoucher.months);
     setVoucherCode("");
+    setShowVoucherConfirmDialog(false);
     
     toast({
       title: "이용권이 등록되었습니다.",
-      description: `StockLink PRO ${monthsToAdd}개월 구독이 연장되었습니다.`,
+      description: `StockLink ${parsedVoucher.grade} ${parsedVoucher.months}개월 구독이 연장되었습니다.`,
     });
   };
 
@@ -510,7 +522,7 @@ export default function MyPage() {
                                                 className="bg-[#0B0E14] border-white/10 text-white h-11 flex-1"
                                             />
                                             <Button 
-                                                onClick={handleRegisterVoucher}
+                                                onClick={handleRegisterClick}
                                                 className="bg-white text-black hover:bg-gray-200 font-bold h-11 px-6 shrink-0"
                                             >
                                                 등록하기
@@ -602,6 +614,32 @@ export default function MyPage() {
           <DialogFooter className="mt-6 border-t border-white/10 pt-4">
             <Button onClick={() => setShowReferralList(false)} className="w-full bg-[#2a303f] hover:bg-[#3a404f] text-white">
               닫기
+            </Button>
+          </DialogFooter>
+        </DialogContent>
+      </Dialog>
+
+      <Dialog open={showVoucherConfirmDialog} onOpenChange={setShowVoucherConfirmDialog}>
+        <DialogContent className="bg-[#151921] border-white/10 sm:max-w-md">
+          <DialogHeader>
+            <DialogTitle className="text-white text-xl">이용권을 등록하시겠습니까?</DialogTitle>
+            <DialogDescription className="text-gray-400 mt-4 space-y-2 text-base">
+              <div className="flex justify-between items-center py-2 border-b border-white/5">
+                <span className="text-gray-500">이용권 등급</span>
+                <span className="text-white font-bold">{parsedVoucher.grade}</span>
+              </div>
+              <div className="flex justify-between items-center py-2 border-b border-white/5">
+                <span className="text-gray-500">이용권 기한</span>
+                <span className="text-primary font-bold">{parsedVoucher.months}개월</span>
+              </div>
+            </DialogDescription>
+          </DialogHeader>
+          <DialogFooter className="flex space-x-2 justify-end mt-6">
+            <Button variant="outline" onClick={() => setShowVoucherConfirmDialog(false)} className="bg-transparent border-white/10 text-white hover:bg-white/5">
+              아니오
+            </Button>
+            <Button variant="default" onClick={handleRegisterVoucher} className="bg-primary hover:bg-primary/90 text-black font-bold">
+              예
             </Button>
           </DialogFooter>
         </DialogContent>
