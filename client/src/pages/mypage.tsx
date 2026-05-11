@@ -26,13 +26,17 @@ import {
 } from "lucide-react";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle } from "@/components/ui/dialog";
+import { useToast } from "@/hooks/use-toast";
 import { cn } from "@/lib/utils";
 
 export default function MyPage() {
+  const { toast } = useToast();
   const [activeTab, setActiveTab] = useState("profile");
   const [isEditingProfile, setIsEditingProfile] = useState(false);
   const [showCancelDialog, setShowCancelDialog] = useState(false);
   const [showReferralList, setShowReferralList] = useState(false);
+  const [voucherCode, setVoucherCode] = useState("");
+  const [currentPlanMonths, setCurrentPlanMonths] = useState(0);
 
   const handleCancelEdit = () => {
     setShowCancelDialog(true);
@@ -41,6 +45,32 @@ export default function MyPage() {
   const confirmCancelEdit = () => {
     setShowCancelDialog(false);
     setIsEditingProfile(false);
+  };
+
+  const handleRegisterVoucher = () => {
+    if (!voucherCode.trim()) {
+      toast({
+        title: "이용권 코드를 입력해주세요.",
+        variant: "destructive",
+      });
+      return;
+    }
+
+    // Mock voucher validation (e.g., "PRO-1M" for 1 month, "PRO-12M" for 12 months)
+    let monthsToAdd = 0;
+    if (voucherCode.toUpperCase().includes("-1M")) monthsToAdd = 1;
+    else if (voucherCode.toUpperCase().includes("-3M")) monthsToAdd = 3;
+    else if (voucherCode.toUpperCase().includes("-6M")) monthsToAdd = 6;
+    else if (voucherCode.toUpperCase().includes("-12M")) monthsToAdd = 12;
+    else monthsToAdd = 1; // Default to 1 month for any other valid-looking code
+
+    setCurrentPlanMonths((prev) => prev + monthsToAdd);
+    setVoucherCode("");
+    
+    toast({
+      title: "이용권이 등록되었습니다.",
+      description: `StockLink PRO ${monthsToAdd}개월 구독이 연장되었습니다.`,
+    });
   };
 
   return (
@@ -465,6 +495,36 @@ export default function MyPage() {
                                                 </div>
                                             </div>
                                         </div>
+                                    </div>
+
+                                    {/* Voucher Registration */}
+                                    <div className="mt-12 pt-8 border-t border-white/10">
+                                        <h3 className="text-lg font-bold text-white mb-2">이용권 등록</h3>
+                                        <p className="text-sm text-gray-400 mb-6">프로모션 코드나 이용권을 등록하여 구독 기간을 연장하세요.</p>
+                                        
+                                        <div className="flex flex-col sm:flex-row gap-3 max-w-lg">
+                                            <Input 
+                                                placeholder="이용권 코드 입력 (예: PRO-1M)" 
+                                                value={voucherCode}
+                                                onChange={(e) => setVoucherCode(e.target.value)}
+                                                className="bg-[#0B0E14] border-white/10 text-white h-11 flex-1"
+                                            />
+                                            <Button 
+                                                onClick={handleRegisterVoucher}
+                                                className="bg-white text-black hover:bg-gray-200 font-bold h-11 px-6 shrink-0"
+                                            >
+                                                등록하기
+                                            </Button>
+                                        </div>
+                                        
+                                        {currentPlanMonths > 0 && (
+                                            <div className="mt-4 p-4 bg-primary/10 border border-primary/20 rounded-lg max-w-lg">
+                                                <p className="text-sm text-primary font-medium flex items-center gap-2">
+                                                    <Check className="w-4 h-4" />
+                                                    이용권으로 {currentPlanMonths}개월이 연장되었습니다.
+                                                </p>
+                                            </div>
+                                        )}
                                     </div>
                                 </div>
                             </TabsContent>
