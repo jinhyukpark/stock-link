@@ -533,7 +533,7 @@ export default function MyPage() {
                                             <div className="mt-4 p-4 bg-primary/10 border border-primary/20 rounded-lg max-w-lg">
                                                 <p className="text-sm text-primary font-medium flex items-center gap-2">
                                                     <Check className="w-4 h-4" />
-                                                    이용권으로 {currentPlanMonths}개월이 연장되었습니다.
+                                                    {parsedVoucher.grade} 이용권 {parsedVoucher.months}개월이 정상 적용되었습니다.
                                                 </p>
                                             </div>
                                         )}
