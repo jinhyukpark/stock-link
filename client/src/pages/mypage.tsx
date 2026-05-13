@@ -474,7 +474,7 @@ export default function MyPage() {
                                             <div className="mt-8 pt-4 border-t border-white/10">
                                                 <div className="space-y-2 mb-4">
                                                     <div className="flex justify-between items-center text-sm">
-                                                        <span className="text-gray-400 font-bold whitespace-nowrap">이용 재개일</span>
+                                                        <span className="text-gray-400 font-bold whitespace-nowrap">구독 만료일</span>
                                                         <span className="text-white font-bold whitespace-nowrap">2025-05-15</span>
                                                     </div>
                                                     <div className="flex justify-between items-center text-sm">
