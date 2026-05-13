@@ -471,7 +471,19 @@ export default function MyPage() {
                                                 <p>더 깊이 있는 AI 분석으로 시장을 선도하세요</p>
                                                 <p>데이터 기반 의사결정을 강화하려는 소규모·리서치 팀</p>
                                             </div>
-                                            <div className="mt-8 pt-4 border-t border-transparent">
+                                            <div className="mt-8 pt-4 border-t border-white/10">
+                                                <div className="space-y-2 mb-4">
+                                                    <div className="flex justify-between items-start text-sm gap-2">
+                                                        <span className="text-gray-400 font-bold whitespace-nowrap shrink-0 mt-0.5">구독 잔여 기간</span>
+                                                        <span className="text-white font-bold text-right leading-tight break-keep">
+                                                            2025.05.13 ~<br/>2025.06.13
+                                                        </span>
+                                                    </div>
+                                                    <div className="flex justify-between items-center text-sm gap-2 pt-1">
+                                                        <span className="text-gray-400 font-bold whitespace-nowrap shrink-0">다음 결제일</span>
+                                                        <span className="text-white font-bold text-right whitespace-nowrap">2025.06.13</span>
+                                                    </div>
+                                                </div>
                                                 <div className="flex items-center justify-between h-8">
                                                     <Link href="/licenses" className="inline-flex items-center justify-center whitespace-nowrap rounded-md text-sm ring-offset-background transition-colors focus-visible:outline-none focus-visible:ring-2 focus-visible:ring-ring focus-visible:ring-offset-2 disabled:pointer-events-none disabled:opacity-50 hover:text-accent-foreground text-[#3b82f6] hover:text-[#2563eb] hover:bg-transparent p-0 justify-start h-auto font-medium">
                                                         &gt; 자세히 보기
@@ -497,7 +509,7 @@ export default function MyPage() {
                                             
                                             <div className="mt-8 pt-4 border-t border-white/10">
                                                 <div className="flex justify-between items-center text-sm mb-4">
-                                                    <span className="text-gray-400 font-bold whitespace-nowrap">다음 결제일</span>
+                                                    <span className="text-gray-400 font-bold whitespace-nowrap">이용권 만료일</span>
                                                     <span className="text-white font-bold whitespace-nowrap">2027-02-09</span>
                                                 </div>
                                                 <div className="flex items-center h-8">
@@ -634,6 +646,18 @@ export default function MyPage() {
               </div>
             </DialogDescription>
           </DialogHeader>
+          
+          <div className="mt-2 space-y-1">
+            <p className="text-[12px] text-gray-500">
+              이용권 종료 후 기존 구독 잔여 기간이 이어서 적용됩니다.
+            </p>
+            {typeof navigator !== 'undefined' && /iPhone|iPad|iPod/i.test(navigator.userAgent) && (
+              <p className="text-[12px] text-gray-500">
+                iOS 구독의 경우, 이용권 사용 중에도 Apple을 통한 정기결제가 예정대로 진행됩니다. 결제된 기간은 이용권 종료 후 순서대로 자동 적용됩니다.
+              </p>
+            )}
+          </div>
+
           <DialogFooter className="flex space-x-2 justify-end mt-6">
             <Button variant="outline" onClick={() => setShowVoucherConfirmDialog(false)} className="bg-transparent border-white/10 text-white hover:bg-white/5">
               아니오
