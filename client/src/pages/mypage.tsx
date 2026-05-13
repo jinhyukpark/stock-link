@@ -634,6 +634,18 @@ export default function MyPage() {
               </div>
             </DialogDescription>
           </DialogHeader>
+          
+          <div className="mt-2 space-y-1">
+            <p className="text-[12px] text-gray-500">
+              이용권 종료 후 기존 구독 잔여 기간이 이어서 적용됩니다.
+            </p>
+            {typeof navigator !== 'undefined' && /iPhone|iPad|iPod/i.test(navigator.userAgent) && (
+              <p className="text-[12px] text-gray-500">
+                iOS 구독의 경우, 이용권 사용 중에도 Apple을 통한 정기결제가 예정대로 진행됩니다. 결제된 기간은 이용권 종료 후 순서대로 자동 적용됩니다.
+              </p>
+            )}
+          </div>
+
           <DialogFooter className="flex space-x-2 justify-end mt-6">
             <Button variant="outline" onClick={() => setShowVoucherConfirmDialog(false)} className="bg-transparent border-white/10 text-white hover:bg-white/5">
               아니오
