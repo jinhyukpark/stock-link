@@ -1,10 +1,54 @@
-import { AlertCircle, TrendingUp, TrendingDown, MessageSquare, Twitter, Globe, Megaphone, CheckCircle2, XCircle, ArrowRight, Zap, Target } from "lucide-react";
+import { useState } from "react";
+import { format, subDays } from "date-fns";
+import { ko } from "date-fns/locale";
+import { AlertCircle, TrendingUp, TrendingDown, MessageSquare, Globe, Megaphone, Zap, Target, Calendar as CalendarIcon, ChevronDown } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
+import { Button } from "@/components/ui/button";
+import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
+import { cn } from "@/lib/utils";
 
 export default function SocialAnalysisView() {
+    const [date, setDate] = useState<Date>(new Date(2026, 3, 26)); // Default to 2026-04-26 for mockup
+
     return (
         <div className="space-y-8 pb-12 animate-in fade-in duration-500">
+            {/* Header controls */}
+            <div className="flex justify-between items-center bg-[#151921] p-4 rounded-xl border border-white/10">
+                <div className="flex items-center gap-3">
+                    <span className="text-gray-400 text-sm font-medium">조회 일자</span>
+                    <Popover>
+                        <PopoverTrigger asChild>
+                            <Button
+                                variant="outline"
+                                className={cn(
+                                    "w-[240px] justify-start text-left font-normal bg-[#1e2330] border-white/10 text-white hover:bg-white/5 hover:text-white",
+                                    !date && "text-muted-foreground"
+                                )}
+                            >
+                                <CalendarIcon className="mr-2 h-4 w-4 text-primary" />
+                                {date ? format(date, "yyyy년 MM월 dd일 (EEEE)", { locale: ko }) : <span>날짜를 선택하세요</span>}
+                                <ChevronDown className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                        </PopoverTrigger>
+                        <PopoverContent className="w-auto p-0 bg-[#151921] border-white/10" align="start">
+                            <Calendar
+                                mode="single"
+                                selected={date}
+                                onSelect={(d) => d && setDate(d)}
+                                initialFocus
+                                className="bg-[#151921] text-white"
+                            />
+                        </PopoverContent>
+                    </Popover>
+                </div>
+                
+                <div className="text-sm text-gray-500">
+                    마지막 업데이트: {format(date, "yyyy.MM.dd")} 18:30
+                </div>
+            </div>
+
             {/* 1. 주요 하이라이트 */}
             <section className="space-y-4">
                 <h2 className="text-xl font-bold text-white flex items-center gap-2">
