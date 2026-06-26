@@ -470,8 +470,8 @@ export default function SocialAnalysisView() {
                         <div key={idx} className="flex items-center gap-3 bg-slate-900 rounded-full px-4 py-2 border border-slate-800 shadow-sm">
                             <span className="font-medium text-slate-300 text-[13px]">{sec.name}</span>
                             <div className="h-3 w-px bg-slate-700 mx-0.5"></div>
-                            <span className="text-slate-400 text-xs">긍정 {sec.positive}</span>
-                            <span className="text-slate-400 text-xs">부정 {sec.negative}</span>
+                            <span className="text-xs"><span className="text-slate-300">긍정</span> <span className="text-emerald-400 font-medium">{sec.positive}</span></span>
+                            <span className="text-xs"><span className="text-slate-300">부정</span> <span className="text-red-400 font-medium">{sec.negative}</span></span>
                             <div className="h-3 w-px bg-slate-700 mx-0.5"></div>
                             <span className="text-slate-500 font-bold text-sm leading-none">{sec.dir}</span>
                         </div>
