@@ -9,7 +9,7 @@ import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-// Global Ticker Chip Component
+// Global Ticker Chip Component (전 섹션 동일 적용)
 const TickerChip = ({ children }: { children: React.ReactNode }) => (
     <span className="inline-block bg-blue-950 text-blue-300 border border-blue-800 rounded-full px-2 py-0.5 text-xs font-mono font-medium mx-1">
         {children}
@@ -20,22 +20,24 @@ const HighlightInfluencer = ({ children }: { children: React.ReactNode }) => (
     <strong className="text-slate-200 font-bold">{children}</strong>
 );
 
+// 주요 하이라이트 Positive keywords
 const HighlightPos = ({ children }: { children: React.ReactNode }) => (
     <strong className="text-emerald-400 font-semibold">{children}</strong>
 );
 
+// 주요 하이라이트 Negative keywords
 const HighlightNeg = ({ children }: { children: React.ReactNode }) => (
     <strong className="text-red-400 font-semibold">{children}</strong>
 );
 
-// Muted Sector Colors
+// Distinct Vivid Sector Colors for Pie Charts
 const SECTOR_COLORS: Record<string, string> = {
-    "반도체": "#64748b", // slate-500
-    "2차전지": "#475569", // slate-600
-    "바이오/헬스케어": "#94a3b8", // slate-400
-    "금융": "#334155", // slate-700
-    "에너지": "#cbd5e1", // slate-300
-    "플랫폼/IT": "#1e293b" // slate-800
+    "반도체": "#60a5fa", // blue-400
+    "2차전지": "#34d399", // emerald-400
+    "바이오/헬스케어": "#f472b6", // pink-400
+    "금융": "#fbbf24", // amber-400
+    "에너지": "#fb923c", // orange-400
+    "플랫폼/IT": "#a78bfa" // violet-400
 };
 
 // Mock Data
@@ -154,12 +156,14 @@ const SectionTitle = ({ icon: Icon, title }: { icon: any, title: string }) => (
     </div>
 );
 
+// 시장 영향도 badges
 const ImpactBadge = ({ impact }: { impact: string }) => {
-    if (impact === "긍정") return <Badge className="bg-emerald-500 text-white font-semibold hover:bg-emerald-600 border-0 px-3 py-1">긍정</Badge>;
-    if (impact === "부정") return <Badge className="bg-red-500 text-white font-semibold hover:bg-red-600 border-0 px-3 py-1">부정</Badge>;
-    return <Badge className="bg-slate-500 text-white font-semibold hover:bg-slate-600 border-0 px-3 py-1">중립</Badge>;
+    if (impact === "긍정") return <span className="inline-block rounded-full bg-emerald-500 text-white font-semibold px-3 py-1 text-xs">긍정</span>;
+    if (impact === "부정") return <span className="inline-block rounded-full bg-red-500 text-white font-semibold px-3 py-1 text-xs">부정</span>;
+    return <span className="inline-block rounded-full bg-slate-500 text-white font-semibold px-3 py-1 text-xs">중립</span>;
 };
 
+// ★★★ 영향 강도
 const Stars = ({ count }: { count: number }) => {
     return (
         <div className="flex gap-0.5">
@@ -170,20 +174,23 @@ const Stars = ({ count }: { count: number }) => {
     );
 };
 
+// 플랫폼 chips
 const PlatformBadge = ({ platform }: { platform: string }) => {
-    let colorClass = "bg-slate-700 text-slate-200 border-slate-500";
-    if (platform === "X (Twitter)") colorClass = "bg-slate-700 text-slate-200 border-transparent";
-    else if (platform === "YouTube") colorClass = "bg-red-900 text-red-300 border-transparent";
-    else if (platform === "News") colorClass = "bg-blue-900 text-blue-300 border-transparent";
-    else if (platform === "Truth Social") colorClass = "bg-orange-900 text-orange-300 border-transparent";
+    let colorClass = "bg-slate-700 text-slate-200"; // default
+    if (platform === "X (Twitter)") colorClass = "bg-slate-700 text-slate-200";
+    else if (platform === "YouTube") colorClass = "bg-red-900 text-red-300";
+    else if (platform === "News") colorClass = "bg-blue-900 text-blue-300";
+    else if (platform === "Truth Social") colorClass = "bg-orange-900 text-orange-300";
     
-    return <Badge variant="outline" className={cn("font-normal px-2.5 py-0.5 text-xs", colorClass)}>{platform}</Badge>;
+    return <span className={cn("inline-block rounded-full px-2.5 py-0.5 text-xs font-medium", colorClass)}>{platform}</span>;
 }
 
 export default function SocialAnalysisView() {
     const [date, setDate] = useState<Date>(new Date(2026, 3, 26)); // Default to 2026-04-26
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const calendarRef = useRef<HTMLDivElement>(null);
+    const btnRef = useRef<HTMLButtonElement>(null);
+    const [calendarWidth, setCalendarWidth] = useState<number | undefined>(undefined);
 
     // Close calendar when clicking outside
     useEffect(() => {
@@ -195,6 +202,9 @@ export default function SocialAnalysisView() {
         
         if (isCalendarOpen) {
             document.addEventListener("mousedown", handleClickOutside);
+            if (btnRef.current) {
+                setCalendarWidth(btnRef.current.offsetWidth);
+            }
         }
         
         return () => {
@@ -215,17 +225,18 @@ export default function SocialAnalysisView() {
                         <h1 className="text-2xl font-bold text-white flex items-center gap-3">
                             [일일 리포트] 인플루언서 증권 관련 SNS 모니터링
                         </h1>
-                        <div className="flex items-center gap-2 mt-4">
-                            <Badge variant="outline" className="bg-blue-900 text-blue-300 border-blue-700 px-3 py-1 flex items-center gap-1.5 font-normal"><Newspaper className="w-3.5 h-3.5"/> 미국 뉴스</Badge>
-                            <Badge variant="outline" className="bg-indigo-900 text-indigo-300 border-indigo-700 px-3 py-1 flex items-center gap-1.5 font-normal"><Newspaper className="w-3.5 h-3.5"/> 한국 뉴스</Badge>
-                            <Badge variant="outline" className="bg-slate-700 text-slate-200 border-slate-500 px-3 py-1 flex items-center gap-1.5 font-normal"><Twitter className="w-3.5 h-3.5"/> 미국 SNS (X)</Badge>
+                        <div className="flex flex-wrap items-center gap-2 mt-4">
+                            <span className="inline-flex bg-blue-900 text-blue-300 border border-blue-700 rounded-full px-3 py-1 items-center gap-1.5 text-xs font-normal"><Newspaper className="w-3.5 h-3.5"/> 미국 뉴스</span>
+                            <span className="inline-flex bg-indigo-900 text-indigo-300 border border-indigo-700 rounded-full px-3 py-1 items-center gap-1.5 text-xs font-normal"><Newspaper className="w-3.5 h-3.5"/> 한국 뉴스</span>
+                            <span className="inline-flex bg-slate-700 text-slate-200 border border-slate-500 rounded-full px-3 py-1 items-center gap-1.5 text-xs font-normal"><Twitter className="w-3.5 h-3.5"/> 미국 SNS (X)</span>
                         </div>
                     </div>
 
-                    {/* Date Picker */}
+                    {/* Date Picker - Fixed Width for exact match */}
                     <div className="flex flex-col items-end gap-2 shrink-0">
-                        <div className="relative w-[240px]" ref={calendarRef}>
+                        <div className="relative w-[280px]" ref={calendarRef}>
                             <Button
+                                ref={btnRef}
                                 variant="outline"
                                 onClick={() => setIsCalendarOpen(!isCalendarOpen)}
                                 className={cn(
@@ -239,7 +250,10 @@ export default function SocialAnalysisView() {
                             </Button>
 
                             {isCalendarOpen && (
-                                <div className="absolute top-[100%] right-0 mt-1 z-50 bg-slate-900 border border-slate-800 rounded-md shadow-lg overflow-hidden min-w-[280px]">
+                                <div 
+                                    className="absolute top-[100%] right-0 mt-1 z-50 bg-slate-900 border border-slate-800 rounded-md shadow-lg overflow-hidden"
+                                    style={{ width: calendarWidth ? `${calendarWidth}px` : '100%' }}
+                                >
                                     <Calendar
                                         mode="single"
                                         selected={date}
@@ -250,12 +264,12 @@ export default function SocialAnalysisView() {
                                             }
                                         }}
                                         initialFocus
-                                        className="bg-slate-900 text-slate-200 w-full"
+                                        className="bg-slate-900 text-slate-200 p-1 flex justify-center [&_.rdp-cell]:p-0.5 [&_.rdp-button]:w-8 [&_.rdp-button]:h-8 [&_.rdp-button]:text-xs [&_.rdp-head_cell]:text-xs"
                                     />
                                 </div>
                             )}
                         </div>
-                        <div className="text-xs text-slate-500 w-[240px] text-left">
+                        <div className="text-xs text-slate-500 w-[280px] text-left">
                             마지막 업데이트: {format(date, "yyyy.MM.dd")} 18:30
                         </div>
                     </div>
@@ -283,7 +297,7 @@ export default function SocialAnalysisView() {
                     <table className="w-full text-sm text-left">
                         <thead className="bg-slate-800/50 text-slate-400 font-medium border-b border-slate-800">
                             <tr>
-                                <th className="px-5 py-4 whitespace-nowrap font-medium">인플루언서명</th>
+                                <th className="px-5 py-4 whitespace-nowrap font-medium border-l-4 border-transparent">인플루언서명</th>
                                 <th className="px-5 py-4 whitespace-nowrap font-medium">플랫폼</th>
                                 <th className="px-5 py-4 min-w-[300px] font-medium">발언 요약</th>
                                 <th className="px-5 py-4 whitespace-nowrap font-medium">관련 종목</th>
@@ -295,12 +309,16 @@ export default function SocialAnalysisView() {
                             {data.table.map((row, idx) => (
                                 <tr key={idx} className={cn(
                                     "transition-colors",
-                                    idx % 2 === 0 ? "bg-transparent" : "bg-slate-800/20",
-                                    row.stars === 3 && row.impact === "긍정" ? "border-l-4 border-emerald-500" : "",
-                                    row.stars === 3 && row.impact === "부정" ? "border-l-4 border-red-500" : "",
-                                    row.stars < 3 ? "border-l-4 border-transparent" : ""
+                                    idx % 2 === 0 ? "bg-transparent" : "bg-slate-800/20"
                                 )}>
-                                    <td className="px-5 py-4 font-bold text-slate-200 whitespace-nowrap">{row.speaker}</td>
+                                    <td className={cn(
+                                        "px-5 py-4 font-bold text-slate-200 whitespace-nowrap border-l-4",
+                                        row.stars === 3 && row.impact === "긍정" ? "border-emerald-500" : 
+                                        row.stars === 3 && row.impact === "부정" ? "border-red-500" : 
+                                        "border-transparent"
+                                    )}>
+                                        {row.speaker}
+                                    </td>
                                     <td className="px-5 py-4 whitespace-nowrap">
                                         <PlatformBadge platform={row.platform} />
                                     </td>
@@ -327,22 +345,22 @@ export default function SocialAnalysisView() {
             <section className="space-y-2">
                 <SectionTitle icon={Globe} title="긍/부정 종목 종합" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* 상승 기대 종목 */}
-                    <div className="p-1">
-                        <div className="flex items-center gap-2 pb-3 mb-4 border-b border-slate-800">
+                    {/* 상승 기대 종목 (Column Container with subtle background) */}
+                    <div className="p-5 bg-emerald-950/20 rounded-xl">
+                        <div className="flex items-center gap-2 pb-4 mb-5 border-b border-emerald-900/30">
                             <h3 className="font-bold text-slate-200 text-lg">상승/호재 기대 종목</h3>
                         </div>
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                             {data.positiveStocks.map((stock, idx) => (
-                                <Card key={idx} className="bg-slate-900 border-y-slate-800 border-r-slate-800 border-l-4 border-emerald-500 p-5 shadow-none rounded-lg">
+                                <Card key={idx} className="bg-slate-800 border-0 p-5 shadow-md rounded-xl">
                                     <div className="flex flex-wrap items-center gap-3 mb-3">
                                         <TickerChip>{stock.ticker}</TickerChip>
                                         <span className="font-bold text-white text-base flex items-center gap-1.5">
                                             {stock.name}
                                         </span>
                                     </div>
-                                    <p className="text-sm text-slate-400 mb-4 leading-relaxed">{stock.reason}</p>
-                                    <div className="text-xs text-slate-500 flex items-center gap-2">
+                                    <p className="text-sm text-slate-300 mb-4 leading-relaxed">{stock.reason}</p>
+                                    <div className="text-xs text-slate-400 flex items-center gap-2">
                                         <span>주요 언급: <HighlightInfluencer>{stock.influencer}</HighlightInfluencer></span>
                                     </div>
                                 </Card>
@@ -350,22 +368,22 @@ export default function SocialAnalysisView() {
                         </div>
                     </div>
 
-                    {/* 하락 우려 종목 */}
-                    <div className="p-1">
-                        <div className="flex items-center gap-2 pb-3 mb-4 border-b border-slate-800">
+                    {/* 하락 우려 종목 (Column Container with subtle background) */}
+                    <div className="p-5 bg-red-950/20 rounded-xl">
+                        <div className="flex items-center gap-2 pb-4 mb-5 border-b border-red-900/30">
                             <h3 className="font-bold text-slate-200 text-lg">하락/악재 우려 종목</h3>
                         </div>
-                        <div className="space-y-3">
+                        <div className="space-y-4">
                             {data.negativeStocks.map((stock, idx) => (
-                                <Card key={idx} className="bg-slate-900 border-y-slate-800 border-r-slate-800 border-l-4 border-red-500 p-5 shadow-none rounded-lg">
+                                <Card key={idx} className="bg-slate-800 border-0 p-5 shadow-md rounded-xl">
                                     <div className="flex flex-wrap items-center gap-3 mb-3">
                                         <TickerChip>{stock.ticker}</TickerChip>
                                         <span className="font-bold text-white text-base flex items-center gap-1.5">
                                             {stock.name}
                                         </span>
                                     </div>
-                                    <p className="text-sm text-slate-400 mb-4 leading-relaxed">{stock.reason}</p>
-                                    <div className="text-xs text-slate-500 flex items-center gap-2">
+                                    <p className="text-sm text-slate-300 mb-4 leading-relaxed">{stock.reason}</p>
+                                    <div className="text-xs text-slate-400 flex items-center gap-2">
                                         <span>주요 언급: <HighlightInfluencer>{stock.influencer}</HighlightInfluencer></span>
                                     </div>
                                 </Card>
@@ -380,8 +398,8 @@ export default function SocialAnalysisView() {
                 <SectionTitle icon={BarChart3} title="섹터별 영향 분석" />
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* 긍정 분포 파이 차트 */}
-                    <Card className="bg-slate-900 border-slate-800 p-6 shadow-none flex flex-col items-center">
-                        <h3 className="font-medium text-slate-300 mb-6 text-center text-sm tracking-wide">긍정 언급 섹터 분포</h3>
+                    <Card className="bg-emerald-950/20 border-0 border-t-2 border-t-emerald-500/40 p-6 shadow-md flex flex-col items-center rounded-xl">
+                        <h3 className="font-medium text-emerald-400 mb-6 text-center text-sm tracking-wide">긍정 언급 섹터 분포</h3>
                         <div className="h-[280px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
@@ -390,12 +408,13 @@ export default function SocialAnalysisView() {
                                         cx="50%"
                                         cy="50%"
                                         labelLine={false}
-                                        label={({ name, percent }) => percent > 0 ? `${name} ${(percent * 100).toFixed(0)}%` : ''}
+                                        label={({ percent }) => percent > 0 ? `${(percent * 100).toFixed(0)}%` : ''}
                                         outerRadius={90}
-                                        innerRadius={45}
+                                        innerRadius={50}
                                         dataKey="value"
-                                        stroke="#0f172a" // slate-900 to match background
+                                        stroke="#022c22" // match background to hide borders somewhat
                                         strokeWidth={2}
+                                        opacity={1}
                                     >
                                         {data.positiveSectors.map((entry, index) => (
                                             <Cell key={`cell-${index}`} fill={SECTOR_COLORS[entry.name]} />
@@ -405,15 +424,18 @@ export default function SocialAnalysisView() {
                                         contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
                                         itemStyle={{ color: '#e2e8f0', fontSize: '12px' }}
                                     />
-                                    <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '20px', color: '#94a3b8' }} />
+                                    <Legend 
+                                        wrapperStyle={{ fontSize: '12px', paddingTop: '20px', color: '#cbd5e1' }}
+                                        iconType="circle"
+                                    />
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
                     </Card>
 
                     {/* 부정 분포 파이 차트 */}
-                    <Card className="bg-slate-900 border-slate-800 p-6 shadow-none flex flex-col items-center">
-                        <h3 className="font-medium text-slate-300 mb-6 text-center text-sm tracking-wide">부정 언급 섹터 분포</h3>
+                    <Card className="bg-red-950/20 border-0 border-t-2 border-t-red-500/40 p-6 shadow-md flex flex-col items-center rounded-xl">
+                        <h3 className="font-medium text-red-400 mb-6 text-center text-sm tracking-wide">부정 언급 섹터 분포</h3>
                         <div className="h-[280px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
@@ -422,12 +444,13 @@ export default function SocialAnalysisView() {
                                         cx="50%"
                                         cy="50%"
                                         labelLine={false}
-                                        label={({ name, percent }) => percent > 0 ? `${name} ${(percent * 100).toFixed(0)}%` : ''}
+                                        label={({ percent }) => percent > 0 ? `${(percent * 100).toFixed(0)}%` : ''}
                                         outerRadius={90}
-                                        innerRadius={45}
+                                        innerRadius={50}
                                         dataKey="value"
-                                        stroke="#0f172a"
+                                        stroke="#450a0a" // match background
                                         strokeWidth={2}
+                                        opacity={0.75}
                                     >
                                         {data.negativeSectors.map((entry, index) => (
                                             <Cell key={`cell-${index}`} fill={SECTOR_COLORS[entry.name]} />
@@ -437,7 +460,10 @@ export default function SocialAnalysisView() {
                                         contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
                                         itemStyle={{ color: '#e2e8f0', fontSize: '12px' }}
                                     />
-                                    <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '20px', color: '#94a3b8' }} />
+                                    <Legend 
+                                        wrapperStyle={{ fontSize: '12px', paddingTop: '20px', color: '#cbd5e1' }}
+                                        iconType="circle"
+                                    />
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
