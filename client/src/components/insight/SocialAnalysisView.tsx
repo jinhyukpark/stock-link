@@ -475,8 +475,8 @@ export default function SocialAnalysisView() {
                             <div className="h-3 w-px bg-slate-700 mx-0.5"></div>
                             <span className={cn(
                                 "font-bold text-sm leading-none",
-                                sec.dir === "↑" ? "text-red-400" : 
-                                sec.dir === "↓" ? "text-blue-400" : 
+                                sec.dir === "↑" ? "text-emerald-400" : 
+                                sec.dir === "↓" ? "text-red-400" : 
                                 "text-slate-400"
                             )}>{sec.dir}</span>
                         </div>
