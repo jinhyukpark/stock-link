@@ -11,7 +11,7 @@ import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recha
 
 // Global Ticker Chip Component
 const TickerChip = ({ children }: { children: React.ReactNode }) => (
-    <span className="inline-block bg-slate-700 text-slate-200 rounded-md px-2 py-0.5 text-xs font-mono font-medium mx-1">
+    <span className="inline-block bg-blue-950 text-blue-300 border border-blue-800 rounded-full px-2 py-0.5 text-xs font-mono font-medium mx-1">
         {children}
     </span>
 );
@@ -21,11 +21,11 @@ const HighlightInfluencer = ({ children }: { children: React.ReactNode }) => (
 );
 
 const HighlightPos = ({ children }: { children: React.ReactNode }) => (
-    <strong className="text-white font-bold">{children}</strong>
+    <strong className="text-emerald-400 font-semibold">{children}</strong>
 );
 
 const HighlightNeg = ({ children }: { children: React.ReactNode }) => (
-    <strong className="text-white font-bold">{children}</strong>
+    <strong className="text-red-400 font-semibold">{children}</strong>
 );
 
 // Muted Sector Colors
@@ -148,26 +148,37 @@ const MOCK_DATA = {
 const SectionTitle = ({ icon: Icon, title }: { icon: any, title: string }) => (
     <div className="border-b border-white/10 pb-3 mb-6">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
+            <Icon className="w-5 h-5 text-blue-400" />
             {title}
         </h2>
     </div>
 );
 
 const ImpactBadge = ({ impact }: { impact: string }) => {
-    if (impact === "긍정") return <Badge className="bg-green-900/50 text-green-400 hover:bg-green-900/70 border-0 px-3 py-1 font-medium">긍정</Badge>;
-    if (impact === "부정") return <Badge className="bg-red-900/50 text-red-400 hover:bg-red-900/70 border-0 px-3 py-1 font-medium">부정</Badge>;
-    return <Badge className="bg-slate-700 text-slate-400 hover:bg-slate-600 border-0 px-3 py-1 font-medium">중립</Badge>;
+    if (impact === "긍정") return <Badge className="bg-emerald-500 text-white font-semibold hover:bg-emerald-600 border-0 px-3 py-1">긍정</Badge>;
+    if (impact === "부정") return <Badge className="bg-red-500 text-white font-semibold hover:bg-red-600 border-0 px-3 py-1">부정</Badge>;
+    return <Badge className="bg-slate-500 text-white font-semibold hover:bg-slate-600 border-0 px-3 py-1">중립</Badge>;
 };
 
 const Stars = ({ count }: { count: number }) => {
     return (
         <div className="flex gap-0.5">
             {[1, 2, 3].map(i => (
-                <Star key={i} className={cn("w-3.5 h-3.5", i <= count ? "fill-slate-300 text-slate-300" : "text-slate-700")} />
+                <Star key={i} className={cn("w-3.5 h-3.5", i <= count ? "fill-amber-400 text-amber-400" : "text-slate-600")} />
             ))}
         </div>
     );
 };
+
+const PlatformBadge = ({ platform }: { platform: string }) => {
+    let colorClass = "bg-slate-700 text-slate-200 border-slate-500";
+    if (platform === "X (Twitter)") colorClass = "bg-slate-700 text-slate-200 border-transparent";
+    else if (platform === "YouTube") colorClass = "bg-red-900 text-red-300 border-transparent";
+    else if (platform === "News") colorClass = "bg-blue-900 text-blue-300 border-transparent";
+    else if (platform === "Truth Social") colorClass = "bg-orange-900 text-orange-300 border-transparent";
+    
+    return <Badge variant="outline" className={cn("font-normal px-2.5 py-0.5 text-xs", colorClass)}>{platform}</Badge>;
+}
 
 export default function SocialAnalysisView() {
     const [date, setDate] = useState<Date>(new Date(2026, 3, 26)); // Default to 2026-04-26
@@ -205,14 +216,14 @@ export default function SocialAnalysisView() {
                             [일일 리포트] 인플루언서 증권 관련 SNS 모니터링
                         </h1>
                         <div className="flex items-center gap-2 mt-4">
-                            <Badge variant="outline" className="bg-slate-800 text-slate-300 border-slate-700 px-3 py-1 flex items-center gap-1.5 font-normal"><Newspaper className="w-3.5 h-3.5"/> 미국 뉴스</Badge>
-                            <Badge variant="outline" className="bg-slate-800 text-slate-300 border-slate-700 px-3 py-1 flex items-center gap-1.5 font-normal"><Newspaper className="w-3.5 h-3.5"/> 한국 뉴스</Badge>
-                            <Badge variant="outline" className="bg-slate-800 text-slate-300 border-slate-700 px-3 py-1 flex items-center gap-1.5 font-normal"><Twitter className="w-3.5 h-3.5"/> 미국 SNS (X)</Badge>
+                            <Badge variant="outline" className="bg-blue-900 text-blue-300 border-blue-700 px-3 py-1 flex items-center gap-1.5 font-normal"><Newspaper className="w-3.5 h-3.5"/> 미국 뉴스</Badge>
+                            <Badge variant="outline" className="bg-indigo-900 text-indigo-300 border-indigo-700 px-3 py-1 flex items-center gap-1.5 font-normal"><Newspaper className="w-3.5 h-3.5"/> 한국 뉴스</Badge>
+                            <Badge variant="outline" className="bg-slate-700 text-slate-200 border-slate-500 px-3 py-1 flex items-center gap-1.5 font-normal"><Twitter className="w-3.5 h-3.5"/> 미국 SNS (X)</Badge>
                         </div>
                     </div>
 
-                    {/* Date Picker (Custom Absolute Positioning) */}
-                    <div className="flex flex-col items-end gap-2 shrink-0 relative">
+                    {/* Date Picker */}
+                    <div className="flex flex-col items-end gap-2 shrink-0">
                         <div className="relative w-[240px]" ref={calendarRef}>
                             <Button
                                 variant="outline"
@@ -228,7 +239,7 @@ export default function SocialAnalysisView() {
                             </Button>
 
                             {isCalendarOpen && (
-                                <div className="absolute top-[100%] left-0 w-full z-[100] bg-slate-900 border border-slate-800 rounded-md shadow-lg overflow-hidden mt-1">
+                                <div className="absolute top-[100%] right-0 mt-1 z-50 bg-slate-900 border border-slate-800 rounded-md shadow-lg overflow-hidden min-w-[280px]">
                                     <Calendar
                                         mode="single"
                                         selected={date}
@@ -284,11 +295,14 @@ export default function SocialAnalysisView() {
                             {data.table.map((row, idx) => (
                                 <tr key={idx} className={cn(
                                     "transition-colors",
-                                    idx % 2 === 0 ? "bg-transparent" : "bg-slate-800/20"
+                                    idx % 2 === 0 ? "bg-transparent" : "bg-slate-800/20",
+                                    row.stars === 3 && row.impact === "긍정" ? "border-l-4 border-emerald-500" : "",
+                                    row.stars === 3 && row.impact === "부정" ? "border-l-4 border-red-500" : "",
+                                    row.stars < 3 ? "border-l-4 border-transparent" : ""
                                 )}>
                                     <td className="px-5 py-4 font-bold text-slate-200 whitespace-nowrap">{row.speaker}</td>
-                                    <td className="px-5 py-4 whitespace-nowrap text-xs">
-                                        <Badge variant="outline" className="bg-slate-800 text-slate-300 border-slate-700 font-normal">{row.platform}</Badge>
+                                    <td className="px-5 py-4 whitespace-nowrap">
+                                        <PlatformBadge platform={row.platform} />
                                     </td>
                                     <td className="px-5 py-4 leading-relaxed text-sm">{row.summary}</td>
                                     <td className="px-5 py-4 text-xs">
@@ -320,7 +334,7 @@ export default function SocialAnalysisView() {
                         </div>
                         <div className="space-y-3">
                             {data.positiveStocks.map((stock, idx) => (
-                                <Card key={idx} className="bg-slate-900 border-y-slate-800 border-r-slate-800 border-l-[3px] border-l-green-500 p-5 shadow-none rounded-lg">
+                                <Card key={idx} className="bg-slate-900 border-y-slate-800 border-r-slate-800 border-l-4 border-emerald-500 p-5 shadow-none rounded-lg">
                                     <div className="flex flex-wrap items-center gap-3 mb-3">
                                         <TickerChip>{stock.ticker}</TickerChip>
                                         <span className="font-bold text-white text-base flex items-center gap-1.5">
@@ -343,7 +357,7 @@ export default function SocialAnalysisView() {
                         </div>
                         <div className="space-y-3">
                             {data.negativeStocks.map((stock, idx) => (
-                                <Card key={idx} className="bg-slate-900 border-y-slate-800 border-r-slate-800 border-l-[3px] border-l-red-500 p-5 shadow-none rounded-lg">
+                                <Card key={idx} className="bg-slate-900 border-y-slate-800 border-r-slate-800 border-l-4 border-red-500 p-5 shadow-none rounded-lg">
                                     <div className="flex flex-wrap items-center gap-3 mb-3">
                                         <TickerChip>{stock.ticker}</TickerChip>
                                         <span className="font-bold text-white text-base flex items-center gap-1.5">
