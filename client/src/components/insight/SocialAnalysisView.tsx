@@ -12,31 +12,31 @@ import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recha
 
 // Global Ticker Chip Component
 const TickerChip = ({ children }: { children: React.ReactNode }) => (
-    <span className="inline-block bg-slate-700 text-slate-200 rounded-md px-2 py-0.5 text-xs font-mono font-medium mx-1">
+    <span className="inline-block bg-blue-900 text-blue-300 rounded-full px-2 py-0.5 text-xs font-mono font-medium mx-1">
         {children}
     </span>
 );
 
 const HighlightInfluencer = ({ children }: { children: React.ReactNode }) => (
-    <strong className="text-slate-200 font-bold">{children}</strong>
+    <strong className="text-white font-bold">{children}</strong>
 );
 
 const HighlightPos = ({ children }: { children: React.ReactNode }) => (
-    <strong className="text-white font-bold">{children}</strong>
+    <strong className="text-green-400 font-semibold">{children}</strong>
 );
 
 const HighlightNeg = ({ children }: { children: React.ReactNode }) => (
-    <strong className="text-white font-bold">{children}</strong>
+    <strong className="text-red-400 font-semibold">{children}</strong>
 );
 
-// Muted Sector Colors
+// Balanced Muted Colors for Sectors
 const SECTOR_COLORS: Record<string, string> = {
-    "반도체": "#64748b", // slate-500
-    "2차전지": "#475569", // slate-600
-    "바이오/헬스케어": "#94a3b8", // slate-400
-    "금융": "#334155", // slate-700
-    "에너지": "#cbd5e1", // slate-300
-    "플랫폼/IT": "#1e293b" // slate-800
+    "반도체": "#4f86c6",
+    "2차전지": "#5cb85c",
+    "바이오/헬스케어": "#9b59b6",
+    "금융": "#e8a838",
+    "에너지": "#d9534f",
+    "플랫폼/IT": "#5bc0de"
 };
 
 // Mock Data
@@ -149,23 +149,23 @@ const MOCK_DATA = {
 const SectionTitle = ({ icon: Icon, title }: { icon: any, title: string }) => (
     <div className="border-b border-white/10 pb-3 mb-6">
         <h2 className="text-lg font-bold text-white flex items-center gap-2">
-            <Icon className="w-5 h-5 text-slate-300" />
+            <Icon className="w-5 h-5 text-white" />
             {title}
         </h2>
     </div>
 );
 
 const ImpactBadge = ({ impact }: { impact: string }) => {
-    if (impact === "긍정") return <Badge className="bg-green-900/50 text-green-400 hover:bg-green-900/70 border-0 px-3 py-1 font-medium">긍정</Badge>;
-    if (impact === "부정") return <Badge className="bg-red-900/50 text-red-400 hover:bg-red-900/70 border-0 px-3 py-1 font-medium">부정</Badge>;
-    return <Badge className="bg-slate-800 text-slate-400 hover:bg-slate-700 border-0 px-3 py-1 font-medium">중립</Badge>;
+    if (impact === "긍정") return <Badge className="bg-green-500 text-white hover:bg-green-600 border-0 px-3 py-1 font-medium">긍정</Badge>;
+    if (impact === "부정") return <Badge className="bg-red-500 text-white hover:bg-red-600 border-0 px-3 py-1 font-medium">부정</Badge>;
+    return <Badge className="bg-slate-500 text-white hover:bg-slate-600 border-0 px-3 py-1 font-medium">중립</Badge>;
 };
 
 const Stars = ({ count }: { count: number }) => {
     return (
         <div className="flex gap-0.5">
             {[1, 2, 3].map(i => (
-                <Star key={i} className={cn("w-3.5 h-3.5", i <= count ? "fill-slate-300 text-slate-300" : "text-slate-700")} />
+                <Star key={i} className={cn("w-3.5 h-3.5", i <= count ? "fill-yellow-400 text-yellow-400" : "text-slate-600")} />
             ))}
         </div>
     );
@@ -185,7 +185,7 @@ export default function SocialAnalysisView() {
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
                     <div>
                         <h1 className="text-2xl font-bold text-white flex items-center gap-3">
-                            <BarChart3 className="w-6 h-6 text-slate-300" />
+                            <BarChart3 className="w-6 h-6 text-white" />
                             [일일 리포트] 인플루언서 증권 관련 SNS 모니터링
                         </h1>
                         <div className="flex items-center gap-2 mt-4">
@@ -247,7 +247,7 @@ export default function SocialAnalysisView() {
                 <SectionTitle icon={Target} title="종합 요약 테이블 & 시장 영향도" />
                 <div className="overflow-x-auto rounded-xl border border-slate-800 bg-slate-900 shadow-none">
                     <table className="w-full text-sm text-left">
-                        <thead className="bg-slate-800/50 text-slate-400 font-medium border-b border-slate-800">
+                        <thead className="bg-slate-800 text-slate-400 font-medium border-b border-slate-800">
                             <tr>
                                 <th className="px-5 py-4 whitespace-nowrap font-medium">인플루언서명</th>
                                 <th className="px-5 py-4 whitespace-nowrap font-medium">플랫폼</th>
@@ -257,20 +257,17 @@ export default function SocialAnalysisView() {
                                 <th className="px-5 py-4 whitespace-nowrap text-center font-medium">영향 강도</th>
                             </tr>
                         </thead>
-                        <tbody className="divide-y divide-slate-800/50 text-slate-300">
+                        <tbody className="divide-y divide-slate-800 text-slate-300">
                             {data.table.map((row, idx) => (
                                 <tr key={idx} className={cn(
                                     "transition-colors",
-                                    idx % 2 === 0 ? "bg-transparent" : "bg-slate-800/20",
-                                    row.stars === 3 && row.impact === "긍정" ? "border-l-[3px] border-l-green-500" : "",
-                                    row.stars === 3 && row.impact === "부정" ? "border-l-[3px] border-l-red-500" : "",
-                                    row.stars < 3 ? "border-l-[3px] border-l-transparent" : ""
+                                    idx % 2 === 0 ? "bg-slate-900" : "bg-slate-800/50"
                                 )}>
-                                    <td className="px-5 py-4 font-bold text-slate-200 whitespace-nowrap">{row.speaker}</td>
+                                    <td className="px-5 py-4 font-bold text-white whitespace-nowrap">{row.speaker}</td>
                                     <td className="px-5 py-4 whitespace-nowrap text-xs">
                                         <Badge variant="outline" className="bg-slate-800 text-slate-300 border-slate-700 font-normal">{row.platform}</Badge>
                                     </td>
-                                    <td className="px-5 py-4 leading-relaxed text-sm">{row.summary}</td>
+                                    <td className="px-5 py-4 leading-relaxed text-sm text-slate-300">{row.summary}</td>
                                     <td className="px-5 py-4 text-xs">
                                         <div className="flex flex-wrap gap-1.5">
                                             {row.related.map((r, i) => <TickerChip key={i}>{r}</TickerChip>)}
@@ -294,22 +291,22 @@ export default function SocialAnalysisView() {
                 <SectionTitle icon={Globe} title="긍/부정 종목 종합" />
                 <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
                     {/* 상승 기대 종목 */}
-                    <div className="p-1">
+                    <div>
                         <div className="flex items-center gap-2 pb-3 mb-4 border-b border-slate-800">
-                            <TrendingUp className="w-5 h-5 text-slate-400" />
-                            <h3 className="font-bold text-slate-200 text-lg">상승/호재 기대 종목</h3>
+                            <TrendingUp className="w-5 h-5 text-white" />
+                            <h3 className="font-bold text-white text-lg">상승/호재 기대 종목</h3>
                         </div>
                         <div className="space-y-3">
                             {data.positiveStocks.map((stock, idx) => (
-                                <Card key={idx} className="bg-slate-900 border-y-slate-800 border-r-slate-800 border-l-4 border-l-green-500 p-5 shadow-none rounded-lg">
+                                <Card key={idx} className="bg-slate-900 border-y-slate-800 border-r-slate-800 border-l-[4px] border-l-green-500 p-5 shadow-none rounded-lg">
                                     <div className="flex flex-wrap items-center gap-3 mb-3">
                                         <TickerChip>{stock.ticker}</TickerChip>
                                         <span className="font-bold text-white text-base flex items-center gap-1.5">
-                                            {stock.name} <ArrowUp className="w-4 h-4 text-slate-400" />
+                                            {stock.name} <ArrowUp className="w-4 h-4 text-green-500" />
                                         </span>
                                     </div>
-                                    <p className="text-sm text-slate-400 mb-4 leading-relaxed">{stock.reason}</p>
-                                    <div className="text-xs text-slate-500 flex items-center gap-2">
+                                    <p className="text-sm text-slate-300 mb-4 leading-relaxed">{stock.reason}</p>
+                                    <div className="text-xs text-slate-400 flex items-center gap-2">
                                         <MessageSquare className="w-3.5 h-3.5" />
                                         <span>주요 언급: <HighlightInfluencer>{stock.influencer}</HighlightInfluencer></span>
                                     </div>
@@ -319,22 +316,22 @@ export default function SocialAnalysisView() {
                     </div>
 
                     {/* 하락 우려 종목 */}
-                    <div className="p-1">
+                    <div>
                         <div className="flex items-center gap-2 pb-3 mb-4 border-b border-slate-800">
-                            <TrendingDown className="w-5 h-5 text-slate-400" />
-                            <h3 className="font-bold text-slate-200 text-lg">하락/악재 우려 종목</h3>
+                            <TrendingDown className="w-5 h-5 text-white" />
+                            <h3 className="font-bold text-white text-lg">하락/악재 우려 종목</h3>
                         </div>
                         <div className="space-y-3">
                             {data.negativeStocks.map((stock, idx) => (
-                                <Card key={idx} className="bg-slate-900 border-y-slate-800 border-r-slate-800 border-l-4 border-l-red-500 p-5 shadow-none rounded-lg">
+                                <Card key={idx} className="bg-slate-900 border-y-slate-800 border-r-slate-800 border-l-[4px] border-l-red-500 p-5 shadow-none rounded-lg">
                                     <div className="flex flex-wrap items-center gap-3 mb-3">
                                         <TickerChip>{stock.ticker}</TickerChip>
                                         <span className="font-bold text-white text-base flex items-center gap-1.5">
-                                            {stock.name} <ArrowDown className="w-4 h-4 text-slate-400" />
+                                            {stock.name} <ArrowDown className="w-4 h-4 text-red-500" />
                                         </span>
                                     </div>
-                                    <p className="text-sm text-slate-400 mb-4 leading-relaxed">{stock.reason}</p>
-                                    <div className="text-xs text-slate-500 flex items-center gap-2">
+                                    <p className="text-sm text-slate-300 mb-4 leading-relaxed">{stock.reason}</p>
+                                    <div className="text-xs text-slate-400 flex items-center gap-2">
                                         <MessageSquare className="w-3.5 h-3.5" />
                                         <span>주요 언급: <HighlightInfluencer>{stock.influencer}</HighlightInfluencer></span>
                                     </div>
@@ -351,7 +348,7 @@ export default function SocialAnalysisView() {
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* 긍정 분포 파이 차트 */}
                     <Card className="bg-slate-900 border-slate-800 p-6 shadow-none flex flex-col items-center">
-                        <h3 className="font-medium text-slate-300 mb-6 text-center text-sm tracking-wide">긍정 언급 섹터 분포</h3>
+                        <h3 className="font-bold text-white mb-6 text-center text-sm tracking-wide">긍정 언급 섹터 분포</h3>
                         <div className="h-[280px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
@@ -364,7 +361,7 @@ export default function SocialAnalysisView() {
                                         outerRadius={90}
                                         innerRadius={45}
                                         dataKey="value"
-                                        stroke="#0f172a" // slate-900 to match background
+                                        stroke="#0f172a"
                                         strokeWidth={2}
                                     >
                                         {data.positiveSectors.map((entry, index) => (
@@ -375,7 +372,7 @@ export default function SocialAnalysisView() {
                                         contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
                                         itemStyle={{ color: '#e2e8f0', fontSize: '12px' }}
                                     />
-                                    <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '20px', color: '#94a3b8' }} />
+                                    <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '20px', color: '#cbd5e1' }} />
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
@@ -383,7 +380,7 @@ export default function SocialAnalysisView() {
 
                     {/* 부정 분포 파이 차트 */}
                     <Card className="bg-slate-900 border-slate-800 p-6 shadow-none flex flex-col items-center">
-                        <h3 className="font-medium text-slate-300 mb-6 text-center text-sm tracking-wide">부정 언급 섹터 분포</h3>
+                        <h3 className="font-bold text-white mb-6 text-center text-sm tracking-wide">부정 언급 섹터 분포</h3>
                         <div className="h-[280px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
@@ -407,7 +404,7 @@ export default function SocialAnalysisView() {
                                         contentStyle={{ backgroundColor: '#1e293b', border: '1px solid #334155', borderRadius: '8px' }}
                                         itemStyle={{ color: '#e2e8f0', fontSize: '12px' }}
                                     />
-                                    <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '20px', color: '#94a3b8' }} />
+                                    <Legend wrapperStyle={{ fontSize: '12px', paddingTop: '20px', color: '#cbd5e1' }} />
                                 </PieChart>
                             </ResponsiveContainer>
                         </div>
@@ -432,7 +429,7 @@ export default function SocialAnalysisView() {
             {/* 5. 투자 시사점 */}
             <section className="space-y-2 mt-8">
                 <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-none">
-                    <div className="px-6 py-4 border-b border-slate-800 bg-slate-800/30">
+                    <div className="px-6 py-4 border-b border-slate-800 bg-slate-900">
                         <h2 className="text-lg font-bold text-white flex items-center gap-2">
                             📌 오늘의 투자 시사점
                         </h2>
