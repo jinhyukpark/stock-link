@@ -173,12 +173,13 @@ const Stars = ({ count }: { count: number }) => {
 
 export default function SocialAnalysisView() {
     const [date, setDate] = useState<Date>(new Date(2026, 3, 26)); // Default to 2026-04-26
+    const [isOpen, setIsOpen] = useState(false);
 
     const dateKey = format(date, "yyyy-MM-dd");
     const data = MOCK_DATA[dateKey as keyof typeof MOCK_DATA] || MOCK_DATA["default"];
 
     return (
-        <div className="space-y-12 pb-16 animate-in fade-in duration-500 max-w-6xl mx-auto">
+        <div className="space-y-12 pb-16 animate-in fade-in duration-500 max-w-6xl mx-auto font-['Inter']">
             
             {/* Page Header Area */}
             <div className="flex flex-col gap-4 mb-10">
@@ -196,31 +197,36 @@ export default function SocialAnalysisView() {
                     </div>
 
                     {/* Date Picker */}
-                    <div className="flex flex-col items-end gap-2 shrink-0">
-                        <Popover>
-                            <PopoverTrigger asChild>
-                                <Button
-                                    variant="outline"
-                                    className={cn(
-                                        "w-[240px] justify-start text-left font-normal bg-slate-900 border-slate-800 text-slate-200 hover:bg-slate-800 hover:text-white shadow-none",
-                                        !date && "text-slate-400"
-                                    )}
-                                >
-                                    <CalendarIcon className="mr-2 h-4 w-4 text-slate-400" />
-                                    {date ? format(date, "yyyy년 MM월 dd일", { locale: ko }) : <span>날짜를 선택하세요</span>}
-                                    <ChevronDown className="ml-auto h-4 w-4 opacity-50" />
-                                </Button>
-                            </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0 bg-slate-900 border-slate-800" align="end">
-                                <Calendar
-                                    mode="single"
-                                    selected={date}
-                                    onSelect={(d) => d && setDate(d)}
-                                    initialFocus
-                                    className="bg-slate-900 text-slate-200"
-                                />
-                            </PopoverContent>
-                        </Popover>
+                    <div className="flex flex-col items-end gap-2 shrink-0 relative">
+                        <div className="relative w-[240px]">
+                            <Button
+                                variant="outline"
+                                onClick={() => setIsOpen(!isOpen)}
+                                className={cn(
+                                    "w-full justify-start text-left font-normal bg-slate-900 border-slate-800 text-slate-200 hover:bg-slate-800 hover:text-white shadow-none",
+                                    !date && "text-slate-400"
+                                )}
+                            >
+                                <CalendarIcon className="mr-2 h-4 w-4 text-slate-400" />
+                                {date ? format(date, "yyyy년 MM월 dd일", { locale: ko }) : <span>날짜를 선택하세요</span>}
+                                <ChevronDown className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+                            
+                            {isOpen && (
+                                <div className="absolute top-[calc(100%+4px)] left-0 w-full z-50 bg-slate-900 border border-slate-800 rounded-md shadow-md overflow-hidden">
+                                    <Calendar
+                                        mode="single"
+                                        selected={date}
+                                        onSelect={(d) => {
+                                            d && setDate(d);
+                                            setIsOpen(false);
+                                        }}
+                                        initialFocus
+                                        className="bg-slate-900 text-slate-200 w-full flex justify-center"
+                                    />
+                                </div>
+                            )}
+                        </div>
                         <div className="text-xs text-slate-500">
                             마지막 업데이트: {format(date, "yyyy.MM.dd")} 18:30
                         </div>
