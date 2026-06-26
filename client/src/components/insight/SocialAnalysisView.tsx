@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import { TrendingUp, TrendingDown, Globe, Megaphone, Target, Calendar as CalendarIcon, ChevronDown, BarChart3, Newspaper, Twitter, Star, MessageSquare, ArrowUp, ArrowDown } from "lucide-react";
+import { TrendingUp, TrendingDown, Globe, Megaphone, Target, Calendar as CalendarIcon, ChevronDown, BarChart3, Newspaper, Twitter, Star, MessageSquare, ArrowUp, ArrowDown, ChevronLeft, ChevronRight } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -50,7 +50,7 @@ const MOCK_DATA = {
             <><HighlightInfluencer>국내 경제 유튜버</HighlightInfluencer>, 2차전지 섹터 조정 <HighlightNeg>경고</HighlightNeg> → 관련주 <HighlightNeg>변동성 확대 예상</HighlightNeg></>
         ],
         table: [
-            { impact: "긍정", stars: 3, speaker: "일론 머스크", platform: "X (Twitter)", summary: "Optimus 로봇 양산 라인 구축 위해 250억 달러 설비투자 상향 발표", related: ["삼성전자", "SK하이닉스"] },
+            { impact: "긍정", stars: 3, speaker: "일론 머스크", platform: "X (Twitter)", summary: "Optimus 로봇 양산 라 구축 위해 250억 달러 설비투자 상향 발표", related: ["삼성전자", "SK하이닉스"] },
             { impact: "부정", stars: 3, speaker: "도널드 트럼프", platform: "Truth Social", summary: "미국 제조업 부활 위한 15% 보편 관세 부과 필요성 강경 발언", related: ["현대차", "기아"] },
             { impact: "중립", stars: 2, speaker: "미국 경제 유튜버 A", platform: "YouTube", summary: "AI 전력 수요 폭발로 데이터센터 인프라 투자 지속될 것", related: ["LS일렉트릭"] },
             { impact: "긍정", stars: 1, speaker: "한국 애널리스트 B", platform: "News", summary: "조선업 슈퍼사이클 진입 및 미국 함정 MRO 사업 수혜 기대", related: ["한화오션", "HD현대중공업"] },
@@ -190,7 +190,6 @@ export default function SocialAnalysisView() {
     const [isCalendarOpen, setIsCalendarOpen] = useState(false);
     const calendarRef = useRef<HTMLDivElement>(null);
     const btnRef = useRef<HTMLButtonElement>(null);
-    const [calendarWidth, setCalendarWidth] = useState<number | undefined>(undefined);
 
     // Close calendar when clicking outside
     useEffect(() => {
@@ -202,9 +201,6 @@ export default function SocialAnalysisView() {
         
         if (isCalendarOpen) {
             document.addEventListener("mousedown", handleClickOutside);
-            if (btnRef.current) {
-                setCalendarWidth(btnRef.current.offsetWidth);
-            }
         }
         
         return () => {
@@ -217,6 +213,7 @@ export default function SocialAnalysisView() {
 
     return (
         <div className="space-y-12 pb-16 animate-in fade-in duration-500 max-w-6xl mx-auto">
+            
             {/* Page Header Area */}
             <div className="flex flex-col gap-4 mb-10">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
@@ -232,14 +229,14 @@ export default function SocialAnalysisView() {
                     </div>
 
                     {/* Date Picker - Fixed Width for exact match */}
-                    <div className="flex flex-col items-end gap-2 shrink-0">
-                        <div className="relative w-[280px]" ref={calendarRef}>
+                    <div className="flex flex-col items-end gap-2 shrink-0 relative z-50">
+                        <div className="relative w-52" ref={calendarRef}>
                             <Button
                                 ref={btnRef}
                                 variant="outline"
                                 onClick={() => setIsCalendarOpen(!isCalendarOpen)}
                                 className={cn(
-                                    "w-full justify-start text-left font-normal bg-slate-900 border-slate-800 text-slate-200 hover:bg-slate-800 hover:text-white shadow-none",
+                                    "w-full justify-start text-left font-medium bg-slate-800 border-slate-700 text-white hover:bg-slate-700 hover:text-white shadow-none rounded-lg px-4 py-2 h-10",
                                     !date && "text-slate-400"
                                 )}
                             >
@@ -250,8 +247,7 @@ export default function SocialAnalysisView() {
 
                             {isCalendarOpen && (
                                 <div 
-                                    className="absolute top-[100%] right-0 mt-1 z-50 bg-slate-900 border border-slate-800 rounded-md shadow-lg overflow-hidden"
-                                    style={{ width: calendarWidth ? `${calendarWidth}px` : '100%' }}
+                                    className="absolute top-[calc(100%+4px)] right-0 bg-slate-900 border border-slate-700 rounded-xl shadow-xl shadow-black/50 p-4 w-[280px]"
                                 >
                                     <Calendar
                                         mode="single"
@@ -263,17 +259,22 @@ export default function SocialAnalysisView() {
                                             }
                                         }}
                                         initialFocus
-                                        className="bg-slate-900 text-slate-200 p-1 flex justify-center [&_.rdp-cell]:p-0.5 [&_.rdp-button]:w-8 [&_.rdp-button]:h-8 [&_.rdp-button]:text-xs [&_.rdp-head_cell]:text-xs"
+                                        components={{
+                                            IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4 text-slate-400" />,
+                                            IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4 text-slate-400" />,
+                                        }}
+                                        className="bg-slate-900 text-white w-full mx-auto [&_.rdp-nav]:flex [&_.rdp-nav]:gap-1 [&_.rdp-caption]:flex [&_.rdp-caption]:justify-between [&_.rdp-caption]:items-center [&_.rdp-caption]:mb-4 [&_.rdp-caption_label]:text-white [&_.rdp-caption_label]:font-semibold [&_.rdp-caption_label]:text-sm [&_.rdp-head_row]:flex [&_.rdp-head_row]:w-full [&_.rdp-head_row]:justify-between [&_.rdp-head_row]:mb-2 [&_.rdp-head_cell]:text-slate-500 [&_.rdp-head_cell]:text-xs [&_.rdp-head_cell]:font-medium [&_.rdp-head_cell]:text-center [&_.rdp-head_cell]:w-8 [&_.rdp-row]:flex [&_.rdp-row]:w-full [&_.rdp-row]:justify-between [&_.rdp-row]:mt-1 [&_.rdp-cell]:p-0 [&_.rdp-cell]:w-8 [&_.rdp-cell]:h-8 [&_.rdp-cell]:flex [&_.rdp-cell]:justify-center [&_.rdp-cell]:items-center [&_.rdp-button]:w-8 [&_.rdp-button]:h-8 [&_.rdp-button]:flex [&_.rdp-button]:items-center [&_.rdp-button]:justify-center [&_.rdp-button]:text-sm [&_.rdp-button]:text-slate-300 [&_.rdp-button]:rounded-lg [&_.rdp-button:hover]:bg-slate-700 [&_.rdp-button:hover]:text-white [&_.rdp-day_selected]:bg-blue-500 [&_.rdp-day_selected]:text-white [&_.rdp-day_selected]:font-bold [&_.rdp-day_today]:bg-blue-600 [&_.rdp-day_today]:text-white [&_.rdp-day_today]:font-semibold [&_.rdp-day_outside]:text-slate-600 [&_.rdp-day_outside]:hover:bg-transparent [&_.rdp-day_outside]:cursor-default [&_.rdp-nav_button]:w-7 [&_.rdp-nav_button]:h-7 [&_.rdp-nav_button]:flex [&_.rdp-nav_button]:items-center [&_.rdp-nav_button]:justify-center [&_.rdp-nav_button]:rounded-md [&_.rdp-nav_button_previous]:text-[0px] [&_.rdp-nav_button_next]:text-[0px] [&_.rdp-nav_button:hover]:bg-slate-700"
                                     />
                                 </div>
                             )}
                         </div>
-                        <div className="text-xs text-slate-500 w-[280px] text-left">
+                        <div className="text-xs text-slate-500 w-52 text-left mt-1">
                             마지막 업데이트: {format(date, "yyyy.MM.dd")} 18:30
                         </div>
                     </div>
                 </div>
             </div>
+
             {/* 1. 주요 하이라이트 */}
             <section className="space-y-2">
                 <SectionTitle icon={Megaphone} title="주요 하이라이트" />
@@ -287,6 +288,7 @@ export default function SocialAnalysisView() {
                     </ul>
                 </Card>
             </section>
+
             {/* 2. 종합 요약 테이블 */}
             <section className="space-y-2">
                 <SectionTitle icon={Target} title="종합 요약 테이블 & 시장 영향도" />
@@ -332,6 +334,7 @@ export default function SocialAnalysisView() {
                     </table>
                 </div>
             </section>
+
             {/* 3. 긍/부정 종목 종합 */}
             <section className="space-y-2">
                 <SectionTitle icon={Globe} title="긍/부정 종목 종합" />
@@ -383,6 +386,7 @@ export default function SocialAnalysisView() {
                     </div>
                 </div>
             </section>
+
             {/* 4. 섹터별 영향 분석 */}
             <section className="space-y-2">
                 <SectionTitle icon={BarChart3} title="섹터별 영향 분석" />
@@ -474,6 +478,7 @@ export default function SocialAnalysisView() {
                     ))}
                 </div>
             </section>
+
             {/* 5. 투자 시사점 */}
             <section className="space-y-2 mt-8">
                 <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-none">
