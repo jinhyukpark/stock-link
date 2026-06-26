@@ -466,21 +466,26 @@ export default function SocialAnalysisView() {
 
                 {/* 섹터 서머리 행 */}
                 <div className="flex flex-wrap gap-3 justify-center mt-6">
-                    {data.sectorSummary.map((sec, idx) => (
+                    {data.sectorSummary.map((sec, idx) => {
+                        const diff = sec.positive - sec.negative;
+                        let arrow = "→";
+                        let colorClass = "text-slate-400";
+                        if (diff >= 3) { arrow = "↑"; colorClass = "text-emerald-400"; }
+                        else if (diff > 0) { arrow = "↗"; colorClass = "text-emerald-400"; }
+                        else if (diff === 0) { arrow = "→"; colorClass = "text-slate-400"; }
+                        else if (diff >= -2) { arrow = "↘"; colorClass = "text-red-400"; }
+                        else { arrow = "↓"; colorClass = "text-red-400"; }
+                        
+                        return (
                         <div key={idx} className="flex items-center gap-3 bg-slate-900 rounded-full px-4 py-2 border border-slate-800 shadow-sm">
                             <span className="font-medium text-slate-300 text-[13px]">{sec.name}</span>
                             <div className="h-3 w-px bg-slate-700 mx-0.5"></div>
                             <span className="text-xs"><span className="text-slate-300">긍정</span> <span className="text-emerald-400 font-medium">{sec.positive}</span></span>
                             <span className="text-xs"><span className="text-slate-300">부정</span> <span className="text-red-400 font-medium">{sec.negative}</span></span>
                             <div className="h-3 w-px bg-slate-700 mx-0.5"></div>
-                            <span className={cn(
-                                "font-bold text-sm leading-none",
-                                sec.dir === "↑" ? "text-emerald-400" : 
-                                sec.dir === "↓" ? "text-red-400" : 
-                                "text-slate-400"
-                            )}>{sec.dir}</span>
+                            <span className={cn("font-bold text-sm leading-none", colorClass)}>{arrow}</span>
                         </div>
-                    ))}
+                    )})}
                 </div>
             </section>
 
