@@ -473,7 +473,12 @@ export default function SocialAnalysisView() {
                             <span className="text-xs"><span className="text-slate-300">긍정</span> <span className="text-emerald-400 font-medium">{sec.positive}</span></span>
                             <span className="text-xs"><span className="text-slate-300">부정</span> <span className="text-red-400 font-medium">{sec.negative}</span></span>
                             <div className="h-3 w-px bg-slate-700 mx-0.5"></div>
-                            <span className="text-slate-500 font-bold text-sm leading-none">{sec.dir}</span>
+                            <span className={cn(
+                                "font-bold text-sm leading-none",
+                                sec.dir === "↑" ? "text-red-400" : 
+                                sec.dir === "↓" ? "text-blue-400" : 
+                                "text-slate-400"
+                            )}>{sec.dir}</span>
                         </div>
                     ))}
                 </div>
