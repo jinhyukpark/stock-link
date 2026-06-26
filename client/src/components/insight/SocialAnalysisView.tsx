@@ -1,435 +1,336 @@
 import { useState } from "react";
-import { format, subDays } from "date-fns";
+import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import { AlertCircle, TrendingUp, TrendingDown, MessageSquare, Globe, Megaphone, Zap, Target, Calendar as CalendarIcon, ChevronDown } from "lucide-react";
+import { TrendingUp, TrendingDown, Globe, Megaphone, Target, Calendar as CalendarIcon, ChevronDown, BarChart3, Newspaper, Twitter, Info, Star } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
+import { BarChart, Bar, XAxis, YAxis, Tooltip, ResponsiveContainer } from "recharts";
+
+// Mock Data
+const MOCK_DATA = {
+    "2026-04-26": {
+        highlights: [
+            "일론 머스크, X에서 AI 로봇 및 반도체 공급망 이슈 언급 → 삼성전자/SK하이닉스 단기 주목",
+            "도널드 트럼프, Truth Social에서 관세 정책 재차 강조 → 자동차/수출주 하방 압력 우려",
+            "미국 핀테크 유튜버 3인, 연준의 금리 동결 전망 언급 → 금융주 긍정 시그널",
+            "국내 경제 유튜버, 2차전지 섹터 조정 경고 → 관련주 변동성 확대 예상"
+        ],
+        table: [
+            { impact: "긍정", stars: 3, speaker: "일론 머스크", platform: "X (Twitter)", summary: "Optimus 로봇 양산 라인 구축 위해 250억 달러 설비투자 상향 발표", related: "삼성전자, SK하이닉스" },
+            { impact: "부정", stars: 3, speaker: "도널드 트럼프", platform: "Truth Social", summary: "미국 제조업 부활 위한 15% 보편 관세 부과 필요성 강경 발언", related: "현대차, 기아" },
+            { impact: "중립", stars: 2, speaker: "미국 경제 유튜버 A", platform: "YouTube", summary: "AI 전력 수요 폭발로 데이터센터 인프라 투자 지속될 것", related: "LS일렉트릭" },
+            { impact: "긍정", stars: 1, speaker: "한국 애널리스트 B", platform: "News", summary: "조선업 슈퍼사이클 진입 및 미국 함정 MRO 사업 수혜 기대", related: "한화오션, HD현대중공업" },
+            { impact: "부정", stars: 2, speaker: "월가 핀테크 블로거 C", platform: "X (Twitter)", summary: "소비자 물가 지수 상승 여파로 하반기 금리 인하 물건너갔다", related: "건설주 전반" }
+        ],
+        positiveStocks: [
+            { ticker: "005930", name: "삼성전자", reason: "AI 로봇 투자 확대로 메모리 반도체 수요 급증 기대", influencer: "일론 머스크" },
+            { ticker: "000660", name: "SK하이닉스", reason: "역대 최대 실적 및 HBM 독주 체제 지속", influencer: "일론 머스크, 한국 애널리스트" },
+            { ticker: "042660", name: "한화오션", reason: "미국 함정 유지보수(MRO) 사업 및 조선업 슈퍼사이클", influencer: "한국 애널리스트 B" }
+        ],
+        negativeStocks: [
+            { ticker: "005380", name: "현대차", reason: "미국 보편 관세 15% 적용 시 수출 타격 우려", influencer: "도널드 트럼프" },
+            { ticker: "TSLA", name: "Tesla", reason: "단기 Capex 급증으로 인한 수익성 악화 우려", influencer: "일론 머스크" },
+            { ticker: "N/A", name: "건설주 전반", reason: "금리 동결 장기화로 인한 프로젝트 파이낸싱 부담", influencer: "월가 핀테크 블로거 C" }
+        ],
+        sectors: [
+            { name: "반도체", positive: 8, negative: 1 },
+            { name: "플랫폼/IT", positive: 4, negative: 2 },
+            { name: "금융", positive: 5, negative: 4 },
+            { name: "에너지/전력", positive: 6, negative: 0 },
+            { name: "2차전지", positive: 2, negative: 7 },
+            { name: "바이오/헬스", positive: 3, negative: 3 }
+        ],
+        insights: [
+            { title: "AI 반도체 및 전력 인프라 랠리 지속", desc: "글로벌 테크 기업들의 설비투자(Capex) 상향이 이어지며 HBM 및 전력기기 관련주의 모멘텀이 견고합니다." },
+            { title: "관세 및 금리 리스크 모니터링", desc: "미국 정치권의 관세 발언과 인플레이션 고착화 우려로 수출 중심의 자동차 및 금리 민감주(건설)의 변동성에 유의해야 합니다." },
+            { title: "조선업 슈퍼사이클 진입", desc: "미국 해군 MRO 사업 진출 등 강력한 호재가 뒷받침되며 장기적인 수익성 개선이 예상됩니다." }
+        ]
+    },
+    "default": {
+        highlights: [
+            "짐 크레이머, CNBC에서 에너지 섹터 비중 축소 권고 → 정유주 하방 압력",
+            "한국 애널리스트 C, 뉴스 인터뷰에서 K-뷰티 수출 호조 강조 → 화장품 관련주 강세",
+            "미국 핀테크 블로거 B, X에서 금리 인하 지연 가능성 시사 → 성장주 변동성 주의"
+        ],
+        table: [
+            { impact: "긍정", stars: 2, speaker: "한국 애널리스트 C", platform: "News", summary: "미국 내 K-뷰티 점유율 확대 및 1분기 수출 서프라이즈 발표", related: "아모레퍼시픽, 실리콘투" },
+            { impact: "부정", stars: 3, speaker: "짐 크레이머", platform: "CNBC", summary: "유가 정점 통과 가능성. 에너지 관련주 비중 축소 의견 제시", related: "S-Oil, GS" },
+            { impact: "부정", stars: 2, speaker: "미국 핀테크 블로거 B", platform: "X (Twitter)", summary: "예상보다 강한 고용 지표로 연내 금리 인하 사실상 무산 위기", related: "성장주 전반" }
+        ],
+        positiveStocks: [
+            { ticker: "090430", name: "아모레퍼시픽", reason: "미국 매출 고성장 및 글로벌 포트폴리오 다변화 성공", influencer: "한국 애널리스트 C" },
+            { ticker: "257720", name: "실리콘투", reason: "인디 뷰티 브랜드 수출 급증에 따른 구조적 성장", influencer: "한국 애널리스트 C" }
+        ],
+        negativeStocks: [
+            { ticker: "010950", name: "S-Oil", reason: "유가 하락 및 정제마진 축소 우려로 인한 실적 둔화 전망", influencer: "짐 크레이머" },
+            { ticker: "N/A", name: "바이오/IT 성장주", reason: "고금리 환경 지속으로 인한 밸류에이션 할인 압박", influencer: "미국 핀테크 블로거 B" }
+        ],
+        sectors: [
+            { name: "화장품/소비재", positive: 9, negative: 0 },
+            { name: "금융", positive: 4, negative: 2 },
+            { name: "반도체", positive: 5, negative: 3 },
+            { name: "에너지/전력", positive: 1, negative: 8 },
+            { name: "바이오/헬스", positive: 0, negative: 6 }
+        ],
+        insights: [
+            { title: "K-뷰티 구조적 성장세", desc: "미국을 비롯한 글로벌 시장에서 한국 화장품 브랜드의 점유율이 빠르게 확대되고 있어 중장기 투자가 유망합니다." },
+            { title: "에너지 섹터 비중 조절 필요", desc: "지정학적 리스크 완화와 유가 하향 안정화로 정유/에너지 주식의 모멘텀 둔화가 예상됩니다." },
+            { title: "고금리 장기화 대비", desc: "매크로 지표 호조로 금리 인하 기대가 후퇴하고 있으므로, 밸류에이션 부담이 높은 성장주의 리스크 관리가 필요합니다." }
+        ]
+    }
+};
+
+const ImpactBadge = ({ impact }: { impact: string }) => {
+    if (impact === "긍정") return <Badge className="bg-green-500/20 text-green-400 hover:bg-green-500/30 border-0">긍정</Badge>;
+    if (impact === "부정") return <Badge className="bg-red-500/20 text-red-400 hover:bg-red-500/30 border-0">부정</Badge>;
+    return <Badge className="bg-gray-500/20 text-gray-400 hover:bg-gray-500/30 border-0">중립</Badge>;
+};
+
+const Stars = ({ count }: { count: number }) => {
+    return (
+        <div className="flex gap-0.5">
+            {[1, 2, 3].map(i => (
+                <Star key={i} className={cn("w-3.5 h-3.5", i <= count ? "fill-current text-yellow-500" : "text-gray-600")} />
+            ))}
+        </div>
+    );
+};
 
 export default function SocialAnalysisView() {
-    const [date, setDate] = useState<Date>(new Date(2026, 3, 26)); // Default to 2026-04-26 for mockup
+    const [date, setDate] = useState<Date>(new Date(2026, 3, 26)); // Default to 2026-04-26
+
+    const dateKey = format(date, "yyyy-MM-dd");
+    const data = MOCK_DATA[dateKey as keyof typeof MOCK_DATA] || MOCK_DATA["default"];
 
     return (
-        <div className="space-y-8 pb-12 animate-in fade-in duration-500">
-            {/* Header controls */}
-            <div className="flex justify-between items-center bg-[#151921] p-4 rounded-xl border border-white/10">
-                <div className="flex items-center gap-3">
-                    <span className="text-gray-400 text-sm font-medium">조회 일자</span>
-                    <Popover>
-                        <PopoverTrigger asChild>
-                            <Button
-                                variant="outline"
-                                className={cn(
-                                    "w-[240px] justify-start text-left font-normal bg-[#1e2330] border-white/10 text-white hover:bg-white/5 hover:text-white",
-                                    !date && "text-muted-foreground"
-                                )}
-                            >
-                                <CalendarIcon className="mr-2 h-4 w-4 text-primary" />
-                                {date ? format(date, "yyyy년 MM월 dd일 (EEEE)", { locale: ko }) : <span>날짜를 선택하세요</span>}
-                                <ChevronDown className="ml-auto h-4 w-4 opacity-50" />
-                            </Button>
-                        </PopoverTrigger>
-                        <PopoverContent className="w-auto p-0 bg-[#151921] border-white/10" align="start">
-                            <Calendar
-                                mode="single"
-                                selected={date}
-                                onSelect={(d) => d && setDate(d)}
-                                initialFocus
-                                className="bg-[#151921] text-white"
-                            />
-                        </PopoverContent>
-                    </Popover>
-                </div>
-                
-                <div className="text-sm text-gray-500">
-                    마지막 업데이트: {format(date, "yyyy.MM.dd")} 18:30
+        <div className="space-y-10 pb-12 animate-in fade-in duration-500">
+            
+            {/* Page Header Area */}
+            <div className="flex flex-col gap-4 mb-8">
+                <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
+                    <div>
+                        <h1 className="text-2xl font-bold text-white flex items-center gap-2">
+                            <BarChart3 className="w-6 h-6 text-primary" />
+                            [일일 리포트] 인플루언서 증권 관련 SNS 모니터링
+                        </h1>
+                        <div className="flex items-center gap-2 mt-3">
+                            <Badge variant="outline" className="bg-[#1e2330] text-gray-300 border-white/10 px-3 py-1 flex items-center gap-1.5"><Newspaper className="w-3.5 h-3.5"/> 미국 뉴스</Badge>
+                            <Badge variant="outline" className="bg-[#1e2330] text-gray-300 border-white/10 px-3 py-1 flex items-center gap-1.5"><Newspaper className="w-3.5 h-3.5"/> 한국 뉴스</Badge>
+                            <Badge variant="outline" className="bg-[#1e2330] text-gray-300 border-white/10 px-3 py-1 flex items-center gap-1.5"><Twitter className="w-3.5 h-3.5"/> 미국 SNS (X)</Badge>
+                        </div>
+                    </div>
+
+                    {/* Date Picker */}
+                    <div className="flex flex-col items-end gap-2 shrink-0">
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button
+                                    variant="outline"
+                                    className={cn(
+                                        "w-[240px] justify-start text-left font-normal bg-[#151921] border-white/10 text-white hover:bg-white/5 hover:text-white",
+                                        !date && "text-muted-foreground"
+                                    )}
+                                >
+                                    <CalendarIcon className="mr-2 h-4 w-4 text-primary" />
+                                    {date ? format(date, "yyyy년 MM월 dd일", { locale: ko }) : <span>날짜를 선택하세요</span>}
+                                    <ChevronDown className="ml-auto h-4 w-4 opacity-50" />
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0 bg-[#151921] border-white/10" align="end">
+                                <Calendar
+                                    mode="single"
+                                    selected={date}
+                                    onSelect={(d) => d && setDate(d)}
+                                    initialFocus
+                                    className="bg-[#151921] text-white"
+                                />
+                            </PopoverContent>
+                        </Popover>
+                        <div className="text-xs text-gray-500">
+                            마지막 업데이트: {format(date, "yyyy.MM.dd")} 18:30
+                        </div>
+                    </div>
                 </div>
             </div>
 
             {/* 1. 주요 하이라이트 */}
             <section className="space-y-4">
-                <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                    <Megaphone className="w-5 h-5 text-red-500" />
+                <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                    <Megaphone className="w-5 h-5 text-primary" />
                     주요 하이라이트
                 </h2>
-                <Card className="bg-[#151921] border-white/10 p-6">
-                    <ul className="space-y-3 text-sm text-gray-300 leading-relaxed">
-                        <li className="flex gap-2">
-                            <span className="text-gray-500 font-mono">①</span>
-                            <span><strong className="text-white">코스피 6,500선 돌파 및 신고가 경신:</strong> 한국 1분기 실질 GDP 성장률이 전 분기 대비 1.7%를 기록해 시장 예상치(0.9%)를 두 배 상회, SK하이닉스 역대 최대 분기 실적(영업이익 37.6조 원·이익률 72%), 삼성전자 사상 최대 분기 실적(영업이익 57.2조 원, YoY +755%) 등 '어닝 서프라이즈 3중주'로 코스피가 사상 최고치 행진을 이어가고 있으며, 골드만삭스는 코스피 12개월 목표치를 8,000으로 상향 조정했다.</span>
-                        </li>
-                        <li className="flex gap-2">
-                            <span className="text-gray-500 font-mono">②</span>
-                            <span><strong className="text-white">테슬라 Q1 2026 어닝콜 — Capex 25% 상향 및 Optimus 양산 선언:</strong> 일론 머스크가 설비투자를 250억 달러 이상으로 상향하고 연말까지 옵티머스 로봇 100만 대 규모 첫 생산라인을 목표로 한다고 밝혔으나, 매출 소폭 하회·capex 급증 우려로 시간 외 상승분을 반납하는 혼재된 반응이 나타났다.</span>
-                        </li>
-                        <li className="flex gap-2">
-                            <span className="text-gray-500 font-mono">③</span>
-                            <span><strong className="text-white">트럼프 발언의 증시 변동성 지배력 재확인:</strong> 블룸버그·펀드스트랫 분석에 따르면 S&P500 상승 상위 5거래일·하락 상위 5거래일이 모두 트럼프 Truth Social 발언과 직결됐으며, 스콧 베센트 재무장관은 대법원 판결에도 관세 세수가 '사실상 변동 없을 것'이라며 관세 불확실성을 지속시켰다.</span>
-                        </li>
-                        <li className="flex gap-2">
-                            <span className="text-gray-500 font-mono">④</span>
-                            <span><strong className="text-white">케빈 워시 연준 의장 지명자 매파 발언:</strong> 상원 청문회에서 대차대조표 축소 의지 및 '레짐 체인지'를 천명, 5월 15일 파월 퇴임 이후 금리 인상·양적 긴축 가속화 우려가 확산되며 모틀리 풀은 "관세보다 워시 취임이 증시에 더 큰 위협"이라고 경고했다.</span>
-                        </li>
-                        <li className="flex gap-2">
-                            <span className="text-gray-500 font-mono">⑤</span>
-                            <span><strong className="text-white">국내 증권사 AI·방산·원전 비중확대 의견 유지:</strong> 코스피 주간 4.58% 상승(6,475.63 마감) 속에 NH투자증권·삼성증권·미래에셋증권 애널리스트들이 반도체·방산·전력기기·원전 업종 비중확대 의견을 유지하며 추가 상승 에너지에 주목했다.</span>
-                        </li>
+                <Card className="bg-[#151921] border-l-4 border-l-primary border-y-white/10 border-r-white/10 p-6 rounded-xl">
+                    <ul className="space-y-3 text-sm text-gray-300 leading-relaxed list-disc list-inside marker:text-primary">
+                        {data.highlights.map((highlight, idx) => (
+                            <li key={idx}>
+                                {highlight}
+                            </li>
+                        ))}
                     </ul>
                 </Card>
             </section>
 
             {/* 2. 종합 요약 테이블 */}
             <section className="space-y-4">
-                <h2 className="text-xl font-bold text-white flex items-center gap-2">
+                <h2 className="text-lg font-bold text-white flex items-center gap-2">
                     <Target className="w-5 h-5 text-blue-400" />
-                    종합 요약 테이블
+                    종합 요약 테이블 & 시장 영향도
                 </h2>
                 <div className="overflow-x-auto rounded-xl border border-white/10 bg-[#151921]">
                     <table className="w-full text-sm text-left">
                         <thead className="bg-[#1e2330] text-gray-400 font-medium">
                             <tr>
-                                <th className="px-4 py-3 whitespace-nowrap">영향도</th>
-                                <th className="px-4 py-3 whitespace-nowrap">발언자</th>
-                                <th className="px-4 py-3 whitespace-nowrap">직책/소속</th>
+                                <th className="px-4 py-3 whitespace-nowrap">인플루언서명</th>
                                 <th className="px-4 py-3 whitespace-nowrap">플랫폼</th>
-                                <th className="px-4 py-3 min-w-[300px]">핵심 발언 요약</th>
-                                <th className="px-4 py-3 min-w-[150px]">긍정 종목 (🇰🇷/🇺🇸)</th>
-                                <th className="px-4 py-3 min-w-[150px]">부정 종목 (🇰🇷/🇺🇸)</th>
-                                <th className="px-4 py-3 whitespace-nowrap">시간</th>
+                                <th className="px-4 py-3 min-w-[300px]">발언 요약</th>
+                                <th className="px-4 py-3 whitespace-nowrap">관련 종목</th>
+                                <th className="px-4 py-3 whitespace-nowrap text-center">시장 영향도</th>
+                                <th className="px-4 py-3 whitespace-nowrap text-center">영향 강도</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5 text-gray-300">
-                            <tr className="hover:bg-white/5 transition-colors">
-                                <td className="px-4 py-4"><Badge className="bg-red-500/20 text-red-400 hover:bg-red-500/30 border-0">높음</Badge></td>
-                                <td className="px-4 py-4 font-bold text-white">도널드 트럼프</td>
-                                <td className="px-4 py-4 text-gray-400">미국 대통령</td>
-                                <td className="px-4 py-4">Truth Social</td>
-                                <td className="px-4 py-4 leading-relaxed">트럼프 발언이 S&P500 상·하위 5거래일 모두 좌우. 관세 정책이 미국 제조업 부활·재정 적자 감소에 도움 발언 지속</td>
-                                <td className="px-4 py-4">
-                                    <div className="flex flex-col gap-1 text-xs">
-                                        <span className="text-red-400">🇰🇷 한화오션</span>
-                                        <span className="text-red-400">🇰🇷 HD현대중공업</span>
-                                        <span className="text-red-400">🇺🇸 S&P500 지수 전반</span>
-                                    </div>
-                                </td>
-                                <td className="px-4 py-4">
-                                    <div className="flex flex-col gap-1 text-xs">
-                                        <span className="text-blue-400">🇰🇷 삼성전자</span>
-                                        <span className="text-blue-400">🇰🇷 현대차</span>
-                                        <span className="text-blue-400">🇺🇸 Tesla</span>
-                                        <span className="text-blue-400">🇺🇸 Apple</span>
-                                    </div>
-                                </td>
-                                <td className="px-4 py-4 text-gray-500 text-xs">2026-04-26</td>
-                            </tr>
-                            <tr className="hover:bg-white/5 transition-colors">
-                                <td className="px-4 py-4"><Badge className="bg-red-500/20 text-red-400 hover:bg-red-500/30 border-0">높음</Badge></td>
-                                <td className="px-4 py-4 font-bold text-white">일론 머스크</td>
-                                <td className="px-4 py-4 text-gray-400">Tesla CEO</td>
-                                <td className="px-4 py-4">어닝콜 (Q1 2026)</td>
-                                <td className="px-4 py-4 leading-relaxed">Capex 250억 달러로 25% 상향, 연말까지 Optimus 100만 대 생산라인 목표. EPS $0.41 서프라이즈, 매출 소폭 하회</td>
-                                <td className="px-4 py-4">
-                                    <div className="flex flex-col gap-1 text-xs">
-                                        <span className="text-red-400">🇰🇷 삼성전자</span>
-                                        <span className="text-red-400">🇰🇷 SK하이닉스</span>
-                                        <span className="text-red-400">🇺🇸 Tesla</span>
-                                        <span className="text-red-400">🇺🇸 NVIDIA</span>
-                                    </div>
-                                </td>
-                                <td className="px-4 py-4">
-                                    <div className="flex flex-col gap-1 text-xs">
-                                        <span className="text-blue-400">🇺🇸 Tesla (매출 하회, capex 급증)</span>
-                                    </div>
-                                </td>
-                                <td className="px-4 py-4 text-gray-500 text-xs">2026-04-22<br/>21:00(ET)</td>
-                            </tr>
-                            <tr className="hover:bg-white/5 transition-colors">
-                                <td className="px-4 py-4"><Badge className="bg-red-500/20 text-red-400 hover:bg-red-500/30 border-0">높음</Badge></td>
-                                <td className="px-4 py-4 font-bold text-white">이창용</td>
-                                <td className="px-4 py-4 text-gray-400">한국은행 총재</td>
-                                <td className="px-4 py-4">기자간담회</td>
-                                <td className="px-4 py-4 leading-relaxed">기준금리 2.50% 7연속 동결. 중동 전쟁으로 물가 상방·성장 하방 동시 증대. 2026년 성장률 2% 하회, 물가 2.2% 상당폭 상회 경고</td>
-                                <td className="px-4 py-4">
-                                    <div className="flex flex-col gap-1 text-xs">
-                                        <span className="text-red-400">🇰🇷 KB금융</span>
-                                        <span className="text-red-400">🇰🇷 신한지주</span>
-                                        <span className="text-red-400">🇰🇷 삼성전자</span>
-                                    </div>
-                                </td>
-                                <td className="px-4 py-4">
-                                    <div className="flex flex-col gap-1 text-xs">
-                                        <span className="text-blue-400">🇰🇷 현대건설</span>
-                                        <span className="text-blue-400">🇰🇷 건설사 전반</span>
-                                    </div>
-                                </td>
-                                <td className="px-4 py-4 text-gray-500 text-xs">2026-04-10<br/>12:00(KST)</td>
-                            </tr>
+                            {data.table.map((row, idx) => (
+                                <tr key={idx} className="hover:bg-white/5 transition-colors">
+                                    <td className="px-4 py-4 font-bold text-white whitespace-nowrap">{row.speaker}</td>
+                                    <td className="px-4 py-4 whitespace-nowrap text-xs">
+                                        <Badge variant="outline" className="bg-[#1e2330] border-white/10">{row.platform}</Badge>
+                                    </td>
+                                    <td className="px-4 py-4 leading-relaxed text-xs">{row.summary}</td>
+                                    <td className="px-4 py-4 text-xs font-mono text-gray-400">
+                                        {row.related}
+                                    </td>
+                                    <td className="px-4 py-4 text-center">
+                                        <ImpactBadge impact={row.impact} />
+                                    </td>
+                                    <td className="px-4 py-4 flex justify-center">
+                                        <Stars count={row.stars} />
+                                    </td>
+                                </tr>
+                            ))}
                         </tbody>
                     </table>
                 </div>
             </section>
 
-            {/* 3. 시장 영향도: 높음 상세 분석 */}
+            {/* 3. 긍/부정 종목 종합 */}
             <section className="space-y-4">
-                <h2 className="text-xl font-bold text-white flex items-center gap-2">
-                    <Zap className="w-5 h-5 text-yellow-400" />
-                    시장 영향도: 높음 — 상세 분석
+                <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                    <Globe className="w-5 h-5 text-purple-400" />
+                    긍/부정 종목 종합
                 </h2>
-                <div className="space-y-4">
-                    {/* Trump Card */}
-                    <Card className="bg-[#151921] border-white/10 p-0 overflow-hidden flex flex-col md:flex-row">
-                        <div className="p-6 md:w-1/4 bg-[#1e2330] border-r border-white/5">
-                            <h3 className="font-bold text-white text-lg">도널드 트럼프</h3>
-                            <p className="text-sm text-gray-400 mb-4">미국 대통령</p>
-                            <div className="flex items-center gap-2 text-xs text-gray-500">
-                                <MessageSquare className="w-3.5 h-3.5" />
-                                Truth Social
-                            </div>
-                            <div className="text-xs text-gray-500 mt-1">2026-04-26</div>
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* 상승 기대 종목 */}
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-2 pb-2 border-b border-green-500/20">
+                            <TrendingUp className="w-5 h-5 text-green-500" />
+                            <h3 className="font-bold text-white">상승/호재 기대 종목</h3>
                         </div>
-                        <div className="p-6 md:w-3/4 space-y-4">
-                            <div>
-                                <h4 className="text-sm font-bold text-gray-300 mb-2">발언 요약</h4>
-                                <p className="text-sm text-gray-400 leading-relaxed">블룸버그·펀드스트랫 리서치에 따르면 트럼프 취임 이후 S&P500 상승 상위 5거래일·하락 상위 5거래일이 모두 트럼프 Truth Social 게시물·발언과 직결됐다고 밝혀짐. 관세 정책이 미국 제조업 부활·재정적자 감소·인플레이션 억제에 도움이 된다는 취지 발언 지속. 최근 관세 발언이 시장의 핵심 리스크 변수로 작용 중.</p>
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div className="bg-red-500/5 border border-red-500/10 rounded-lg p-3">
-                                    <h4 className="text-xs font-bold text-red-400 mb-2 flex items-center gap-1"><TrendingUp className="w-3.5 h-3.5" /> 긍정 종목</h4>
-                                    <ul className="text-xs text-gray-400 space-y-1">
-                                        <li><span className="text-red-400">🇰🇷 한화오션(042660)</span> - 미국 조선업 협력 기대</li>
-                                        <li><span className="text-red-400">🇰🇷 HD현대중공업(329180)</span> - 미국 제조업 투자 확대 기대</li>
-                                        <li><span className="text-red-400">🇺🇸 S&P500 지수 전반(SPY)</span> - 관세 완화 발언 시 반등 기대</li>
-                                    </ul>
-                                </div>
-                                <div className="bg-blue-500/5 border border-blue-500/10 rounded-lg p-3">
-                                    <h4 className="text-xs font-bold text-blue-400 mb-2 flex items-center gap-1"><TrendingDown className="w-3.5 h-3.5" /> 부정 종목</h4>
-                                    <ul className="text-xs text-gray-400 space-y-1">
-                                        <li><span className="text-blue-400">🇰🇷 삼성전자(005930)</span> - 관세 강화 시 수출 타격 우려</li>
-                                        <li><span className="text-blue-400">🇰🇷 현대차(005380)</span> - 미국 관세 15% 적용 영업이익 감소</li>
-                                        <li><span className="text-blue-400">🇺🇸 Tesla(TSLA)</span> - 관세 불확실성 및 불매 영향</li>
-                                        <li><span className="text-blue-400">🇺🇸 Apple(AAPL)</span> - 공급망 관세 부담 지속</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="bg-white/5 rounded-lg p-3 text-sm">
-                                <span className="font-bold text-gray-300">시장 영향 분석:</span> <span className="text-gray-400">트럼프 발언이 단순 SNS를 넘어 증시 최대 변동성 요인으로 구조화됨. 관세 완화 시 수출주 급등·강화 시 수출주 급락의 이분법적 구조 고착화. 스콧 베센트의 관세 재부과 의지와 맞물려 단기 불확실성 지속.</span>
-                            </div>
+                        <div className="space-y-3">
+                            {data.positiveStocks.map((stock, idx) => (
+                                <Card key={idx} className="bg-[#151921] border-green-500/20 p-4 hover:border-green-500/40 transition-colors">
+                                    <div className="flex justify-between items-start mb-2">
+                                        <div className="flex items-center gap-2">
+                                            <span className="font-bold text-white">{stock.name}</span>
+                                            <span className="text-xs text-gray-500 font-mono">{stock.ticker}</span>
+                                        </div>
+                                        <Badge variant="outline" className="text-xs bg-green-500/10 text-green-400 border-green-500/20">호재</Badge>
+                                    </div>
+                                    <p className="text-sm text-gray-400 mb-3 leading-snug">{stock.reason}</p>
+                                    <div className="text-xs text-gray-500 flex items-center gap-1.5">
+                                        <MessageSquare className="w-3 h-3" />
+                                        <span>주요 언급: {stock.influencer}</span>
+                                    </div>
+                                </Card>
+                            ))}
                         </div>
-                    </Card>
-
-                    {/* Musk Card */}
-                    <Card className="bg-[#151921] border-white/10 p-0 overflow-hidden flex flex-col md:flex-row">
-                        <div className="p-6 md:w-1/4 bg-[#1e2330] border-r border-white/5">
-                            <h3 className="font-bold text-white text-lg">일론 머스크</h3>
-                            <p className="text-sm text-gray-400 mb-4">Tesla CEO</p>
-                            <div className="flex items-center gap-2 text-xs text-gray-500">
-                                <MessageSquare className="w-3.5 h-3.5" />
-                                어닝콜 (Q1 2026)
-                            </div>
-                            <div className="text-xs text-gray-500 mt-1">2026-04-22</div>
-                        </div>
-                        <div className="p-6 md:w-3/4 space-y-4">
-                            <div>
-                                <h4 className="text-sm font-bold text-gray-300 mb-2">발언 요약</h4>
-                                <p className="text-sm text-gray-400 leading-relaxed">Tesla Q1 2026 어닝콜에서 2026년 설비투자(Capex)를 기존 200억 달러 이상에서 250억 달러 이상으로 25% 상향 발표. 프리몬트 공장에서 Q2부터 Optimus 로봇 대규모 생산 준비, 연말까지 100만 대 규모 첫 생산라인 목표 공개.</p>
-                            </div>
-                            <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                                <div className="bg-red-500/5 border border-red-500/10 rounded-lg p-3">
-                                    <h4 className="text-xs font-bold text-red-400 mb-2 flex items-center gap-1"><TrendingUp className="w-3.5 h-3.5" /> 긍정 종목</h4>
-                                    <ul className="text-xs text-gray-400 space-y-1">
-                                        <li><span className="text-red-400">🇰🇷 삼성전자(005930)</span> - AI 로봇 투자 확대로 메모리 수요 증가</li>
-                                        <li><span className="text-red-400">🇰🇷 SK하이닉스(000660)</span> - AI 인프라 투자 확대 수혜</li>
-                                        <li><span className="text-red-400">🇺🇸 Tesla(TSLA)</span> - EPS 어닝 서프라이즈</li>
-                                        <li><span className="text-red-400">🇺🇸 NVIDIA(NVDA)</span> - AI 투자 확대 시 엔비디아 칩 수요 증가</li>
-                                    </ul>
-                                </div>
-                                <div className="bg-blue-500/5 border border-blue-500/10 rounded-lg p-3">
-                                    <h4 className="text-xs font-bold text-blue-400 mb-2 flex items-center gap-1"><TrendingDown className="w-3.5 h-3.5" /> 부정 종목</h4>
-                                    <ul className="text-xs text-gray-400 space-y-1">
-                                        <li><span className="text-blue-400">🇺🇸 Tesla(TSLA)</span> - 매출 소폭 하회, capex 급증으로 단기 수익성 우려</li>
-                                    </ul>
-                                </div>
-                            </div>
-                            <div className="bg-white/5 rounded-lg p-3 text-sm">
-                                <span className="font-bold text-gray-300">시장 영향 분석:</span> <span className="text-gray-400">Optimus 로봇 양산 로드맵은 AI·로봇 섹터 전반에 촉매가 될 수 있으나, 250억 달러 capex 부담과 소비자 불매 운동이 단기 주가 상승의 걸림돌. 국내 메모리 반도체 수혜는 중장기적으로 유효.</span>
-                            </div>
-                        </div>
-                    </Card>
-                </div>
-            </section>
-
-            {/* 4. 긍정/부정 종목 종합 */}
-            <section className="space-y-6">
-                <div>
-                    <h2 className="text-lg font-bold text-white flex items-center gap-2 mb-3">
-                        <TrendingUp className="w-5 h-5 text-red-500" />
-                        긍정 종목 종합 (상승/호재 기대)
-                    </h2>
-                    <div className="overflow-x-auto rounded-xl border border-red-500/20 bg-red-500/5">
-                        <table className="w-full text-sm text-left">
-                            <thead className="bg-red-500/10 text-red-400 font-medium border-b border-red-500/20">
-                                <tr>
-                                    <th className="px-4 py-3 w-16 text-center">시장</th>
-                                    <th className="px-4 py-3">종목명</th>
-                                    <th className="px-4 py-3">티커</th>
-                                    <th className="px-4 py-3">언급 발언자</th>
-                                    <th className="px-4 py-3">긍정 사유 요약</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-red-500/10 text-gray-300">
-                                <tr>
-                                    <td className="px-4 py-3 text-center">🇰🇷</td>
-                                    <td className="px-4 py-3 font-bold text-white">삼성전자</td>
-                                    <td className="px-4 py-3 text-gray-500">005930</td>
-                                    <td className="px-4 py-3 text-gray-400">트럼프, 머스크, 이창용, SK하이닉스</td>
-                                    <td className="px-4 py-3">1Q26 영업이익 57.2조 원(YoY +755%) 사상 최대, AI 반도체 호황</td>
-                                </tr>
-                                <tr>
-                                    <td className="px-4 py-3 text-center">🇰🇷</td>
-                                    <td className="px-4 py-3 font-bold text-white">SK하이닉스</td>
-                                    <td className="px-4 py-3 text-gray-500">000660</td>
-                                    <td className="px-4 py-3 text-gray-400">머스크, 이창용, 골드만삭스</td>
-                                    <td className="px-4 py-3">1Q26 영업이익 37.6조 원(이익률 72%) 역대 최대, HBM3E 독주</td>
-                                </tr>
-                                <tr>
-                                    <td className="px-4 py-3 text-center">🇺🇸</td>
-                                    <td className="px-4 py-3 font-bold text-white">NVIDIA</td>
-                                    <td className="px-4 py-3 text-gray-500">NVDA</td>
-                                    <td className="px-4 py-3 text-gray-400">머스크, SK하이닉스, 삼성전자</td>
-                                    <td className="px-4 py-3">Q4 FY2026 매출 $68.1B(YoY +80%), 시총 5조 달러 돌파</td>
-                                </tr>
-                            </tbody>
-                        </table>
                     </div>
-                </div>
 
-                <div>
-                    <h2 className="text-lg font-bold text-white flex items-center gap-2 mb-3">
-                        <TrendingDown className="w-5 h-5 text-blue-500" />
-                        부정 종목 종합 (하락/악재 우려)
-                    </h2>
-                    <div className="overflow-x-auto rounded-xl border border-blue-500/20 bg-blue-500/5">
-                        <table className="w-full text-sm text-left">
-                            <thead className="bg-blue-500/10 text-blue-400 font-medium border-b border-blue-500/20">
-                                <tr>
-                                    <th className="px-4 py-3 w-16 text-center">시장</th>
-                                    <th className="px-4 py-3">종목명</th>
-                                    <th className="px-4 py-3">티커</th>
-                                    <th className="px-4 py-3">언급 발언자</th>
-                                    <th className="px-4 py-3">부정 사유 요약</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-blue-500/10 text-gray-300">
-                                <tr>
-                                    <td className="px-4 py-3 text-center">🇰🇷</td>
-                                    <td className="px-4 py-3 font-bold text-white">삼성전자</td>
-                                    <td className="px-4 py-3 text-gray-500">005930</td>
-                                    <td className="px-4 py-3 text-gray-400">트럼프, 베센트</td>
-                                    <td className="px-4 py-3">관세 강화 발언 시 수출 타격 우려</td>
-                                </tr>
-                                <tr>
-                                    <td className="px-4 py-3 text-center">🇰🇷</td>
-                                    <td className="px-4 py-3 font-bold text-white">현대차</td>
-                                    <td className="px-4 py-3 text-gray-500">005380</td>
-                                    <td className="px-4 py-3 text-gray-400">트럼프, 현대자동차</td>
-                                    <td className="px-4 py-3">미국 관세 15% 적용 영업이익 감소, 1Q26 YoY -30.8%</td>
-                                </tr>
-                                <tr>
-                                    <td className="px-4 py-3 text-center">🇺🇸</td>
-                                    <td className="px-4 py-3 font-bold text-white">Tesla</td>
-                                    <td className="px-4 py-3 text-gray-500">TSLA</td>
-                                    <td className="px-4 py-3 text-gray-400">트럼프, 머스크, 베센트</td>
-                                    <td className="px-4 py-3">관세 불확실성·소비자 불매·capex 250억 달러 급증 악재</td>
-                                </tr>
-                            </tbody>
-                        </table>
+                    {/* 하락 우려 종목 */}
+                    <div className="space-y-4">
+                        <div className="flex items-center gap-2 pb-2 border-b border-red-500/20">
+                            <TrendingDown className="w-5 h-5 text-red-500" />
+                            <h3 className="font-bold text-white">하락/악재 우려 종목</h3>
+                        </div>
+                        <div className="space-y-3">
+                            {data.negativeStocks.map((stock, idx) => (
+                                <Card key={idx} className="bg-[#151921] border-red-500/20 p-4 hover:border-red-500/40 transition-colors">
+                                    <div className="flex justify-between items-start mb-2">
+                                        <div className="flex items-center gap-2">
+                                            <span className="font-bold text-white">{stock.name}</span>
+                                            <span className="text-xs text-gray-500 font-mono">{stock.ticker}</span>
+                                        </div>
+                                        <Badge variant="outline" className="text-xs bg-red-500/10 text-red-400 border-red-500/20">악재</Badge>
+                                    </div>
+                                    <p className="text-sm text-gray-400 mb-3 leading-snug">{stock.reason}</p>
+                                    <div className="text-xs text-gray-500 flex items-center gap-1.5">
+                                        <MessageSquare className="w-3 h-3" />
+                                        <span>주요 언급: {stock.influencer}</span>
+                                    </div>
+                                </Card>
+                            ))}
+                        </div>
                     </div>
                 </div>
             </section>
 
-            {/* 5. 섹터별 영향 분석 & 6. 투자 시사점 */}
-            <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                <section className="space-y-4">
-                    <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                        <Globe className="w-5 h-5 text-purple-400" />
-                        섹터별 영향 분석
-                    </h2>
-                    <div className="overflow-x-auto rounded-xl border border-white/10 bg-[#151921] h-[300px]">
-                        <table className="w-full text-sm text-left">
-                            <thead className="bg-[#1e2330] text-gray-400 font-medium sticky top-0">
-                                <tr>
-                                    <th className="px-4 py-3">섹터</th>
-                                    <th className="px-4 py-3">발언 수</th>
-                                    <th className="px-4 py-3">전반적 방향</th>
-                                </tr>
-                            </thead>
-                            <tbody className="divide-y divide-white/5 text-gray-300">
-                                <tr className="hover:bg-white/5 transition-colors">
-                                    <td className="px-4 py-3 font-medium text-white">반도체 / AI 인프라</td>
-                                    <td className="px-4 py-3 text-gray-500">7건</td>
-                                    <td className="px-4 py-3"><Badge className="bg-red-500/20 text-red-400 border-0">긍정</Badge></td>
-                                </tr>
-                                <tr className="hover:bg-white/5 transition-colors">
-                                    <td className="px-4 py-3 font-medium text-white">금융 / 전체 시장</td>
-                                    <td className="px-4 py-3 text-gray-500">4건</td>
-                                    <td className="px-4 py-3"><Badge className="bg-gray-500/20 text-gray-400 border-0">중립</Badge></td>
-                                </tr>
-                                <tr className="hover:bg-white/5 transition-colors">
-                                    <td className="px-4 py-3 font-medium text-white">무역·관세 / 수출</td>
-                                    <td className="px-4 py-3 text-gray-500">2건</td>
-                                    <td className="px-4 py-3"><Badge className="bg-blue-500/20 text-blue-400 border-0">부정</Badge></td>
-                                </tr>
-                                <tr className="hover:bg-white/5 transition-colors">
-                                    <td className="px-4 py-3 font-medium text-white">전기차 / AI 로봇</td>
-                                    <td className="px-4 py-3 text-gray-500">1건</td>
-                                    <td className="px-4 py-3"><Badge className="bg-yellow-500/20 text-yellow-400 border-0">혼재</Badge></td>
-                                </tr>
-                                <tr className="hover:bg-white/5 transition-colors">
-                                    <td className="px-4 py-3 font-medium text-white">방산 / 원전 / 전력</td>
-                                    <td className="px-4 py-3 text-gray-500">1건</td>
-                                    <td className="px-4 py-3"><Badge className="bg-red-500/20 text-red-400 border-0">긍정</Badge></td>
-                                </tr>
-                            </tbody>
-                        </table>
-                    </div>
-                </section>
+            {/* 4. 섹터별 영향 분석 */}
+            <section className="space-y-4">
+                <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                    <BarChart3 className="w-5 h-5 text-cyan-400" />
+                    섹터별 영향 분석
+                </h2>
+                <Card className="bg-[#151921] border-white/10 p-6 h-[320px]">
+                    <ResponsiveContainer width="100%" height="100%">
+                        <BarChart
+                            data={data.sectors}
+                            layout="vertical"
+                            margin={{ top: 5, right: 30, left: 40, bottom: 5 }}
+                        >
+                            <XAxis type="number" hide />
+                            <YAxis dataKey="name" type="category" axisLine={false} tickLine={false} tick={{fill: '#9ca3af', fontSize: 12}} width={100} />
+                            <Tooltip 
+                                contentStyle={{ backgroundColor: '#1e2330', border: '1px solid rgba(255,255,255,0.1)', borderRadius: '8px' }}
+                                itemStyle={{ color: '#fff' }}
+                                cursor={{fill: 'rgba(255,255,255,0.05)'}}
+                            />
+                            <Bar dataKey="positive" name="긍정" stackId="a" fill="#22c55e" radius={[0, 0, 0, 0]} barSize={24} />
+                            <Bar dataKey="negative" name="부정" stackId="a" fill="#ef4444" radius={[0, 4, 4, 0]} barSize={24} />
+                        </BarChart>
+                    </ResponsiveContainer>
+                </Card>
+            </section>
 
-                <section className="space-y-4">
-                    <h2 className="text-lg font-bold text-white flex items-center gap-2">
-                        <AlertCircle className="w-5 h-5 text-orange-400" />
-                        투자 시사점
-                    </h2>
-                    <div className="overflow-y-auto rounded-xl border border-white/10 bg-[#151921] h-[300px] p-4 space-y-4">
-                        <div className="space-y-2 border-b border-white/5 pb-4">
-                            <h3 className="font-bold text-white flex items-center gap-2">
-                                <span className="text-orange-500">🔥</span> AI 반도체 슈퍼사이클 — 코스피 신고가 랠리 지속
-                            </h3>
-                            <p className="text-sm text-gray-400 leading-relaxed">삼성전자(영업이익 YoY +755%) SK하이닉스(영업이익률 72%)·NVIDIA(시총 5조 달러)의 동시 사상 최대 실적과 한국 GDP 1.7% 서프라이즈, 골드만삭스 코스피 목표 8,000 상향이 맞물리며 AI 반도체 중심 코스피 상승 랠리의 펀더멘털이 견고히 확인됨.</p>
-                        </div>
-                        <div className="space-y-2 border-b border-white/5 pb-4">
-                            <h3 className="font-bold text-white flex items-center gap-2">
-                                <span className="text-orange-500">⚠️</span> 케빈 워시 '레짐 체인지' — AI 고밸류 성장주의 최대 리스크
-                            </h3>
-                            <p className="text-sm text-gray-400 leading-relaxed">5월 15일 파월 퇴임 이후 워시의 매파적 대차대조표 축소 정책이 현실화될 경우 AI 고밸류에이션 종목에 구조적 할인율 상승 압박 가능. 5월 15일 전후 포지션 점검 필요.</p>
-                        </div>
-                        <div className="space-y-2 border-b border-white/5 pb-4">
-                            <h3 className="font-bold text-white flex items-center gap-2">
-                                <span className="text-red-500">🚗</span> 관세 구조적 리스크 — 한국 수출 제조업 이익 압박 지속
-                            </h3>
-                            <p className="text-sm text-gray-400 leading-relaxed">베센트의 '관세 세수 virtually unchanged' 발언과 현대차 영업이익 YoY -30.8%는 관세 리스크가 구조적 이익 압박 요인임을 확인. 수출 대형주의 이익 전망 하향 조정 필요성 존재.</p>
-                        </div>
-                        <div className="space-y-2">
-                            <h3 className="font-bold text-white flex items-center gap-2">
-                                <span className="text-blue-400">🤖</span> Optimus 로봇 양산 — 중장기 메모리·장비 수혜 체인
-                            </h3>
-                            <p className="text-sm text-gray-400 leading-relaxed">머스크의 연말 100만 대 목표는 AI 로봇 시대의 메모리·센서·장비 수요 폭발을 예고. SK하이닉스·한미반도체 등 공급 체인 기업 중장기 수혜 기대.</p>
-                        </div>
+            {/* 5. 투자 시사점 */}
+            <section className="space-y-4">
+                <h2 className="text-lg font-bold text-white flex items-center gap-2">
+                    <AlertCircle className="w-5 h-5 text-orange-400" />
+                    📌 오늘의 투자 시사점
+                </h2>
+                <Card className="bg-[#1e2330] border-white/10 p-6 space-y-4 rounded-xl">
+                    <div className="space-y-4">
+                        {data.insights.map((insight, idx) => (
+                            <div key={idx}>
+                                <h3 className="font-bold text-white mb-1.5 text-sm">
+                                    • {insight.title}
+                                </h3>
+                                <p className="text-sm text-gray-400 leading-relaxed ml-3">
+                                    {insight.desc}
+                                </p>
+                            </div>
+                        ))}
                     </div>
-                </section>
-            </div>
+                    
+                    <div className="pt-6 mt-4 border-t border-white/5">
+                        <p className="text-xs text-gray-500 text-center">
+                            본 리포트는 참고용이며 투자 권유가 아닙니다.
+                        </p>
+                    </div>
+                </Card>
+            </section>
         </div>
     );
 }
