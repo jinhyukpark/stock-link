@@ -388,8 +388,8 @@ export default function SocialAnalysisView() {
                 <SectionTitle icon={BarChart3} title="섹터별 영향 분석" />
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
                     {/* 긍정 분포 파이 차트 */}
-                    <Card className="bg-emerald-950/20 border-0 border-t-2 border-t-emerald-500/40 p-6 shadow-md flex flex-col items-center rounded-xl">
-                        <h3 className="font-medium text-emerald-400 mb-6 text-center text-sm tracking-wide">긍정 언급 섹터 분포</h3>
+                    <Card className="bg-slate-800 border-0 border-t-2 border-t-emerald-500/50 p-6 shadow-md flex flex-col items-center rounded-xl">
+                        <h3 className="font-semibold text-emerald-400 mb-6 text-center text-sm tracking-wide">긍정 언급 섹터 분포</h3>
                         <div className="h-[280px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
@@ -402,7 +402,7 @@ export default function SocialAnalysisView() {
                                         outerRadius={90}
                                         innerRadius={50}
                                         dataKey="value"
-                                        stroke="#022c22" // match background to hide borders somewhat
+                                        stroke="#1e293b" // match bg-slate-800
                                         strokeWidth={2}
                                         opacity={1}
                                     >
@@ -424,8 +424,8 @@ export default function SocialAnalysisView() {
                     </Card>
 
                     {/* 부정 분포 파이 차트 */}
-                    <Card className="bg-red-950/20 border-0 border-t-2 border-t-red-500/40 p-6 shadow-md flex flex-col items-center rounded-xl">
-                        <h3 className="font-medium text-red-400 mb-6 text-center text-sm tracking-wide">부정 언급 섹터 분포</h3>
+                    <Card className="bg-slate-800 border-0 border-t-2 border-t-red-500/50 p-6 shadow-md flex flex-col items-center rounded-xl">
+                        <h3 className="font-semibold text-red-400 mb-6 text-center text-sm tracking-wide">부정 언급 섹터 분포</h3>
                         <div className="h-[280px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
@@ -438,9 +438,9 @@ export default function SocialAnalysisView() {
                                         outerRadius={90}
                                         innerRadius={50}
                                         dataKey="value"
-                                        stroke="#450a0a" // match background
+                                        stroke="#1e293b" // match bg-slate-800
                                         strokeWidth={2}
-                                        opacity={0.75}
+                                        opacity={1}
                                     >
                                         {data.negativeSectors.map((entry, index) => (
                                             <Cell key={`cell-${index}`} fill={SECTOR_COLORS[entry.name]} />
