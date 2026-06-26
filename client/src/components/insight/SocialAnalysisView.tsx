@@ -217,7 +217,6 @@ export default function SocialAnalysisView() {
 
     return (
         <div className="space-y-12 pb-16 animate-in fade-in duration-500 max-w-6xl mx-auto">
-            
             {/* Page Header Area */}
             <div className="flex flex-col gap-4 mb-10">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
@@ -275,7 +274,6 @@ export default function SocialAnalysisView() {
                     </div>
                 </div>
             </div>
-
             {/* 1. 주요 하이라이트 */}
             <section className="space-y-2">
                 <SectionTitle icon={Megaphone} title="주요 하이라이트" />
@@ -289,7 +287,6 @@ export default function SocialAnalysisView() {
                     </ul>
                 </Card>
             </section>
-
             {/* 2. 종합 요약 테이블 */}
             <section className="space-y-2">
                 <SectionTitle icon={Target} title="종합 요약 테이블 & 시장 영향도" />
@@ -311,12 +308,7 @@ export default function SocialAnalysisView() {
                                     "transition-colors",
                                     idx % 2 === 0 ? "bg-transparent" : "bg-slate-800/20"
                                 )}>
-                                    <td className={cn(
-                                        "px-5 py-4 font-bold text-slate-200 whitespace-nowrap border-l-4",
-                                        row.stars === 3 && row.impact === "긍정" ? "border-emerald-500" : 
-                                        row.stars === 3 && row.impact === "부정" ? "border-red-500" : 
-                                        "border-transparent"
-                                    )}>
+                                    <td className="px-5 py-4 font-bold text-slate-200 whitespace-nowrap border-l-4 border-red-500 border-t-[transparent] border-r-[transparent] border-b-[transparent] border-l-[transparent]">
                                         {row.speaker}
                                     </td>
                                     <td className="px-5 py-4 whitespace-nowrap">
@@ -340,7 +332,6 @@ export default function SocialAnalysisView() {
                     </table>
                 </div>
             </section>
-
             {/* 3. 긍/부정 종목 종합 */}
             <section className="space-y-2">
                 <SectionTitle icon={Globe} title="긍/부정 종목 종합" />
@@ -392,7 +383,6 @@ export default function SocialAnalysisView() {
                     </div>
                 </div>
             </section>
-
             {/* 4. 섹터별 영향 분석 */}
             <section className="space-y-2">
                 <SectionTitle icon={BarChart3} title="섹터별 영향 분석" />
@@ -484,7 +474,6 @@ export default function SocialAnalysisView() {
                     ))}
                 </div>
             </section>
-
             {/* 5. 투자 시사점 */}
             <section className="space-y-2 mt-8">
                 <div className="bg-slate-900 border border-slate-800 rounded-xl overflow-hidden shadow-none">
