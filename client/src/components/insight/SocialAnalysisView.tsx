@@ -37,7 +37,7 @@ const HighlightPos = ({ children }: { children: React.ReactNode }) => (
 
 // 주요 하이라이트 Negative keywords
 const HighlightNeg = ({ children }: { children: React.ReactNode }) => (
-    <strong className="text-orange-400 font-semibold">{children}</strong>
+    <strong className="text-[#d15458] font-semibold">{children}</strong>
 );
 
 // Distinct Vivid Sector Colors for Pie Charts
@@ -169,7 +169,7 @@ const SectionTitle = ({ icon: Icon, title }: { icon: any, title: string }) => (
 // 시장 영향도 badges
 const ImpactBadge = ({ impact }: { impact: string }) => {
     if (impact === "긍정") return <span className="inline-block rounded-full bg-emerald-500 text-white font-semibold px-3 py-1 text-xs shadow-sm">긍정</span>;
-    if (impact === "부정") return <span className="inline-block rounded-full bg-orange-500 text-white font-semibold px-3 py-1 text-xs shadow-sm">부정</span>;
+    if (impact === "부정") return <span className="inline-block rounded-full bg-[#d15458] text-white font-semibold px-3 py-1 text-xs shadow-sm">부정</span>;
     return <span className="inline-block rounded-full bg-slate-500 text-white font-semibold px-3 py-1 text-xs shadow-sm">중립</span>;
 };
 
@@ -190,7 +190,7 @@ const PlatformBadge = ({ platform }: { platform: string }) => {
     if (platform === "X (Twitter)") colorClass = "bg-slate-700 text-slate-200 border-slate-600";
     else if (platform === "YouTube") colorClass = "bg-red-900/50 text-red-300 border-red-800";
     else if (platform === "News") colorClass = "bg-blue-900/50 text-blue-300 border-blue-800";
-    else if (platform === "Truth Social") colorClass = "bg-orange-900/50 text-orange-300 border-orange-800";
+    else if (platform === "Truth Social") colorClass = "bg-orange-900/50 text-orange-300 border-orange-800"; // Keep Truth social branding
     
     return <span className={cn("inline-block rounded-full border px-2.5 py-0.5 text-[11px] font-medium", colorClass)}>{platform}</span>;
 }
@@ -326,7 +326,7 @@ export default function SocialAnalysisView() {
                                 >
                                     <td className={cn("px-5 py-4 font-bold text-slate-200 whitespace-nowrap border-l-4 border-t-[transparent] border-r-[transparent] border-b-[transparent]",
                                         row.impact === '긍정' ? "border-l-emerald-500" :
-                                        row.impact === '부정' ? "border-l-orange-500" : "border-l-slate-500"
+                                        row.impact === '부정' ? "border-l-[#d15458]" : "border-l-slate-500"
                                     )}>
                                         {row.speaker}
                                     </td>
@@ -388,22 +388,22 @@ export default function SocialAnalysisView() {
                         </div>
                     </div>
 
-                    {/* 하락 우려 종목 (Column Container with orange background) */}
-                    <div className="p-5 bg-orange-950/15 rounded-xl border border-orange-900/30">
-                        <div className="flex items-center gap-2 pb-4 mb-5 border-b border-orange-900/30">
-                            <h3 className="font-bold text-orange-400 text-lg flex items-center gap-2">
+                    {/* 하락 우려 종목 (Column Container with orange -> #d15458 background) */}
+                    <div className="p-5 bg-[#d15458]/10 rounded-xl border border-[#d15458]/30">
+                        <div className="flex items-center gap-2 pb-4 mb-5 border-b border-[#d15458]/30">
+                            <h3 className="font-bold text-[#d15458] text-lg flex items-center gap-2">
                                 📉 하락 · 악재 우려
                             </h3>
                         </div>
                         <div className="space-y-4">
                             {data.negativeStocks.map((stock, idx) => (
                                 <Card key={idx} className="bg-slate-800 border-0 p-4 shadow-md rounded-xl flex gap-4 items-start">
-                                    <div className="bg-orange-500/20 text-orange-400 rounded-md w-8 h-8 flex items-center justify-center shrink-0">
+                                    <div className="bg-[#d15458]/20 text-[#d15458] rounded-md w-8 h-8 flex items-center justify-center shrink-0">
                                         <ArrowDown className="w-5 h-5" strokeWidth={3} />
                                     </div>
                                     <div>
                                         <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                                            <TickerChip className="bg-orange-950 text-orange-300 border-orange-800 m-0">{stock.ticker}</TickerChip>
+                                            <TickerChip className="bg-[#d15458]/20 text-[#d15458] border-[#d15458]/50 m-0">{stock.ticker}</TickerChip>
                                             <span className="font-bold text-white text-base">
                                                 {stock.name}
                                             </span>
@@ -460,9 +460,9 @@ export default function SocialAnalysisView() {
                         </div>
                     </Card>
 
-                    {/* 부정 분포 파이 차트 (Now Orange) */}
-                    <Card className="bg-slate-800 border-0 border-t-2 border-t-orange-500/50 p-6 shadow-md flex flex-col items-center rounded-xl">
-                        <h3 className="font-semibold text-orange-400 mb-6 text-center text-sm tracking-wide">부정 언급 섹터 분포</h3>
+                    {/* 부정 분포 파이 차트 */}
+                    <Card className="bg-slate-800 border-0 border-t-2 border-t-[#d15458]/50 p-6 shadow-md flex flex-col items-center rounded-xl">
+                        <h3 className="font-semibold text-[#d15458] mb-6 text-center text-sm tracking-wide">부정 언급 섹터 분포</h3>
                         <div className="h-[280px] w-full">
                             <ResponsiveContainer width="100%" height="100%">
                                 <PieChart>
@@ -506,15 +506,15 @@ export default function SocialAnalysisView() {
                         if (diff >= 3) { arrow = "↑"; colorClass = "text-red-400"; } // Price Up = Red
                         else if (diff > 0) { arrow = "↗"; colorClass = "text-red-400"; }
                         else if (diff === 0) { arrow = "→"; colorClass = "text-slate-400"; }
-                        else if (diff >= -2) { arrow = "↘"; colorClass = "text-blue-400"; } // Price Down = Blue
-                        else { arrow = "↓"; colorClass = "text-blue-400"; }
+                        else if (diff >= -2) { arrow = "↘"; colorClass = "text-[#d15458]"; } // Sentiment Negative = #d15458
+                        else { arrow = "↓"; colorClass = "text-[#d15458]"; }
                         
                         return (
                         <div key={idx} className="flex items-center gap-3 bg-slate-900 rounded-full px-4 py-2 border border-slate-800 shadow-sm">
                             <span className="font-medium text-slate-300 text-[13px]">{sec.name}</span>
                             <div className="h-3 w-px bg-slate-700 mx-0.5"></div>
                             <span className="text-xs"><span className="text-slate-300">긍정</span> <span className="text-emerald-400 font-medium">{sec.positive}</span></span>
-                            <span className="text-xs"><span className="text-slate-300">부정</span> <span className="text-orange-400 font-medium">{sec.negative}</span></span>
+                            <span className="text-xs"><span className="text-slate-300">부정</span> <span className="text-[#d15458] font-medium">{sec.negative}</span></span>
                             <div className="h-3 w-px bg-slate-700 mx-0.5"></div>
                             <span className={cn("font-bold text-sm leading-none", colorClass)}>{arrow}</span>
                         </div>
@@ -646,9 +646,9 @@ export default function SocialAnalysisView() {
                             </div>
 
                             {/* ⑤ 원문 보기 버튼 */}
-                            <div className="pt-2 text-center">
-                                <a href="#" className="inline-flex items-center gap-1.5 text-blue-400 text-sm hover:text-blue-300 underline font-medium">
-                                    🔗 원문 보기 <ExternalLink className="w-3.5 h-3.5" />
+                            <div className="pt-2 flex justify-center">
+                                <a href="#" className="inline-flex items-center gap-2 border border-slate-600 rounded-lg px-4 py-2 text-slate-300 text-sm font-medium hover:border-slate-400 hover:text-white transition">
+                                    원문 보기 <ExternalLink className="w-4 h-4" />
                                 </a>
                             </div>
 
