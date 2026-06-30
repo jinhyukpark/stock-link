@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import { TrendingUp, TrendingDown, Globe, Megaphone, Target, Calendar as CalendarIcon, ChevronDown, BarChart3, Newspaper, Twitter, Star, MessageSquare, ArrowUp, ArrowDown, ChevronLeft, ChevronRight, X, ExternalLink } from "lucide-react";
+import { TrendingUp, TrendingDown, Globe, Megaphone, Target, Calendar as CalendarIcon, ChevronDown, BarChart3, Newspaper, Twitter, Star, MessageSquare, ArrowUp, ArrowDown, ChevronLeft, ChevronRight, X, ExternalLink, ChevronRight as ChevronRightIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
@@ -60,11 +60,11 @@ const MOCK_DATA = {
             <><HighlightInfluencer>국내 경제 유튜버</HighlightInfluencer>, 2차전지 섹터 조정 <HighlightNeg>경고</HighlightNeg> → 관련주 <HighlightNeg>변동성 확대 예상</HighlightNeg></>
         ],
         table: [
-            { id: 1, impact: "긍정", stars: 3, speaker: "일론 머스크", platform: "X (Twitter)", summary: "Optimus 로봇 양산 라인 구축 위해 250억 달러 설비투자 상향 발표", related: [{name: "삼성전자", ticker: "005930", price: "84,500원", change: "+2.4%"}, {name: "SK하이닉스", ticker: "000660", price: "201,500원", change: "+4.1%"}], followers: "팔로워 1.8억명", time: "2026-04-26 04:22", fullText: <><HighlightPos>Optimus 로봇 양산 로드맵은 AI 로봇 섹터 전반에 촉매</HighlightPos>가 될 수 있으며, 250억 달러 capex 투자와 맞물려 국내 메모리 반도체 수혜는 <HighlightPos>중장기적으로 유효</HighlightPos>.</>, analysis: "테슬라 AI 로봇 투자 확대로 메모리 반도체 수요 증가 기대. 250억 달러 capex 상향은 국내 메모리 서플라이 체인에 강력한 모멘텀." },
-            { id: 2, impact: "부정", stars: 3, speaker: "도널드 트럼프", platform: "Truth Social", summary: "미국 제조업 부활 위한 15% 보편 관세 부과 필요성 강경 발언", related: [{name: "현대차", ticker: "005380", price: "245,000원", change: "-1.8%"}, {name: "기아", ticker: "000270", price: "118,200원", change: "-2.1%"}], followers: "팔로워 650만명", time: "2026-04-26 10:15", fullText: <><HighlightNeg>관세 정책이 미국 제조업 부활, 재정적자 감소, 인플레이션 억제에 도움</HighlightNeg>이 된다는 취지 발언 지속. 최근 관세 발언이 시장의 <HighlightNeg>핵심 리스크 변수</HighlightNeg>로 작용 중.</>, analysis: "트럼프 발언이 단순 SNS를 넘어 최대 변동성 요인으로 구조화됨. 관세 현실화 시 수출주 급락 및 이분법적 구조 고착화 우려." },
-            { id: 3, impact: "중립", stars: 2, speaker: "미국 경제 유튜버 A", platform: "YouTube", summary: "AI 전력 수요 폭발로 데이터센터 인프라 투자 지속될 것", related: [{name: "LS일렉트릭", ticker: "010120", price: "172,000원", change: "+0.5%"}], followers: "구독자 120만명", time: "2026-04-26 13:40", fullText: <>AI 데이터센터 건설 붐으로 인해 전력기기 및 인프라 관련 수요가 급증하고 있으며 이는 단기 테마가 아닌 다년간 지속될 메가 트렌드입니다.</>, analysis: "전력 인프라 투자는 긍정적이나, 이미 주가에 상당 부분 선반영되어 있어 밸류에이션 부담이 존재. 추가적인 어닝 서프라이즈 필요." },
-            { id: 4, impact: "긍정", stars: 1, speaker: "한국 애널리스트 B", platform: "News", summary: "조선업 슈퍼사이클 진입 및 미국 함정 MRO 사업 수혜 기대", related: [{name: "한화오션", ticker: "042660", price: "32,800원", change: "+3.2%"}, {name: "HD현대중공업", ticker: "329180", price: "145,000원", change: "+2.8%"}], followers: "증권사 리서치 센터", time: "2026-04-26 08:30", fullText: <><HighlightPos>미국 해군 함정 MRO 사업 진출과 신조선가 상승 흐름</HighlightPos>이 맞물리며 국내 주요 조선사들의 <HighlightPos>수익성 개선이 본격화</HighlightPos>될 전망입니다.</>, analysis: "미국 함정 MRO 사업 수주 시 장기적이고 안정적인 캐시카우 확보 가능. 조선업 사이클 상승과 겹쳐 강력한 모멘텀 형성 중." },
-            { id: 5, impact: "부정", stars: 2, speaker: "월가 핀테크 블로거 C", platform: "X (Twitter)", summary: "소비자 물가 지수 상승 여파로 하반기 금리 인하 물건너갔다", related: [{name: "건설주 전반", ticker: "N/A", price: "-", change: "-"}], followers: "팔로워 45만명", time: "2026-04-26 21:10", fullText: <><HighlightNeg>끈적한 인플레이션과 강한 고용 지표</HighlightNeg>로 인해 연준의 금리 인하 사이클 시작이 지연되고 있습니다. <HighlightNeg>고금리 장기화에 대비</HighlightNeg>해야 합니다.</>, analysis: "금리 인하 기대감 소멸로 인해 레버리지가 높은 건설, 부동산 관련 섹터의 프로젝트 파이낸싱(PF) 부담 지속 및 투자심리 악화." }
+            { id: 1, impact: "긍정", stars: 3, speaker: "일론 머스크", platform: "X (Twitter)", summary: "Optimus 로봇 양산 라인 구축 위해 250억 달러 설비투자 상향 발표", related: [{name: "삼성전자", ticker: "005930", comment: "Tesla AI 로봇 투자 확대로 메모리 반도체 수요 증가 기대"}, {name: "SK하이닉스", ticker: "000660", comment: "AI 인프라 투자 확대 수혜"}, {name: "Tesla", ticker: "TSLA", comment: "EPS 어닝 서프라이즈, Optimus 생산 구체화"}, {name: "NVIDIA", ticker: "NVDA", comment: "Tesla AI 투자 확대 시 엔비디아 칩 수요 증가"}], followers: "팔로워 1.8억명", time: "2026-04-26 04:22", fullText: <><HighlightPos>Optimus 로봇 양산 로드맵은 AI 로봇 섹터 전반에 촉매</HighlightPos>가 될 수 있으며, 250억 달러 capex 투자와 맞물려 국내 메모리 반도체 수혜는 <HighlightPos>중장기적으로 유효</HighlightPos>.</>, analysis: "테슬라 AI 로봇 투자 확대로 메모리 반도체 수요 증가 기대. 250억 달러 capex 상향은 국내 메모리 서플라이 체인에 강력한 모멘텀." },
+            { id: 2, impact: "부정", stars: 3, speaker: "도널드 트럼프", platform: "Truth Social", summary: "미국 제조업 부활 위한 15% 보편 관세 부과 필요성 강경 발언", related: [{name: "현대차", ticker: "005380", comment: "미국 관세 15% 적용으로 영업이익 감소 우려"}, {name: "기아", ticker: "000270", comment: "미국 수출 물량 타격 우려"}, {name: "Apple", ticker: "AAPL", comment: "공급망 관세 부담 지속"}], followers: "팔로워 650만명", time: "2026-04-26 10:15", fullText: <><HighlightNeg>관세 정책이 미국 제조업 부활, 재정적자 감소, 인플레이션 억제에 도움</HighlightNeg>이 된다는 취지 발언 지속. 최근 관세 발언이 시장의 <HighlightNeg>핵심 리스크 변수</HighlightNeg>로 작용 중.</>, analysis: "트럼프 발언이 단순 SNS를 넘어 최대 변동성 요인으로 구조화됨. 관세 현실화 시 수출주 급락 및 이분법적 구조 고착화 우려." },
+            { id: 3, impact: "중립", stars: 2, speaker: "미국 경제 유튜버 A", platform: "YouTube", summary: "AI 전력 수요 폭발로 데이터센터 인프라 투자 지속될 것", related: [{name: "LS일렉트릭", ticker: "010120", comment: "북미 데이터센터 전력기기 수주 모멘텀 지속"}], followers: "구독자 120만명", time: "2026-04-26 13:40", fullText: <>AI 데이터센터 건설 붐으로 인해 전력기기 및 인프라 관련 수요가 급증하고 있으며 이는 단기 테마가 아닌 다년간 지속될 메가 트렌드입니다.</>, analysis: "전력 인프라 투자는 긍정적이나, 이미 주가에 상당 부분 선반영되어 있어 밸류에이션 부담이 존재. 추가적인 어닝 서프라이즈 필요." },
+            { id: 4, impact: "긍정", stars: 1, speaker: "한국 애널리스트 B", platform: "News", summary: "조선업 슈퍼사이클 진입 및 미국 함정 MRO 사업 수혜 기대", related: [{name: "한화오션", ticker: "042660", comment: "미국 해군 함정 MRO 사업 본격 진출 수혜"}, {name: "HD현대중공업", ticker: "329180", comment: "미국 함정 수주 물량 확대 기대"}], followers: "증권사 리서치 센터", time: "2026-04-26 08:30", fullText: <><HighlightPos>미국 해군 함정 MRO 사업 진출과 신조선가 상승 흐름</HighlightPos>이 맞물리며 국내 주요 조선사들의 <HighlightPos>수익성 개선이 본격화</HighlightPos>될 전망입니다.</>, analysis: "미국 함정 MRO 사업 수주 시 장기적이고 안정적인 캐시카우 확보 가능. 조선업 사이클 상승과 겹쳐 강력한 모멘텀 형성 중." },
+            { id: 5, impact: "부정", stars: 2, speaker: "월가 핀테크 블로거 C", platform: "X (Twitter)", summary: "소비자 물가 지수 상승 여파로 하반기 금리 인하 물건너갔다", related: [{name: "현대건설", ticker: "000720", comment: "금리 동결 지속으로 프로젝트 파이낸싱 부담"}], followers: "팔로워 45만명", time: "2026-04-26 21:10", fullText: <><HighlightNeg>끈적한 인플레이션과 강한 고용 지표</HighlightNeg>로 인해 연준의 금리 인하 사이클 시작이 지연되고 있습니다. <HighlightNeg>고금리 장기화에 대비</HighlightNeg>해야 합니다.</>, analysis: "금리 인하 기대감 소멸로 인해 레버리지가 높은 건설, 부동산 관련 섹터의 프로젝트 파이낸싱(PF) 부담 지속 및 투자심리 악화." }
         ],
         positiveStocks: [
             { ticker: "005930", name: "삼성전자", reason: "AI 로봇 투자 확대로 메모리 반도체 수요 급증 기대", influencer: "일론 머스크" },
@@ -113,9 +113,9 @@ const MOCK_DATA = {
             <><HighlightInfluencer>미국 핀테크 블로거 B</HighlightInfluencer>, X에서 금리 인하 지연 가능성 시사 → 성장주 <HighlightNeg>변동성 주의</HighlightNeg></>
         ],
         table: [
-            { id: 6, impact: "긍정", stars: 2, speaker: "한국 애널리스트 C", platform: "News", summary: "미국 내 K-뷰티 점유율 확대 및 1분기 수출 서프라이즈 발표", related: [{name: "아모레퍼시픽", ticker: "090430", price: "182,000원", change: "+5.1%"}, {name: "실리콘투", ticker: "257720", price: "12,450원", change: "+8.2%"}], followers: "리서치 센터", time: "2026-04-25 09:00", fullText: <><HighlightPos>1분기 화장품 수출액이 전년 동기 대비 21% 증가</HighlightPos>했으며, 특히 북미 시장에서의 <HighlightPos>성장세가 두드러집니다</HighlightPos>.</>, analysis: "구조적 성장이 확인된 인디 뷰티 브랜드 중심의 포트폴리오 재편이 유효." },
-            { id: 7, impact: "부정", stars: 3, speaker: "짐 크레이머", platform: "CNBC", summary: "유가 정점 통과 가능성. 에너지 관련주 비중 축소 의견 제시", related: [{name: "S-Oil", ticker: "010950", price: "72,100원", change: "-3.5%"}, {name: "GS", ticker: "078930", price: "45,200원", change: "-2.1%"}], followers: "시청자 300만명", time: "2026-04-24 22:30", fullText: <><HighlightNeg>지정학적 리스크 완화와 수요 둔화 우려</HighlightNeg>로 유가 상승 모멘텀이 꺾일 수 있습니다. 정유주 <HighlightNeg>차익 실현을 권고</HighlightNeg>합니다.</>, analysis: "정제마진 하락 추세와 맞물려 단기적인 실적 둔화가 예상됨. 비중 축소 고려." },
-            { id: 8, impact: "부정", stars: 2, speaker: "미국 핀테크 블로거 B", platform: "X (Twitter)", summary: "예상보다 강한 고용 지표로 연내 금리 인하 사실상 무산 위기", related: [{name: "성장주 전반", ticker: "N/A", price: "-", change: "-"}], followers: "팔로워 85만명", time: "2026-04-25 07:15", fullText: <><HighlightNeg>비농업 고용 지표가 시장 예상치를 상회</HighlightNeg>하며 연준의 금리 인하 명분이 사라졌습니다. 성장주의 <HighlightNeg>밸류에이션 할인이 불가피</HighlightNeg>합니다.</>, analysis: "고금리 환경 지속으로 인한 할인율 상승은 기술주 및 바이오 등 성장주에 부담으로 작용." }
+            { id: 6, impact: "긍정", stars: 2, speaker: "한국 애널리스트 C", platform: "News", summary: "미국 내 K-뷰티 점유율 확대 및 1분기 수출 서프라이즈 발표", related: [{name: "아모레퍼시픽", ticker: "090430", comment: "북미 시장 점유율 확대 기대"}, {name: "실리콘투", ticker: "257720", comment: "인디 뷰티 수출 호조 수혜"}], followers: "리서치 센터", time: "2026-04-25 09:00", fullText: <><HighlightPos>1분기 화장품 수출액이 전년 동기 대비 21% 증가</HighlightPos>했으며, 특히 북미 시장에서의 <HighlightPos>성장세가 두드러집니다</HighlightPos>.</>, analysis: "구조적 성장이 확인된 인디 뷰티 브랜드 중심의 포트폴리오 재편이 유효." },
+            { id: 7, impact: "부정", stars: 3, speaker: "짐 크레이머", platform: "CNBC", summary: "유가 정점 통과 가능성. 에너지 관련주 비중 축소 의견 제시", related: [{name: "S-Oil", ticker: "010950", comment: "정제마진 하락 우려"}, {name: "GS", ticker: "078930", comment: "유가 하락으로 인한 이익 감소 우려"}], followers: "시청자 300만명", time: "2026-04-24 22:30", fullText: <><HighlightNeg>지정학적 리스크 완화와 수요 둔화 우려</HighlightNeg>로 유가 상승 모멘텀이 꺾일 수 있습니다. 정유주 <HighlightNeg>차익 실현을 권고</HighlightNeg>합니다.</>, analysis: "정제마진 하락 추세와 맞물려 단기적인 실적 둔화가 예상됨. 비중 축소 고려." },
+            { id: 8, impact: "부정", stars: 2, speaker: "미국 핀테크 블로거 B", platform: "X (Twitter)", summary: "예상보다 강한 고용 지표로 연내 금리 인하 사실상 무산 위기", related: [{name: "카카오", ticker: "035720", comment: "성장주 할인율 상승에 따른 밸류에이션 부담"}], followers: "팔로워 85만명", time: "2026-04-25 07:15", fullText: <><HighlightNeg>비농업 고용 지표가 시장 예상치를 상회</HighlightNeg>하며 연준의 금리 인하 명분이 사라졌습니다. 성장주의 <HighlightNeg>밸류에이션 할인이 불가피</HighlightNeg>합니다.</>, analysis: "고금리 환경 지속으로 인한 할인율 상승은 기술주 및 바이오 등 성장주에 부담으로 작용." }
         ],
         positiveStocks: [
             { ticker: "090430", name: "아모레퍼시픽", reason: "미국 매출 고성장 및 글로벌 포트폴리오 다변화 성공", influencer: "한국 애널리스트 C" },
@@ -388,7 +388,7 @@ export default function SocialAnalysisView() {
                         </div>
                     </div>
 
-                    {/* 하락 우려 종목 (Column Container with orange -> #ff7c7e background) */}
+                    {/* 하락 우려 종목 (Column Container with #ff7c7e background) */}
                     <div className="p-5 bg-[#ff7c7e]/10 rounded-xl border border-[#ff7c7e]/30">
                         <div className="flex items-center gap-2 pb-4 mb-5 border-b border-[#ff7c7e]/30">
                             <h3 className="font-bold text-[#ff7c7e] text-lg flex items-center gap-2">
@@ -603,25 +603,33 @@ export default function SocialAnalysisView() {
                                 </h3>
                                 <div className="border border-slate-800 rounded-xl overflow-hidden bg-slate-900/50">
                                     {selectedRow.related.map((r: any, i: number) => {
-                                        const isUp = r.change && r.change.startsWith('+');
-                                        const isDown = r.change && r.change.startsWith('-');
+                                        // 국/내외 판별: 코드가 모두 숫자로만 구성되어 있고 길이가 6자리면 국내(true)
+                                        const isDomestic = /^\d{6}$/.test(r.ticker);
+                                        
                                         return (
-                                        <div key={i} className="flex items-center justify-between py-3 px-4 border-b border-slate-800 last:border-0 hover:bg-slate-800/50 transition-colors">
-                                            <div className="flex items-center gap-3">
-                                                <span className="text-slate-500 text-xs w-4 text-center font-medium">{i + 1}</span>
+                                        <div 
+                                            key={i} 
+                                            className={cn(
+                                                "flex items-center justify-between py-3 px-4 border-b border-slate-800 last:border-0 group",
+                                                isDomestic ? "cursor-pointer hover:bg-slate-800/60 transition-colors" : "cursor-default opacity-60"
+                                            )}
+                                        >
+                                            <div className="flex items-center gap-3 w-full">
                                                 <div className="w-8 h-8 rounded-lg bg-slate-700 border border-slate-600 flex-shrink-0"></div>
-                                                <div className="flex flex-col">
-                                                    <span className="text-white text-sm font-semibold leading-tight">{r.name}</span>
-                                                    {r.ticker !== "N/A" && <span className="text-slate-500 text-[11px] font-mono leading-tight">{r.ticker}</span>}
+                                                <div className="flex flex-col flex-1">
+                                                    <div className="flex items-center gap-1.5">
+                                                        <span className="text-white text-sm font-semibold">{r.name}</span>
+                                                        {r.ticker !== "N/A" && <span className="text-slate-400 text-xs font-mono">({r.ticker})</span>}
+                                                        {!isDomestic && r.ticker !== "N/A" && (
+                                                            <span className="text-slate-500 text-[10px] border border-slate-700 rounded px-1 ml-1">해외</span>
+                                                        )}
+                                                    </div>
+                                                    <span className="text-slate-400 text-xs mt-0.5">{r.comment}</span>
                                                 </div>
                                             </div>
-                                            {r.price && r.price !== "-" && (
-                                                <div className="flex flex-col items-end">
-                                                    <span className="text-white text-sm font-bold">{r.price}</span>
-                                                    <span className={cn(
-                                                        "text-xs font-medium",
-                                                        isUp ? "text-red-400" : isDown ? "text-blue-400" : "text-slate-400"
-                                                    )}>{r.change}</span>
+                                            {isDomestic && (
+                                                <div className="flex-shrink-0 ml-2">
+                                                    <ChevronRightIcon className="text-slate-500 w-4 h-4 group-hover:text-slate-300 transition-colors" />
                                                 </div>
                                             )}
                                         </div>
