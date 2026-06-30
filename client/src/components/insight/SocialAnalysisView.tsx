@@ -16,11 +16,22 @@ const TickerChip = ({ children, className }: { children: React.ReactNode, classN
     </span>
 );
 
-const TableTickerChip = ({ ticker, name }: { ticker: string, name: string }) => (
+const TableTickerChip = ({ ticker, name, sentiment }: { ticker: string, name: string, sentiment?: "positive" | "negative" }) => (
     <div className="flex items-center gap-1.5 bg-slate-800 border border-slate-700 rounded-md px-2 py-1">
-        <div className="w-5 h-5 rounded-sm bg-slate-600 border border-slate-500 inline-block align-middle flex-shrink-0"></div>
+        <div className={cn(
+            "w-5 h-5 rounded-sm inline-block align-middle flex-shrink-0 flex items-center justify-center",
+            sentiment === "positive" ? "bg-emerald-900/40 border border-emerald-800/60" :
+            sentiment === "negative" ? "bg-[#ff7c7e]/20 border border-[#ff7c7e]/40" :
+            "bg-slate-600 border border-slate-500"
+        )}>
+            {sentiment === "positive" && <ArrowUp className="w-3 h-3 text-emerald-400" />}
+            {sentiment === "negative" && <ArrowDown className="w-3 h-3 text-[#ff7c7e]" />}
+        </div>
         <div className="flex items-baseline gap-1">
-            <span className="text-blue-300 text-xs font-medium">{name}</span>
+            <span className={cn("text-xs font-medium", 
+                sentiment === "positive" ? "text-emerald-300" :
+                sentiment === "negative" ? "text-[#ff7c7e]" : "text-blue-300"
+            )}>{name}</span>
             {ticker !== "N/A" && <span className="text-slate-400 text-[10px] font-mono">{ticker}</span>}
         </div>
     </div>
@@ -60,11 +71,13 @@ const MOCK_DATA = {
             <><HighlightInfluencer>국내 경제 유튜버</HighlightInfluencer>, 2차전지 섹터 조정 <HighlightNeg>경고</HighlightNeg> → 관련주 <HighlightNeg>변동성 확대 예상</HighlightNeg></>
         ],
         table: [
-            { id: 1, impact: "긍정", stars: 3, speaker: "일론 머스크", platform: "X (Twitter)", summary: "Optimus 로봇 양산 라인 구축 위해 250억 달러 설비투자 상향 발표", related: [{name: "삼성전자", ticker: "005930", comment: "Tesla AI 로봇 투자 확대로 메모리 반도체 수요 증가 기대"}, {name: "SK하이닉스", ticker: "000660", comment: "AI 인프라 투자 확대 수혜"}, {name: "Tesla", ticker: "TSLA", comment: "EPS 어닝 서프라이즈, Optimus 생산 구체화"}, {name: "NVIDIA", ticker: "NVDA", comment: "Tesla AI 투자 확대 시 엔비디아 칩 수요 증가"}], followers: "팔로워 1.8억명", time: "2026-04-26 04:22", fullText: <><HighlightPos>Optimus 로봇 양산 로드맵은 AI 로봇 섹터 전반에 촉매</HighlightPos>가 될 수 있으며, 250억 달러 capex 투자와 맞물려 국내 메모리 반도체 수혜는 <HighlightPos>중장기적으로 유효</HighlightPos>.</>, analysis: "테슬라 AI 로봇 투자 확대로 메모리 반도체 수요 증가 기대. 250억 달러 capex 상향은 국내 메모리 서플라이 체인에 강력한 모멘텀." },
-            { id: 2, impact: "부정", stars: 3, speaker: "도널드 트럼프", platform: "Truth Social", summary: "미국 제조업 부활 위한 15% 보편 관세 부과 필요성 강경 발언", related: [{name: "현대차", ticker: "005380", comment: "미국 관세 15% 적용으로 영업이익 감소 우려"}, {name: "기아", ticker: "000270", comment: "미국 수출 물량 타격 우려"}, {name: "Apple", ticker: "AAPL", comment: "공급망 관세 부담 지속"}], followers: "팔로워 650만명", time: "2026-04-26 10:15", fullText: <><HighlightNeg>관세 정책이 미국 제조업 부활, 재정적자 감소, 인플레이션 억제에 도움</HighlightNeg>이 된다는 취지 발언 지속. 최근 관세 발언이 시장의 <HighlightNeg>핵심 리스크 변수</HighlightNeg>로 작용 중.</>, analysis: "트럼프 발언이 단순 SNS를 넘어 최대 변동성 요인으로 구조화됨. 관세 현실화 시 수출주 급락 및 이분법적 구조 고착화 우려." },
-            { id: 3, impact: "중립", stars: 2, speaker: "미국 경제 유튜버 A", platform: "YouTube", summary: "AI 전력 수요 폭발로 데이터센터 인프라 투자 지속될 것", related: [{name: "LS일렉트릭", ticker: "010120", comment: "북미 데이터센터 전력기기 수주 모멘텀 지속"}], followers: "구독자 120만명", time: "2026-04-26 13:40", fullText: <>AI 데이터센터 건설 붐으로 인해 전력기기 및 인프라 관련 수요가 급증하고 있으며 이는 단기 테마가 아닌 다년간 지속될 메가 트렌드입니다.</>, analysis: "전력 인프라 투자는 긍정적이나, 이미 주가에 상당 부분 선반영되어 있어 밸류에이션 부담이 존재. 추가적인 어닝 서프라이즈 필요." },
-            { id: 4, impact: "긍정", stars: 1, speaker: "한국 애널리스트 B", platform: "News", summary: "조선업 슈퍼사이클 진입 및 미국 함정 MRO 사업 수혜 기대", related: [{name: "한화오션", ticker: "042660", comment: "미국 해군 함정 MRO 사업 본격 진출 수혜"}, {name: "HD현대중공업", ticker: "329180", comment: "미국 함정 수주 물량 확대 기대"}], followers: "증권사 리서치 센터", time: "2026-04-26 08:30", fullText: <><HighlightPos>미국 해군 함정 MRO 사업 진출과 신조선가 상승 흐름</HighlightPos>이 맞물리며 국내 주요 조선사들의 <HighlightPos>수익성 개선이 본격화</HighlightPos>될 전망입니다.</>, analysis: "미국 함정 MRO 사업 수주 시 장기적이고 안정적인 캐시카우 확보 가능. 조선업 사이클 상승과 겹쳐 강력한 모멘텀 형성 중." },
-            { id: 5, impact: "부정", stars: 2, speaker: "월가 핀테크 블로거 C", platform: "X (Twitter)", summary: "소비자 물가 지수 상승 여파로 하반기 금리 인하 물건너갔다", related: [{name: "현대건설", ticker: "000720", comment: "금리 동결 지속으로 프로젝트 파이낸싱 부담"}], followers: "팔로워 45만명", time: "2026-04-26 21:10", fullText: <><HighlightNeg>끈적한 인플레이션과 강한 고용 지표</HighlightNeg>로 인해 연준의 금리 인하 사이클 시작이 지연되고 있습니다. <HighlightNeg>고금리 장기화에 대비</HighlightNeg>해야 합니다.</>, analysis: "금리 인하 기대감 소멸로 인해 레버리지가 높은 건설, 부동산 관련 섹터의 프로젝트 파이낸싱(PF) 부담 지속 및 투자심리 악화." }
+            { id: 1, impact: "긍정", stars: 3, speaker: "일론 머스크", platform: "X (Twitter)", summary: "Optimus 로봇 양산 라인 구축 위해 250억 달러 설비투자 상향 발표", related: [{name: "삼성전자", ticker: "005930", comment: "Tesla AI 로봇 투자 확대로 메모리 반도체 수요 증가 기대", sentiment: "positive"}, {name: "SK하이닉스", ticker: "000660", comment: "AI 인프라 투자 확대 수혜", sentiment: "positive"}, {name: "Tesla", ticker: "TSLA", comment: "EPS 어닝 서프라이즈, Optimus 생산 구체화", sentiment: "positive"}, {name: "NVIDIA", ticker: "NVDA", comment: "Tesla AI 투자 확대 시 엔비디아 칩 수요 증가", sentiment: "positive"}], followers: "팔로워 1.8억명", time: "2026-04-26 04:22", fullText: <><HighlightPos>Optimus 로봇 양산 로드맵은 AI 로봇 섹터 전반에 촉매</HighlightPos>가 될 수 있으며, 250억 달러 capex 투자와 맞물려 국내 메모리 반도체 수혜는 <HighlightPos>중장기적으로 유효</HighlightPos>.</>, analysis: "테슬라 AI 로봇 투자 확대로 메모리 반도체 수요 증가 기대. 250억 달러 capex 상향은 국내 메모리 서플라이 체인에 강력한 모멘텀." },
+            { id: 2, impact: "부정", stars: 3, speaker: "도널드 트럼프", platform: "Truth Social", summary: "미국 제조업 부활 위한 15% 보편 관세 부과 필요성 강경 발언", related: [{name: "현대차", ticker: "005380", comment: "미국 관세 15% 적용으로 영업이익 감소 우려", sentiment: "negative"}, {name: "기아", ticker: "000270", comment: "미국 수출 물량 타격 우려", sentiment: "negative"}, {name: "Apple", ticker: "AAPL", comment: "공급망 관세 부담 지속", sentiment: "negative"}], followers: "팔로워 650만명", time: "2026-04-26 10:15", fullText: <><HighlightNeg>관세 정책이 미국 제조업 부활, 재정적자 감소, 인플레이션 억제에 도움</HighlightNeg>이 된다는 취지 발언 지속. 최근 관세 발언이 시장의 <HighlightNeg>핵심 리스크 변수</HighlightNeg>로 작용 중.</>, analysis: "트럼프 발언이 단순 SNS를 넘어 최대 변동성 요인으로 구조화됨. 관세 현실화 시 수출주 급락 및 이분법적 구조 고착화 우려." },
+            { id: 3, impact: "중립", stars: 2, speaker: "미국 경제 유튜버 A", platform: "YouTube", summary: "AI 전력 수요 폭발로 데이터센터 인프라 투자 지속될 것", related: [{name: "LS일렉트릭", ticker: "010120", comment: "북미 데이터센터 전력기기 수주 모멘텀 지속", sentiment: "positive"}], followers: "구독자 120만명", time: "2026-04-26 13:40", fullText: <>AI 데이터센터 건설 붐으로 인해 전력기기 및 인프라 관련 수요가 급증하고 있으며 이는 단기 테마가 아닌 다년간 지속될 메가 트렌드입니다.</>, analysis: "전력 인프라 투자는 긍정적이나, 이미 주가에 상당 부분 선반영되어 있어 밸류에이션 부담이 존재. 추가적인 어닝 서프라이즈 필요." },
+            { id: 4, impact: "긍정", stars: 1, speaker: "한국 애널리스트 B", platform: "News", summary: "조선업 슈퍼사이클 진입 및 미국 함정 MRO 사업 수혜 기대", related: [{name: "한화오션", ticker: "042660", comment: "미국 해군 함정 MRO 사업 본격 진출 수혜", sentiment: "positive"}, {name: "HD현대중공업", ticker: "329180", comment: "미국 함정 수주 물량 확대 기대", sentiment: "positive"}], followers: "증권사 리서치 센터", time: "2026-04-26 08:30", fullText: <><HighlightPos>미국 해군 함정 MRO 사업 진출과 신조선가 상승 흐름</HighlightPos>이 맞물리며 국내 주요 조선사들의 <HighlightPos>수익성 개선이 본격화</HighlightPos>될 전망입니다.</>, analysis: "미국 함정 MRO 사업 수주 시 장기적이고 안정적인 캐시카우 확보 가능. 조선업 사이클 상승과 겹쳐 강력한 모멘텀 형성 중." },
+            { id: 5, impact: "부정", stars: 2, speaker: "월가 핀테크 블로거 C", platform: "X (Twitter)", summary: "소비자 물가 지수 상승 여파로 하반기 금리 인하 물건너갔다", related: [{name: "현대건설", ticker: "000720", comment: "금리 동결 지속으로 프로젝트 파이낸싱 부담", sentiment: "negative"}], followers: "팔로워 45만명", time: "2026-04-26 21:10", fullText: <><HighlightNeg>끈적한 인플레이션과 강한 고용 지표</HighlightNeg>로 인해 연준의 금리 인하 사이클 시작이 지연되고 있습니다. <HighlightNeg>고금리 장기화에 대비</HighlightNeg>해야 합니다.</>, analysis: "금리 인하 기대감 소멸로 인해 레버리지가 높은 건설, 부동산 관련 섹터의 프로젝트 파이낸싱(PF) 부담 지속 및 투자심리 악화." },
+            // Add a mixed sentiment example for testing the divider
+            { id: 9, impact: "중립", stars: 3, speaker: "글로벌 매크로 분석가", platform: "YouTube", summary: "반도체 수요 증가와 동시에 무역 갈등 우려 상존", related: [{name: "삼성전자", ticker: "005930", comment: "반도체 수요 증가 수혜", sentiment: "positive"}, {name: "LG전자", ticker: "051910", comment: "수출 관세 부담 우려", sentiment: "negative"}], followers: "구독자 200만명", time: "2026-04-26 15:20", fullText: <>반도체 수요 증가는 <HighlightPos>긍정적</HighlightPos>이나, 글로벌 무역 갈등이 지속되며 <HighlightNeg>수출주에는 타격</HighlightNeg>이 우려됩니다.</>, analysis: "섹터별 차별화 장세 심화 예상. 반도체는 비중 확대, 자동차 등 수출 민감주는 비중 축소 권고." }
         ],
         positiveStocks: [
             { ticker: "005930", name: "삼성전자", reason: "AI 로봇 투자 확대로 메모리 반도체 수요 급증 기대", influencer: "일론 머스크" },
@@ -113,9 +126,9 @@ const MOCK_DATA = {
             <><HighlightInfluencer>미국 핀테크 블로거 B</HighlightInfluencer>, X에서 금리 인하 지연 가능성 시사 → 성장주 <HighlightNeg>변동성 주의</HighlightNeg></>
         ],
         table: [
-            { id: 6, impact: "긍정", stars: 2, speaker: "한국 애널리스트 C", platform: "News", summary: "미국 내 K-뷰티 점유율 확대 및 1분기 수출 서프라이즈 발표", related: [{name: "아모레퍼시픽", ticker: "090430", comment: "북미 시장 점유율 확대 기대"}, {name: "실리콘투", ticker: "257720", comment: "인디 뷰티 수출 호조 수혜"}], followers: "리서치 센터", time: "2026-04-25 09:00", fullText: <><HighlightPos>1분기 화장품 수출액이 전년 동기 대비 21% 증가</HighlightPos>했으며, 특히 북미 시장에서의 <HighlightPos>성장세가 두드러집니다</HighlightPos>.</>, analysis: "구조적 성장이 확인된 인디 뷰티 브랜드 중심의 포트폴리오 재편이 유효." },
-            { id: 7, impact: "부정", stars: 3, speaker: "짐 크레이머", platform: "CNBC", summary: "유가 정점 통과 가능성. 에너지 관련주 비중 축소 의견 제시", related: [{name: "S-Oil", ticker: "010950", comment: "정제마진 하락 우려"}, {name: "GS", ticker: "078930", comment: "유가 하락으로 인한 이익 감소 우려"}], followers: "시청자 300만명", time: "2026-04-24 22:30", fullText: <><HighlightNeg>지정학적 리스크 완화와 수요 둔화 우려</HighlightNeg>로 유가 상승 모멘텀이 꺾일 수 있습니다. 정유주 <HighlightNeg>차익 실현을 권고</HighlightNeg>합니다.</>, analysis: "정제마진 하락 추세와 맞물려 단기적인 실적 둔화가 예상됨. 비중 축소 고려." },
-            { id: 8, impact: "부정", stars: 2, speaker: "미국 핀테크 블로거 B", platform: "X (Twitter)", summary: "예상보다 강한 고용 지표로 연내 금리 인하 사실상 무산 위기", related: [{name: "카카오", ticker: "035720", comment: "성장주 할인율 상승에 따른 밸류에이션 부담"}], followers: "팔로워 85만명", time: "2026-04-25 07:15", fullText: <><HighlightNeg>비농업 고용 지표가 시장 예상치를 상회</HighlightNeg>하며 연준의 금리 인하 명분이 사라졌습니다. 성장주의 <HighlightNeg>밸류에이션 할인이 불가피</HighlightNeg>합니다.</>, analysis: "고금리 환경 지속으로 인한 할인율 상승은 기술주 및 바이오 등 성장주에 부담으로 작용." }
+            { id: 6, impact: "긍정", stars: 2, speaker: "한국 애널리스트 C", platform: "News", summary: "미국 내 K-뷰티 점유율 확대 및 1분기 수출 서프라이즈 발표", related: [{name: "아모레퍼시픽", ticker: "090430", comment: "북미 시장 점유율 확대 기대", sentiment: "positive"}, {name: "실리콘투", ticker: "257720", comment: "인디 뷰티 수출 호조 수혜", sentiment: "positive"}], followers: "리서치 센터", time: "2026-04-25 09:00", fullText: <><HighlightPos>1분기 화장품 수출액이 전년 동기 대비 21% 증가</HighlightPos>했으며, 특히 북미 시장에서의 <HighlightPos>성장세가 두드러집니다</HighlightPos>.</>, analysis: "구조적 성장이 확인된 인디 뷰티 브랜드 중심의 포트폴리오 재편이 유효." },
+            { id: 7, impact: "부정", stars: 3, speaker: "짐 크레이머", platform: "CNBC", summary: "유가 정점 통과 가능성. 에너지 관련주 비중 축소 의견 제시", related: [{name: "S-Oil", ticker: "010950", comment: "정제마진 하락 우려", sentiment: "negative"}, {name: "GS", ticker: "078930", comment: "유가 하락으로 인한 이익 감소 우려", sentiment: "negative"}], followers: "시청자 300만명", time: "2026-04-24 22:30", fullText: <><HighlightNeg>지정학적 리스크 완화와 수요 둔화 우려</HighlightNeg>로 유가 상승 모멘텀이 꺾일 수 있습니다. 정유주 <HighlightNeg>차익 실현을 권고</HighlightNeg>합니다.</>, analysis: "정제마진 하락 추세와 맞물려 단기적인 실적 둔화가 예상됨. 비중 축소 고려." },
+            { id: 8, impact: "부정", stars: 2, speaker: "미국 핀테크 블로거 B", platform: "X (Twitter)", summary: "예상보다 강한 고용 지표로 연내 금리 인하 사실상 무산 위기", related: [{name: "카카오", ticker: "035720", comment: "성장주 할인율 상승에 따른 밸류에이션 부담", sentiment: "negative"}], followers: "팔로워 85만명", time: "2026-04-25 07:15", fullText: <><HighlightNeg>비농업 고용 지표가 시장 예상치를 상회</HighlightNeg>하며 연준의 금리 인하 명분이 사라졌습니다. 성장주의 <HighlightNeg>밸류에이션 할인이 불가피</HighlightNeg>합니다.</>, analysis: "고금리 환경 지속으로 인한 할인율 상승은 기술주 및 바이오 등 성장주에 부담으로 작용." }
         ],
         positiveStocks: [
             { ticker: "090430", name: "아모레퍼시픽", reason: "미국 매출 고성장 및 글로벌 포트폴리오 다변화 성공", influencer: "한국 애널리스트 C" },
@@ -336,7 +349,7 @@ export default function SocialAnalysisView() {
                                     <td className="px-5 py-4 leading-relaxed text-sm">{row.summary}</td>
                                     <td className="px-5 py-4 text-xs">
                                         <div className="flex flex-wrap gap-1.5">
-                                            {row.related.map((r: any, i: number) => <TableTickerChip key={i} name={r.name} ticker={r.ticker} />)}
+                                            {row.related.map((r: any, i: number) => <TableTickerChip key={i} name={r.name} ticker={r.ticker} sentiment={r.sentiment} />)}
                                         </div>
                                     </td>
                                     <td className="px-5 py-4 text-center">
@@ -361,19 +374,22 @@ export default function SocialAnalysisView() {
                     {/* 상승 기대 종목 (Column Container with emerald background) */}
                     <div className="p-5 bg-emerald-950/15 rounded-xl border border-emerald-900/30">
                         <div className="flex items-center gap-2 pb-4 mb-5 border-b border-emerald-900/30">
+                            <div className="bg-emerald-500/30 p-1.5 rounded-lg flex items-center justify-center">
+                                <TrendingUp className="w-5 h-5 text-emerald-400" />
+                            </div>
                             <h3 className="font-bold text-emerald-400 text-lg flex items-center gap-2">
-                                📈 상승 · 호재 기대
+                                상승 · 호재 기대
                             </h3>
                         </div>
                         <div className="space-y-4">
                             {data.positiveStocks.map((stock, idx) => (
                                 <Card key={idx} className="bg-slate-800 border-0 p-4 shadow-md rounded-xl flex gap-4 items-start">
-                                    <div className="bg-emerald-500/20 text-emerald-400 rounded-md w-8 h-8 flex items-center justify-center shrink-0">
+                                    <div className="bg-emerald-500/25 text-emerald-300 rounded-md w-8 h-8 flex items-center justify-center shrink-0">
                                         <ArrowUp className="w-5 h-5" strokeWidth={3} />
                                     </div>
                                     <div>
                                         <div className="flex flex-wrap items-center gap-2 mb-1.5">
-                                            <TickerChip className="bg-emerald-950 text-emerald-300 border-emerald-800 m-0">{stock.ticker}</TickerChip>
+                                            <TickerChip className="bg-emerald-950 text-emerald-300 border-emerald-700 m-0">{stock.ticker}</TickerChip>
                                             <span className="font-bold text-white text-base">
                                                 {stock.name}
                                             </span>
@@ -391,8 +407,11 @@ export default function SocialAnalysisView() {
                     {/* 하락 우려 종목 (Column Container with #ff7c7e background) */}
                     <div className="p-5 bg-[#ff7c7e]/10 rounded-xl border border-[#ff7c7e]/30">
                         <div className="flex items-center gap-2 pb-4 mb-5 border-b border-[#ff7c7e]/30">
+                            <div className="bg-[#ff7c7e]/20 p-1.5 rounded-lg flex items-center justify-center">
+                                <TrendingDown className="w-5 h-5 text-[#ff7c7e]" />
+                            </div>
                             <h3 className="font-bold text-[#ff7c7e] text-lg flex items-center gap-2">
-                                📉 하락 · 악재 우려
+                                하락 · 악재 우려
                             </h3>
                         </div>
                         <div className="space-y-4">
@@ -598,42 +617,94 @@ export default function SocialAnalysisView() {
 
                             {/* ③ 관련 종목 리스트 */}
                             <div>
-                                <h3 className="text-slate-400 text-xs font-semibold mb-2 flex items-center gap-1.5">
+                                <h3 className="text-slate-400 text-xs font-semibold mb-3 flex items-center gap-1.5">
                                     <Target className="w-3.5 h-3.5" /> 📌 관련 종목
                                 </h3>
-                                <div className="border border-slate-800 rounded-xl overflow-hidden bg-slate-900/50">
-                                    {selectedRow.related.map((r: any, i: number) => {
-                                        // 국/내외 판별: 코드가 모두 숫자로만 구성되어 있고 길이가 6자리면 국내(true)
-                                        const isDomestic = /^\d{6}$/.test(r.ticker);
-                                        
-                                        return (
-                                        <div 
-                                            key={i} 
-                                            className={cn(
-                                                "flex items-center justify-between py-3 px-4 border-b border-slate-800 last:border-0 group",
-                                                isDomestic ? "cursor-pointer hover:bg-slate-800/60 transition-colors" : "cursor-default opacity-60"
-                                            )}
-                                        >
-                                            <div className="flex items-center gap-3 w-full">
-                                                <div className="w-8 h-8 rounded-lg bg-slate-700 border border-slate-600 flex-shrink-0"></div>
-                                                <div className="flex flex-col flex-1">
-                                                    <div className="flex items-center gap-1.5">
-                                                        <span className="text-white text-sm font-semibold">{r.name}</span>
-                                                        {r.ticker !== "N/A" && <span className="text-slate-400 text-xs font-mono">({r.ticker})</span>}
-                                                        {!isDomestic && r.ticker !== "N/A" && (
-                                                            <span className="text-slate-500 text-[10px] border border-slate-700 rounded px-1 ml-1">해외</span>
-                                                        )}
+                                <div className="border border-slate-800 rounded-xl overflow-hidden bg-slate-900/50 p-1">
+                                    {(() => {
+                                        const positiveStocks = selectedRow.related.filter((r: any) => r.sentiment === 'positive');
+                                        const negativeStocks = selectedRow.related.filter((r: any) => r.sentiment === 'negative');
+                                        const unclassifiedStocks = selectedRow.related.filter((r: any) => !r.sentiment);
+
+                                        const renderStocks = (stocks: any[], groupSentiment: 'positive' | 'negative' | 'neutral') => {
+                                            if (stocks.length === 0) return null;
+                                            
+                                            return (
+                                                <div className="py-2 px-1">
+                                                    {groupSentiment === 'positive' && (
+                                                        <h4 className="text-emerald-400 text-xs font-semibold mb-3 ml-2 flex items-center gap-1.5">
+                                                            📈 긍정 영향
+                                                        </h4>
+                                                    )}
+                                                    {groupSentiment === 'negative' && (
+                                                        <h4 className="text-[#ff7c7e] text-xs font-semibold mb-3 ml-2 flex items-center gap-1.5">
+                                                            📉 부정 영향
+                                                        </h4>
+                                                    )}
+                                                    
+                                                    <div className="space-y-1">
+                                                        {stocks.map((r: any, i: number) => {
+                                                            // 국/내외 판별: 코드가 모두 숫자로만 구성되어 있고 길이가 6자리면 국내(true)
+                                                            const isDomestic = /^\d{6}$/.test(r.ticker);
+                                                            
+                                                            return (
+                                                            <div 
+                                                                key={i} 
+                                                                className={cn(
+                                                                    "flex items-center justify-between py-2.5 px-3 rounded-lg group",
+                                                                    isDomestic ? "cursor-pointer hover:bg-slate-800/80 transition-colors" : "cursor-default opacity-60 hover:bg-slate-800/30"
+                                                                )}
+                                                            >
+                                                                <div className="flex items-center gap-3 w-full">
+                                                                    <div className={cn(
+                                                                        "w-8 h-8 rounded-lg bg-slate-800 flex items-center justify-center flex-shrink-0 border",
+                                                                        groupSentiment === 'positive' ? "border-emerald-800/40" : 
+                                                                        groupSentiment === 'negative' ? "border-[#ff7c7e]/30" : "border-slate-700"
+                                                                    )}>
+                                                                        {groupSentiment === 'positive' && <ArrowUp className="w-4 h-4 text-emerald-400" />}
+                                                                        {groupSentiment === 'negative' && <ArrowDown className="w-4 h-4 text-[#ff7c7e]" />}
+                                                                    </div>
+                                                                    <div className="flex flex-col flex-1">
+                                                                        <div className="flex items-center gap-1.5">
+                                                                            <span className="text-white text-sm font-semibold">{r.name}</span>
+                                                                            {r.ticker !== "N/A" && <span className="text-slate-400 text-xs font-mono">({r.ticker})</span>}
+                                                                            {!isDomestic && r.ticker !== "N/A" && (
+                                                                                <span className="text-slate-500 text-[10px] border border-slate-700 rounded px-1 ml-1">해외</span>
+                                                                            )}
+                                                                        </div>
+                                                                        <span className="text-slate-400 text-xs mt-0.5">{r.comment}</span>
+                                                                    </div>
+                                                                </div>
+                                                                {isDomestic && (
+                                                                    <div className="flex-shrink-0 ml-2">
+                                                                        <ChevronRightIcon className="text-slate-500 w-4 h-4 group-hover:text-slate-300 transition-colors" />
+                                                                    </div>
+                                                                )}
+                                                            </div>
+                                                        )})}
                                                     </div>
-                                                    <span className="text-slate-400 text-xs mt-0.5">{r.comment}</span>
                                                 </div>
-                                            </div>
-                                            {isDomestic && (
-                                                <div className="flex-shrink-0 ml-2">
-                                                    <ChevronRightIcon className="text-slate-500 w-4 h-4 group-hover:text-slate-300 transition-colors" />
-                                                </div>
-                                            )}
-                                        </div>
-                                    )})}
+                                            );
+                                        };
+
+                                        return (
+                                            <>
+                                                {renderStocks(positiveStocks, 'positive')}
+                                                
+                                                {positiveStocks.length > 0 && negativeStocks.length > 0 && (
+                                                    <div className="border-t border-slate-800 my-2 mx-3"></div>
+                                                )}
+                                                
+                                                {renderStocks(negativeStocks, 'negative')}
+                                                
+                                                {(positiveStocks.length > 0 || negativeStocks.length > 0) && unclassifiedStocks.length > 0 && (
+                                                    <div className="border-t border-slate-800 my-2 mx-3"></div>
+                                                )}
+                                                
+                                                {renderStocks(unclassifiedStocks, 'neutral')}
+                                            </>
+                                        );
+                                    })()}
                                 </div>
                             </div>
 
