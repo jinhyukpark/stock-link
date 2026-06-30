@@ -60,11 +60,11 @@ const MOCK_DATA = {
             <><HighlightInfluencer>국내 경제 유튜버</HighlightInfluencer>, 2차전지 섹터 조정 <HighlightNeg>경고</HighlightNeg> → 관련주 <HighlightNeg>변동성 확대 예상</HighlightNeg></>
         ],
         table: [
-            { id: 1, impact: "긍정", stars: 3, speaker: "일론 머스크", platform: "X (Twitter)", summary: "Optimus 로봇 양산 라인 구축 위해 250억 달러 설비투자 상향 발표", related: [{name: "삼성전자", ticker: "005930"}, {name: "SK하이닉스", ticker: "000660"}], followers: "팔로워 1.8억명", time: "2026-04-26 04:22", fullText: "Optimus 로봇 양산 로드맵은 AI 로봇 섹터 전반에 촉매가 될 수 있으며, 250억 달러 capex 투자와 맞물려 국내 메모리 반도체 수혜는 중장기적으로 유효.", analysis: "테슬라 AI 로봇 투자 확대로 메모리 반도체 수요 증가 기대. 250억 달러 capex 상향은 국내 메모리 서플라이 체인에 강력한 모멘텀." },
-            { id: 2, impact: "부정", stars: 3, speaker: "도널드 트럼프", platform: "Truth Social", summary: "미국 제조업 부활 위한 15% 보편 관세 부과 필요성 강경 발언", related: [{name: "현대차", ticker: "005380"}, {name: "기아", ticker: "000270"}], followers: "팔로워 650만명", time: "2026-04-26 10:15", fullText: "관세 정책이 미국 제조업 부활, 재정적자 감소, 인플레이션 억제에 도움이 된다는 취지 발언 지속. 최근 관세 발언이 시장의 핵심 리스크 변수로 작용 중.", analysis: "트럼프 발언이 단순 SNS를 넘어 최대 변동성 요인으로 구조화됨. 관세 현실화 시 수출주 급락 및 이분법적 구조 고착화 우려." },
-            { id: 3, impact: "중립", stars: 2, speaker: "미국 경제 유튜버 A", platform: "YouTube", summary: "AI 전력 수요 폭발로 데이터센터 인프라 투자 지속될 것", related: [{name: "LS일렉트릭", ticker: "010120"}], followers: "구독자 120만명", time: "2026-04-26 13:40", fullText: "AI 데이터센터 건설 붐으로 인해 전력기기 및 인프라 관련 수요가 급증하고 있으며 이는 단기 테마가 아닌 다년간 지속될 메가 트렌드입니다.", analysis: "전력 인프라 투자는 긍정적이나, 이미 주가에 상당 부분 선반영되어 있어 밸류에이션 부담이 존재. 추가적인 어닝 서프라이즈 필요." },
-            { id: 4, impact: "긍정", stars: 1, speaker: "한국 애널리스트 B", platform: "News", summary: "조선업 슈퍼사이클 진입 및 미국 함정 MRO 사업 수혜 기대", related: [{name: "한화오션", ticker: "042660"}, {name: "HD현대중공업", ticker: "329180"}], followers: "증권사 리서치 센터", time: "2026-04-26 08:30", fullText: "미국 해군 함정 MRO 사업 진출과 신조선가 상승 흐름이 맞물리며 국내 주요 조선사들의 수익성 개선이 본격화될 전망입니다.", analysis: "미국 함정 MRO 사업 수주 시 장기적이고 안정적인 캐시카우 확보 가능. 조선업 사이클 상승과 겹쳐 강력한 모멘텀 형성 중." },
-            { id: 5, impact: "부정", stars: 2, speaker: "월가 핀테크 블로거 C", platform: "X (Twitter)", summary: "소비자 물가 지수 상승 여파로 하반기 금리 인하 물건너갔다", related: [{name: "건설주 전반", ticker: "N/A"}], followers: "팔로워 45만명", time: "2026-04-26 21:10", fullText: "끈적한 인플레이션과 강한 고용 지표로 인해 연준의 금리 인하 사이클 시작이 지연되고 있습니다. 고금리 장기화에 대비해야 합니다.", analysis: "금리 인하 기대감 소멸로 인해 레버리지가 높은 건설, 부동산 관련 섹터의 프로젝트 파이낸싱(PF) 부담 지속 및 투자심리 악화." }
+            { id: 1, impact: "긍정", stars: 3, speaker: "일론 머스크", platform: "X (Twitter)", summary: "Optimus 로봇 양산 라인 구축 위해 250억 달러 설비투자 상향 발표", related: [{name: "삼성전자", ticker: "005930", price: "84,500원", change: "+2.4%"}, {name: "SK하이닉스", ticker: "000660", price: "201,500원", change: "+4.1%"}], followers: "팔로워 1.8억명", time: "2026-04-26 04:22", fullText: <><HighlightPos>Optimus 로봇 양산 로드맵은 AI 로봇 섹터 전반에 촉매</HighlightPos>가 될 수 있으며, 250억 달러 capex 투자와 맞물려 국내 메모리 반도체 수혜는 <HighlightPos>중장기적으로 유효</HighlightPos>.</>, analysis: "테슬라 AI 로봇 투자 확대로 메모리 반도체 수요 증가 기대. 250억 달러 capex 상향은 국내 메모리 서플라이 체인에 강력한 모멘텀." },
+            { id: 2, impact: "부정", stars: 3, speaker: "도널드 트럼프", platform: "Truth Social", summary: "미국 제조업 부활 위한 15% 보편 관세 부과 필요성 강경 발언", related: [{name: "현대차", ticker: "005380", price: "245,000원", change: "-1.8%"}, {name: "기아", ticker: "000270", price: "118,200원", change: "-2.1%"}], followers: "팔로워 650만명", time: "2026-04-26 10:15", fullText: <><HighlightNeg>관세 정책이 미국 제조업 부활, 재정적자 감소, 인플레이션 억제에 도움</HighlightNeg>이 된다는 취지 발언 지속. 최근 관세 발언이 시장의 <HighlightNeg>핵심 리스크 변수</HighlightNeg>로 작용 중.</>, analysis: "트럼프 발언이 단순 SNS를 넘어 최대 변동성 요인으로 구조화됨. 관세 현실화 시 수출주 급락 및 이분법적 구조 고착화 우려." },
+            { id: 3, impact: "중립", stars: 2, speaker: "미국 경제 유튜버 A", platform: "YouTube", summary: "AI 전력 수요 폭발로 데이터센터 인프라 투자 지속될 것", related: [{name: "LS일렉트릭", ticker: "010120", price: "172,000원", change: "+0.5%"}], followers: "구독자 120만명", time: "2026-04-26 13:40", fullText: <>AI 데이터센터 건설 붐으로 인해 전력기기 및 인프라 관련 수요가 급증하고 있으며 이는 단기 테마가 아닌 다년간 지속될 메가 트렌드입니다.</>, analysis: "전력 인프라 투자는 긍정적이나, 이미 주가에 상당 부분 선반영되어 있어 밸류에이션 부담이 존재. 추가적인 어닝 서프라이즈 필요." },
+            { id: 4, impact: "긍정", stars: 1, speaker: "한국 애널리스트 B", platform: "News", summary: "조선업 슈퍼사이클 진입 및 미국 함정 MRO 사업 수혜 기대", related: [{name: "한화오션", ticker: "042660", price: "32,800원", change: "+3.2%"}, {name: "HD현대중공업", ticker: "329180", price: "145,000원", change: "+2.8%"}], followers: "증권사 리서치 센터", time: "2026-04-26 08:30", fullText: <><HighlightPos>미국 해군 함정 MRO 사업 진출과 신조선가 상승 흐름</HighlightPos>이 맞물리며 국내 주요 조선사들의 <HighlightPos>수익성 개선이 본격화</HighlightPos>될 전망입니다.</>, analysis: "미국 함정 MRO 사업 수주 시 장기적이고 안정적인 캐시카우 확보 가능. 조선업 사이클 상승과 겹쳐 강력한 모멘텀 형성 중." },
+            { id: 5, impact: "부정", stars: 2, speaker: "월가 핀테크 블로거 C", platform: "X (Twitter)", summary: "소비자 물가 지수 상승 여파로 하반기 금리 인하 물건너갔다", related: [{name: "건설주 전반", ticker: "N/A", price: "-", change: "-"}], followers: "팔로워 45만명", time: "2026-04-26 21:10", fullText: <><HighlightNeg>끈적한 인플레이션과 강한 고용 지표</HighlightNeg>로 인해 연준의 금리 인하 사이클 시작이 지연되고 있습니다. <HighlightNeg>고금리 장기화에 대비</HighlightNeg>해야 합니다.</>, analysis: "금리 인하 기대감 소멸로 인해 레버리지가 높은 건설, 부동산 관련 섹터의 프로젝트 파이낸싱(PF) 부담 지속 및 투자심리 악화." }
         ],
         positiveStocks: [
             { ticker: "005930", name: "삼성전자", reason: "AI 로봇 투자 확대로 메모리 반도체 수요 급증 기대", influencer: "일론 머스크" },
@@ -113,9 +113,9 @@ const MOCK_DATA = {
             <><HighlightInfluencer>미국 핀테크 블로거 B</HighlightInfluencer>, X에서 금리 인하 지연 가능성 시사 → 성장주 <HighlightNeg>변동성 주의</HighlightNeg></>
         ],
         table: [
-            { id: 6, impact: "긍정", stars: 2, speaker: "한국 애널리스트 C", platform: "News", summary: "미국 내 K-뷰티 점유율 확대 및 1분기 수출 서프라이즈 발표", related: [{name: "아모레퍼시픽", ticker: "090430"}, {name: "실리콘투", ticker: "257720"}], followers: "리서치 센터", time: "2026-04-25 09:00", fullText: "1분기 화장품 수출액이 전년 동기 대비 21% 증가했으며, 특히 북미 시장에서의 성장세가 두드러집니다.", analysis: "구조적 성장이 확인된 인디 뷰티 브랜드 중심의 포트폴리오 재편이 유효." },
-            { id: 7, impact: "부정", stars: 3, speaker: "짐 크레이머", platform: "CNBC", summary: "유가 정점 통과 가능성. 에너지 관련주 비중 축소 의견 제시", related: [{name: "S-Oil", ticker: "010950"}, {name: "GS", ticker: "078930"}], followers: "시청자 300만명", time: "2026-04-24 22:30", fullText: "지정학적 리스크 완화와 수요 둔화 우려로 유가 상승 모멘텀이 꺾일 수 있습니다. 정유주 차익 실현을 권고합니다.", analysis: "정제마진 하락 추세와 맞물려 단기적인 실적 둔화가 예상됨. 비중 축소 고려." },
-            { id: 8, impact: "부정", stars: 2, speaker: "미국 핀테크 블로거 B", platform: "X (Twitter)", summary: "예상보다 강한 고용 지표로 연내 금리 인하 사실상 무산 위기", related: [{name: "성장주 전반", ticker: "N/A"}], followers: "팔로워 85만명", time: "2026-04-25 07:15", fullText: "비농업 고용 지표가 시장 예상치를 상회하며 연준의 금리 인하 명분이 사라졌습니다. 성장주의 밸류에이션 할인이 불가피합니다.", analysis: "고금리 환경 지속으로 인한 할인율 상승은 기술주 및 바이오 등 성장주에 부담으로 작용." }
+            { id: 6, impact: "긍정", stars: 2, speaker: "한국 애널리스트 C", platform: "News", summary: "미국 내 K-뷰티 점유율 확대 및 1분기 수출 서프라이즈 발표", related: [{name: "아모레퍼시픽", ticker: "090430", price: "182,000원", change: "+5.1%"}, {name: "실리콘투", ticker: "257720", price: "12,450원", change: "+8.2%"}], followers: "리서치 센터", time: "2026-04-25 09:00", fullText: <><HighlightPos>1분기 화장품 수출액이 전년 동기 대비 21% 증가</HighlightPos>했으며, 특히 북미 시장에서의 <HighlightPos>성장세가 두드러집니다</HighlightPos>.</>, analysis: "구조적 성장이 확인된 인디 뷰티 브랜드 중심의 포트폴리오 재편이 유효." },
+            { id: 7, impact: "부정", stars: 3, speaker: "짐 크레이머", platform: "CNBC", summary: "유가 정점 통과 가능성. 에너지 관련주 비중 축소 의견 제시", related: [{name: "S-Oil", ticker: "010950", price: "72,100원", change: "-3.5%"}, {name: "GS", ticker: "078930", price: "45,200원", change: "-2.1%"}], followers: "시청자 300만명", time: "2026-04-24 22:30", fullText: <><HighlightNeg>지정학적 리스크 완화와 수요 둔화 우려</HighlightNeg>로 유가 상승 모멘텀이 꺾일 수 있습니다. 정유주 <HighlightNeg>차익 실현을 권고</HighlightNeg>합니다.</>, analysis: "정제마진 하락 추세와 맞물려 단기적인 실적 둔화가 예상됨. 비중 축소 고려." },
+            { id: 8, impact: "부정", stars: 2, speaker: "미국 핀테크 블로거 B", platform: "X (Twitter)", summary: "예상보다 강한 고용 지표로 연내 금리 인하 사실상 무산 위기", related: [{name: "성장주 전반", ticker: "N/A", price: "-", change: "-"}], followers: "팔로워 85만명", time: "2026-04-25 07:15", fullText: <><HighlightNeg>비농업 고용 지표가 시장 예상치를 상회</HighlightNeg>하며 연준의 금리 인하 명분이 사라졌습니다. 성장주의 <HighlightNeg>밸류에이션 할인이 불가피</HighlightNeg>합니다.</>, analysis: "고금리 환경 지속으로 인한 할인율 상승은 기술주 및 바이오 등 성장주에 부담으로 작용." }
         ],
         positiveStocks: [
             { ticker: "090430", name: "아모레퍼시픽", reason: "미국 매출 고성장 및 글로벌 포트폴리오 다변화 성공", influencer: "한국 애널리스트 C" },
@@ -551,86 +551,105 @@ export default function SocialAnalysisView() {
                 </div>
             </section>
 
-            {/* Drawer / Modal Panel for Row Details */}
+            {/* Centered Modal Panel for Row Details */}
             {selectedRow && (
                 <>
                     {/* Backdrop */}
                     <div 
-                        className="fixed inset-0 bg-black/40 z-50 transition-opacity animate-in fade-in duration-300"
+                        className="fixed inset-0 bg-black/60 backdrop-blur-sm z-50 transition-opacity animate-in fade-in duration-150"
                         onClick={() => setSelectedRow(null)}
                     ></div>
 
-                    {/* Sliding Panel */}
-                    <div className="fixed top-0 right-0 h-full w-[450px] max-w-[90vw] bg-slate-900 border-l border-slate-700 shadow-2xl z-50 animate-in slide-in-from-right duration-300 flex flex-col">
+                    {/* Centered Modal */}
+                    <div className="fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[560px] max-w-[95vw] max-h-[85vh] overflow-y-auto bg-slate-900 rounded-2xl shadow-2xl shadow-black/60 border border-slate-700 p-6 z-50 animate-in zoom-in-95 fade-in duration-150 flex flex-col">
                         
-                        <div className="flex justify-between items-start p-6 border-b border-slate-800">
-                            <div>
-                                <h2 className="text-2xl font-bold text-white mb-2">{selectedRow.speaker}</h2>
-                                <div className="flex items-center gap-3">
-                                    <PlatformBadge platform={selectedRow.platform} />
-                                    <span className="text-slate-400 text-sm">{selectedRow.followers}</span>
-                                </div>
-                                <div className="text-slate-500 text-xs mt-3">{selectedRow.time}</div>
-                            </div>
-                            <button 
-                                onClick={() => setSelectedRow(null)}
-                                className="text-slate-400 hover:text-white transition-colors bg-slate-800 hover:bg-slate-700 rounded-full p-1.5"
-                            >
-                                <X className="w-5 h-5" />
-                            </button>
-                        </div>
+                        {/* Close button */}
+                        <button 
+                            onClick={() => setSelectedRow(null)}
+                            className="absolute top-4 right-4 text-slate-400 hover:text-white w-8 h-8 flex items-center justify-center rounded-lg hover:bg-slate-700 transition"
+                        >
+                            <X className="w-5 h-5" />
+                        </button>
 
-                        <div className="p-6 overflow-y-auto flex-1 space-y-8">
+                        <div className="space-y-6">
                             
-                            {/* 발언 내용 */}
+                            {/* ① 상단 — 인플루언서 정보 */}
+                            <div className="border-b border-slate-700 pb-4">
+                                <h2 className="text-xl font-bold text-white mb-2 pr-8">{selectedRow.speaker}</h2>
+                                <div className="flex flex-wrap items-center gap-3">
+                                    <PlatformBadge platform={selectedRow.platform} />
+                                    <span className="text-slate-400 text-sm whitespace-nowrap">{selectedRow.followers}</span>
+                                    <span className="text-slate-400 text-sm whitespace-nowrap">·</span>
+                                    <span className="text-slate-400 text-sm whitespace-nowrap">{selectedRow.time}</span>
+                                </div>
+                            </div>
+
+                            {/* ② 발언 내용 박스 */}
                             <div>
                                 <h3 className="text-slate-400 text-xs font-semibold mb-2 flex items-center gap-1.5">
                                     <MessageSquare className="w-3.5 h-3.5" /> 💬 발언 내용
                                 </h3>
-                                <div className="bg-slate-950/50 border border-slate-700 rounded-lg p-4">
+                                <div className="bg-slate-800 border border-slate-700/50 rounded-xl p-4">
                                     <p className="text-slate-200 text-sm leading-relaxed">
-                                        {/* To simulate highlights inside fullText dynamically is complex without rich markup in mock data. 
-                                            We'll just display it as text for now, or if it has strong words, we could color them. 
-                                            For mock simplicity, using the raw text. */}
                                         {selectedRow.fullText}
                                     </p>
-                                    <div className="mt-4 pt-3 border-t border-slate-800 text-right">
-                                        <a href="#" className="inline-flex items-center gap-1 text-blue-400 underline text-xs hover:text-blue-300 font-medium">
-                                            원문 보기 <ExternalLink className="w-3 h-3" />
-                                        </a>
-                                    </div>
                                 </div>
                             </div>
 
-                            {/* 관련 종목 */}
+                            {/* ③ 관련 종목 리스트 */}
                             <div>
-                                <h3 className="text-slate-400 text-xs font-semibold mb-3 flex items-center gap-1.5">
+                                <h3 className="text-slate-400 text-xs font-semibold mb-2 flex items-center gap-1.5">
                                     <Target className="w-3.5 h-3.5" /> 📌 관련 종목
                                 </h3>
-                                <div className="flex flex-wrap gap-2">
-                                    {selectedRow.related.map((r: any, i: number) => (
-                                        <TableTickerChip key={i} name={r.name} ticker={r.ticker} />
-                                    ))}
+                                <div className="border border-slate-800 rounded-xl overflow-hidden bg-slate-900/50">
+                                    {selectedRow.related.map((r: any, i: number) => {
+                                        const isUp = r.change && r.change.startsWith('+');
+                                        const isDown = r.change && r.change.startsWith('-');
+                                        return (
+                                        <div key={i} className="flex items-center justify-between py-3 px-4 border-b border-slate-800 last:border-0 hover:bg-slate-800/50 transition-colors">
+                                            <div className="flex items-center gap-3">
+                                                <span className="text-slate-500 text-xs w-4 text-center font-medium">{i + 1}</span>
+                                                <div className="w-8 h-8 rounded-lg bg-slate-700 border border-slate-600 flex-shrink-0"></div>
+                                                <div className="flex flex-col">
+                                                    <span className="text-white text-sm font-semibold leading-tight">{r.name}</span>
+                                                    {r.ticker !== "N/A" && <span className="text-slate-500 text-[11px] font-mono leading-tight">{r.ticker}</span>}
+                                                </div>
+                                            </div>
+                                            {r.price && r.price !== "-" && (
+                                                <div className="flex flex-col items-end">
+                                                    <span className="text-white text-sm font-bold">{r.price}</span>
+                                                    <span className={cn(
+                                                        "text-xs font-medium",
+                                                        isUp ? "text-red-400" : isDown ? "text-blue-400" : "text-slate-400"
+                                                    )}>{r.change}</span>
+                                                </div>
+                                            )}
+                                        </div>
+                                    )})}
                                 </div>
                             </div>
 
-                            {/* 영향 분석 */}
+                            {/* ④ 시장 영향 분석 */}
                             <div>
-                                <h3 className="text-slate-400 text-xs font-semibold mb-3 flex items-center gap-1.5">
-                                    <TrendingUp className="w-3.5 h-3.5" /> 📊 시장 영향 분석
+                                <h3 className="text-slate-400 text-xs font-semibold mb-2 flex items-center gap-1.5">
+                                    <TrendingUp className="w-3.5 h-3.5" /> 📊 영향 분석
                                 </h3>
-                                <div className="bg-slate-800/50 rounded-xl p-5 border border-slate-700">
-                                    <div className="flex items-center justify-between mb-4">
-                                        <div className="flex items-center gap-3">
-                                            <ImpactBadge impact={selectedRow.impact} />
-                                            <span className="text-slate-400 text-xs">영향 강도</span>
-                                            <Stars count={selectedRow.stars} className="[&>svg]:w-4 [&>svg]:h-4" />
-                                        </div>
+                                <div className="bg-slate-800/30 rounded-xl p-4 border border-slate-700/50">
+                                    <div className="flex items-center gap-3 mb-2">
+                                        <ImpactBadge impact={selectedRow.impact} />
+                                        <Stars count={selectedRow.stars} className="[&>svg]:w-4 [&>svg]:h-4" />
                                     </div>
-                                    <p className="text-slate-300 text-[14px] leading-relaxed">
+                                    <p className="text-slate-300 text-sm leading-relaxed">
                                         {selectedRow.analysis}
                                     </p>
                                 </div>
+                            </div>
+
+                            {/* ⑤ 원문 보기 버튼 */}
+                            <div className="pt-2 text-center">
+                                <a href="#" className="inline-flex items-center gap-1.5 text-blue-400 text-sm hover:text-blue-300 underline font-medium">
+                                    🔗 원문 보기 <ExternalLink className="w-3.5 h-3.5" />
+                                </a>
                             </div>
 
                         </div>
