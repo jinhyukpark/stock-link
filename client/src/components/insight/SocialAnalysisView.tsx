@@ -668,18 +668,23 @@ export default function SocialAnalysisView() {
                                                                         <div className="flex items-center gap-1.5">
                                                                             <span className="text-white text-sm font-semibold">{r.name}</span>
                                                                             {r.ticker !== "N/A" && <span className="text-slate-400 text-xs font-mono">({r.ticker})</span>}
-                                                                            {!isDomestic && r.ticker !== "N/A" && (
-                                                                                <span className="text-slate-500 text-[10px] border border-slate-700 rounded px-1 ml-1">해외</span>
-                                                                            )}
                                                                         </div>
                                                                         <span className="text-slate-400 text-xs mt-0.5">{r.comment}</span>
                                                                     </div>
                                                                 </div>
-                                                                {isDomestic && (
-                                                                    <div className="flex-shrink-0 ml-2">
+                                                                <div className="flex items-center gap-2 flex-shrink-0 ml-3">
+                                                                    {r.sentiment === "positive" && (
+                                                                        <span className="bg-emerald-500/20 text-emerald-300 text-[10px] font-semibold rounded px-1.5 py-0.5">긍정</span>
+                                                                    )}
+                                                                    {r.sentiment === "negative" && (
+                                                                        <span className="bg-[#ff7c7e]/20 text-[#ff7c7e] text-[10px] font-semibold rounded px-1.5 py-0.5">부정</span>
+                                                                    )}
+                                                                    {!isDomestic && r.ticker !== "N/A" ? (
+                                                                        <span className="text-slate-500 text-[10px] border border-slate-700 rounded px-1.5 py-0.5">해외</span>
+                                                                    ) : isDomestic ? (
                                                                         <ChevronRightIcon className="text-slate-500 w-4 h-4 group-hover:text-slate-300 transition-colors" />
-                                                                    </div>
-                                                                )}
+                                                                    ) : null}
+                                                                </div>
                                                             </div>
                                                         )})}
                                                     </div>
