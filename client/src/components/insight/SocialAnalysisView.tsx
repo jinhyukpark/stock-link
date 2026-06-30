@@ -282,10 +282,6 @@ export default function SocialAnalysisView() {
                                             }
                                         }}
                                         initialFocus
-                                        components={{
-                                            IconLeft: ({ ...props }) => <ChevronLeft className="h-4 w-4 text-slate-400" />,
-                                            IconRight: ({ ...props }) => <ChevronRight className="h-4 w-4 text-slate-400" />,
-                                        }}
                                         className="bg-slate-900 text-white w-full mx-auto [&_.rdp-nav]:flex [&_.rdp-nav]:gap-1 [&_.rdp-caption]:flex [&_.rdp-caption]:justify-between [&_.rdp-caption]:items-center [&_.rdp-caption]:mb-4 [&_.rdp-caption_label]:text-white [&_.rdp-caption_label]:font-semibold [&_.rdp-caption_label]:text-sm [&_.rdp-head_row]:flex [&_.rdp-head_row]:w-full [&_.rdp-head_row]:justify-between [&_.rdp-head_row]:mb-2 [&_.rdp-head_cell]:text-slate-500 [&_.rdp-head_cell]:text-xs [&_.rdp-head_cell]:font-medium [&_.rdp-head_cell]:text-center [&_.rdp-head_cell]:w-8 [&_.rdp-row]:flex [&_.rdp-row]:w-full [&_.rdp-row]:justify-between [&_.rdp-row]:mt-1 [&_.rdp-cell]:p-0 [&_.rdp-cell]:w-8 [&_.rdp-cell]:h-8 [&_.rdp-cell]:flex [&_.rdp-cell]:justify-center [&_.rdp-cell]:items-center [&_.rdp-button]:w-8 [&_.rdp-button]:h-8 [&_.rdp-button]:flex [&_.rdp-button]:items-center [&_.rdp-button]:justify-center [&_.rdp-button]:text-sm [&_.rdp-button]:text-slate-300 [&_.rdp-button]:rounded-lg [&_.rdp-button:hover]:bg-slate-700 [&_.rdp-button:hover]:text-white [&_.rdp-day_selected]:bg-blue-500 [&_.rdp-day_selected]:text-white [&_.rdp-day_selected]:font-bold [&_.rdp-day_today]:bg-blue-600 [&_.rdp-day_today]:text-white [&_.rdp-day_today]:font-semibold [&_.rdp-day_outside]:text-slate-600 [&_.rdp-day_outside]:hover:bg-transparent [&_.rdp-day_outside]:cursor-default [&_.rdp-nav_button]:w-7 [&_.rdp-nav_button]:h-7 [&_.rdp-nav_button]:flex [&_.rdp-nav_button]:items-center [&_.rdp-nav_button]:justify-center [&_.rdp-nav_button]:rounded-md [&_.rdp-nav_button_previous]:text-[0px] [&_.rdp-nav_button_next]:text-[0px] [&_.rdp-nav_button:hover]:bg-slate-700"
                                     />
                                 </div>
@@ -632,12 +628,12 @@ export default function SocialAnalysisView() {
                                             return (
                                                 <div className="py-2 px-1">
                                                     {groupSentiment === 'positive' && (
-                                                        <h4 className="text-emerald-400 text-xs font-semibold mb-3 ml-2 flex items-center gap-1.5">
+                                                        <h4 className="text-emerald-400 text-xs font-semibold mb-2 ml-2 flex items-center gap-1.5">
                                                             📈 긍정 영향
                                                         </h4>
                                                     )}
                                                     {groupSentiment === 'negative' && (
-                                                        <h4 className="text-[#ff7c7e] text-xs font-semibold mb-3 ml-2 flex items-center gap-1.5">
+                                                        <h4 className="text-[#ff7c7e] text-xs font-semibold mb-2 ml-2 flex items-center gap-1.5">
                                                             📉 부정 영향
                                                         </h4>
                                                     )}
@@ -697,13 +693,13 @@ export default function SocialAnalysisView() {
                                                 {renderStocks(positiveStocks, 'positive')}
                                                 
                                                 {positiveStocks.length > 0 && negativeStocks.length > 0 && (
-                                                    <div className="border-t border-slate-800 my-2 mx-3"></div>
+                                                    <div className="border-t border-slate-800 my-3 mx-3"></div>
                                                 )}
                                                 
                                                 {renderStocks(negativeStocks, 'negative')}
                                                 
                                                 {(positiveStocks.length > 0 || negativeStocks.length > 0) && unclassifiedStocks.length > 0 && (
-                                                    <div className="border-t border-slate-800 my-2 mx-3"></div>
+                                                    <div className="border-t border-slate-800 my-3 mx-3"></div>
                                                 )}
                                                 
                                                 {renderStocks(unclassifiedStocks, 'neutral')}
