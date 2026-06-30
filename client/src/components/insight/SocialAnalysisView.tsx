@@ -648,7 +648,7 @@ export default function SocialAnalysisView() {
                                                                 key={i} 
                                                                 className={cn(
                                                                     "flex items-center justify-between py-2.5 px-3 rounded-lg group",
-                                                                    isDomestic ? "cursor-pointer hover:bg-slate-800/80 transition-colors" : "cursor-default opacity-60 hover:bg-slate-800/30"
+                                                                    isDomestic ? "cursor-pointer hover:bg-slate-800/80 transition-colors" : "cursor-default"
                                                                 )}
                                                             >
                                                                 <div className="flex items-center gap-3 w-full">
