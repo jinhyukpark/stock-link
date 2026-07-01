@@ -55,7 +55,7 @@ const Avatar = ({ name, className }: { name: string, className?: string }) => {
     const initials = name.replace(/\s/g, '').slice(0, 2);
 
     return (
-        <div className={cn("relative flex-shrink-0", className || "w-10 h-10")}>
+        <div className={cn("relative flex-shrink-0", className || "w-14 h-14")}>
             {src && (
                 <img
                     src={src}
@@ -613,7 +613,7 @@ export default function SocialAnalysisView() {
 
                                         <td className="px-6 py-5 min-w-[160px]">
                                             <div className="flex items-center gap-2 text-slate-300 text-sm whitespace-nowrap">
-                                                <Avatar name={item.influencer} className="w-6 h-6 text-[10px] border border-slate-600 shrink-0" />
+                                                <Avatar name={item.influencer} className="w-8 h-8 text-[10px] border border-slate-600 shrink-0" />
                                                 <span className="font-medium text-xs">{item.influencer}</span>
                                             </div>
                                         </td>
