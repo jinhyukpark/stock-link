@@ -1,0 +1,176 @@
+Apply the following image sourcing updates for flags, influencer avatars, and company logos.
+All images must be loaded from real URLs — no emoji, no placeholder boxes as primary display.
+
+---
+
+## 1. 국기 — 이미지로 표시
+
+Replace all flag emoji (🇺🇸 🇰🇷) with actual flag images.
+
+**소스:**
+```jsx
+// flagcdn 서비스 사용 (무료, 안정적)
+const flagUrl = (countryCode) =>
+  `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
+
+// 사용 예시
+// 미국: flagcdn.com/w40/us.png
+// 한국: flagcdn.com/w40/kr.png
+// 일본: flagcdn.com/w40/jp.png
+// 중국: flagcdn.com/w40/cn.png
+```
+
+**표시 스타일:**
+```jsx
+<img
+  src={flagUrl(countryCode)}
+  alt={countryName}
+  className="w-5 h-3.5 rounded-sm object-cover shadow-sm"
+  onError={(e) => { e.target.style.display = 'none'; }}
+/>
+```
+
+**인물 데이터에 countryCode 필드 추가:**
+```js
+{ name: '일론 머스크', countryCode: 'us', ... }
+{ name: '도널드 트럼프', countryCode: 'us', ... }
+{ name: '짐 크레이머', countryCode: 'us', ... }
+{ name: '국내 경제 유튜버 A', countryCode: 'kr', ... }
+{ name: '한국 애널리스트 B', countryCode: 'kr', ... }
+```
+
+**배치:**
+- 인물 이름 오른쪽에 flag 이미지 인라인 배치
+- `flex items-center gap-1.5` 로 이름 + 국기 정렬
+
+---
+
+## 2. 인플루언서 아바타 — 실제 인물 이미지
+
+Use real portrait images for well-known public figures sourced from Wikipedia Commons.
+
+```jsx
+const influencerAvatars = {
+  '일론 머스크': 
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/240px-Elon_Musk_Royal_Society_%28crop2%29.jpg',
+  '도널드 트럼프': 
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/240px-Donald_Trump_official_portrait.jpg',
+  '짐 크레이머': 
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Jim_Cramer_2012_Shankbone.jpg/240px-Jim_Cramer_2012_Shankbone.jpg',
+  '워런 버핏':
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Warren_Buffett_KU_Visit.jpg/240px-Warren_Buffett_KU_Visit.jpg',
+  '레이 달리오':
+    'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Ray_Dalio_2011.jpg/240px-Ray_Dalio_2011.jpg',
+};
+```
+
+**렌더링 컴포넌트:**
+```jsx
+const Avatar = ({ name }) => {
+  const src = influencerAvatars[name];
+  const initials = name.split(' ').map(n => n[0]).join('').slice(0, 2);
+
+  return src ? (
+    <img
+      src={src}
+      alt={name}
+      className="w-10 h-10 rounded-full object-cover object-top
+        border-2 border-slate-600 shadow-md"
+      onError={(e) => {
+        e.target.style.display = 'none';
+        e.target.nextSibling.style.display = 'flex';
+      }}
+    />
+  ) : (
+    <div className="w-10 h-10 rounded-full bg-slate-600 border-2 border-slate-500
+      flex items-center justify-center text-white text-sm font-bold shadow-md">
+      {initials}
+    </div>
+  );
+};
+```
+
+**국내/기타 알 수 없는 인물:**
+- Initials badge fallback 자동 적용
+- `bg-slate-600` 배경에 흰 이니셜 텍스트
+
+---
+
+## 3. 기업 로고 — 실제 이미지 서치 적용
+
+Use real company logo images with a priority fallback chain.
+
+**로고 소스 우선순위:**
+
+```jsx
+const getLogoUrl = (ticker, domain) => {
+  // 1순위: 국내 종목 (alphasquare CDN)
+  if (/^\d{6}$/.test(ticker)) {
+    return `https://file.alphasquare.co.kr/media/images/stock_logo/kr/${ticker}.png`;
+  }
+  // 2순위: 해외 종목 (Clearbit)
+  if (domain) {
+    return `https://logo.clearbit.com/${domain}`;
+  }
+  return null;
+};
+
+// 종목별 domain 매핑 (해외주식)
+const stockDomains = {
+  'TSLA': 'tesla.com',
+  'NVDA': 'nvidia.com',
+  'AAPL': 'apple.com',
+  'MSFT': 'microsoft.com',
+  'AMZN': 'amazon.com',
+  'META': 'meta.com',
+  'GOOGL': 'google.com',
+};
+```
+
+**로고 렌더링 컴포넌트:**
+```jsx
+const StockLogo = ({ ticker, name, domain }) => {
+  const src = getLogoUrl(ticker, domain);
+  const initial = name?.[0] ?? ticker?.[0] ?? '?';
+
+  return (
+    <div className="relative w-7 h-7 flex-shrink-0">
+      {src ? (
+        <img
+          src={src}
+          alt={name}
+          className="w-7 h-7 rounded-md object-contain bg-white p-0.5 shadow-sm"
+          onError={(e) => {
+            e.target.style.display = 'none';
+            e.target.nextSibling.style.display = 'flex';
+          }}
+        />
+      ) : null}
+      <div
+        style={{ display: src ? 'none' : 'flex' }}
+        className="w-7 h-7 rounded-md bg-slate-700 border border-slate-600
+          items-center justify-center text-white text-xs font-bold"
+      >
+        {initial}
+      </div>
+    </div>
+  );
+};
+```
+
+**적용 위치 — 전 섹션 동일하게:**
+- 주요 인사 발언 테이블 → 수혜 종목 / 리스크 종목 열 각 chip
+- 시장 영향 분석 테이블 → 종목 열
+- 긍/부정 종목 종합 → 각 카드 종목명 옆
+- 투자 시사점 → 본문 내 인라인 종목 chip
+
+**로고 + 종목명 chip 통합 스타일:**
+```jsx
+<div className="flex items-center gap-1.5 
+  bg-emerald-950 border border-emerald-700 
+  rounded-md px-2 py-1">
+  <StockLogo ticker={ticker} name={name} domain={domain} />
+  <span className="text-emerald-300 text-xs font-medium">{name}</span>
+  <span className="text-emerald-700 text-[10px] font-mono">{ticker}</span>
+</div>
+```
