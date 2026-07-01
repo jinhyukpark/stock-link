@@ -15,7 +15,7 @@ const flagUrl = (countryCode: string) => `https://flagcdn.com/w40/${countryCode.
 const influencerAvatars: Record<string, string> = {
   '일론 머스크': '/images/elon.png',
   '도널드 트럼프': '/images/trump.png',
-  '이창용': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Chang_Yong_Rhee_%28cropped%29.jpg/240px-Chang_Yong_Rhee_%28cropped%29.jpg',
+  '이창용': '/images/leechangyong.png',
   '짐 크레이머': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Jim_Cramer_2012_Shankbone.jpg/240px-Jim_Cramer_2012_Shankbone.jpg',
   '워런 버핏': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Warren_Buffett_KU_Visit.jpg/240px-Warren_Buffett_KU_Visit.jpg',
   '레이 달리오': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Ray_Dalio_2011.jpg/240px-Ray_Dalio_2011.jpg',
