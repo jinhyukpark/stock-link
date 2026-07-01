@@ -20,7 +20,8 @@ const influencerAvatars: Record<string, string> = {
   '워런 버핏': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Warren_Buffett_KU_Visit.jpg/240px-Warren_Buffett_KU_Visit.jpg',
   '레이 달리오': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/54/Ray_Dalio_2011.jpg/240px-Ray_Dalio_2011.jpg',
   '제롬 파월': 'https://upload.wikimedia.org/wikipedia/commons/thumb/8/8e/Jerome_H._Powell%2C_Governor%2C_Federal_Reserve_Board_of_Governors_%28cropped%29.jpg/240px-Jerome_H._Powell%2C_Governor%2C_Federal_Reserve_Board_of_Governors_%28cropped%29.jpg',
-  '한국은행 (공식)': 'https://logo.clearbit.com/bok.or.kr'
+  '한국은행 (공식)': 'https://logo.clearbit.com/bok.or.kr',
+  '케빈 워시': '/images/kevinwarsh.png'
 };
 
 const stockDomains: Record<string, string> = {
