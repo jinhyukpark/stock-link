@@ -1,4 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import os
+
+content = """import { useState, useRef, useEffect } from "react";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { TrendingUp, TrendingDown, Globe, Megaphone, Target, Calendar as CalendarIcon, ChevronDown, BarChart3, Newspaper, Twitter, Star, MessageSquare, ArrowUp, ArrowDown, ChevronLeft, ChevronRight, X, ExternalLink, ChevronRight as ChevronRightIcon, CheckCircle2, PauseCircle, AlertTriangle } from "lucide-react";
@@ -41,7 +43,7 @@ const StockLogo = ({ ticker, name, className }: { ticker: string, name: string, 
     else if (name === "Tesla" || name === "TSLA") logoUrl = "https://logo.clearbit.com/tesla.com";
     else if (name === "카카오") logoUrl = "https://logo.clearbit.com/kakaocorp.com";
     else if (name === "아모레퍼시픽") logoUrl = "https://logo.clearbit.com/amorepacific.com";
-    else if (ticker && ticker.match(/^\d{6}$/)) {
+    else if (ticker && ticker.match(/^\\d{6}$/)) {
         logoUrl = `https://file.alphasquare.co.kr/media/images/stock_logo/kr/${ticker}.png`;
     } else {
         logoUrl = `https://logo.clearbit.com/${ticker.toLowerCase()}.com`;
@@ -390,7 +392,7 @@ export default function SocialAnalysisView() {
                                                                             <div className="flex-1 flex flex-col">
                                                                                 <div className="flex items-center gap-1.5">
                                                                                     <span className="text-white text-sm font-bold">{r.name}</span>
-                                                                                    {r.ticker.match(/^\d{6}$/) ? (
+                                                                                    {r.ticker.match(/^\\d{6}$/) ? (
                                                                                         <span className="text-slate-500 text-xs font-mono">{r.ticker}</span>
                                                                                     ) : (
                                                                                         <Badge variant="outline" className="text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800">해외</Badge>
@@ -398,7 +400,7 @@ export default function SocialAnalysisView() {
                                                                                 </div>
                                                                                 <span className="text-slate-400 text-xs mt-0.5">{r.comment}</span>
                                                                             </div>
-                                                                            {r.ticker.match(/^\d{6}$/) && (
+                                                                            {r.ticker.match(/^\\d{6}$/) && (
                                                                                 <ChevronRightIcon className="w-4 h-4 text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:text-white" />
                                                                             )}
                                                                         </div>
@@ -415,7 +417,7 @@ export default function SocialAnalysisView() {
                                                                             <div className="flex-1 flex flex-col">
                                                                                 <div className="flex items-center gap-1.5">
                                                                                     <span className="text-white text-sm font-bold">{r.name}</span>
-                                                                                    {r.ticker.match(/^\d{6}$/) ? (
+                                                                                    {r.ticker.match(/^\\d{6}$/) ? (
                                                                                         <span className="text-slate-500 text-xs font-mono">{r.ticker}</span>
                                                                                     ) : (
                                                                                         <Badge variant="outline" className="text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800">해외</Badge>
@@ -423,7 +425,7 @@ export default function SocialAnalysisView() {
                                                                                 </div>
                                                                                 <span className="text-slate-400 text-xs mt-0.5">{r.comment}</span>
                                                                             </div>
-                                                                            {r.ticker.match(/^\d{6}$/) && (
+                                                                            {r.ticker.match(/^\\d{6}$/) && (
                                                                                 <ChevronRightIcon className="w-4 h-4 text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:text-white" />
                                                                             )}
                                                                         </div>
@@ -683,3 +685,8 @@ export default function SocialAnalysisView() {
         </div>
     );
 }
+"""
+
+with open("client/src/components/insight/SocialAnalysisView.tsx", "w") as f:
+    f.write(content)
+
