@@ -1,4 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import os
+
+content = """import { useState, useRef, useEffect } from "react";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { TrendingUp, TrendingDown, Globe, Megaphone, Target, Calendar as CalendarIcon, ChevronDown, BarChart3, Newspaper, Twitter, Star, MessageSquare, ArrowUp, ArrowDown, ChevronLeft, ChevronRight, X, ExternalLink, ChevronRight as ChevronRightIcon, CheckCircle2, PauseCircle, AlertTriangle, Activity } from "lucide-react";
@@ -45,7 +47,7 @@ const StockLogo = ({ ticker, name, className }: { ticker: string, name: string, 
     else if (name === "한화오션") logoUrl = "https://logo.clearbit.com/hanwhaocean.com";
     else if (name === "셀트리온") logoUrl = "https://logo.clearbit.com/celltrion.com";
     else if (name === "S-Oil") logoUrl = "https://logo.clearbit.com/s-oil.com";
-    else if (ticker && ticker.match(/^\d{6}$/)) {
+    else if (ticker && ticker.match(/^\\d{6}$/)) {
         logoUrl = `https://file.alphasquare.co.kr/media/images/stock_logo/kr/${ticker}.png`;
     } else {
         logoUrl = `https://logo.clearbit.com/${ticker.toLowerCase()}.com`;
@@ -437,7 +439,7 @@ export default function SocialAnalysisView() {
                                         <StockLogo ticker={item.ticker} name={item.name} />
                                         <div className="flex flex-col">
                                             <span className="text-white font-bold text-sm">{item.name}</span>
-                                            {item.ticker.match(/^\d{6}$/) ? (
+                                            {item.ticker.match(/^\\d{6}$/) ? (
                                                 <span className="text-slate-500 text-[10px] font-mono">{item.ticker}</span>
                                             ) : (
                                                 <Badge variant="outline" className="w-fit text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800">해외</Badge>
@@ -695,3 +697,8 @@ export default function SocialAnalysisView() {
         </div>
     );
 }
+"""
+
+with open("client/src/components/insight/SocialAnalysisView.tsx", "w") as f:
+    f.write(content)
+
