@@ -1,0 +1,153 @@
+Apply the following three updates. Do NOT merge or combine any sections — 
+each section must remain fully independent and fully rendered.
+
+---
+
+## 1. 주요 인사 발언 / 시장 영향 분석 — 완전 분리 유지
+
+These are TWO separate, standalone sections. Do NOT merge, combine, 
+or nest one inside the other under any circumstances.
+
+**① 주요 인사 발언 섹션 (독립)**
+- 섹션 타이틀: `🎙 주요 인사 발언`
+- 부제: `text-slate-400 text-sm` — "오늘 증권 관련 주요 발언을 모니터링했습니다"
+- Columns: 인물 (아바타+이름+국기) | 플랫폼 | 발언 요약 | 수혜 종목 | 리스크 종목 | 강도
+- NO market direction/impact column here — 발언 사실만 표시
+- Full mock data for every row — no row may have empty 발언 요약
+
+**② 시장 영향 분석 섹션 (독립)**
+- 섹션 타이틀: `📊 시장 영향 분석`
+- 부제: `text-slate-400 text-sm` — "각 발언이 국내 증시에 미칠 영향을 분석했습니다"
+- Columns: 종목 (로고+이름+코드) | 섹터 | 영향 근거 | 방향 아이콘 | 강도 ★★★ | 주요 언급 인사
+- This section has its OWN complete rows, independent of the 발언 table above
+- Every row must have full content — no empty cells, no placeholder dashes except where genuinely N/A
+
+Both sections must:
+- Be fully visible on page load (no accordion, no click-to-expand)
+- Have their own section header, subtitle, and divider
+- Be separated by `mb-20 border-t-2 border-slate-700/50`
+
+---
+
+## 2. 상승/하락 방향 아이콘 — 주식 전용 아이콘으로 교체
+
+Replace ALL plain arrow characters (↑ ↓ ↗ ↘ →) used for market direction 
+with purpose-built stock market visual indicators.
+
+**방향별 아이콘 컴포넌트:**
+
+수혜 (상승 기대):
+```jsx
+<div className="flex flex-col items-center gap-0.5">
+  <div className="flex items-center gap-1">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      {/* Candlestick-style up bar */}
+      <rect x="10" y="8" width="4" height="10" fill="#34d399" rx="1"/>
+      <line x1="12" y1="2" x2="12" y2="8" stroke="#34d399" strokeWidth="2"/>
+      <line x1="12" y1="18" x2="12" y2="22" stroke="#34d399" strokeWidth="2"/>
+      {/* Up arrow */}
+      <polyline points="6,10 12,4 18,10" fill="none" stroke="#34d399" strokeWidth="2.5" strokeLinecap="round"/>
+    </svg>
+    <span className="text-emerald-400 text-xs font-bold">수혜</span>
+  </div>
+  {/* Mini rising bar chart */}
+  <div className="flex items-end gap-[2px] h-4">
+    <div className="w-1.5 h-1.5 bg-emerald-600 rounded-sm"/>
+    <div className="w-1.5 h-2.5 bg-emerald-500 rounded-sm"/>
+    <div className="w-1.5 h-3.5 bg-emerald-400 rounded-sm"/>
+    <div className="w-1.5 h-4 bg-emerald-300 rounded-sm"/>
+  </div>
+</div>
+```
+
+리스크 (하락 우려):
+```jsx
+<div className="flex flex-col items-center gap-0.5">
+  <div className="flex items-center gap-1">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      {/* Candlestick-style down bar */}
+      <rect x="10" y="6" width="4" height="10" fill="#ff7c7e" rx="1"/>
+      <line x1="12" y1="2" x2="12" y2="6" stroke="#ff7c7e" strokeWidth="2"/>
+      <line x1="12" y1="16" x2="12" y2="22" stroke="#ff7c7e" strokeWidth="2"/>
+      {/* Down arrow */}
+      <polyline points="6,14 12,20 18,14" fill="none" stroke="#ff7c7e" strokeWidth="2.5" strokeLinecap="round"/>
+    </svg>
+    <span className="text-[#ff7c7e] text-xs font-bold">리스크</span>
+  </div>
+  {/* Mini falling bar chart */}
+  <div className="flex items-end gap-[2px] h-4">
+    <div className="w-1.5 h-4 bg-[#ff7c7e] rounded-sm opacity-90"/>
+    <div className="w-1.5 h-3 bg-[#ff7c7e] rounded-sm opacity-70"/>
+    <div className="w-1.5 h-2 bg-[#ff7c7e] rounded-sm opacity-50"/>
+    <div className="w-1.5 h-1 bg-[#ff7c7e] rounded-sm opacity-30"/>
+  </div>
+</div>
+```
+
+관망 (중립):
+```jsx
+<div className="flex flex-col items-center gap-0.5">
+  <div className="flex items-center gap-1">
+    <svg width="20" height="20" viewBox="0 0 24 24" fill="none">
+      {/* Flat line with bi-directional caret */}
+      <line x1="4" y1="12" x2="20" y2="12" stroke="#94a3b8" strokeWidth="2"/>
+      <polyline points="7,9 4,12 7,15" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round"/>
+      <polyline points="17,9 20,12 17,15" fill="none" stroke="#94a3b8" strokeWidth="2" strokeLinecap="round"/>
+    </svg>
+    <span className="text-slate-400 text-xs font-bold">관망</span>
+  </div>
+  {/* Flat bar chart */}
+  <div className="flex items-end gap-[2px] h-4">
+    <div className="w-1.5 h-2.5 bg-slate-600 rounded-sm"/>
+    <div className="w-1.5 h-2 bg-slate-600 rounded-sm"/>
+    <div className="w-1.5 h-3 bg-slate-600 rounded-sm"/>
+    <div className="w-1.5 h-2.5 bg-slate-600 rounded-sm"/>
+  </div>
+</div>
+```
+
+소폭 수혜 (↗ 대체):
+- Same as 수혜 but bar chart only 3 bars, lighter opacity: `opacity-60`
+- Label: `text-emerald-500 text-xs` "소폭 수혜"
+
+소폭 리스크 (↘ 대체):
+- Same as 리스크 but bar chart only 3 bars, lighter opacity: `opacity-60`
+- Label: `text-[#ff7c7e] text-xs opacity-70` "소폭 리스크"
+
+Apply these icon components:
+- 시장 영향 분석 테이블 방향 열
+- 긍/부정 종목 종합 카드 아이콘 배지
+- 섹터별 영향 분석 섹터 카드 방향 표시
+- 섹터 요약 행 화살표 전체 교체
+
+---
+
+## 3. 내용 누락 없이 완전하게 작성
+
+Every section must be fully populated. No section, row, or field may be 
+left empty, placeholder, or abbreviated. Apply these rules strictly:
+
+**주요 인사 발언 테이블:**
+- Minimum 6 rows of mock data
+- Every row must have:
+  - 인물: 아바타 이미지 + 이름 + 국기 emoji + 팔로워/구독자 수 한 줄
+  - 플랫폼: styled badge
+  - 발언 요약: 2–3 complete sentences, specific and grounded (no generic filler)
+  - 수혜 종목: at least 1 stock chip with logo (or "–" only if truly none)
+  - 리스크 종목: at least 1 stock chip with logo (or "–" only if truly none)
+  - 강도: ★ filled appropriately per row
+
+**시장 영향 분석 테이블:**
+- Minimum 7 rows (can overlap stocks from 발언 table, but rows are independent)
+- Every row must have:
+  - 종목: logo + 종목명 + 종목코드
+  - 섹터: sector badge
+  - 영향 근거: 1–2 complete sentences — journalist tone, no AI filler phrases
+    ("AI 설비 발언 이후 시선이 쏠리고 있습니다" style)
+  - 방향: new stock icon component (수혜/리스크/관망/소폭수혜/소폭리스크)
+  - 강도 ★★★: filled stars
+  - 주요 언급 인사: influencer name chip
+
+**긍/부정 종목 종합:**
+- Minimum 4 cards each side (수혜/리스크)
+- Each card: logo +

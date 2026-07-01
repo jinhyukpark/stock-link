@@ -1,4 +1,6 @@
-import { useState, useRef, useEffect } from "react";
+import os
+
+content = """import { useState, useRef, useEffect } from "react";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
 import { TrendingUp, TrendingDown, Globe, Megaphone, Target, Calendar as CalendarIcon, ChevronDown, BarChart3, Newspaper, Twitter, Star, MessageSquare, ArrowUp, ArrowDown, ChevronLeft, ChevronRight, X, ExternalLink, ChevronRight as ChevronRightIcon, CheckCircle2, PauseCircle, AlertTriangle, Activity } from "lucide-react";
@@ -50,7 +52,7 @@ const StockLogo = ({ ticker, name, className }: { ticker: string, name: string, 
     else if (name === "한미반도체") logoUrl = "https://logo.clearbit.com/hanmisemi.com";
     else if (name === "NVIDIA" || name === "NVDA") logoUrl = "https://logo.clearbit.com/nvidia.com";
     else if (name === "HD현대중공업") logoUrl = "https://logo.clearbit.com/hdhyundai.com";
-    else if (ticker && ticker.match(/^\d{6}$/)) {
+    else if (ticker && ticker.match(/^\\d{6}$/)) {
         logoUrl = `https://file.alphasquare.co.kr/media/images/stock_logo/kr/${ticker}.png`;
     } else if (ticker !== "N/A" && ticker !== "SPY" && ticker !== "QQQ" && ticker !== "XLF") {
         logoUrl = `https://logo.clearbit.com/${ticker.toLowerCase()}.com`;
@@ -490,8 +492,8 @@ export default function SocialAnalysisView() {
                                 <th className="px-6 py-4 w-48 font-semibold text-left">인물</th>
                                 <th className="px-6 py-4 w-32 font-semibold text-center">플랫폼</th>
                                 <th className="px-6 py-4 min-w-[220px] font-semibold text-left">발언 요약</th>
-                                <th className="px-6 py-4 min-w-[140px] w-40 font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-l border-emerald-900/20">📈 수혜 종목</th>
-                                <th className="px-6 py-4 min-w-[140px] w-40 font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-l border-[#ff7c7e]/10">📉 리스크 종목</th>
+                                <th className="px-6 py-4 w-40 font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-l border-emerald-900/20">📈 수혜 종목</th>
+                                <th className="px-6 py-4 w-40 font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-l border-[#ff7c7e]/10">📉 리스크 종목</th>
                                 <th className="px-6 py-4 w-28 font-semibold text-center">강도</th>
                             </tr>
                         </thead>
@@ -595,7 +597,7 @@ export default function SocialAnalysisView() {
                                                 <StockLogo ticker={item.ticker} name={item.name} className="w-8 h-8 rounded-md" />
                                                 <div className="flex flex-col">
                                                     <span className="text-white font-bold text-sm">{item.name}</span>
-                                                    {item.ticker.match(/^\d{6}$/) ? (
+                                                    {item.ticker.match(/^\\d{6}$/) ? (
                                                         <span className="text-slate-500 text-[10px] font-mono">{item.ticker}</span>
                                                     ) : (
                                                         <Badge variant="outline" className="w-fit text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800 mt-0.5">해외</Badge>
@@ -826,3 +828,8 @@ export default function SocialAnalysisView() {
         </div>
     );
 }
+"""
+
+with open("client/src/components/insight/SocialAnalysisView.tsx", "w") as f:
+    f.write(content)
+
