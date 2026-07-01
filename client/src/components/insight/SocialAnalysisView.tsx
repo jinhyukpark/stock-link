@@ -14,7 +14,7 @@ const flagUrl = (countryCode: string) => `https://flagcdn.com/w40/${countryCode.
 
 const influencerAvatars: Record<string, string> = {
   '일론 머스크': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/240px-Elon_Musk_Royal_Society_%28crop2%29.jpg',
-  '도널드 트럼프': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/240px-Donald_Trump_official_portrait.jpg',
+  '도널드 트럼프': '/images/trump.png',
   '이창용': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Chang_Yong_Rhee_%28cropped%29.jpg/240px-Chang_Yong_Rhee_%28cropped%29.jpg',
   '짐 크레이머': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Jim_Cramer_2012_Shankbone.jpg/240px-Jim_Cramer_2012_Shankbone.jpg',
   '워런 버핏': 'https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Warren_Buffett_KU_Visit.jpg/240px-Warren_Buffett_KU_Visit.jpg',
@@ -479,14 +479,14 @@ export default function SocialAnalysisView() {
                         <tbody className="divide-y divide-white/5">
                             {data.speakers.map((item, i) => (
                                 <tr key={`speaker-${item.id}`} className={cn(i % 2 === 0 ? "bg-slate-800/60" : "bg-slate-900", "align-top")}>
-                                    <td className="px-6 py-5 min-w-[140px]">
+                                    <td className="px-6 py-5 min-w-[160px]">
                                         <div className="flex items-center gap-3">
                                             <div className="flex flex-col items-center gap-1 shrink-0">
                                                 <Avatar name={item.speaker} />
                                             </div>
                                             <div className="flex flex-col gap-0.5 min-w-0">
                                                 <div className="flex items-center gap-1.5 whitespace-nowrap">
-                                                    <span className="text-white font-bold text-sm truncate max-w-[80px]">{item.speaker}</span>
+                                                    <span className="text-white font-bold text-sm">{item.speaker}</span>
                                                     <img 
                                                         src={flagUrl(item.countryCode)} 
                                                         alt={item.country}
@@ -504,7 +504,7 @@ export default function SocialAnalysisView() {
                                     </td>
 
                                     <td className="px-6 py-5 pr-8">
-                                        <div className="text-slate-200 text-sm leading-relaxed">
+                                        <div className="text-slate-200 text-sm leading-relaxed line-clamp-3">
                                             {item.summary}
                                         </div>
                                     </td>
@@ -610,10 +610,10 @@ export default function SocialAnalysisView() {
                                             </div>
                                         </td>
 
-                                        <td className="px-6 py-5 min-w-[120px]">
+                                        <td className="px-6 py-5 min-w-[160px]">
                                             <div className="flex items-center gap-2 text-slate-300 text-sm whitespace-nowrap">
                                                 <Avatar name={item.influencer} className="w-6 h-6 text-[10px] border border-slate-600 shrink-0" />
-                                                <span className="font-medium text-xs truncate max-w-[80px]">{item.influencer}</span>
+                                                <span className="font-medium text-xs">{item.influencer}</span>
                                             </div>
                                         </td>
                                     </tr>
