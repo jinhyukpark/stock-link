@@ -13,7 +13,7 @@ import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recha
 const flagUrl = (countryCode: string) => `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
 
 const influencerAvatars: Record<string, string> = {
-  '일론 머스크': 'https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/240px-Elon_Musk_Royal_Society_%28crop2%29.jpg',
+  '일론 머스크': '/images/elon.png',
   '도널드 트럼프': '/images/trump.png',
   '이창용': 'https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Chang_Yong_Rhee_%28cropped%29.jpg/240px-Chang_Yong_Rhee_%28cropped%29.jpg',
   '짐 크레이머': 'https://upload.wikimedia.org/wikipedia/commons/thumb/e/e1/Jim_Cramer_2012_Shankbone.jpg/240px-Jim_Cramer_2012_Shankbone.jpg',
