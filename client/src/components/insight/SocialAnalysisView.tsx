@@ -573,7 +573,7 @@ export default function SocialAnalysisView() {
                                     <tr key={`impact-${item.id}`} className={cn(
                                         i % 2 === 0 ? "bg-slate-800/60" : "bg-slate-900", 
                                         "align-middle",
-                                        isHighImpact ? "border-l-2 border-l-amber-400" : "border-l-2 border-l-transparent"
+                                        "border-l-2 border-l-transparent"
                                     )}>
                                         <td className="px-6 py-5">
                                             <div className="flex items-center gap-3">
