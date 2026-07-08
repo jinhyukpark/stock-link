@@ -448,11 +448,11 @@ export default function SocialAnalysisView() {
             <section className="mb-16">
                 <SectionTitle icon={Megaphone} title="주요 하이라이트" />
                 <div className="bg-slate-800/40 rounded-xl border border-white/5 p-6">
-                    <ul className="space-y-4">
+                    <ul className="space-y-5">
                         {data.highlights.map((highlight, idx) => (
-                            <li key={idx} className="flex gap-3 text-slate-300 text-sm leading-relaxed items-start">
-                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 flex-shrink-0" />
-                                <div>{highlight}</div>
+                            <li key={idx} className="flex gap-3 text-slate-200 text-base leading-relaxed items-start">
+                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2.5 flex-shrink-0" />
+                                <div className="font-medium tracking-wide">{highlight}</div>
                             </li>
                         ))}
                     </ul>
