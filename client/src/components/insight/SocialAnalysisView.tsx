@@ -435,28 +435,28 @@ export default function SocialAnalysisView() {
                 <SectionTitle icon={Target} title="🎙 주요 인사 발언" subtitle="오늘 증권 관련 주요 발언을 모니터링했습니다" />
                 <div className="bg-slate-900 border border-white/10 rounded-xl overflow-hidden shadow-lg w-full overflow-x-auto custom-scrollbar">
                     
-                    <table className="w-full text-left min-w-[1100px] border-collapse">
-                        <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                    <table className="w-full text-left min-w-[1300px] border-collapse">
+                        <thead className="bg-[#1e2338] text-xs font-semibold text-slate-300 border-b border-slate-700">
                             <tr>
-                                <th className="px-6 py-4 w-48 font-semibold text-left">인물</th>
-                                <th className="px-6 py-4 w-32 font-semibold text-center">플랫폼</th>
-                                <th className="px-6 py-4 min-w-[220px] font-semibold text-left">발언 요약</th>
-                                <th className="px-6 py-4 min-w-[140px] w-40 font-semibold text-emerald-400 text-xs bg-emerald-900/10 text-left border-l border-emerald-900/20">📈 수혜 종목</th>
-                                <th className="px-6 py-4 min-w-[140px] w-40 font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-l border-[#ff7c7e]/10">📉 리스크 종목</th>
+                                <th className="px-6 py-4 w-28 font-semibold text-left">주요 인사</th>
+                                <th className="px-6 py-4 w-32 font-semibold text-left">직책/소속</th>
+                                <th className="px-6 py-4 min-w-[400px] font-semibold text-left">핵심 발언 요약</th>
+                                <th className="px-6 py-4 w-80 font-semibold text-left">영향받은 종목 리스트</th>
+                                <th className="px-6 py-4 w-28 font-semibold text-center">방향</th>
                                 <th className="px-6 py-4 w-28 font-semibold text-center">강도</th>
+                                <th className="px-6 py-4 w-28 font-semibold text-center">발언 시각</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
                             {data.speakers.map((item, i) => {
-                                const hasPositive = item.positiveStocks.length > 0;
-                                const hasNegative = item.negativeStocks.length > 0;
-                                let direction = "관망";
-                                if (hasPositive && hasNegative) direction = "혼조";
-                                else if (hasPositive) direction = "수혜";
-                                else if (hasNegative) direction = "리스크";
+                                // Determine overall direction based on stock lists
+                                let overallDirection = '관망';
+                                if (item.positiveStocks.length > 0 && item.negativeStocks.length === 0) overallDirection = '수혜';
+                                else if (item.negativeStocks.length > 0 && item.positiveStocks.length === 0) overallDirection = '리스크';
+                                else if (item.positiveStocks.length > 0 && item.negativeStocks.length > 0) overallDirection = '혼조';
 
                                 return (
-                                <tr key={`speaker-${item.id}`} className={cn(i % 2 === 0 ? "bg-slate-800/60" : "bg-slate-900", "align-top")}>
+                                <tr key={`speaker-${item.id}`} className={cn(i % 2 === 0 ? "bg-[#161a29]" : "bg-[#1a1e2f]", "align-top hover:bg-slate-800/50 transition-colors")}>
                                     <td className="px-6 py-5">
                                         <span className="text-white font-bold text-sm whitespace-nowrap">{item.speaker}</span>
                                     </td>
@@ -466,50 +466,45 @@ export default function SocialAnalysisView() {
                                     </td>
 
                                     <td className="px-6 py-5 pr-8">
-                                        <p className="text-slate-300 text-sm leading-relaxed line-clamp-3">
+                                        <div className="text-slate-300 text-[13px] leading-relaxed">
                                             {item.summary}
-                                        </p>
-                                    </td>
-
-                                    <td className="px-6 py-5 border-l border-white/5">
-                                        <div className="flex flex-col gap-3">
-                                            {hasPositive && (
-                                                <div className="flex flex-col gap-1.5">
-                                                    <span className="text-emerald-400 font-semibold text-[10px] uppercase tracking-wider">📈 수혜 종목</span>
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {item.positiveStocks.map((s: any, idx: number) => (
-                                                            <div key={idx} className="flex items-center gap-1">
-                                                                <span className="text-slate-200 text-xs">{s.name}</span>
-                                                                <span className="text-slate-500 text-[10px] font-mono">({s.ticker})</span>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            )}
-                                            {hasNegative && (
-                                                <div className="flex flex-col gap-1.5 mt-1">
-                                                    <span className="text-rose-400 font-semibold text-[10px] uppercase tracking-wider">📉 리스크 종목</span>
-                                                    <div className="flex flex-wrap gap-2">
-                                                        {item.negativeStocks.map((s: any, idx: number) => (
-                                                            <div key={idx} className="flex items-center gap-1">
-                                                                <span className="text-slate-200 text-xs">{s.name}</span>
-                                                                <span className="text-slate-500 text-[10px] font-mono">({s.ticker})</span>
-                                                            </div>
-                                                        ))}
-                                                    </div>
-                                                </div>
-                                            )}
                                         </div>
                                     </td>
 
+                                    <td className="px-6 py-5">
+                                        <div className="flex flex-col gap-2">
+                                            {item.positiveStocks.length > 0 && (
+                                                <div className="flex flex-col gap-1">
+                                                    <span className="text-emerald-400 text-[11px] font-bold">상승 기대 종목</span>
+                                                    <div className="flex flex-wrap gap-x-2 gap-y-1">
+                                                        {item.positiveStocks.map((stock, idx) => (
+                                                            <span key={idx} className="text-slate-300 text-xs flex items-center gap-1 bg-emerald-950/20 px-1.5 py-0.5 rounded border border-emerald-900/30">
+                                                                {stock.name} <span className="text-slate-500 text-[10px] font-mono">{stock.ticker}</span>
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {item.negativeStocks.length > 0 && (
+                                                <div className="flex flex-col gap-1">
+                                                    <span className="text-[#ff7c7e] text-[11px] font-bold">하락 우려 종목</span>
+                                                    <div className="flex flex-wrap gap-x-2 gap-y-1">
+                                                        {item.negativeStocks.map((stock, idx) => (
+                                                            <span key={idx} className="text-slate-300 text-xs flex items-center gap-1 bg-rose-950/20 px-1.5 py-0.5 rounded border border-rose-900/30">
+                                                                {stock.name} <span className="text-slate-500 text-[10px] font-mono">{stock.ticker}</span>
+                                                            </span>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {item.positiveStocks.length === 0 && item.negativeStocks.length === 0 && (
+                                                <span className="text-slate-500 text-xs">-</span>
+                                            )}
+                                        </div>
+                                    </td>
+                                    
                                     <td className="px-6 py-5 text-center">
-                                        <div className="flex justify-center">
-                                            {direction === '혼조' ? (
-                                                <Badge variant="outline" className="w-fit text-[11px] px-2 py-0.5 border-slate-600 text-slate-300 bg-slate-800/50">혼조</Badge>
-                                            ) : (
-                                                <DirectionBadge type={direction} />
-                                            )}
-                                        </div>
+                                        <DirectionBadge type={overallDirection} />
                                     </td>
 
                                     <td className="px-6 py-5 text-center">
@@ -519,20 +514,19 @@ export default function SocialAnalysisView() {
                                                     key={idx} 
                                                     className={cn(
                                                         "w-3.5 h-3.5", 
-                                                        idx < item.stars 
-                                                            ? (direction === '리스크' ? "fill-[#ff7c7e] text-[#ff7c7e]" : "fill-emerald-400 text-emerald-400") 
-                                                            : "fill-slate-700 text-slate-700"
+                                                        idx < item.stars ? "fill-amber-400 text-amber-400" : "fill-slate-700 text-slate-700"
                                                     )} 
                                                 />
                                             ))}
                                         </div>
                                     </td>
-
+                                    
                                     <td className="px-6 py-5 text-center">
-                                        <span className="text-slate-400 text-[11px] whitespace-nowrap">{item.time || '2026-04-24'}</span>
+                                        <span className="text-slate-400 text-[11px] whitespace-nowrap">{item.time || "2026-04-24 15:30"}</span>
                                     </td>
                                 </tr>
-                            )})}
+                                )
+                            })}
                         </tbody>
                     </table>
                 </div>
