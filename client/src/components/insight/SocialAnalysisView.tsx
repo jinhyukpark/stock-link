@@ -54,6 +54,27 @@ const Avatar = ({ name, className }: { name: string, className?: string }) => {
     const src = influencerAvatars[name];
     const initials = name.replace(/\s/g, '').slice(0, 2);
 
+    
+    const groupedMarketImpact = Object.values(data.marketImpact.reduce((acc, item) => {
+        if (!acc[item.speaker]) {
+            acc[item.speaker] = {
+                speaker: item.speaker,
+                speakerTitle: item.speakerTitle || "주요 인사",
+                stars: item.stars,
+                stocks: []
+            };
+        }
+        acc[item.speaker].stocks.push({
+            name: item.name,
+            ticker: item.ticker,
+            direction: item.direction,
+            comment: item.comment,
+            stars: item.stars
+        });
+        acc[item.speaker].stars = Math.max(acc[item.speaker].stars, item.stars);
+        return acc;
+    }, {} as Record<string, any>)).sort((a: any, b: any) => b.stars - a.stars);
+
     return (
         <div className={cn("relative flex-shrink-0", className || "w-14 h-14")}>
             {src && (
@@ -502,7 +523,7 @@ export default function SocialAnalysisView() {
                                         </div>
                                     </td>
 
-                                    <td className="px-6 py-5">
+                                    <td className="px-6 py-6">
                                         <div className="flex justify-center h-full pt-1">
                                             <Stars count={item.stars} />
                                         </div>
@@ -541,7 +562,7 @@ export default function SocialAnalysisView() {
                                         "align-middle",
                                         "border-l-2 border-l-transparent"
                                     )}>
-                                        <td className="px-6 py-5">
+                                        <td className="px-6 py-6">
                                             <div className="flex items-center gap-3">
                                                 <StockLogo ticker={item.ticker} name={item.name} className="w-8 h-8 rounded-md" />
                                                 <div className="flex flex-col">
@@ -565,13 +586,13 @@ export default function SocialAnalysisView() {
                                             </div>
                                         </td>
 
-                                        <td className="px-6 py-5">
+                                        <td className="px-6 py-6">
                                             <div className="flex justify-center">
                                                 <DirectionBadge type={item.direction} />
                                             </div>
                                         </td>
 
-                                        <td className="px-6 py-5">
+                                        <td className="px-6 py-6">
                                             <div className="flex justify-center">
                                                 <Stars count={item.stars} />
                                             </div>
