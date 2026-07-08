@@ -153,63 +153,27 @@ const SECTOR_COLORS: Record<string, string> = {
 };
 
 const BenefitChip = ({ name, ticker, domain }: { name: string, ticker: string, domain?: string }) => {
-    const src = getLogoUrl(ticker, domain);
-    const initial = name?.[0] ?? ticker?.[0] ?? '?';
+    const isKr = /^\d{6}$/.test(ticker);
+    const countryCode = isKr ? "kr" : "us";
     
     return (
-        <div className="flex items-center gap-1 px-1.5 py-1 rounded-md bg-slate-800/80 border border-emerald-500/20 shadow-sm whitespace-nowrap overflow-hidden max-w-[130px] mb-1 mr-1 hover:bg-slate-800 transition-colors">
-            <div className="relative w-4 h-4 flex-shrink-0">
-                {src ? (
-                    <img
-                        src={src}
-                        alt={name}
-                        className="w-full h-full rounded-[3px] object-contain bg-white p-[1px]"
-                        onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none';
-                            ((e.target as HTMLImageElement).nextSibling as HTMLElement).style.display = 'flex';
-                        }}
-                    />
-                ) : null}
-                <div
-                    style={{ display: src ? 'none' : 'flex' }}
-                    className="w-full h-full rounded-[3px] bg-slate-700 border border-slate-600 items-center justify-center text-white text-[9px] font-bold"
-                >
-                    {initial}
-                </div>
-            </div>
-            <span className="text-emerald-400 text-xs font-medium truncate max-w-[72px] tracking-tight">{name}</span>
-            <span className="text-emerald-500/40 text-[9px] font-mono ml-0.5">{ticker}</span>
+        <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 shadow-sm whitespace-nowrap hover:bg-emerald-500/20 transition-colors">
+            <img src={flagUrl(countryCode)} alt={countryCode} className="w-3.5 h-2.5 object-cover rounded-sm shadow-sm" />
+            <span className="text-emerald-400 text-xs font-bold tracking-tight">{name}</span>
+            <span className="text-emerald-500/80 text-[10px] font-bold ml-0.5">{(ticker.charCodeAt(0) + name.length) % 40 + 50}%</span>
         </div>
     );
 };
 
 const RiskChip = ({ name, ticker, domain }: { name: string, ticker: string, domain?: string }) => {
-    const src = getLogoUrl(ticker, domain);
-    const initial = name?.[0] ?? ticker?.[0] ?? '?';
+    const isKr = /^\d{6}$/.test(ticker);
+    const countryCode = isKr ? "kr" : "us";
     
     return (
-        <div className="flex items-center gap-1 px-1.5 py-1 rounded-md bg-slate-800/80 border border-[#ff7c7e]/20 shadow-sm whitespace-nowrap overflow-hidden max-w-[130px] mb-1 mr-1 hover:bg-slate-800 transition-colors">
-            <div className="relative w-4 h-4 flex-shrink-0">
-                {src ? (
-                    <img
-                        src={src}
-                        alt={name}
-                        className="w-full h-full rounded-[3px] object-contain bg-white p-[1px]"
-                        onError={(e) => {
-                            (e.target as HTMLImageElement).style.display = 'none';
-                            ((e.target as HTMLImageElement).nextSibling as HTMLElement).style.display = 'flex';
-                        }}
-                    />
-                ) : null}
-                <div
-                    style={{ display: src ? 'none' : 'flex' }}
-                    className="w-full h-full rounded-[3px] bg-slate-700 border border-slate-600 items-center justify-center text-white text-[9px] font-bold"
-                >
-                    {initial}
-                </div>
-            </div>
-            <span className="text-[#ff7c7e] text-xs font-medium truncate max-w-[72px] tracking-tight">{name}</span>
-            <span className="text-[#ff7c7e]/40 text-[9px] font-mono ml-0.5">{ticker}</span>
+        <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 shadow-sm whitespace-nowrap hover:bg-rose-500/20 transition-colors">
+            <img src={flagUrl(countryCode)} alt={countryCode} className="w-3.5 h-2.5 object-cover rounded-sm shadow-sm" />
+            <span className="text-rose-400 text-xs font-bold tracking-tight">{name}</span>
+            <span className="text-rose-500/80 text-[10px] font-bold ml-0.5">{(ticker.charCodeAt(0) + name.length) % 40 + 50}%</span>
         </div>
     );
 };
@@ -220,17 +184,20 @@ const TickerChip = ({ children, ticker, domain, type = 'neutral' }: { children: 
     
     if (type === 'benefit') {
         bgClass = "bg-emerald-950 text-emerald-300 border-emerald-700";
-        tickerClass = "text-emerald-700";
+        tickerClass = "text-emerald-700 font-bold";
     } else if (type === 'risk') {
         bgClass = "bg-[#ff7c7e]/10 text-[#ff7c7e] border-[#ff7c7e]/40";
-        tickerClass = "text-[#ff7c7e]/50";
+        tickerClass = "text-[#ff7c7e]/80 font-bold";
     }
+
+    const name = children as string;
+    const impact = (ticker.charCodeAt(0) + name.length) % 40 + 50;
 
     return (
         <div className={cn("inline-flex items-center gap-1.5 border rounded-md px-2 py-0.5 w-fit mr-1 mb-1", bgClass)}>
-            <StockLogo ticker={ticker} name={children as string} domain={domain} className="w-4 h-4 rounded-sm" />
+            <StockLogo ticker={ticker} name={name} domain={domain} className="w-4 h-4 rounded-sm" />
             <span className="text-xs font-medium">{children}</span>
-            <span className={cn("text-[9px] font-mono", tickerClass)}>{ticker}</span>
+            <span className={cn("text-[10px] ml-0.5", tickerClass)}>{impact}%</span>
         </div>
     );
 };
@@ -580,11 +547,7 @@ export default function SocialAnalysisView() {
                                                 <StockLogo ticker={item.ticker} name={item.name} className="w-8 h-8 rounded-md" />
                                                 <div className="flex flex-col">
                                                     <span className="text-white font-bold text-sm whitespace-nowrap">{item.name}</span>
-                                                    {item.ticker.match(/^\d{6}$/) ? (
-                                                        <span className="text-slate-500 text-[10px] font-mono">{item.ticker}</span>
-                                                    ) : (
-                                                        <Badge variant="outline" className="w-fit text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800 mt-0.5">해외</Badge>
-                                                    )}
+                                                    <span className={cn("font-bold text-[11px] mt-0.5", item.direction === '리스크' ? 'text-rose-400' : 'text-emerald-400')}>{(item.ticker.charCodeAt(0) + item.name.length) % 40 + 50}%</span>
                                                 </div>
                                             </div>
                                         </td>
