@@ -314,7 +314,7 @@ const navLinks = [
 export default function MarketView() {
   const [date, setDate] = useState<string>(dateOptions[0].value);
   const [open, setOpen] = useState(false);
-  const [selectedChart, setSelectedChart] = useState<{id: string;  title: string; description: string; chart: React.ReactNode; analysis: React.ReactNode; legend?: React.ReactNode; height?: string; hasDualChart?: boolean; kospiChart?: React.ReactNode; kosdaqChart?: React.ReactNode } | null>(null);
+  const [selectedChart, setSelectedChart] = useState<{ title: string; description: string; chart: React.ReactNode; analysis: React.ReactNode; legend?: React.ReactNode; height?: string; hasDualChart?: boolean; kospiChart?: React.ReactNode; kosdaqChart?: React.ReactNode } | null>(null);
   const [marketTab, setMarketTab] = useState<'kospi' | 'kosdaq'>('kospi');
   const [showDescription, setShowDescription] = useState(true);
 

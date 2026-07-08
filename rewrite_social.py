@@ -1,59 +1,22 @@
 import os
 
-filepath = "client/src/components/insight/SocialAnalysisView.tsx"
-with open(filepath, "r") as f:
-    content = f.read()
-
-# I will define the new full content for SocialAnalysisView.tsx
-new_content = """import { useState } from "react";
+content = """import { useState, useRef, useEffect } from "react";
 import { format } from "date-fns";
-import { TrendingUp, TrendingDown, Globe, Megaphone, Target, Calendar as CalendarIcon, ChevronDown, BarChart3, Newspaper, Twitter, Star, MessageSquare, ArrowUp, ArrowDown, ChevronLeft, ChevronRight, X, ExternalLink, ChevronRight as ChevronRightIcon, CheckCircle2, PauseCircle, AlertTriangle, Activity } from "lucide-react";
+import { ko } from "date-fns/locale";
+import { TrendingUp, TrendingDown, Globe, Megaphone, Target, Calendar as CalendarIcon, ChevronDown, BarChart3, Newspaper, Twitter, Star, MessageSquare, ArrowUp, ArrowDown, ChevronLeft, ChevronRight, X, ExternalLink, ChevronRight as ChevronRightIcon, CheckCircle2, PauseCircle, AlertTriangle } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
 import { cn } from "@/lib/utils";
+import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
-// --- Helpers ---
-const flagUrl = (countryCode: string) => `https://flagcdn.com/w40/${countryCode.toLowerCase()}.png`;
-
-const Avatar = ({ name }: { name: string }) => {
-    const images: Record<string, string> = {
-        "제롬 파월": "https://upload.wikimedia.org/wikipedia/commons/thumb/8/8a/Jerome_Powell_official_portrait.jpg/400px-Jerome_Powell_official_portrait.jpg",
-        "일론 머스크": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/cb/Elon_Musk_Royal_Society_crop.jpg/400px-Elon_Musk_Royal_Society_crop.jpg",
-        "젠슨 황": "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Jensen_Huang_%kr%28cropped%29.jpg/400px-Jensen_Huang_%28cropped%29.jpg",
-        "도널드 트럼프": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/400px-Donald_Trump_official_portrait.jpg",
-        "이창용": "https://upload.wikimedia.org/wikipedia/commons/thumb/4/4e/Rhee_Chang-yong_2023.jpg/400px-Rhee_Chang-yong_2023.jpg",
-        "워런 버핏": "https://upload.wikimedia.org/wikipedia/commons/thumb/5/51/Warren_Buffett_KU_KU_Alumni_Association.jpg/400px-Warren_Buffett_KU_KU_Alumni_Association.jpg",
-        "팀 쿡": "https://upload.wikimedia.org/wikipedia/commons/thumb/e/e8/Tim_Cook_2024.jpg/400px-Tim_Cook_2024.jpg",
-        "케빈 워시": "https://upload.wikimedia.org/wikipedia/commons/thumb/2/23/Kevin_Warsh.jpg/400px-Kevin_Warsh.jpg"
-    };
-
-    const src = images[name];
-    const initials = name.substring(0, 2);
-
-    return (
-        <div className="relative w-12 h-12 flex-shrink-0">
-            {src && (
-                <img
-                    src={src}
-                    alt={name}
-                    className="w-full h-full rounded-full object-cover object-top border-2 border-slate-600 shadow-md"
-                    onError={(e) => {
-                        e.currentTarget.style.display = 'none';
-                        (e.currentTarget.nextSibling as HTMLElement).style.display = 'flex';
-                    }}
-                />
-            )}
-            <div
-                style={{ display: src ? 'none' : 'flex' }}
-                className="absolute inset-0 w-full h-full rounded-full bg-slate-700 border-2 border-slate-600 items-center justify-center text-white text-sm font-bold shadow-md"
-            >
-                {initials}
-            </div>
-        </div>
-    );
-};
+// Global Ticker Chip Component
+const TickerChip = ({ children, className }: { children: React.ReactNode, className?: string }) => (
+    <span className={cn("inline-block bg-blue-950 text-blue-300 border border-blue-800 rounded-full px-2 py-0.5 text-xs font-mono font-medium mx-1", className)}>
+        {children}
+    </span>
+);
 
 const HighlightInfluencer = ({ children }: { children: React.ReactNode }) => (
     <strong className="text-slate-200 font-bold">{children}</strong>
@@ -67,226 +30,211 @@ const HighlightNeg = ({ children }: { children: React.ReactNode }) => (
     <strong className="text-[#ff7c7e] font-semibold">{children}</strong>
 );
 
-// 3. Direction Badge (Compact, single-line format)
-const DirectionBadge = ({ type }: { type: string }) => {
-  const config: Record<string, { icon: string, label: string, color: string, bg: string }> = {
-    '수혜':       { icon: '▲', label: '수혜',    color: '#34d399', bg: 'rgba(52,211,153,0.1)'  },
-    '소폭 수혜':   { icon: '↗', label: '소폭수혜', color: '#34d399', bg: 'rgba(52,211,153,0.07)' },
-    '관망':       { icon: '─', label: '관망',    color: '#94a3b8', bg: 'rgba(148,163,184,0.1)' },
-    '소폭 리스크': { icon: '↘', label: '소폭리스크', color: '#ff7c7e', bg: 'rgba(255,124,126,0.07)' },
-    '리스크':     { icon: '▼', label: '리스크',  color: '#ff7c7e', bg: 'rgba(255,124,126,0.1)' },
-  };
+// 1. Logo Component
+const StockLogo = ({ ticker, name, className }: { ticker: string, name: string, className?: string }) => {
+    const [imgError, setImgError] = useState(false);
 
-  const c = config[type] ?? config['관망'];
+    let logoUrl = "";
+    if (name === "삼성전자") logoUrl = "https://logo.clearbit.com/samsung.com";
+    else if (name === "SK하이닉스") logoUrl = "https://logo.clearbit.com/skhynix.com";
+    else if (name === "현대차" || name === "현대건설") logoUrl = "https://logo.clearbit.com/hyundai.com";
+    else if (name === "기아") logoUrl = "https://logo.clearbit.com/kia.com";
+    else if (name === "Apple" || name === "AAPL") logoUrl = "https://logo.clearbit.com/apple.com";
+    else if (name === "Tesla" || name === "TSLA") logoUrl = "https://logo.clearbit.com/tesla.com";
+    else if (name === "카카오") logoUrl = "https://logo.clearbit.com/kakaocorp.com";
+    else if (name === "아모레퍼시픽") logoUrl = "https://logo.clearbit.com/amorepacific.com";
+    else if (ticker && ticker.match(/^\\d{6}$/)) {
+        logoUrl = `https://file.alphasquare.co.kr/media/images/stock_logo/kr/${ticker}.png`;
+    } else {
+        logoUrl = `https://logo.clearbit.com/${ticker.toLowerCase()}.com`;
+    }
 
-  return (
-    <div
-      className="inline-flex items-center justify-center gap-1 px-2 py-1 rounded-md whitespace-nowrap text-xs font-semibold min-w-[70px]"
-      style={{ color: c.color, backgroundColor: c.bg }}
-    >
-      <span className="text-[10px] leading-none">{c.icon}</span>
-      <span className="leading-none">{c.label}</span>
-    </div>
-  );
+    if (imgError || !ticker || ticker === "N/A") {
+        return (
+            <div className={cn("w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center text-white text-xs font-bold shrink-0", className)}>
+                {name.charAt(0)}
+            </div>
+        );
+    }
+
+    return (
+        <img 
+            src={logoUrl} 
+            alt={name} 
+            className={cn("w-8 h-8 rounded-lg object-contain bg-white shrink-0", className)}
+            onError={() => setImgError(true)}
+        />
+    );
+};
+
+// 2. Avatar Component
+const Avatar = ({ name, className }: { name: string, className?: string }) => {
+    const [imgError, setImgError] = useState(false);
+    
+    let imgUrl = "";
+    if (name.includes("일론 머스크") || name.includes("Elon Musk")) {
+        imgUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/220px-Elon_Musk_Royal_Society_%28crop2%29.jpg";
+    } else if (name.includes("도널드 트럼프") || name.includes("Donald Trump")) {
+        imgUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/5/56/Donald_Trump_official_portrait.jpg/220px-Donald_Trump_official_portrait.jpg";
+    } else if (name.includes("짐 크레이머") || name.includes("Jim Cramer")) {
+        imgUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/6/63/Jim_Cramer_2013.jpg/220px-Jim_Cramer_2013.jpg";
+    } else if (name.includes("이재용")) {
+        imgUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/8/87/Lee_Jae-yong_in_2022.jpg/220px-Lee_Jae-yong_in_2022.jpg";
+    } else if (name.includes("젠슨 황") || name.includes("Jensen Huang")) {
+        imgUrl = "https://upload.wikimedia.org/wikipedia/commons/thumb/c/c4/Jensen_Huang_%28cropped%29.jpg/220px-Jensen_Huang_%28cropped%29.jpg";
+    }
+
+    if (imgError || !imgUrl) {
+        return (
+            <div className={cn("w-10 h-10 rounded-full bg-slate-600 flex items-center justify-center text-white text-sm font-bold border-2 border-slate-600 shrink-0", className)}>
+                {name.charAt(0)}
+            </div>
+        );
+    }
+
+    return (
+        <img 
+            src={imgUrl} 
+            alt={name} 
+            className={cn("w-10 h-10 rounded-full object-cover border-2 border-slate-600 shrink-0", className)}
+            onError={() => setImgError(true)}
+        />
+    );
 };
 
 const SECTOR_COLORS: Record<string, string> = {
-    "반도체/AI 인프라": "#60a5fa",
-    "이차전지/전기차": "#34d399",
+    "반도체": "#60a5fa",
+    "2차전지": "#34d399",
     "바이오/헬스케어": "#f472b6",
-    "금융/은행": "#fbbf24",
+    "금융": "#fbbf24",
     "에너지": "#fb923c",
-    "플랫폼/IT": "#a78bfa",
-    "자동차/수출제조업": "#ef4444",
-    "조선/방산/전력": "#0ea5e9"
+    "플랫폼/IT": "#a78bfa"
 };
 
-const StockFlag = ({ countryCode }: { countryCode: string }) => {
-    return (
-        <img 
-            src={flagUrl(countryCode)} 
-            alt={countryCode}
-            className="w-4 h-3 rounded-[2px] object-cover shadow-sm shrink-0"
-            onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-        />
-    )
-}
-
-const BenefitChip = ({ name, percent, countryCode }: { name: string, percent: number, countryCode: string }) => {
-    return (
-        <div className="flex items-center gap-1.5 bg-emerald-950/40 border border-emerald-900/60 rounded px-2 py-1 text-xs">
-            <StockFlag countryCode={countryCode} />
-            <span className="text-emerald-100 font-medium">{name}</span>
-            <span className="text-emerald-400 font-bold">{percent}%</span>
-        </div>
-    );
-};
-
-const RiskChip = ({ name, percent, countryCode }: { name: string, percent: number, countryCode: string }) => {
-    return (
-        <div className="flex items-center gap-1.5 bg-[#ff7c7e]/10 border border-[#ff7c7e]/20 rounded px-2 py-1 text-xs">
-            <StockFlag countryCode={countryCode} />
-            <span className="text-red-100 font-medium">{name}</span>
-            <span className="text-[#ff7c7e] font-bold">{percent}%</span>
-        </div>
-    );
-};
-
-
-// --- MOCK DATA ---
 const MOCK_DATA = {
     "2026-04-26": {
         highlights: [
-            <><HighlightInfluencer>코스피 6,500선 돌파 및 신고가 경신</HighlightInfluencer>: 한국 1분기 실질 GDP가 예상치를 상회하며 서프라이즈를 기록했고, 삼성전자 역대 최대 분기 실적으로 코스피 상승 랠리가 이어지고 있습니다.</>,
-            <><HighlightInfluencer>일론 머스크</HighlightInfluencer>, 테슬라 어닝콜에서 Capex 25% 상향 및 Optimus 대규모 양산 선언 → <HighlightPos>삼성전자</HighlightPos>, <HighlightPos>SK하이닉스</HighlightPos> 주목 집중</>,
-            <><HighlightInfluencer>도널드 트럼프</HighlightInfluencer>, Truth Social에서 15% 보편 관세 재차 강조 → 자동차/수출주 <HighlightNeg>역풍 우려</HighlightNeg> 확산</>,
-            <><HighlightInfluencer>케빈 워시</HighlightInfluencer> 연준 의장 지명자 매파적 발언: 대차대조표 축소 의지 천명으로 모들리 풀은 '증시에 큰 위협' 경고 → 성장주 <HighlightNeg>발목 잡힐 수 있어</HighlightNeg></>,
-            <><HighlightInfluencer>국내 증권사</HighlightInfluencer> AI·방산·원전 비중확대 의견 유지: 코스피 주간 상승 속 반도체·방산·전력기기 강세 지속 전망 → 관련주 <HighlightPos>모멘텀 포착</HighlightPos></>
+            <><HighlightInfluencer>일론 머스크</HighlightInfluencer>, X에서 반도체 공급망 이슈 언급 → <TickerChip>삼성전자</TickerChip> <TickerChip>SK하이닉스</TickerChip> <HighlightPos>단기 주목</HighlightPos></>,
+            <><HighlightInfluencer>도널드 트럼프</HighlightInfluencer>, Truth Social에서 관세 정책 재차 강조 → 자동차/수출주 <HighlightNeg>하방 압력 우려</HighlightNeg></>,
+            <><HighlightInfluencer>미국 핀테크 유튜버 3인</HighlightInfluencer>, 금리 동결 전망 언급 → 금융주 <HighlightPos>긍정 시그널</HighlightPos></>,
+            <><HighlightInfluencer>국내 경제 유튜버</HighlightInfluencer>, 2차전지 섹터 조정 <HighlightNeg>경고</HighlightNeg> → 관련주 <HighlightNeg>변동성 확대 예상</HighlightNeg></>
         ],
-        speakers: [
-            {
-                id: 1,
-                speaker: "이창용", country: "한국", countryCode: "kr",
-                role: "한국은행 총재",
-                platform: "한국은행 / 언론보도", followers: "기자간담회",
-                summary: "한국 1분기 실질 GDP가 전기 대비 1.3% 성장하며 시장 전망치(0.6%)를 크게 웃돌았습니다. 이는 2년 3개월 만에 최고치입니다.",
-                time: "10:30",
-                impact: "높음",
-                positiveStocks: [
-                    { name: "삼성전자", percent: 85, countryCode: "kr" },
-                    { name: "SK하이닉스", percent: 82, countryCode: "kr" },
-                    { name: "KB금융", percent: 65, countryCode: "kr" }
-                ],
-                negativeStocks: [
-                    { name: "카카오뱅크", percent: 45, countryCode: "kr" },
-                    { name: "현대건설", percent: 60, countryCode: "kr" }
-                ]
-            },
-            {
-                id: 2,
-                speaker: "일론 머스크", country: "미국", countryCode: "us",
-                role: "Tesla CEO",
-                platform: "Tesla Q1 2026 어닝콜", followers: "컨퍼런스콜",
-                summary: "테슬라 Q1 실적 발표. EPS 0.45달러로 예상치 하회했으나, 저가형 모델 조기 출시와 로보택시 비전 제시로 애프터마켓 주가 13% 급등.",
-                time: "07:15",
-                impact: "높음",
-                positiveStocks: [
-                    { name: "Tesla", percent: 92, countryCode: "us" },
-                    { name: "LG에너지솔루션", percent: 75, countryCode: "kr" },
-                    { name: "에코프로비엠", percent: 70, countryCode: "kr" }
-                ],
-                negativeStocks: []
-            },
-            {
-                id: 3,
-                speaker: "도널드 트럼프", country: "미국", countryCode: "us",
-                role: "미국 대통령",
-                platform: "Truth Social", followers: "공개 발언",
-                summary: "우리가 백악관에 돌아가면 무역 적자를 줄이고 미국 제조업을 보호하기 위해 15%의 보편 관세를 즉각 도입할 것입니다.",
-                time: "14:22",
-                impact: "높음",
-                positiveStocks: [
-                    { name: "Lockheed Martin", percent: 68, countryCode: "us" },
-                    { name: "한화에어로스페이스", percent: 72, countryCode: "kr" }
-                ],
-                negativeStocks: [
-                    { name: "현대차", percent: 88, countryCode: "kr" },
-                    { name: "기아", percent: 85, countryCode: "kr" },
-                    { name: "Delta Air Lines", percent: 55, countryCode: "us" }
-                ]
-            },
-            {
-                id: 4,
-                speaker: "케빈 워시", country: "미국", countryCode: "us",
-                role: "연준 의장 지명자",
-                platform: "Wall Street Journal", followers: "인터뷰",
-                summary: "현재의 인플레이션 수준은 여전히 목표치를 상회하고 있으며, 필요하다면 추가적인 긴축 조치도 배제하지 않을 것입니다.",
-                time: "09:45",
-                impact: "중간",
-                positiveStocks: [
-                    { name: "JPMorgan", percent: 52, countryCode: "us" },
-                    { name: "신한지주", percent: 48, countryCode: "kr" }
-                ],
-                negativeStocks: [
-                    { name: "Apple", percent: 62, countryCode: "us" },
-                    { name: "NAVER", percent: 75, countryCode: "kr" },
-                    { name: "카카오", percent: 70, countryCode: "kr" }
-                ]
-            }
+        table: [
+            { id: 1, impact: "긍정", stars: 3, speaker: "일론 머스크", platform: "X (Twitter)", summary: "Optimus 로봇 양산 라인 구축 위해 250억 달러 설비투자 상향 발표", related: [{name: "삼성전자", ticker: "005930", comment: "Tesla AI 로봇 투자 확대로 메모리 반도체 수요 증가 기대", sentiment: "positive"}, {name: "SK하이닉스", ticker: "000660", comment: "AI 인프라 투자 확대 수혜", sentiment: "positive"}, {name: "Tesla", ticker: "TSLA", comment: "단기 Capex 급증(250억 달러)으로 수익성 훼손 우려", sentiment: "negative"}, {name: "LG에너지솔루션", ticker: "373220", comment: "테슬라 수익성 악화에 따른 배터리 단가 인하 압박 우려", sentiment: "negative"}], followers: "팔로워 1.8억명", time: "2026-04-26 04:22", fullText: <><HighlightPos>Optimus 로봇 양산 로드맵은 AI 로봇 섹터 전반에 촉매</HighlightPos>가 될 수 있으며, 250억 달러 capex 투자와 맞물려 국내 메모리 반도체 수혜는 <HighlightPos>중장기적으로 유효</HighlightPos>.</>, analysis: "테슬라 AI 로봇 투자 확대로 메모리 반도체 수요 증가 기대. 250억 달러 capex 상향은 국내 메모리 서플라이 체인에 강력한 모멘텀. 단, 단기 비용 증가에 따른 일부 밸류체인 압박 우려 상존." },
+            { id: 2, impact: "부정", stars: 3, speaker: "도널드 트럼프", platform: "Truth Social", summary: "미국 제조업 부활 위한 15% 보편 관세 부과 필요성 강경 발언", related: [{name: "현대차", ticker: "005380", comment: "미국 관세 15% 적용으로 영업이익 감소 우려", sentiment: "negative"}, {name: "기아", ticker: "000270", comment: "미국 수출 물량 타격 우려", sentiment: "negative"}, {name: "Apple", ticker: "AAPL", comment: "공급망 관세 부담 지속", sentiment: "negative"}], followers: "팔로워 650만명", time: "2026-04-26 10:15", fullText: <><HighlightNeg>관세 정책이 미국 제조업 부활, 재정적자 감소, 인플레이션 억제에 도움</HighlightNeg>이 된다는 취지 발언 지속. 최근 관세 발언이 시장의 <HighlightNeg>핵심 리스크 변수</HighlightNeg>로 작용 중.</>, analysis: "트럼프 발언이 단순 SNS를 넘어 최대 변동성 요인으로 구조화됨. 관세 현실화 시 수출주 급락 및 이분법적 구조 고착화 우려." },
+            { id: 3, impact: "중립", stars: 2, speaker: "미국 경제 유튜버 A", platform: "YouTube", summary: "AI 전력 수요 폭발로 데이터센터 인프라 투자 지속될 것", related: [{name: "LS일렉트릭", ticker: "010120", comment: "북미 데이터센터 전력기기 수주 모멘텀 지속", sentiment: "positive"}], followers: "구독자 120만명", time: "2026-04-26 13:40", fullText: <>AI 데이터센터 건설 붐으로 인해 전력기기 및 인프라 관련 수요가 급증하고 있으며 이는 단기 테마가 아닌 다년간 지속될 메가 트렌드입니다.</>, analysis: "전력 인프라 투자는 긍정적이나, 이미 주가에 상당 부분 선반영되어 있어 밸류에이션 부담이 존재. 추가적인 어닝 서프라이즈 필요." },
+            { id: 4, impact: "긍정", stars: 1, speaker: "한국 애널리스트 B", platform: "News", summary: "조선업 슈퍼사이클 진입 및 미국 함정 MRO 사업 수혜 기대", related: [{name: "한화오션", ticker: "042660", comment: "미국 해군 함정 MRO 사업 본격 진출 수혜", sentiment: "positive"}, {name: "HD현대중공업", ticker: "329180", comment: "미국 함정 수주 물량 확대 기대", sentiment: "positive"}], followers: "증권사 리서치 센터", time: "2026-04-26 08:30", fullText: <><HighlightPos>미국 해군 함정 MRO 사업 진출과 신조선가 상승 흐름</HighlightPos>이 맞물리며 국내 주요 조선사들의 <HighlightPos>수익성 개선이 본격화</HighlightPos>될 전망입니다.</>, analysis: "미국 함정 MRO 사업 수주 시 장기적이고 안정적인 캐시카우 확보 가능. 조선업 사이클 상승과 겹쳐 강력한 모멘텀 형성 중." }
         ],
-        sectors: [
-            { sector: "반도체/AI", score: 85, mentions: 427, keywords: ["HBM3E", "Capex 상향", "엔비디아 랠리"], relatedSpeeches: ["일론 머스크: AI 인프라 투자 확대 기조 재확인", "팀 쿡: 자체 AI 칩 개발 가속화 시사"] },
-            { sector: "자동차/수출", score: -72, mentions: 312, keywords: ["15% 보편 관세", "무역 장벽", "IRA 축소"], relatedSpeeches: ["도널드 트럼프: 미국 우선주의 및 보편 관세 15% 재차 강조"] },
-            { sector: "금융/은행", score: 45, mentions: 256, keywords: ["기준금리 동결", "밸류업", "배당 확대"], relatedSpeeches: ["이창용: 단기 금리 인하 기대감 일축", "케빈 워시: 매파적 통화정책 유지 시사"] },
-            { sector: "이차전지", score: 62, mentions: 198, keywords: ["테슬라 로보택시", "저가 모델", "배터리 수요"], relatedSpeeches: ["일론 머스크: 저가형 전기차 라인업 조기 출시 계획 발표"] }
+        positiveStocks: [
+            { ticker: "005930", name: "삼성전자", reason: "AI 로봇 투자 확대로 메모리 반도체 수요 급증 기대", influencer: "일론 머스크" },
+            { ticker: "000660", name: "SK하이닉스", reason: "역대 최대 실적 및 HBM 독주 체제 지속", influencer: "일론 머스크, 한국 애널리스트" },
+            { ticker: "042660", name: "한화오션", reason: "미국 함정 MRO 사업 본격 진출 수혜", influencer: "한국 애널리스트 B" }
         ],
-        comprehensive: {
-            benefits: [
-                { name: "삼성전자", percent: 85, countryCode: "kr", speaker: "일론 머스크, 이창용", reason: "AI 인프라 수요 확대 및 국내 매크로 호조" },
-                { name: "SK하이닉스", percent: 82, countryCode: "kr", speaker: "일론 머스크, 젠슨 황", reason: "HBM3E 독점적 지위 및 엔비디아 랠리 동조" },
-                { name: "Tesla", percent: 92, countryCode: "us", speaker: "일론 머스크", reason: "저가 모델 출시 앞당김 및 로보택시 비전 제시" },
-                { name: "한화에어로스페이스", percent: 72, countryCode: "kr", speaker: "도널드 트럼프", reason: "지정학적 리스크 부각 및 국방 예산 확대 기대" }
-            ],
-            risks: [
-                { name: "현대차", percent: 88, countryCode: "kr", speaker: "도널드 트럼프", reason: "15% 보편 관세로 인한 대미 수출 타격 우려" },
-                { name: "기아", percent: 85, countryCode: "kr", speaker: "도널드 트럼프", reason: "관세 인상 시 가격 경쟁력 약화 및 마진 축소" },
-                { name: "NAVER", percent: 75, countryCode: "kr", speaker: "케빈 워시", reason: "고금리 장기화에 따른 밸류에이션 할인 압박" },
-                { name: "Apple", percent: 62, countryCode: "us", speaker: "케빈 워시, 팀 쿡", reason: "중국 시장 점유율 하락 및 긴축 기조에 따른 수요 둔화" }
-            ]
-        }
+        negativeStocks: [
+            { ticker: "005380", name: "현대차", reason: "미국 보편 관세 15% 적용 시 수출 타격 우려", influencer: "도널드 트럼프" },
+            { ticker: "TSLA", name: "Tesla", reason: "단기 Capex 급증으로 인한 수익성 악화 우려", influencer: "일론 머스크" },
+            { ticker: "N/A", name: "건설주 전반", reason: "금리 동결 장기화로 인한 PF 부담", influencer: "월가 핀테크 블로거" }
+        ],
+        positiveSectors: [
+            { name: "반도체", value: 85 },
+            { name: "방산/우주", value: 72 },
+            { name: "에너지", value: 61 }
+        ],
+        negativeSectors: [
+            { name: "자동차", value: 55 },
+            { name: "2차전지", value: 43 },
+            { name: "플랫폼/IT", value: 36 }
+        ],
+        sectorSummary: [
+            { name: "반도체", positive: 85, negative: 10, comment: "NVIDIA 투자 확대 기대감" },
+            { name: "방산/우주", positive: 72, negative: 11, comment: "지정학적 리스크 지속 중장기 모멘텀" },
+            { name: "에너지", positive: 61, negative: 22, comment: "유가 안정화 및 투자 확대 기대" },
+            { name: "바이오/헬스케어", positive: 48, negative: 27, comment: "신약 개발 기대감 속 임상 불확실성" },
+            { name: "자동차", positive: 30, negative: 55, comment: "관세 부과 우려, 수출 둔화 전망" },
+            { name: "2차전지", positive: 28, negative: 43, comment: "수요 둔화 우려, 중국 경쟁 심화" }
+        ]
+    },
+    "default": {
+        highlights: [
+            <><HighlightInfluencer>짐 크레이머</HighlightInfluencer>, CNBC에서 에너지 섹터 비중 축소 권고 → 정유주 <HighlightNeg>하방 압력</HighlightNeg></>
+        ],
+        table: [
+            { id: 6, impact: "부정", stars: 3, speaker: "짐 크레이머", platform: "CNBC", summary: "유가 정점 통과 가능성. 에너지 관련주 비중 축소 의견 제시", related: [{name: "S-Oil", ticker: "010950", comment: "정제마진 하락 우려", sentiment: "negative"}], followers: "시청자 300만명", time: "2026-04-24 22:30", fullText: <><HighlightNeg>지정학적 리스크 완화</HighlightNeg>로 유가 상승 꺾일 수 있음.</>, analysis: "단기적인 실적 둔화가 예상됨. 비중 축소 고려." }
+        ],
+        positiveStocks: [
+            { ticker: "090430", name: "아모레퍼시픽", reason: "미국 매출 고성장", influencer: "한국 애널리스트" }
+        ],
+        negativeStocks: [
+            { ticker: "010950", name: "S-Oil", reason: "유가 하락 및 정제마진 축소", influencer: "짐 크레이머" }
+        ],
+        positiveSectors: [ { name: "바이오", value: 9 } ],
+        negativeSectors: [ { name: "에너지", value: 8 } ],
+        sectorSummary: [
+            { name: "바이오", positive: 90, negative: 10, comment: "긍정 모멘텀" }
+        ]
     }
 };
 
-
-const SectionTitle = ({ icon: Icon, title, description }: { icon: any, title: string, description?: string }) => (
-    <div className="mb-6">
-        <div className="flex items-center gap-2 mb-2">
-            <Icon className="w-6 h-6 text-blue-400" />
-            <h2 className="text-2xl font-bold text-white tracking-tight">{title}</h2>
-        </div>
-        {description && <p className="text-slate-400 text-base">{description}</p>}
+const SectionTitle = ({ icon: Icon, title }: { icon: any, title: string }) => (
+    <div className="border-b border-white/10 pb-3 mb-6">
+        <h2 className="text-lg font-bold text-white flex items-center gap-2">
+            <Icon className="w-5 h-5 text-blue-400" />
+            {title}
+        </h2>
     </div>
 );
 
-const PlatformBadge = ({ platform }: { platform: string }) => {
-    let colorClass = "bg-slate-800 text-slate-300 border-slate-600";
-    let Icon = Globe;
-    
-    if (platform.includes("X") || platform.includes("Twitter")) {
-        colorClass = "bg-[#1DA1F2]/20 text-[#1DA1F2] border-[#1DA1F2]/50";
-        Icon = Twitter;
-    }
-    else if (platform.includes("Bloomberg") || platform.includes("WSJ") || platform.includes("언론") || platform.includes("News") || platform.includes("기자") || platform.includes("인터뷰")) {
-        colorClass = "bg-indigo-900/50 text-indigo-300 border-indigo-700/50";
-        Icon = Newspaper;
-    }
-    else if (platform.includes("어닝") || platform.includes("실적") || platform.includes("컨퍼런스") || platform.includes("IR")) {
-        colorClass = "bg-emerald-900/50 text-emerald-300 border-emerald-700/50";
-        Icon = BarChart3;
-    }
-    else if (platform.includes("Truth Social") || platform.includes("공개 발언")) {
-        colorClass = "bg-orange-900/50 text-orange-300 border-orange-800";
-        Icon = Megaphone;
-    }
+const ImpactBadge = ({ impact }: { impact: string }) => {
+    if (impact === "긍정") return <span className="inline-block rounded-lg bg-emerald-500 text-white font-bold px-3 py-1 text-sm shadow-sm">긍정</span>;
+    if (impact === "부정") return <span className="inline-block rounded-lg bg-[#ff7c7e] text-white font-bold px-3 py-1 text-sm shadow-sm">부정</span>;
+    return <span className="inline-block rounded-lg bg-slate-500 text-white font-bold px-3 py-1 text-sm shadow-sm">중립</span>;
+};
 
+const Stars = ({ count, className }: { count: number, className?: string }) => {
     return (
-        <span className={cn("inline-flex items-center gap-1.5 px-2.5 py-1 rounded-full text-[11px] font-semibold border whitespace-nowrap", colorClass)}>
-            <Icon className="w-3.5 h-3.5" />
-            {platform}
-        </span>
+        <div className={cn("flex gap-0.5", className)}>
+            {[1, 2, 3].map(i => (
+                <Star key={i} className={cn("w-4 h-4", i <= count ? "fill-amber-400 text-amber-400" : "text-slate-700")} />
+            ))}
+        </div>
     );
 };
 
+const PlatformBadge = ({ platform }: { platform: string }) => {
+    let colorClass = "bg-slate-700 text-slate-200 border-slate-600"; 
+    if (platform === "YouTube") colorClass = "bg-red-900/50 text-red-300 border-red-800";
+    else if (platform === "News") colorClass = "bg-blue-900/50 text-blue-300 border-blue-800";
+    else if (platform === "Truth Social") colorClass = "bg-orange-900/50 text-orange-300 border-orange-800";
+    
+    return <span className={cn("inline-block rounded-full border px-2.5 py-0.5 text-[11px] font-medium", colorClass)}>{platform}</span>;
+}
 
 export default function SocialAnalysisView() {
-    const [dateKey, setDateKey] = useState("2026-04-26");
-    const data = MOCK_DATA[dateKey as keyof typeof MOCK_DATA] || MOCK_DATA["2026-04-26"];
+    const [date, setDate] = useState<Date>(new Date(2026, 3, 26));
+    const [isCalendarOpen, setIsCalendarOpen] = useState(false);
+    const [expandedRow, setExpandedRow] = useState<number | null>(null);
+    
+    const calendarRef = useRef<HTMLDivElement>(null);
+    const btnRef = useRef<HTMLButtonElement>(null);
+
+    useEffect(() => {
+        const handleClickOutside = (event: MouseEvent) => {
+            if (calendarRef.current && !calendarRef.current.contains(event.target as Node)) {
+                setIsCalendarOpen(false);
+            }
+        };
+        if (isCalendarOpen) document.addEventListener("mousedown", handleClickOutside);
+        return () => document.removeEventListener("mousedown", handleClickOutside);
+    }, [isCalendarOpen]);
+
+    const dateKey = format(date, "yyyy-MM-dd");
+    const data = MOCK_DATA[dateKey as keyof typeof MOCK_DATA] || MOCK_DATA["default"];
 
     return (
-        <div className="space-y-4 pb-20 animate-in fade-in duration-500 max-w-[1400px] mx-auto relative overflow-hidden px-4 md:px-6">
+        <div className="space-y-12 pb-16 animate-in fade-in duration-500 max-w-6xl mx-auto relative overflow-hidden">
             
             {/* Header */}
-            <div className="flex flex-col gap-4 mb-8">
+            <div className="flex flex-col gap-4 mb-10">
                 <div className="flex flex-col md:flex-row md:justify-between md:items-start gap-4">
                     <div>
                         <h1 className="text-2xl font-bold text-white flex items-center gap-3">
@@ -299,261 +247,439 @@ export default function SocialAnalysisView() {
                         </div>
                     </div>
 
-                    <div className="flex flex-col items-end gap-2 shrink-0">
-                        {/* Pill Date Tabs */}
-                        <div className="bg-slate-900/80 p-1 rounded-full border border-white/5 flex shadow-inner">
-                            <button
-                                onClick={() => setDateKey("2026-04-25")}
+                    <div className="flex flex-col items-end gap-2 shrink-0 relative z-40">
+                        <div className="relative w-52" ref={calendarRef}>
+                            <Button
+                                ref={btnRef}
+                                variant="outline"
+                                onClick={() => setIsCalendarOpen(!isCalendarOpen)}
                                 className={cn(
-                                    "px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
-                                    dateKey === "2026-04-25" ? "bg-blue-600 text-white shadow-md" : "text-slate-400 hover:text-slate-200 hover:bg-slate-800"
+                                    "w-full justify-start text-left font-medium bg-slate-800 border-slate-700 text-white hover:bg-slate-700 hover:text-white shadow-none rounded-lg px-4 py-2 h-10",
+                                    !date && "text-slate-400"
                                 )}
                             >
-                                04.25
-                            </button>
-                            <button
-                                onClick={() => setDateKey("2026-04-26")}
-                                className={cn(
-                                    "px-4 py-1.5 rounded-full text-sm font-medium transition-all duration-200",
-                                    dateKey === "2026-04-26" ? "bg-blue-600 text-white shadow-md" : "text-slate-400 hover:text-slate-200 hover:bg-slate-800"
-                                )}
-                            >
-                                04.26 (Today)
-                            </button>
+                                <CalendarIcon className="mr-2 h-4 w-4 text-slate-400" />
+                                {date ? format(date, "yyyy년 MM월 dd일", { locale: ko }) : <span>날짜를 선택하세요</span>}
+                                <ChevronDown className="ml-auto h-4 w-4 opacity-50" />
+                            </Button>
+
+                            {isCalendarOpen && (
+                                <div className="absolute top-[calc(100%+4px)] right-0 bg-slate-900 border border-slate-700 rounded-xl shadow-xl shadow-black/50 p-4 w-[280px]">
+                                    <Calendar
+                                        mode="single"
+                                        selected={date}
+                                        onSelect={(d) => {
+                                            if (d) { setDate(d); setIsCalendarOpen(false); }
+                                        }}
+                                        initialFocus
+                                        className="bg-slate-900 text-white w-full mx-auto"
+                                    />
+                                </div>
+                            )}
                         </div>
-                        <span className="text-slate-400 text-[11px]">업데이트: {format(new Date(dateKey), "yyyy.MM.dd")} 18:30 KST</span>
+                        <span className="text-slate-400 text-[11px]">업데이트: {format(date || new Date(), "yyyy.MM.dd")} 18:30 KST</span>
                     </div>
                 </div>
             </div>
 
             {/* 1. 주요 하이라이트 */}
-            <section className="mb-16">
-                <SectionTitle icon={Megaphone} title="주요 하이라이트" />
+            <section>
+                <SectionTitle icon={Megaphone} title="1. 주요 하이라이트" />
                 <div className="bg-slate-800/40 rounded-xl border border-white/5 p-6">
-                    <ul className="space-y-5">
+                    <ul className="space-y-4">
                         {data.highlights.map((highlight, idx) => (
-                            <li key={idx} className="flex gap-3 text-slate-200 text-base leading-relaxed items-start">
-                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2.5 flex-shrink-0" />
-                                <div className="font-medium tracking-wide">{highlight}</div>
+                            <li key={idx} className="flex gap-3 text-slate-300 text-sm leading-relaxed items-start">
+                                <div className="w-1.5 h-1.5 rounded-full bg-blue-400 mt-2 flex-shrink-0" />
+                                <div>{highlight}</div>
                             </li>
                         ))}
                     </ul>
                 </div>
             </section>
 
-            <div className="mb-16 border-t border-slate-700/50"></div>
-
-            {/* 2 & 3. 주요 인사 발언 & 시장 영향도 (통합 구조) */}
-            <section className="mb-16">
-                <SectionTitle icon={Target} title="🎙 주요 인사 발언 및 시장 영향" subtitle="발언자 중심의 파급 효과 분석" />
-                
-                <div className="space-y-6">
-                    {data.speakers.map((item, i) => (
-                        <div key={item.id} className="bg-slate-900 border border-white/10 rounded-xl overflow-hidden shadow-lg">
-                            {/* 발언자 정보 및 요약 헤더 */}
-                            <div className="p-5 flex flex-col md:flex-row gap-6 border-b border-white/5 items-start md:items-center bg-slate-800/30">
-                                {/* 발언자 */}
-                                <div className="flex items-center gap-4 w-full md:w-1/4 shrink-0">
-                                    <Avatar name={item.speaker} />
-                                    <div>
-                                        <div className="flex items-center gap-2">
-                                            <h3 className="text-white font-bold text-lg">{item.speaker}</h3>
-                                            <StockFlag countryCode={item.countryCode} />
-                                        </div>
-                                        <div className="text-slate-400 text-xs">{item.role}</div>
-                                        <div className="mt-1"><PlatformBadge platform={item.platform} /></div>
-                                    </div>
-                                </div>
-                                {/* 발언 요약 */}
-                                <div className="flex-1">
-                                    <div className="text-slate-200 text-base font-medium leading-relaxed">
-                                        "{item.summary}"
-                                        <span className="text-slate-500 text-xs ml-2 font-normal whitespace-nowrap bg-slate-800 px-2 py-0.5 rounded border border-slate-700">{item.time}</span>
-                                    </div>
-                                </div>
-                            </div>
-                            
-                            {/* 영향 종목 리스트 */}
-                            <div className="p-5 grid grid-cols-1 md:grid-cols-2 gap-6 bg-[#0B0E14]">
-                                <div>
-                                    <h4 className="text-emerald-400 font-bold text-sm mb-3 flex items-center gap-2"><ArrowUp className="w-4 h-4"/> 수혜 종목</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {item.positiveStocks.length > 0 ? item.positiveStocks.map(stock => (
-                                            <BenefitChip key={stock.name} name={stock.name} percent={stock.percent} countryCode={stock.countryCode} />
-                                        )) : <span className="text-slate-500 text-sm">해당 없음</span>}
-                                    </div>
-                                </div>
-                                <div>
-                                    <h4 className="text-[#ff7c7e] font-bold text-sm mb-3 flex items-center gap-2"><ArrowDown className="w-4 h-4"/> 리스크 종목</h4>
-                                    <div className="flex flex-wrap gap-2">
-                                        {item.negativeStocks.length > 0 ? item.negativeStocks.map(stock => (
-                                            <RiskChip key={stock.name} name={stock.name} percent={stock.percent} countryCode={stock.countryCode} />
-                                        )) : <span className="text-slate-500 text-sm">해당 없음</span>}
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                    ))}
-                </div>
-            </section>
-
-            <div className="mb-16 border-t border-slate-700/50"></div>
-
-            {/* 4. 수혜 / 리스크 종합 요약 테이블 */}
-            <section className="mb-16">
-                <SectionTitle icon={BarChart3} title="📋 종합 요약 테이블" subtitle="수혜 및 리스크 종목 상세 내역" />
-                
-                <div className="grid grid-cols-1 lg:grid-cols-2 gap-8">
-                    {/* 수혜 종합 테이블 */}
-                    <div className="bg-emerald-950/10 border border-emerald-900/30 rounded-xl overflow-hidden shadow-lg">
-                        <div className="bg-emerald-900/20 px-5 py-3 border-b border-emerald-900/30">
-                            <h3 className="text-emerald-400 font-bold text-sm flex items-center gap-2">
-                                <ArrowUp className="w-4 h-4"/> 수혜 가능 종목 종합
-                            </h3>
-                        </div>
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left">
-                                <thead className="bg-emerald-900/10 text-emerald-500/70 text-xs font-semibold uppercase">
-                                    <tr>
-                                        <th className="px-4 py-3">종목명</th>
-                                        <th className="px-4 py-3 text-center">영향도</th>
-                                        <th className="px-4 py-3">관련 발언자</th>
-                                        <th className="px-4 py-3 w-1/2">선정 사유</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-emerald-900/20">
-                                    {data.comprehensive.benefits.map((item, i) => (
-                                        <tr key={i} className="hover:bg-emerald-900/10 transition-colors">
-                                            <td className="px-4 py-3">
-                                                <div className="flex items-center gap-2">
-                                                    <StockFlag countryCode={item.countryCode} />
-                                                    <span className="text-slate-200 font-bold text-sm whitespace-nowrap">{item.name}</span>
-                                                </div>
-                                            </td>
-                                            <td className="px-4 py-3 text-center">
-                                                <span className="text-emerald-400 font-bold text-sm">{item.percent}%</span>
-                                            </td>
-                                            <td className="px-4 py-3">
-                                                <span className="text-emerald-300/80 text-xs bg-emerald-950 px-2 py-1 rounded whitespace-nowrap border border-emerald-900/50">{item.speaker}</span>
-                                            </td>
-                                            <td className="px-4 py-3">
-                                                <span className="text-slate-400 text-xs leading-relaxed line-clamp-2">{item.reason}</span>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
+            {/* 2. 주요 연사 테이블 */}
+            <section>
+                <SectionTitle icon={Target} title="2. 주요 연사 (Influencer TOP)" />
+                <div className="bg-slate-900 border border-white/10 rounded-xl overflow-hidden shadow-lg">
+                    {/* Header */}
+                    <div className="grid grid-cols-[80px_1.5fr_2fr_100px_100px_40px] gap-4 bg-slate-800 px-6 py-4 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                        <div className="text-center">순위</div>
+                        <div>인물 / 직책</div>
+                        <div>주요 발언 요약</div>
+                        <div className="text-center">영향 강도</div>
+                        <div className="text-center">시장 영향</div>
+                        <div></div>
                     </div>
 
-                    {/* 리스크 종합 테이블 */}
-                    <div className="bg-[#ff7c7e]/5 border border-[#ff7c7e]/20 rounded-xl overflow-hidden shadow-lg">
-                        <div className="bg-[#ff7c7e]/10 px-5 py-3 border-b border-[#ff7c7e]/20">
-                            <h3 className="text-[#ff7c7e] font-bold text-sm flex items-center gap-2">
-                                <ArrowDown className="w-4 h-4"/> 리스크 주시 종목 종합
-                            </h3>
-                        </div>
-                        <div className="overflow-x-auto">
-                            <table className="w-full text-left">
-                                <thead className="bg-[#ff7c7e]/5 text-[#ff7c7e]/70 text-xs font-semibold uppercase">
-                                    <tr>
-                                        <th className="px-4 py-3">종목명</th>
-                                        <th className="px-4 py-3 text-center">영향도</th>
-                                        <th className="px-4 py-3">관련 발언자</th>
-                                        <th className="px-4 py-3 w-1/2">우려 사유</th>
-                                    </tr>
-                                </thead>
-                                <tbody className="divide-y divide-[#ff7c7e]/10">
-                                    {data.comprehensive.risks.map((item, i) => (
-                                        <tr key={i} className="hover:bg-[#ff7c7e]/10 transition-colors">
-                                            <td className="px-4 py-3">
-                                                <div className="flex items-center gap-2">
-                                                    <StockFlag countryCode={item.countryCode} />
-                                                    <span className="text-slate-200 font-bold text-sm whitespace-nowrap">{item.name}</span>
-                                                </div>
-                                            </td>
-                                            <td className="px-4 py-3 text-center">
-                                                <span className="text-[#ff7c7e] font-bold text-sm">{item.percent}%</span>
-                                            </td>
-                                            <td className="px-4 py-3">
-                                                <span className="text-[#ff7c7e]/80 text-xs bg-[#ff7c7e]/10 px-2 py-1 rounded whitespace-nowrap border border-[#ff7c7e]/20">{item.speaker}</span>
-                                            </td>
-                                            <td className="px-4 py-3">
-                                                <span className="text-slate-400 text-xs leading-relaxed line-clamp-2">{item.reason}</span>
-                                            </td>
-                                        </tr>
-                                    ))}
-                                </tbody>
-                            </table>
-                        </div>
-                    </div>
-                </div>
-            </section>
+                    {/* Body */}
+                    <div className="flex flex-col">
+                        {data.table.map((item, i) => {
+                            const isExpanded = expandedRow === item.id;
+                            const isHighImpact = item.stars >= 3;
+                            const isKorean = item.speaker.includes("한국") || item.speaker.includes("국내") || item.speaker === "이재용" || item.speaker === "정의선" || item.speaker.includes("A") || item.speaker.includes("B") || item.speaker.includes("C");
 
-            <div className="mb-16 border-t border-slate-700/50"></div>
-
-            {/* 5. 섹터별 영향 분석 */}
-            <section className="mb-16">
-                <SectionTitle icon={Activity} title="섹터별 영향 분석" subtitle="각 섹터에 미치는 파급력과 주요 코멘트" />
-                <div className="bg-slate-900 border border-white/10 rounded-xl overflow-hidden shadow-lg w-full overflow-x-auto custom-scrollbar">
-                    <table className="w-full text-left min-w-[800px] border-collapse">
-                        <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
-                            <tr>
-                                <th className="px-6 py-4 w-48 font-semibold text-left">섹터</th>
-                                <th className="px-6 py-4 w-32 font-semibold text-center">종합 점수</th>
-                                <th className="px-6 py-4 w-32 font-semibold text-center">언급량</th>
-                                <th className="px-6 py-4 font-semibold text-left">핵심 키워드</th>
-                            </tr>
-                        </thead>
-                        <tbody className="divide-y divide-white/5">
-                            {data.sectors.map((item, i) => (
-                                <tr key={`sector-${i}`} className={cn(i % 2 === 0 ? "bg-slate-800/60" : "bg-slate-900", "align-top")}>
-                                    <td className="px-6 py-5">
-                                        <div className="flex items-center gap-2">
-                                            <div className="w-2 h-2 rounded-full" style={{ backgroundColor: SECTOR_COLORS[item.sector] || "#94a3b8" }}></div>
-                                            <span className="text-slate-200 font-bold text-sm">{item.sector}</span>
-                                        </div>
-                                    </td>
-                                    <td className="px-6 py-5 text-center">
-                                        <span className={cn(
-                                            "font-bold",
-                                            item.score > 50 ? "text-emerald-400" : item.score < -50 ? "text-[#ff7c7e]" : "text-amber-400"
-                                        )}>
-                                            {item.score > 0 ? '+' : ''}{item.score}
-                                        </span>
-                                    </td>
-                                    <td className="px-6 py-5 text-center text-slate-300 text-sm">
-                                        {item.mentions.toLocaleString()}회
-                                    </td>
-                                    <td className="px-6 py-5">
-                                        <div className="flex flex-col gap-3">
-                                            <div className="flex flex-wrap gap-1.5">
-                                                {item.keywords.map(kw => (
-                                                    <span key={kw} className="bg-slate-800 text-slate-300 border border-slate-700 px-2 py-0.5 rounded text-xs">
-                                                        {kw}
-                                                    </span>
-                                                ))}
+                            return (
+                                <div key={item.id} className="flex flex-col">
+                                    <div 
+                                        onClick={() => setExpandedRow(isExpanded ? null : item.id)}
+                                        className={cn(
+                                            "grid grid-cols-[80px_1.5fr_2fr_100px_100px_40px] gap-4 px-6 items-center cursor-pointer transition-colors border-b border-white/5",
+                                            isHighImpact ? "border-l-2 border-l-amber-400" : "border-l-2 border-l-transparent",
+                                            i % 2 === 0 ? "bg-slate-800/60" : "bg-slate-900",
+                                            "py-5 hover:bg-slate-800/80"
+                                        )}
+                                    >
+                                        <div className="text-center font-bold text-slate-500">{i + 1}</div>
+                                        
+                                        <div className="flex items-center gap-3">
+                                            <div className="flex flex-col items-center">
+                                                <Avatar name={item.speaker} />
+                                                <span className="text-slate-500 text-[10px] text-center mt-0.5">{isKorean ? "한국" : "미국"}</span>
                                             </div>
-                                            {item.relatedSpeeches && item.relatedSpeeches.length > 0 && (
-                                                <div className="bg-slate-950/50 p-3 rounded-lg border border-slate-800">
-                                                    <h5 className="text-slate-500 text-[11px] font-bold uppercase mb-2">관련 인사 발언</h5>
-                                                    <ul className="space-y-1.5">
-                                                        {item.relatedSpeeches.map((speech, idx) => (
-                                                            <li key={idx} className="text-slate-400 text-xs flex items-start gap-1.5">
-                                                                <MessageSquare className="w-3.5 h-3.5 mt-0.5 shrink-0 text-slate-500" />
-                                                                <span>{speech}</span>
-                                                            </li>
-                                                        ))}
-                                                    </ul>
+                                            <div className="flex flex-col">
+                                                <div className="flex items-center">
+                                                    <span className="text-white font-bold text-base">{item.speaker}</span>
+                                                    <span className="text-xs ml-1">{isKorean ? "🇰🇷" : "🇺🇸"}</span>
                                                 </div>
-                                            )}
+                                                <span className="text-slate-400 text-xs">{item.followers}</span>
+                                            </div>
                                         </div>
-                                    </td>
-                                </tr>
-                            ))}
-                        </tbody>
-                    </table>
+
+                                        <div className="text-slate-200 text-sm leading-relaxed pr-4">
+                                            "{item.summary}"
+                                        </div>
+
+                                        <div className="flex justify-center">
+                                            <Stars count={item.stars} />
+                                        </div>
+
+                                        <div className="flex justify-center">
+                                            <ImpactBadge impact={item.impact} />
+                                        </div>
+
+                                        <div className="flex justify-center text-slate-500">
+                                            {isExpanded ? <ChevronDown className="w-5 h-5"/> : <ChevronRightIcon className="w-5 h-5"/>}
+                                        </div>
+                                    </div>
+
+                                    {/* Expanded Accordion Area */}
+                                    {isExpanded && (
+                                        <div className="bg-slate-800/80 border-b border-slate-700 p-6 w-full animate-in fade-in slide-in-from-top-2">
+                                            <div className="grid grid-cols-2 gap-8">
+                                                {/* Left Column */}
+                                                <div className="space-y-6">
+                                                    <div className="bg-slate-900/50 rounded-lg p-4 border border-white/5">
+                                                        <div className="flex items-center gap-2 mb-3">
+                                                            <MessageSquare className="w-4 h-4 text-blue-400" />
+                                                            <h4 className="text-sm font-bold text-white">발언 원문</h4>
+                                                            <PlatformBadge platform={item.platform} />
+                                                        </div>
+                                                        <p className="text-slate-300 text-sm leading-relaxed">{item.fullText}</p>
+                                                    </div>
+                                                    
+                                                    <div>
+                                                        <h4 className="text-sm font-bold text-white mb-3 flex items-center gap-2">
+                                                            <Target className="w-4 h-4 text-blue-400" /> 관련 종목
+                                                        </h4>
+                                                        <div className="space-y-3">
+                                                            {/* Positive Stocks */}
+                                                            {item.related.filter(r => r.sentiment === 'positive').length > 0 && (
+                                                                <div className="space-y-2">
+                                                                    <div className="text-xs font-bold text-emerald-400 mb-1 flex items-center gap-1"><ArrowUp className="w-3 h-3"/> 긍정 영향</div>
+                                                                    {item.related.filter(r => r.sentiment === 'positive').map((r, rIdx) => (
+                                                                        <div key={`pos-${rIdx}`} className="flex items-center gap-3 bg-slate-900/50 p-2.5 rounded-lg border border-white/5 group">
+                                                                            <StockLogo ticker={r.ticker} name={r.name} />
+                                                                            <div className="flex-1 flex flex-col">
+                                                                                <div className="flex items-center gap-1.5">
+                                                                                    <span className="text-white text-sm font-bold">{r.name}</span>
+                                                                                    {r.ticker.match(/^\\d{6}$/) ? (
+                                                                                        <span className="text-slate-500 text-xs font-mono">{r.ticker}</span>
+                                                                                    ) : (
+                                                                                        <Badge variant="outline" className="text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800">해외</Badge>
+                                                                                    )}
+                                                                                </div>
+                                                                                <span className="text-slate-400 text-xs mt-0.5">{r.comment}</span>
+                                                                            </div>
+                                                                            {r.ticker.match(/^\\d{6}$/) && (
+                                                                                <ChevronRightIcon className="w-4 h-4 text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:text-white" />
+                                                                            )}
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            )}
+                                                            {/* Negative Stocks */}
+                                                            {item.related.filter(r => r.sentiment === 'negative').length > 0 && (
+                                                                <div className="space-y-2 mt-4">
+                                                                    <div className="text-xs font-bold text-[#ff7c7e] mb-1 flex items-center gap-1"><ArrowDown className="w-3 h-3"/> 부정 우려</div>
+                                                                    {item.related.filter(r => r.sentiment === 'negative').map((r, rIdx) => (
+                                                                        <div key={`neg-${rIdx}`} className="flex items-center gap-3 bg-slate-900/50 p-2.5 rounded-lg border border-white/5 group">
+                                                                            <StockLogo ticker={r.ticker} name={r.name} />
+                                                                            <div className="flex-1 flex flex-col">
+                                                                                <div className="flex items-center gap-1.5">
+                                                                                    <span className="text-white text-sm font-bold">{r.name}</span>
+                                                                                    {r.ticker.match(/^\\d{6}$/) ? (
+                                                                                        <span className="text-slate-500 text-xs font-mono">{r.ticker}</span>
+                                                                                    ) : (
+                                                                                        <Badge variant="outline" className="text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800">해외</Badge>
+                                                                                    )}
+                                                                                </div>
+                                                                                <span className="text-slate-400 text-xs mt-0.5">{r.comment}</span>
+                                                                            </div>
+                                                                            {r.ticker.match(/^\\d{6}$/) && (
+                                                                                <ChevronRightIcon className="w-4 h-4 text-slate-600 opacity-0 group-hover:opacity-100 transition-opacity cursor-pointer hover:text-white" />
+                                                                            )}
+                                                                        </div>
+                                                                    ))}
+                                                                </div>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </div>
+
+                                                {/* Right Column */}
+                                                <div className="space-y-6">
+                                                    <div className="bg-slate-900/50 rounded-lg p-4 border border-white/5">
+                                                        <div className="flex items-center gap-3 mb-3">
+                                                            <ImpactBadge impact={item.impact} />
+                                                            <Stars count={item.stars} className="text-lg [&>svg]:w-5 [&>svg]:h-5" />
+                                                        </div>
+                                                        <p className="text-slate-300 text-sm leading-relaxed">{item.analysis}</p>
+                                                    </div>
+                                                    
+                                                    <div className="flex justify-start">
+                                                        <Button variant="ghost" className="text-slate-300 border border-slate-600 hover:text-white hover:border-slate-400">
+                                                            원문 보기 <ExternalLink className="w-4 h-4 ml-2" />
+                                                        </Button>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    )}
+                                </div>
+                            );
+                        })}
+                    </div>
                 </div>
+            </section>
+
+            {/* 3. 긍/부정 종목 종합 — 2열 병렬 표시 */}
+            <section>
+                <SectionTitle icon={BarChart3} title="3. 긍/부정 종목 종합" />
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
+                    {/* 상승·호재 기대 */}
+                    <div className="bg-emerald-950/20 rounded-xl p-5 border border-emerald-900/40">
+                        <h3 className="text-emerald-400 font-bold text-base mb-4 flex items-center gap-2">
+                            <div className="bg-emerald-500/30 text-emerald-300 w-8 h-8 rounded-md flex items-center justify-center">
+                                <TrendingUp className="w-5 h-5" />
+                            </div>
+                            상승 · 호재 기대
+                        </h3>
+                        <div className="space-y-3">
+                            {data.positiveStocks.map((stock, i) => (
+                                <div key={i} className="flex items-center gap-3 bg-emerald-950/30 p-3 rounded-lg border border-emerald-900/30">
+                                    <StockLogo ticker={stock.ticker} name={stock.name} />
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <span className="text-white font-bold text-sm">{stock.name}</span>
+                                            <span className="bg-emerald-950 text-emerald-300 border border-emerald-600 rounded px-1.5 py-0.5 text-[10px] font-mono font-bold">
+                                                {stock.ticker}
+                                            </span>
+                                        </div>
+                                        <div className="text-slate-300 text-xs">
+                                            {stock.reason}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+
+                    {/* 하락·악재 우려 */}
+                    <div className="bg-[#ff7c7e]/5 rounded-xl p-5 border border-[#ff7c7e]/20">
+                        <h3 className="text-[#ff7c7e] font-bold text-base mb-4 flex items-center gap-2">
+                            <div className="bg-[#ff7c7e]/20 text-[#ff7c7e] w-8 h-8 rounded-md flex items-center justify-center">
+                                <TrendingDown className="w-5 h-5" />
+                            </div>
+                            하락 · 악재 우려
+                        </h3>
+                        <div className="space-y-3">
+                            {data.negativeStocks.map((stock, i) => (
+                                <div key={i} className="flex items-center gap-3 bg-[#ff7c7e]/5 p-3 rounded-lg border border-[#ff7c7e]/10">
+                                    <StockLogo ticker={stock.ticker} name={stock.name} />
+                                    <div className="flex-1">
+                                        <div className="flex items-center gap-2 mb-1">
+                                            <span className="text-white font-bold text-sm">{stock.name}</span>
+                                            <span className="bg-[#ff7c7e]/10 text-[#ff7c7e] border border-[#ff7c7e]/40 rounded px-1.5 py-0.5 text-[10px] font-mono font-bold">
+                                                {stock.ticker}
+                                            </span>
+                                        </div>
+                                        <div className="text-slate-300 text-xs">
+                                            {stock.reason}
+                                        </div>
+                                    </div>
+                                </div>
+                            ))}
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 4. 섹터별 영향 분석 */}
+            <section>
+                <SectionTitle icon={Globe} title="4. 섹터별 영향 분석" />
+                
+                {/* 2x3 Grid of Sector Insight Cards */}
+                <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4 mb-10">
+                    {data.sectorSummary.map((sector, i) => {
+                        const total = sector.positive + sector.negative;
+                        const posPct = total > 0 ? (sector.positive / total) * 100 : 50;
+                        const isPos = sector.positive > sector.negative;
+                        const isNeg = sector.negative > sector.positive;
+                        
+                        const bgClass = isPos ? "bg-emerald-950/15 border-emerald-900/30" : 
+                                        isNeg ? "bg-[#ff7c7e]/5 border-[#ff7c7e]/15" : 
+                                        "bg-slate-800/50 border-slate-700/50";
+                        
+                        return (
+                            <div key={i} className={cn("p-5 rounded-xl border", bgClass)}>
+                                <h4 className="font-bold text-white text-base mb-2 flex items-center gap-2">
+                                    {sector.name} 
+                                    {isPos ? <ArrowUp className="w-4 h-4 text-emerald-400" /> : isNeg ? <ArrowDown className="w-4 h-4 text-[#ff7c7e]" /> : <span className="text-slate-500">-</span>}
+                                </h4>
+                                <p className="text-slate-300 text-xs leading-relaxed mb-4 min-h-[32px]">
+                                    {sector.comment}
+                                </p>
+                                <div className="flex justify-between items-center text-xs mb-1.5">
+                                    <span className="text-emerald-400 font-bold">긍정 {sector.positive}건</span>
+                                    <span className="text-[#ff7c7e] font-bold">부정 {sector.negative}건</span>
+                                </div>
+                                <div className="h-1.5 w-full flex rounded-full overflow-hidden bg-slate-800">
+                                    <div className="bg-emerald-500" style={{width: `${posPct}%`}} />
+                                    <div className="bg-[#ff7c7e]" style={{width: `${100-posPct}%`}} />
+                                </div>
+                            </div>
+                        )
+                    })}
+                </div>
+
+                {/* Shrunken Pie Charts */}
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-8 w-full max-w-3xl mx-auto opacity-90">
+                    <div className="bg-slate-800/30 rounded-xl border border-white/5 p-4">
+                        <h3 className="text-emerald-400 text-sm font-bold text-center mb-1">상승 기대가 높은 섹터</h3>
+                        <p className="text-slate-400 text-[10px] text-center mb-4">어느 섹터가 가장 긍정 언급이 많았나?</p>
+                        <div className="h-[180px]">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <PieChart>
+                                    <Pie
+                                        data={data.positiveSectors}
+                                        cx="50%"
+                                        cy="50%"
+                                        innerRadius={45}
+                                        outerRadius={70}
+                                        paddingAngle={2}
+                                        dataKey="value"
+                                        stroke="none"
+                                    >
+                                        {data.positiveSectors.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={SECTOR_COLORS[entry.name] || "#94a3b8"} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip 
+                                        contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
+                                        itemStyle={{ color: '#f8fafc' }}
+                                    />
+                                    <Legend wrapperStyle={{ fontSize: '11px', color: '#cbd5e1' }} />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </div>
+                    </div>
+                    <div className="bg-slate-800/30 rounded-xl border border-white/5 p-4">
+                        <h3 className="text-[#ff7c7e] text-sm font-bold text-center mb-1">하락 우려가 높은 섹터</h3>
+                        <p className="text-slate-400 text-[10px] text-center mb-4">어느 섹터가 가장 리스크 신호를 받았나?</p>
+                        <div className="h-[180px]">
+                            <ResponsiveContainer width="100%" height="100%">
+                                <PieChart>
+                                    <Pie
+                                        data={data.negativeSectors}
+                                        cx="50%"
+                                        cy="50%"
+                                        innerRadius={45}
+                                        outerRadius={70}
+                                        paddingAngle={2}
+                                        dataKey="value"
+                                        stroke="none"
+                                    >
+                                        {data.negativeSectors.map((entry, index) => (
+                                            <Cell key={`cell-${index}`} fill={SECTOR_COLORS[entry.name] || "#94a3b8"} />
+                                        ))}
+                                    </Pie>
+                                    <Tooltip 
+                                        contentStyle={{ backgroundColor: '#1e293b', borderColor: '#334155', borderRadius: '8px', fontSize: '12px' }}
+                                        itemStyle={{ color: '#f8fafc' }}
+                                    />
+                                    <Legend wrapperStyle={{ fontSize: '11px', color: '#cbd5e1' }} />
+                                </PieChart>
+                            </ResponsiveContainer>
+                        </div>
+                    </div>
+                </div>
+            </section>
+
+            {/* 5. 오늘의 투자 시사점 */}
+            <section>
+                <SectionTitle icon={Target} title="5. 오늘의 투자 시사점 (AI)" />
+                <div className="grid grid-cols-1 md:grid-cols-3 gap-5">
+                    {/* 매수 관점 */}
+                    <div className="bg-emerald-950/20 border border-emerald-900/40 rounded-xl p-5 flex flex-col">
+                        <h4 className="text-emerald-400 font-bold mb-4 flex items-center gap-2 text-base"><CheckCircle2 className="w-5 h-5"/> 매수 관점 (BUY)</h4>
+                        <ul className="space-y-3 text-sm text-slate-300 list-disc pl-4 mb-6 flex-1">
+                            <li>AI·반도체 섹터: HBM, 데이터센터 장비 중심 투자 확대 유효</li>
+                            <li>방산/우주 섹터: 지정학적 리스크 수혜로 중장기 모멘텀 유지</li>
+                        </ul>
+                        <div className="pt-4 border-t border-emerald-900/30">
+                            <span className="text-slate-500 text-xs mr-2">대표 종목:</span>
+                            <div className="inline-flex gap-1 flex-wrap">
+                                <TickerChip className="bg-emerald-950 text-emerald-300 border-emerald-600">삼성전자</TickerChip>
+                                <TickerChip className="bg-emerald-950 text-emerald-300 border-emerald-600">SK하이닉스</TickerChip>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 관망 관점 */}
+                    <div className="bg-slate-800/50 border border-slate-700 rounded-xl p-5 flex flex-col">
+                        <h4 className="text-slate-300 font-bold mb-4 flex items-center gap-2 text-base"><PauseCircle className="w-5 h-5"/> 관망 관점 (WATCH)</h4>
+                        <ul className="space-y-3 text-sm text-slate-300 list-disc pl-4 mb-6 flex-1">
+                            <li>에너지 섹터: 유가 흐름 및 글로벌 경기 방향성 확인 필요</li>
+                            <li>바이오/헬스케어 섹터: 임상 결과 및 규제 이슈 모니터링 요망</li>
+                        </ul>
+                        <div className="pt-4 border-t border-slate-700">
+                            <span className="text-slate-500 text-xs mr-2">대표 종목:</span>
+                            <div className="inline-flex gap-1 flex-wrap">
+                                <TickerChip className="bg-slate-800 text-slate-300 border-slate-600">셀트리온</TickerChip>
+                                <TickerChip className="bg-slate-800 text-slate-300 border-slate-600">LG화학</TickerChip>
+                            </div>
+                        </div>
+                    </div>
+
+                    {/* 주의 관점 */}
+                    <div className="bg-[#ff7c7e]/5 border border-[#ff7c7e]/20 rounded-xl p-5 flex flex-col">
+                        <h4 className="text-[#ff7c7e] font-bold mb-4 flex items-center gap-2 text-base"><AlertTriangle className="w-5 h-5"/> 주의 관점 (RISK)</h4>
+                        <ul className="space-y-3 text-sm text-slate-300 list-disc pl-4 mb-6 flex-1">
+                            <li>자동차 섹터: 관세 부과 및 수출 둔화 우려로 단기 변동성 확대</li>
+                            <li>2차전지 섹터: 수요 둔화 및 경쟁 심화로 단기 조정 가능성</li>
+                        </ul>
+                        <div className="pt-4 border-t border-[#ff7c7e]/10">
+                            <span className="text-slate-500 text-xs mr-2">대표 종목:</span>
+                            <div className="inline-flex gap-1 flex-wrap">
+                                <TickerChip className="bg-[#ff7c7e]/10 text-[#ff7c7e] border-[#ff7c7e]/40">현대차</TickerChip>
+                                <TickerChip className="bg-[#ff7c7e]/10 text-[#ff7c7e] border-[#ff7c7e]/40">기아</TickerChip>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+                <p className="text-slate-500 text-xs text-center mt-8">
+                    본 리포트는 AI가 자동 수집·분석한 내용이며, 투자 판단의 참고 자료로만 활용해 주시기 바랍니다.
+                </p>
             </section>
 
         </div>
@@ -561,5 +687,6 @@ export default function SocialAnalysisView() {
 }
 """
 
-with open(filepath, "w") as f:
-    f.write(new_content)
+with open("client/src/components/insight/SocialAnalysisView.tsx", "w") as f:
+    f.write(content)
+
