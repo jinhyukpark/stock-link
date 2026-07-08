@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, ComposedChart, ReferenceLine } from "recharts";
-import { Calendar, ChevronRight, Target, Zap, PieChart as PieChartIcon, User, Gauge, ArrowRightLeft, Download, Share2, Activity, Info, BarChart2, TrendingUp, Maximize2, Sparkles, X, ChevronLeft, ArrowUpRight, ArrowDownRight, Minus, AlertCircle, PieChart, LineChart as LucideLineChart } from "lucide-react";
+import { Calendar, ChevronRight, Target, Zap, PieChart as PieChartIcon, User, FileText, Gauge, ArrowRightLeft, Download, Share2, Activity, Info, BarChart2, TrendingUp, Maximize2, Sparkles, X, ChevronLeft, ArrowUpRight, ArrowDownRight, Minus, AlertCircle, PieChart, LineChart as LucideLineChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
