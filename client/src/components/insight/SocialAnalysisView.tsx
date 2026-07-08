@@ -157,7 +157,7 @@ const BenefitChip = ({ name, ticker, domain }: { name: string, ticker: string, d
     const countryCode = isKr ? "kr" : "us";
     
     return (
-        <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-emerald-500/10 border border-emerald-500/20 shadow-sm whitespace-nowrap hover:bg-emerald-500/20 transition-colors">
+        <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 shadow-sm hover:bg-emerald-500/20 transition-colors w-full min-w-[120px] max-w-[180px]">
             <img src={flagUrl(countryCode)} alt={countryCode} className="w-3.5 h-2.5 object-cover rounded-sm shadow-sm" />
             <span className="text-emerald-400 text-xs font-bold tracking-tight">{name}</span>
             <span className="text-emerald-500/80 text-[10px] font-bold ml-0.5">{(ticker.charCodeAt(0) + name.length) % 40 + 50}%</span>
@@ -170,7 +170,7 @@ const RiskChip = ({ name, ticker, domain }: { name: string, ticker: string, doma
     const countryCode = isKr ? "kr" : "us";
     
     return (
-        <div className="flex items-center gap-1.5 px-2 py-1 rounded-md bg-rose-500/10 border border-rose-500/20 shadow-sm whitespace-nowrap hover:bg-rose-500/20 transition-colors">
+        <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-rose-500/10 border border-rose-500/20 shadow-sm hover:bg-rose-500/20 transition-colors w-full min-w-[120px] max-w-[180px]">
             <img src={flagUrl(countryCode)} alt={countryCode} className="w-3.5 h-2.5 object-cover rounded-sm shadow-sm" />
             <span className="text-rose-400 text-xs font-bold tracking-tight">{name}</span>
             <span className="text-rose-500/80 text-[10px] font-bold ml-0.5">{(ticker.charCodeAt(0) + name.length) % 40 + 50}%</span>
@@ -191,13 +191,12 @@ const TickerChip = ({ children, ticker, domain, type = 'neutral' }: { children: 
     }
 
     const name = children as string;
-    const impact = (ticker.charCodeAt(0) + name.length) % 40 + 50;
 
     return (
         <div className={cn("inline-flex items-center gap-1.5 border rounded-md px-2 py-0.5 w-fit mr-1 mb-1", bgClass)}>
             <StockLogo ticker={ticker} name={name} domain={domain} className="w-4 h-4 rounded-sm" />
             <span className="text-xs font-medium">{children}</span>
-            <span className={cn("text-[10px] ml-0.5", tickerClass)}>{impact}%</span>
+            <span className={cn("text-[9px] font-mono", tickerClass)}>{ticker}</span>
         </div>
     );
 };
@@ -214,7 +213,7 @@ const MOCK_DATA = {
         speakers: [
             { 
                 id: 1, 
-                speaker: "도널드 트럼프", 
+                speaker: "도널드 트럼프", speakerTitle: "미국 대통령", 
                 country: "미국",
                 countryCode: "us",
                 platform: "Truth Social", 
@@ -227,7 +226,7 @@ const MOCK_DATA = {
             },
             { 
                 id: 2, 
-                speaker: "일론 머스크", 
+                speaker: "일론 머스크", speakerTitle: "테슬라 CEO / X 오너", 
                 country: "미국",
                 countryCode: "us",
                 platform: "Tesla Q1 어닝콜", 
@@ -240,7 +239,7 @@ const MOCK_DATA = {
             },
             { 
                 id: 3, 
-                speaker: "이창용", 
+                speaker: "이창용", speakerTitle: "전 한국은행 총재", 
                 country: "한국",
                 countryCode: "kr",
                 platform: "금통위 기자간담회", 
@@ -266,7 +265,7 @@ const MOCK_DATA = {
             },
             { 
                 id: 5, 
-                speaker: "한국은행 (공식)", 
+                speaker: "한국은행 (공식)", speakerTitle: "중앙은행", 
                 country: "한국",
                 countryCode: "kr",
                 platform: "공식 보도자료", 
@@ -279,7 +278,7 @@ const MOCK_DATA = {
             },
             { 
                 id: 6, 
-                speaker: "케빈 워시", 
+                speaker: "케빈 워시", speakerTitle: "연준 의장 지명자", 
                 country: "미국",
                 countryCode: "us",
                 platform: "상원 청문회", 
@@ -547,7 +546,11 @@ export default function SocialAnalysisView() {
                                                 <StockLogo ticker={item.ticker} name={item.name} className="w-8 h-8 rounded-md" />
                                                 <div className="flex flex-col">
                                                     <span className="text-white font-bold text-sm whitespace-nowrap">{item.name}</span>
-                                                    <span className={cn("font-bold text-[11px] mt-0.5", item.direction === '리스크' ? 'text-rose-400' : 'text-emerald-400')}>{(item.ticker.charCodeAt(0) + item.name.length) % 40 + 50}%</span>
+                                                    {item.ticker.match(/^\d{6}$/) ? (
+                                                        <span className="text-slate-500 text-[10px] font-mono">{item.ticker}</span>
+                                                    ) : (
+                                                        <Badge variant="outline" className="w-fit text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800 mt-0.5">해외</Badge>
+                                                    )}
                                                 </div>
                                             </div>
                                         </td>
