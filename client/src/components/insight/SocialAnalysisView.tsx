@@ -523,68 +523,105 @@ export default function SocialAnalysisView() {
             <section className="mb-16">
                 <SectionTitle icon={TrendingUp} title="📊 시장 영향 분석" subtitle="각 발언이 국내 증시에 미칠 영향을 분석했습니다" />
                 <div className="bg-slate-900 border border-white/10 rounded-xl overflow-hidden shadow-lg w-full overflow-x-auto custom-scrollbar">
-                    
-                    <table className="w-full text-left min-w-[1000px] border-collapse">
+                    <table className="w-full text-left min-w-[1200px] border-collapse">
                         <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                             <tr>
-                                <th className="px-6 py-4 w-48 font-semibold text-left">종목</th>
-                                <th className="px-6 py-4 min-w-[180px] font-semibold text-center">섹터</th>
-                                <th className="px-6 py-4 min-w-[200px] font-semibold text-left">영향 근거</th>
+                                <th className="px-6 py-4 w-32 font-semibold text-left">주요 인사</th>
+                                <th className="px-6 py-4 w-32 font-semibold text-left">직책 / 소속</th>
+                                <th className="px-6 py-4 min-w-[200px] font-semibold text-left">발언 요약</th>
+                                <th className="px-6 py-4 min-w-[240px] font-semibold text-left">영향받은 종목 리스트</th>
                                 <th className="px-6 py-4 w-24 font-semibold text-center">방향</th>
-                                <th className="px-6 py-4 w-24 font-semibold text-center">강도</th>
-                                <th className="px-6 py-4 w-32 font-semibold text-left">주요 언급 인사</th>
+                                <th className="px-6 py-4 w-28 font-semibold text-center">강도</th>
+                                <th className="px-6 py-4 w-32 font-semibold text-center">발언 시각</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
-                            {data.marketImpact.map((item, i) => {
-                                const isHighImpact = item.stars >= 3;
+                            {data.speakers.map((speaker, i) => {
+                                // Determine overall direction based on stock counts or logic.
+                                // For simplicity, if positive stocks > negative stocks, it's '수혜', etc.
+                                // But data.marketImpact might have the specific directions. Let's just use a simple heuristic based on stars and mock data structure.
+                                const isPositive = speaker.positiveStocks.length >= speaker.negativeStocks.length;
+                                const directionText = isPositive ? '수혜' : '리스크';
+                                
                                 return (
-                                    <tr key={`impact-${item.id}`} className={cn(
+                                    <tr key={`overview-${speaker.id}`} className={cn(
                                         i % 2 === 0 ? "bg-slate-800/60" : "bg-slate-900", 
                                         "align-middle",
-                                        "border-l-2 border-l-transparent"
+                                        "hover:bg-slate-800 transition-colors"
                                     )}>
-                                        <td className="px-6 py-6">
+                                        <td className="px-6 py-5">
                                             <div className="flex items-center gap-3">
-                                                <StockLogo ticker={item.ticker} name={item.name} className="w-8 h-8 rounded-md" />
-                                                <div className="flex flex-col">
-                                                    <span className="text-white font-bold text-sm whitespace-nowrap">{item.name}</span>
-                                                    {item.ticker.match(/^\d{6}$/) ? (
-                                                        <span className="text-slate-500 text-[10px] font-mono">{item.ticker}</span>
-                                                    ) : (
-                                                        <Badge variant="outline" className="w-fit text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800 mt-0.5">해외</Badge>
-                                                    )}
-                                                </div>
+                                                <Avatar name={speaker.speaker} className="w-10 h-10" />
+                                                <span className="text-white font-bold text-sm whitespace-nowrap">{speaker.speaker}</span>
+                                            </div>
+                                        </td>
+
+                                        <td className="px-6 py-5">
+                                            <span className="text-slate-400 text-xs font-medium leading-relaxed">{speaker.speakerTitle}</span>
+                                        </td>
+
+                                        <td className="px-6 py-5 pr-8">
+                                            <p className="text-slate-300 text-sm leading-relaxed line-clamp-3" title={speaker.summary}>
+                                                {speaker.summary}
+                                            </p>
+                                        </td>
+
+                                        <td className="px-6 py-5">
+                                            <div className="flex flex-col gap-2">
+                                                {speaker.positiveStocks.length > 0 && (
+                                                    <div className="flex flex-col gap-1">
+                                                        <span className="text-emerald-400 font-bold text-xs flex items-center gap-1"><TrendingUp className="w-3 h-3"/> 긍정 종목</span>
+                                                        <div className="flex flex-wrap gap-1">
+                                                            {speaker.positiveStocks.map((stock, idx) => (
+                                                                <div key={idx} className="flex items-center gap-1">
+                                                                    <StockLogo ticker={stock.ticker} name={stock.name} className="w-3.5 h-3.5 rounded-sm grayscale opacity-80" />
+                                                                    <span className="text-slate-300 text-xs">{stock.name}</span>
+                                                                    <span className="text-slate-500 text-[10px] font-mono">({stock.ticker})</span>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
+                                                {speaker.positiveStocks.length > 0 && speaker.negativeStocks.length > 0 && <div className="w-full h-px bg-white/5 my-1"></div>}
+                                                {speaker.negativeStocks.length > 0 && (
+                                                    <div className="flex flex-col gap-1">
+                                                        <span className="text-rose-400 font-bold text-xs flex items-center gap-1"><TrendingDown className="w-3 h-3"/> 부정 종목</span>
+                                                        <div className="flex flex-wrap gap-1">
+                                                            {speaker.negativeStocks.map((stock, idx) => (
+                                                                <div key={idx} className="flex items-center gap-1">
+                                                                    <StockLogo ticker={stock.ticker} name={stock.name} className="w-3.5 h-3.5 rounded-sm grayscale opacity-80" />
+                                                                    <span className="text-slate-300 text-xs">{stock.name}</span>
+                                                                    <span className="text-slate-500 text-[10px] font-mono">({stock.ticker})</span>
+                                                                </div>
+                                                            ))}
+                                                        </div>
+                                                    </div>
+                                                )}
                                             </div>
                                         </td>
 
                                         <td className="px-6 py-5 text-center">
-                                            <span className="text-slate-300 text-xs whitespace-nowrap">{item.sector}</span>
+                                            <DirectionBadge type={directionText} />
                                         </td>
 
-                                        <td className="px-6 py-5 pr-8">
-                                            <div className="text-slate-200 text-sm leading-relaxed">
-                                                {item.comment}
+                                        <td className="px-6 py-5 text-center">
+                                            <div className="flex justify-center gap-0.5 mt-1">
+                                                {[...Array(5)].map((_, idx) => (
+                                                    <Star 
+                                                        key={idx} 
+                                                        className={cn(
+                                                            "w-3.5 h-3.5", 
+                                                            idx < speaker.stars 
+                                                                ? (isPositive ? "fill-emerald-400 text-emerald-400" : "fill-[#ff7c7e] text-[#ff7c7e]") 
+                                                                : "fill-slate-700 text-slate-700"
+                                                        )} 
+                                                    />
+                                                ))}
                                             </div>
                                         </td>
-
-                                        <td className="px-6 py-6">
-                                            <div className="flex justify-center">
-                                                <DirectionBadge type={item.direction} />
-                                            </div>
-                                        </td>
-
-                                        <td className="px-6 py-6">
-                                            <div className="flex justify-center">
-                                                <Stars count={item.stars} />
-                                            </div>
-                                        </td>
-
-                                        <td className="px-6 py-5 min-w-[160px]">
-                                            <div className="flex items-center gap-2 text-slate-300 text-sm whitespace-nowrap">
-                                                <Avatar name={item.influencer} className="w-8 h-8 text-[10px] border border-slate-600 shrink-0" />
-                                                <span className="font-medium text-xs">{item.influencer}</span>
-                                            </div>
+                                        
+                                        <td className="px-6 py-5 text-center">
+                                            <span className="text-slate-400 text-xs font-mono">{speaker.time}</span>
                                         </td>
                                     </tr>
                                 );
