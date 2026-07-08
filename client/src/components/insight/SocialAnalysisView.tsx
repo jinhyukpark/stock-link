@@ -1,7 +1,7 @@
 import { useState, useRef, useEffect } from "react";
 import { format } from "date-fns";
 import { ko } from "date-fns/locale";
-import { Search, Megaphone, Twitter, Map as MapIcon, SlidersHorizontal, Settings2, ZoomIn, ZoomOut, Check, ChevronDown, CheckCircle2, TrendingUp, TrendingDown, RefreshCw, Layers, Star, AlertCircle, Info, ExternalLink, MessageSquare, Clock, Filter, MessageSquareWarning, BarChart3, AlertTriangle, Users, Newspaper, Building2, Zap, SearchIcon, Activity, Sparkles, ChevronRight, Share2, Eye, Award, Bookmark, ArrowUpRight, Plus, Link as LinkIcon } from "lucide-react";
+import { Search, Target, Megaphone, Twitter, Map as MapIcon, SlidersHorizontal, Settings2, ZoomIn, ZoomOut, Check, ChevronDown, CheckCircle2, TrendingUp, TrendingDown, RefreshCw, Layers, Star, AlertCircle, Info, ExternalLink, MessageSquare, Clock, Filter, MessageSquareWarning, BarChart3, AlertTriangle, Users, Newspaper, Building2, Zap, SearchIcon, Activity, Sparkles, ChevronRight, Share2, Eye, Award, Bookmark, ArrowUpRight, Plus, Link as LinkIcon } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
