@@ -1,6 +1,6 @@
 import { Card, CardContent } from "@/components/ui/card";
 import { Area, AreaChart, Bar, BarChart, CartesianGrid, Legend, Line, LineChart, ResponsiveContainer, Tooltip, XAxis, YAxis, ComposedChart, ReferenceLine } from "recharts";
-import { Calendar, ChevronRight, Target, Zap, PieChart as PieChartIcon, User, FileText, Gauge, ArrowRightLeft, Download, Share2, Activity, Info, BarChart2, TrendingUp, Maximize2, Sparkles, X, ChevronLeft, ArrowUpRight, ArrowDownRight, Minus, AlertCircle, PieChart, LineChart as LucideLineChart } from "lucide-react";
+import { Calendar, ChevronRight, Target, Zap, PieChart as PieChartIcon, User, FileText, HelpCircle, Gauge, ArrowRightLeft, Download, Share2, Activity, Info, BarChart2, TrendingUp, Maximize2, Sparkles, X, ChevronLeft, ArrowUpRight, ArrowDownRight, Minus, AlertCircle, PieChart, LineChart as LucideLineChart } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { cn } from "@/lib/utils";
 import {
@@ -369,7 +369,7 @@ const navLinks = [
 export default function MarketView() {
   const [date, setDate] = useState<string>(dateOptions[0].value);
   const [open, setOpen] = useState(false);
-  const [selectedChart, setSelectedChart] = useState<{ title: string; description: string; chart: React.ReactNode; analysis: React.ReactNode; legend?: React.ReactNode; height?: string; hasDualChart?: boolean; kospiChart?: React.ReactNode; kosdaqChart?: React.ReactNode } | null>(null);
+  const [selectedChart, setSelectedChart] = useState<{id: string;  title: string; description: string; chart: React.ReactNode; analysis: React.ReactNode; legend?: React.ReactNode; height?: string; hasDualChart?: boolean; kospiChart?: React.ReactNode; kosdaqChart?: React.ReactNode } | null>(null);
   const [marketTab, setMarketTab] = useState<'kospi' | 'kosdaq'>('kospi');
   const [showDescription, setShowDescription] = useState(true);
 
