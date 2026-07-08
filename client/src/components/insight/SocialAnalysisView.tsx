@@ -560,5 +560,3 @@ export default function SocialAnalysisView() {
         </div>
     );
 }
-
-export default SocialAnalysisView;
