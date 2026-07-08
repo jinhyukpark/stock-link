@@ -526,8 +526,7 @@ export default function SocialAnalysisView() {
                     <table className="w-full text-left min-w-[1200px] border-collapse">
                         <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                             <tr>
-                                <th className="px-6 py-4 w-32 font-semibold text-left">주요 인사</th>
-                                <th className="px-6 py-4 w-32 font-semibold text-left">직책 / 소속</th>
+                                <th className="px-6 py-4 w-48 font-semibold text-left">인물</th>
                                 <th className="px-6 py-4 min-w-[200px] font-semibold text-left">발언 요약</th>
                                 <th className="px-6 py-4 min-w-[240px] font-semibold text-left">영향받은 종목 리스트</th>
                                 <th className="px-6 py-4 w-24 font-semibold text-center">방향</th>
@@ -549,15 +548,14 @@ export default function SocialAnalysisView() {
                                         "align-middle",
                                         "hover:bg-slate-800 transition-colors"
                                     )}>
-                                        <td className="px-6 py-5">
+                                        <td className="px-6 py-5 min-w-[160px]">
                                             <div className="flex items-center gap-3">
-                                                <Avatar name={speaker.speaker} className="w-10 h-10" />
-                                                <span className="text-white font-bold text-sm whitespace-nowrap">{speaker.speaker}</span>
+                                                <Avatar name={speaker.speaker} className="w-10 h-10 shrink-0" />
+                                                <div className="flex flex-col gap-0.5">
+                                                    <span className="text-white font-bold text-sm whitespace-nowrap">{speaker.speaker}</span>
+                                                    <span className="text-slate-500 text-[11px] whitespace-nowrap">{speaker.speakerTitle}</span>
+                                                </div>
                                             </div>
-                                        </td>
-
-                                        <td className="px-6 py-5">
-                                            <span className="text-slate-400 text-xs font-medium leading-relaxed">{speaker.speakerTitle}</span>
                                         </td>
 
                                         <td className="px-6 py-5 pr-8">
