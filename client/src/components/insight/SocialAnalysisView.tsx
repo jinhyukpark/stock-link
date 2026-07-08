@@ -636,66 +636,159 @@ export default function SocialAnalysisView() {
             {/* 4. 긍/부정 종목 종합 */}
             <section className="mb-16">
                 <SectionTitle icon={BarChart3} title="수혜 가능 / 리스크 주시 종목 종합" subtitle="발언을 바탕으로 집계된 종목들의 요약입니다" />
-                <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                    {/* 수혜 가능 종목 */}
-                    <div className="bg-emerald-950/20 rounded-xl p-5 border border-emerald-900/40">
-                        <h3 className="text-emerald-400 font-bold text-base mb-4 flex items-center gap-2 pb-3 border-b border-emerald-900/40">
-                            <DirectionBadge type="수혜" />
-                            수혜 가능 종목
-                        </h3>
-                        <div className="flex flex-col gap-3">
-                            {data.positiveStocks.length > 0 ? data.positiveStocks.map((stock, i) => (
-                                <div key={i} className="flex gap-4 bg-emerald-950/30 p-4 rounded-lg border border-emerald-900/30 items-start">
-                                    <StockLogo ticker={stock.ticker} name={stock.name} className="w-10 h-10 rounded-lg mt-1" />
-                                    <div className="flex-1">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <div className="flex items-center gap-2">
-                                                <span className="text-white font-bold text-base">{stock.name}</span>
-                                                <span className="bg-emerald-950 text-emerald-300 border border-emerald-600 rounded px-1.5 py-0.5 text-[10px] font-mono font-bold">
-                                                    {stock.ticker}
-                                                </span>
-                                            </div>
-                                            <span className="text-emerald-500/70 text-[10px] font-medium flex items-center gap-1"><MessageSquare className="w-3 h-3"/> {stock.influencer}</span>
-                                        </div>
-                                        <div className="text-slate-300 text-sm leading-relaxed">
-                                            {stock.reason}
-                                        </div>
-                                    </div>
-                                </div>
-                            )) : (
-                                <div className="text-slate-500 text-sm py-4 text-center">관련 종목이 없습니다.</div>
-                            )}
+                
+                <div className="flex flex-col gap-8">
+                    {/* 수혜 가능 종목 테이블 */}
+                    <div className="bg-slate-900 border border-emerald-900/40 rounded-xl overflow-hidden shadow-lg w-full">
+                        <div className="bg-emerald-950/40 px-6 py-4 border-b border-emerald-900/40 flex items-center gap-2">
+                            <TrendingUp className="w-5 h-5 text-emerald-400" />
+                            <h3 className="text-emerald-400 font-bold text-base">수혜 가능 종목</h3>
+                        </div>
+                        <div className="overflow-x-auto custom-scrollbar">
+                            <table className="w-full text-left min-w-[1000px] border-collapse">
+                                <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                                    <tr>
+                                        <th className="px-6 py-4 w-64 font-semibold text-left border-b border-slate-700">종목</th>
+                                        <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">섹터</th>
+                                        <th className="px-6 py-4 w-48 font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
+                                        <th className="px-6 py-4 font-semibold text-left border-b border-slate-700">영향 근거</th>
+                                        <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">수혜 강도</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-white/5">
+                                    {data.positiveStocks.length > 0 ? data.positiveStocks.map((stock, i) => {
+                                        const relatedImpact = data.marketImpact.find(impact => impact.name === stock.name);
+                                        const sector = relatedImpact ? "반도체/AI 인프라" : "IT/플랫폼";
+                                        const stars = relatedImpact?.stars || 3;
+                                        
+                                        return (
+                                            <tr key={i} className="hover:bg-slate-800/50 transition-colors bg-slate-900">
+                                                <td className="px-6 py-4">
+                                                    <div className="flex items-center gap-3">
+                                                        <StockLogo ticker={stock.ticker} name={stock.name} className="w-8 h-8 rounded-md" />
+                                                        <div className="flex flex-col">
+                                                            <span className="text-white font-bold text-sm">{stock.name}</span>
+                                                            {stock.ticker.match(/^\d{6}$/) ? (
+                                                                <span className="text-slate-500 text-[10px] font-mono">{stock.ticker}</span>
+                                                            ) : (
+                                                                <Badge variant="outline" className="w-fit text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800 mt-0.5">해외</Badge>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <span className="text-slate-400 text-[11px] font-medium bg-slate-800/80 px-2 py-1 rounded-md">{sector}</span>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <div className="flex items-center gap-2">
+                                                        <Avatar name={stock.influencer} className="w-6 h-6" />
+                                                        <span className="text-slate-300 text-sm font-medium">{stock.influencer}</span>
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <span className="text-slate-400 text-sm leading-relaxed block">{stock.reason}</span>
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <div className="flex justify-center gap-0.5 mt-1">
+                                                        {[...Array(5)].map((_, idx) => (
+                                                            <Star 
+                                                                key={idx} 
+                                                                className={cn(
+                                                                    "w-3.5 h-3.5", 
+                                                                    idx < stars 
+                                                                        ? "fill-emerald-400 text-emerald-400" 
+                                                                        : "fill-slate-700 text-slate-700"
+                                                                )} 
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        );
+                                    }) : (
+                                        <tr>
+                                            <td colSpan={5} className="px-6 py-8 text-center text-slate-500 text-sm">수혜 가능 종목이 없습니다.</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
 
-                    {/* 리스크 주시 종목 */}
-                    <div className="bg-[#ff7c7e]/5 rounded-xl p-5 border border-[#ff7c7e]/20">
-                        <h3 className="text-[#ff7c7e] font-bold text-base mb-4 flex items-center gap-2 pb-3 border-b border-[#ff7c7e]/20">
-                            <DirectionBadge type="리스크" />
-                            리스크 주시 종목
-                        </h3>
-                        <div className="flex flex-col gap-3">
-                            {data.negativeStocks.length > 0 ? data.negativeStocks.map((stock, i) => (
-                                <div key={i} className="flex gap-4 bg-[#ff7c7e]/5 p-4 rounded-lg border border-[#ff7c7e]/10 items-start">
-                                    <StockLogo ticker={stock.ticker} name={stock.name} className="w-10 h-10 rounded-lg mt-1" />
-                                    <div className="flex-1">
-                                        <div className="flex items-center justify-between mb-2">
-                                            <div className="flex items-center gap-2">
-                                                <span className="text-white font-bold text-base">{stock.name}</span>
-                                                <span className="bg-[#ff7c7e]/10 text-[#ff7c7e] border border-[#ff7c7e]/40 rounded px-1.5 py-0.5 text-[10px] font-mono font-bold">
-                                                    {stock.ticker}
-                                                </span>
-                                            </div>
-                                            <span className="text-[#ff7c7e]/60 text-[10px] font-medium flex items-center gap-1"><MessageSquare className="w-3 h-3"/> {stock.influencer}</span>
-                                        </div>
-                                        <div className="text-slate-300 text-sm leading-relaxed">
-                                            {stock.reason}
-                                        </div>
-                                    </div>
-                                </div>
-                            )) : (
-                                <div className="text-slate-500 text-sm py-4 text-center">관련 종목이 없습니다.</div>
-                            )}
+                    {/* 리스크 주시 종목 테이블 */}
+                    <div className="bg-slate-900 border border-[#ff7c7e]/20 rounded-xl overflow-hidden shadow-lg w-full">
+                        <div className="bg-[#ff7c7e]/10 px-6 py-4 border-b border-[#ff7c7e]/20 flex items-center gap-2">
+                            <TrendingDown className="w-5 h-5 text-rose-400" />
+                            <h3 className="text-rose-400 font-bold text-base">리스크 주시 종목</h3>
+                        </div>
+                        <div className="overflow-x-auto custom-scrollbar">
+                            <table className="w-full text-left min-w-[1000px] border-collapse">
+                                <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
+                                    <tr>
+                                        <th className="px-6 py-4 w-64 font-semibold text-left border-b border-slate-700">종목</th>
+                                        <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">섹터</th>
+                                        <th className="px-6 py-4 w-48 font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
+                                        <th className="px-6 py-4 font-semibold text-left border-b border-slate-700">영향 근거</th>
+                                        <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">리스크 강도</th>
+                                    </tr>
+                                </thead>
+                                <tbody className="divide-y divide-white/5">
+                                    {data.negativeStocks.length > 0 ? data.negativeStocks.map((stock, i) => {
+                                        const relatedImpact = data.marketImpact.find(impact => impact.name === stock.name);
+                                        const sector = relatedImpact ? "자동차/수출제조업" : "금융/은행";
+                                        const stars = relatedImpact?.stars || 3;
+                                        
+                                        return (
+                                            <tr key={i} className="hover:bg-slate-800/50 transition-colors bg-slate-900">
+                                                <td className="px-6 py-4">
+                                                    <div className="flex items-center gap-3">
+                                                        <StockLogo ticker={stock.ticker} name={stock.name} className="w-8 h-8 rounded-md" />
+                                                        <div className="flex flex-col">
+                                                            <span className="text-white font-bold text-sm">{stock.name}</span>
+                                                            {stock.ticker.match(/^\d{6}$/) ? (
+                                                                <span className="text-slate-500 text-[10px] font-mono">{stock.ticker}</span>
+                                                            ) : (
+                                                                <Badge variant="outline" className="w-fit text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800 mt-0.5">해외</Badge>
+                                                            )}
+                                                        </div>
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <span className="text-slate-400 text-[11px] font-medium bg-slate-800/80 px-2 py-1 rounded-md">{sector}</span>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <div className="flex items-center gap-2">
+                                                        <Avatar name={stock.influencer} className="w-6 h-6" />
+                                                        <span className="text-slate-300 text-sm font-medium">{stock.influencer}</span>
+                                                    </div>
+                                                </td>
+                                                <td className="px-6 py-4">
+                                                    <span className="text-slate-400 text-sm leading-relaxed block">{stock.reason}</span>
+                                                </td>
+                                                <td className="px-6 py-4 text-center">
+                                                    <div className="flex justify-center gap-0.5 mt-1">
+                                                        {[...Array(5)].map((_, idx) => (
+                                                            <Star 
+                                                                key={idx} 
+                                                                className={cn(
+                                                                    "w-3.5 h-3.5", 
+                                                                    idx < stars 
+                                                                        ? "fill-[#ff7c7e] text-[#ff7c7e]" 
+                                                                        : "fill-slate-700 text-slate-700"
+                                                                )} 
+                                                            />
+                                                        ))}
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                        );
+                                    }) : (
+                                        <tr>
+                                            <td colSpan={5} className="px-6 py-8 text-center text-slate-500 text-sm">리스크 주시 종목이 없습니다.</td>
+                                        </tr>
+                                    )}
+                                </tbody>
+                            </table>
                         </div>
                     </div>
                 </div>
