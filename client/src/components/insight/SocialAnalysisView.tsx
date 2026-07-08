@@ -447,71 +447,92 @@ export default function SocialAnalysisView() {
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
-                            {data.speakers.map((item, i) => (
+                            {data.speakers.map((item, i) => {
+                                const hasPositive = item.positiveStocks.length > 0;
+                                const hasNegative = item.negativeStocks.length > 0;
+                                let direction = "관망";
+                                if (hasPositive && hasNegative) direction = "혼조";
+                                else if (hasPositive) direction = "수혜";
+                                else if (hasNegative) direction = "리스크";
+
+                                return (
                                 <tr key={`speaker-${item.id}`} className={cn(i % 2 === 0 ? "bg-slate-800/60" : "bg-slate-900", "align-top")}>
-                                    <td className="px-6 py-5 min-w-[160px]">
-                                        <div className="flex items-center gap-3">
-                                            <div className="flex flex-col items-center gap-1 shrink-0">
-                                                <Avatar name={item.speaker} />
-                                            </div>
-                                            <div className="flex flex-col gap-0.5 min-w-0">
-                                                <div className="flex items-center gap-1.5 whitespace-nowrap">
-                                                    <span className="text-white font-bold text-sm">{item.speaker}</span>
-                                                    <img 
-                                                        src={flagUrl(item.countryCode)} 
-                                                        alt={item.country}
-                                                        className="w-5 h-3.5 rounded-[2px] object-cover shadow-sm shrink-0"
-                                                        onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
-                                                    />
-                                                </div>
-                                                <span className="text-slate-500 text-[10px] leading-tight mt-0.5 line-clamp-2">{item.followers}</span>
-                                            </div>
-                                        </div>
+                                    <td className="px-6 py-5">
+                                        <span className="text-white font-bold text-sm whitespace-nowrap">{item.speaker}</span>
                                     </td>
                                     
-                                    <td className="px-6 py-5 text-center">
-                                        <PlatformBadge platform={item.platform} />
+                                    <td className="px-6 py-5">
+                                        <span className="text-slate-400 text-xs">{item.speakerTitle}</span>
                                     </td>
 
                                     <td className="px-6 py-5 pr-8">
-                                        <div className="text-slate-200 text-sm leading-relaxed line-clamp-3">
+                                        <p className="text-slate-300 text-sm leading-relaxed line-clamp-3">
                                             {item.summary}
-                                        </div>
+                                        </p>
                                     </td>
 
-                                    {/* Completely separated column: 수혜 종목 */}
-                                    <td className="px-6 py-5 bg-emerald-900/10 border-l border-emerald-900/20">
-                                        <div className="flex flex-wrap gap-1 content-start">
-                                            {item.positiveStocks.length > 0 ? (
-                                                item.positiveStocks.map((stock, idx) => (
-                                                    <BenefitChip key={idx} name={stock.name} ticker={stock.ticker} />
-                                                ))
-                                            ) : (
-                                                <div className="text-slate-600 text-xs w-full">—</div>
+                                    <td className="px-6 py-5 border-l border-white/5">
+                                        <div className="flex flex-col gap-3">
+                                            {hasPositive && (
+                                                <div className="flex flex-col gap-1.5">
+                                                    <span className="text-emerald-400 font-semibold text-[10px] uppercase tracking-wider">📈 수혜 종목</span>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {item.positiveStocks.map((s: any, idx: number) => (
+                                                            <div key={idx} className="flex items-center gap-1">
+                                                                <span className="text-slate-200 text-xs">{s.name}</span>
+                                                                <span className="text-slate-500 text-[10px] font-mono">({s.ticker})</span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
+                                            )}
+                                            {hasNegative && (
+                                                <div className="flex flex-col gap-1.5 mt-1">
+                                                    <span className="text-rose-400 font-semibold text-[10px] uppercase tracking-wider">📉 리스크 종목</span>
+                                                    <div className="flex flex-wrap gap-2">
+                                                        {item.negativeStocks.map((s: any, idx: number) => (
+                                                            <div key={idx} className="flex items-center gap-1">
+                                                                <span className="text-slate-200 text-xs">{s.name}</span>
+                                                                <span className="text-slate-500 text-[10px] font-mono">({s.ticker})</span>
+                                                            </div>
+                                                        ))}
+                                                    </div>
+                                                </div>
                                             )}
                                         </div>
                                     </td>
 
-                                    {/* Completely separated column: 리스크 종목 */}
-                                    <td className="px-6 py-5 bg-[#ff7c7e]/5 border-l border-[#ff7c7e]/10">
-                                        <div className="flex flex-wrap gap-1 content-start">
-                                            {item.negativeStocks.length > 0 ? (
-                                                item.negativeStocks.map((stock, idx) => (
-                                                    <RiskChip key={idx} name={stock.name} ticker={stock.ticker} />
-                                                ))
+                                    <td className="px-6 py-5 text-center">
+                                        <div className="flex justify-center">
+                                            {direction === '혼조' ? (
+                                                <Badge variant="outline" className="w-fit text-[11px] px-2 py-0.5 border-slate-600 text-slate-300 bg-slate-800/50">혼조</Badge>
                                             ) : (
-                                                <div className="text-slate-600 text-xs w-full">—</div>
+                                                <DirectionBadge type={direction} />
                                             )}
                                         </div>
                                     </td>
 
-                                    <td className="px-6 py-6">
-                                        <div className="flex justify-center h-full pt-1">
-                                            <Stars count={item.stars} />
+                                    <td className="px-6 py-5 text-center">
+                                        <div className="flex justify-center gap-0.5">
+                                            {[...Array(5)].map((_, idx) => (
+                                                <Star 
+                                                    key={idx} 
+                                                    className={cn(
+                                                        "w-3.5 h-3.5", 
+                                                        idx < item.stars 
+                                                            ? (direction === '리스크' ? "fill-[#ff7c7e] text-[#ff7c7e]" : "fill-emerald-400 text-emerald-400") 
+                                                            : "fill-slate-700 text-slate-700"
+                                                    )} 
+                                                />
+                                            ))}
                                         </div>
+                                    </td>
+
+                                    <td className="px-6 py-5 text-center">
+                                        <span className="text-slate-400 text-[11px] whitespace-nowrap">{item.time || '2026-04-24'}</span>
                                     </td>
                                 </tr>
-                            ))}
+                            )})}
                         </tbody>
                     </table>
                 </div>
