@@ -583,7 +583,7 @@ export default function SocialAnalysisView() {
                             <tr>
                                 <th className="px-4 py-4 w-24 font-semibold text-center border-b border-slate-700/50 align-middle">영향도 강도</th>
                                 <th className="px-4 py-4 w-[160px] font-semibold text-left border-b border-slate-700/50 align-middle">인물</th>
-                                <th className="px-4 py-4 font-semibold text-left border-b border-slate-700/50 align-middle">발언</th>
+                                <th className="px-4 py-4 font-semibold text-left border-b border-slate-700/50 align-middle">시장 영향 분석</th>
                                 <th className="px-3 py-4 w-[210px] font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-b border-slate-700/50 align-middle">📈 수혜 종목</th>
                                 <th className="px-3 py-4 w-[210px] font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-b border-slate-700/50 align-middle">📉 리스크 종목</th>
                             </tr>
@@ -625,12 +625,11 @@ export default function SocialAnalysisView() {
                                             </div>
                                         </td>
 
-                                        {/* 3. 발언 */}
+                                        {/* 3. 시장 영향 분석 */}
                                         <td className="px-4 py-6 border-r border-white/5 align-middle">
                                             <div className="flex flex-col gap-4">
                                                 <div className="flex flex-col gap-1.5">
-                                                    <span className="text-slate-400 font-bold text-[11px] uppercase tracking-wider">시장 영향 분석</span>
-                                                    <p className="text-white text-[14px] leading-relaxed">
+                                                    <p className="text-white text-[15px] leading-relaxed">
                                                         {speaker.analysis || `${speaker.speaker}의 발언은 관련 섹터에 즉각적인 변동성을 야기하고 있으며, 단기 포지션 관리의 핵심 변수로 부상했습니다.`}
                                                     </p>
                                                 </div>
