@@ -423,55 +423,34 @@ export default function SocialAnalysisView() {
                     </div>
 
                     <div className="flex flex-col items-end gap-2 shrink-0">
-                        {/* Custom DatePicker Tab */}
-                        <div className="flex items-center bg-slate-800/80 rounded-md border border-slate-700/80 p-0.5">
-                            {DATES.slice(0, 2).map(d => {
-                                const isActive = dateKey === d;
-                                const formatted = d.substring(5).replace("-", "/");
-                                return (
-                                    <button 
-                                        key={d}
-                                        onClick={() => setDateKey(d)}
-                                        className={cn(
-                                            "px-4 py-1.5 rounded-md text-sm font-medium transition-all flex items-center justify-center min-w-[70px]",
-                                            isActive ? "bg-slate-700/80 text-white shadow-sm" : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
-                                        )}
-                                    >
-                                        {formatted}
-                                    </button>
-                                )
-                            })}
-                            
-                            <Popover>
-                                <PopoverTrigger asChild>
-                                    <button 
-                                        className={cn(
-                                            "px-4 py-1.5 rounded-md text-sm font-medium transition-all flex items-center justify-center gap-1 min-w-[70px]",
-                                            (!DATES.slice(0, 2).includes(dateKey)) ? "bg-blue-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
-                                        )}
-                                    >
-                                        {(!DATES.slice(0, 2).includes(dateKey)) ? dateKey.substring(5).replace("-", "/") : DATES[2].substring(5).replace("-", "/")}
-                                        <div className="w-1 h-1 rounded-full bg-white ml-0.5" />
-                                    </button>
-                                </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0 border-slate-700 bg-slate-800 text-slate-200 shadow-xl" align="end">
-                                    <Calendar
-                                        mode="single"
-                                        selected={new Date(dateKey)}
-                                        onSelect={(date) => {
-                                            if (date) {
-                                                const formattedDate = format(date, "yyyy-MM-dd");
-                                                if (MOCK_DATA[formattedDate as keyof typeof MOCK_DATA]) {
-                                                    setDateKey(formattedDate);
-                                                }
+                        {/* Custom DatePicker */}
+                        <Popover>
+                            <PopoverTrigger asChild>
+                                <Button 
+                                    variant="outline" 
+                                    className="w-[180px] h-[46px] px-4 py-2 flex flex-row-reverse justify-between bg-white border border-slate-300 text-slate-900 hover:bg-slate-50 hover:text-slate-900 font-medium shadow-sm rounded-md"
+                                >
+                                    <CalendarIcon className="h-6 w-6 text-slate-900" />
+                                    <span className="text-[15px]">{dateKey}</span>
+                                </Button>
+                            </PopoverTrigger>
+                            <PopoverContent className="w-auto p-0 border-slate-700 bg-slate-800 text-slate-200 shadow-xl" align="end">
+                                <Calendar
+                                    mode="single"
+                                    selected={new Date(dateKey)}
+                                    onSelect={(date) => {
+                                        if (date) {
+                                            const formattedDate = format(date, "yyyy-MM-dd");
+                                            if (MOCK_DATA[formattedDate as keyof typeof MOCK_DATA]) {
+                                                setDateKey(formattedDate);
                                             }
-                                        }}
-                                        initialFocus
-                                        className="bg-slate-800 text-slate-200 rounded-md"
-                                    />
-                                </PopoverContent>
-                            </Popover>
-                        </div>
+                                        }
+                                    }}
+                                    initialFocus
+                                    className="bg-slate-800 text-slate-200 rounded-md"
+                                />
+                            </PopoverContent>
+                        </Popover>
                         <span className="text-slate-400 text-[11px]">업데이트: {dateKey.replace(/-/g, ".")} 18:30 KST</span>
                     </div>
                 </div>
