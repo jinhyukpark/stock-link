@@ -713,9 +713,9 @@ export default function SocialAnalysisView() {
                             <table className="w-full text-left min-w-[1000px] border-collapse">
                                 <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                     <tr>
-                                        <th className="px-6 py-4 w-[400px] font-semibold text-left border-b border-slate-700">종목</th>
+                                        <th className="px-6 py-4 w-[200px] font-semibold text-left border-b border-slate-700">종목</th>
                                         <th className="px-6 py-4 w-[280px] font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
-                                        <th className="px-6 py-4 w-[150px] font-semibold text-left border-b border-slate-700">영향 근거</th>
+                                        <th className="px-6 py-4 w-[350px] font-semibold text-left border-b border-slate-700">영향 근거</th>
                                         <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">수혜 강도</th>
                                     </tr>
                                 </thead>
@@ -753,7 +753,7 @@ export default function SocialAnalysisView() {
                                                         ))}
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-4 w-[150px]">
+                                                <td className="px-6 py-4 w-[350px]">
                                                     <span className="text-slate-400 text-sm leading-relaxed block">{stock.reason}</span>
                                                 </td>
                                                 <td className="px-6 py-4 text-center">
@@ -793,9 +793,9 @@ export default function SocialAnalysisView() {
                             <table className="w-full text-left min-w-[1000px] border-collapse">
                                 <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                     <tr>
-                                        <th className="px-6 py-4 w-[400px] font-semibold text-left border-b border-slate-700">종목</th>
+                                        <th className="px-6 py-4 w-[200px] font-semibold text-left border-b border-slate-700">종목</th>
                                         <th className="px-6 py-4 w-[280px] font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
-                                        <th className="px-6 py-4 w-[150px] font-semibold text-left border-b border-slate-700">영향 근거</th>
+                                        <th className="px-6 py-4 w-[350px] font-semibold text-left border-b border-slate-700">영향 근거</th>
                                         <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">리스크 강도</th>
                                     </tr>
                                 </thead>
@@ -833,7 +833,7 @@ export default function SocialAnalysisView() {
                                                         ))}
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-4 w-[150px]">
+                                                <td className="px-6 py-4 w-[350px]">
                                                     <span className="text-slate-400 text-sm leading-relaxed block">{stock.reason}</span>
                                                 </td>
                                                 <td className="px-6 py-4 text-center">
