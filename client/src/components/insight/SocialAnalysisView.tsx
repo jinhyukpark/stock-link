@@ -629,15 +629,8 @@ export default function SocialAnalysisView() {
                                         <td className="px-4 py-6 border-r border-white/5 align-middle">
                                             <div className="flex flex-col gap-4">
                                                 <div className="flex flex-col gap-1.5">
-                                                    <span className="text-slate-400 font-bold text-[11px] uppercase tracking-wider">발언 요약</span>
-                                                    <p className="text-slate-200 text-sm leading-relaxed font-medium">
-                                                        {speaker.summary}
-                                                    </p>
-                                                </div>
-                                                
-                                                <div className="flex flex-col gap-1.5">
                                                     <span className="text-slate-400 font-bold text-[11px] uppercase tracking-wider">시장 영향 분석</span>
-                                                    <p className="text-slate-400 text-[13px] leading-relaxed">
+                                                    <p className="text-white text-[14px] leading-relaxed">
                                                         {speaker.analysis || `${speaker.speaker}의 발언은 관련 섹터에 즉각적인 변동성을 야기하고 있으며, 단기 포지션 관리의 핵심 변수로 부상했습니다.`}
                                                     </p>
                                                 </div>
