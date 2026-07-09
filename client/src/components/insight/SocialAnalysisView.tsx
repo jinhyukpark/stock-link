@@ -448,12 +448,11 @@ export default function SocialAnalysisView() {
                     <table className="w-full text-left border-collapse table-fixed">
                         <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                             <tr>
-                                <th className="px-6 py-4 w-28 font-semibold text-center border-b border-slate-700/50">영향도</th>
-                                <th className="px-6 py-4 w-52 font-semibold text-left border-b border-slate-700/50">인물</th>
-                                <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700/50">플랫폼</th>
+                                <th className="px-6 py-4 w-24 font-semibold text-center border-b border-slate-700/50">영향도</th>
+                                <th className="px-6 py-4 w-56 font-semibold text-left border-b border-slate-700/50">인물</th>
                                 <th className="px-6 py-4 font-semibold text-left border-b border-slate-700/50">발언 요약</th>
-                                <th className="px-6 py-4 w-44 font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-b border-slate-700/50">📈 수혜 종목</th>
-                                <th className="px-6 py-4 w-44 font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-b border-slate-700/50">📉 리스크 종목</th>
+                                <th className="px-6 py-4 w-52 font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-b border-slate-700/50">📈 수혜 종목</th>
+                                <th className="px-6 py-4 w-52 font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-b border-slate-700/50">📉 리스크 종목</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
@@ -477,11 +476,11 @@ export default function SocialAnalysisView() {
                                     </td>
                                     
                                     <td className="px-6 py-5">
-                                        <div className="flex items-center gap-3">
-                                            <div className="flex flex-col items-center gap-1 shrink-0">
+                                        <div className="flex items-start gap-3">
+                                            <div className="flex flex-col items-center gap-1 shrink-0 pt-0.5">
                                                 <Avatar name={item.speaker} />
                                             </div>
-                                            <div className="flex flex-col gap-0.5 min-w-0">
+                                            <div className="flex flex-col gap-1 min-w-0">
                                                 <div className="flex items-center gap-1.5 whitespace-nowrap">
                                                     <span className="text-white font-bold text-sm">{item.speaker}</span>
                                                     <img 
@@ -491,13 +490,14 @@ export default function SocialAnalysisView() {
                                                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                                                     />
                                                 </div>
-                                                <span className="text-slate-500 text-[10px] leading-tight mt-0.5 line-clamp-2">{(item as any).followers || "공개 발언" || "공개 발언"}</span>
+                                                <div className="text-slate-500 text-[10px] leading-tight flex items-center gap-1.5 flex-wrap mt-0.5">
+                                                    <span>{(item as any).followers || "공개 발언" || "공개 발언"}</span>
+                                                </div>
+                                                <div className="mt-1">
+                                                    <PlatformBadge platform={item.platform} />
+                                                </div>
                                             </div>
                                         </div>
-                                    </td>
-                                    
-                                    <td className="px-6 py-5 text-center">
-                                        <PlatformBadge platform={item.platform} />
                                     </td>
 
                                     <td className="px-6 py-5 pr-8">
