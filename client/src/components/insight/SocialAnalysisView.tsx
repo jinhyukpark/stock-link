@@ -371,9 +371,9 @@ export default function SocialAnalysisView() {
     
     const data = MOCK_DATA[dateKey as keyof typeof MOCK_DATA] || MOCK_DATA["2026-04-26"];
 
-    // Compute aggregated stocks from speakers
-    const allPositiveStocks = data.speakers?.flatMap(s => s.positiveStocks || []) || [];
-    const allNegativeStocks = data.speakers?.flatMap(s => s.negativeStocks || []) || [];
+    // Compute aggregated stocks from speakers with speaker info attached
+    const allPositiveStocks = data.speakers?.flatMap(s => (s.positiveStocks || []).map(stock => ({ ...stock, speakerName: s.speaker, speakerTitle: s.speakerTitle }))) || [];
+    const allNegativeStocks = data.speakers?.flatMap(s => (s.negativeStocks || []).map(stock => ({ ...stock, speakerName: s.speaker, speakerTitle: s.speakerTitle }))) || [];
     
     // Deduplicate by ticker
     const uniquePositiveStocks = Array.from(new Map(allPositiveStocks.map(item => [item.ticker, item])).values());
@@ -681,8 +681,8 @@ export default function SocialAnalysisView() {
                                 <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                     <tr>
                                         <th className="px-6 py-4 w-64 font-semibold text-left border-b border-slate-700">종목</th>
-                                        <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">섹터</th>
-                                        <th className="px-6 py-4 w-48 font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
+                                        <th className="px-6 py-4 w-28 font-semibold text-center border-b border-slate-700">섹터</th>
+                                        <th className="px-6 py-4 w-[280px] font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
                                         <th className="px-6 py-4 font-semibold text-left border-b border-slate-700">영향 근거</th>
                                         <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">수혜 강도</th>
                                     </tr>
@@ -712,9 +712,12 @@ export default function SocialAnalysisView() {
                                                     <span className="text-slate-400 text-[11px] font-medium bg-slate-800/80 px-2 py-1 rounded-md">{sector}</span>
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    <div className="flex items-center gap-2">
-                                                        <Avatar name={"인플루언서"} className="w-6 h-6" />
-                                                        <span className="text-slate-300 text-sm font-medium">{"인플루언서"}</span>
+                                                    <div className="flex items-center gap-3 whitespace-nowrap">
+                                                        <Avatar name={stock.speakerName || "인플루언서"} className="w-10 h-10 shrink-0" />
+                                                        <div className="flex flex-col min-w-0">
+                                                            <span className="text-slate-300 text-sm font-medium truncate max-w-[200px]">{stock.speakerName || "인플루언서"}</span>
+                                                            {stock.speakerTitle && <span className="text-slate-500 text-[10px] truncate max-w-[200px]">{stock.speakerTitle}</span>}
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4">
@@ -758,8 +761,8 @@ export default function SocialAnalysisView() {
                                 <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                     <tr>
                                         <th className="px-6 py-4 w-64 font-semibold text-left border-b border-slate-700">종목</th>
-                                        <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">섹터</th>
-                                        <th className="px-6 py-4 w-48 font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
+                                        <th className="px-6 py-4 w-28 font-semibold text-center border-b border-slate-700">섹터</th>
+                                        <th className="px-6 py-4 w-[280px] font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
                                         <th className="px-6 py-4 font-semibold text-left border-b border-slate-700">영향 근거</th>
                                         <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">리스크 강도</th>
                                     </tr>
@@ -789,9 +792,12 @@ export default function SocialAnalysisView() {
                                                     <span className="text-slate-400 text-[11px] font-medium bg-slate-800/80 px-2 py-1 rounded-md">{sector}</span>
                                                 </td>
                                                 <td className="px-6 py-4">
-                                                    <div className="flex items-center gap-2">
-                                                        <Avatar name={"인플루언서"} className="w-6 h-6" />
-                                                        <span className="text-slate-300 text-sm font-medium">{"인플루언서"}</span>
+                                                    <div className="flex items-center gap-3 whitespace-nowrap">
+                                                        <Avatar name={stock.speakerName || "인플루언서"} className="w-10 h-10 shrink-0" />
+                                                        <div className="flex flex-col min-w-0">
+                                                            <span className="text-slate-300 text-sm font-medium truncate max-w-[200px]">{stock.speakerName || "인플루언서"}</span>
+                                                            {stock.speakerTitle && <span className="text-slate-500 text-[10px] truncate max-w-[200px]">{stock.speakerTitle}</span>}
+                                                        </div>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4">
