@@ -6,6 +6,7 @@ import { Badge } from "@/components/ui/badge";
 import { Card } from "@/components/ui/card";
 import { Button } from "@/components/ui/button";
 import { Calendar } from "@/components/ui/calendar";
+import { Popover, PopoverContent, PopoverTrigger } from "@/components/ui/popover";
 import { cn } from "@/lib/utils";
 import { PieChart, Pie, Cell, Tooltip, Legend, ResponsiveContainer } from "recharts";
 
@@ -422,9 +423,9 @@ export default function SocialAnalysisView() {
                     </div>
 
                     <div className="flex flex-col items-end gap-2 shrink-0">
-                        {/* Pill Date Tabs */}
-                        <div className="flex items-center gap-2 bg-slate-800/50 p-1.5 rounded-lg border border-slate-700">
-                            {DATES.map(d => {
+                        {/* Custom DatePicker Tab */}
+                        <div className="flex items-center gap-1 bg-slate-800/50 p-1.5 rounded-lg border border-slate-700">
+                            {DATES.slice(0, 2).map(d => {
                                 const isActive = dateKey === d;
                                 const formatted = d.substring(5).replace("-", "/");
                                 return (
@@ -441,6 +442,36 @@ export default function SocialAnalysisView() {
                                     </button>
                                 )
                             })}
+                            
+                            <Popover>
+                                <PopoverTrigger asChild>
+                                    <button 
+                                        className={cn(
+                                            "px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-1.5",
+                                            (!DATES.slice(0, 2).includes(dateKey)) ? "bg-blue-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-200 hover:bg-slate-700"
+                                        )}
+                                    >
+                                        {(!DATES.slice(0, 2).includes(dateKey)) ? dateKey.substring(5).replace("-", "/") : DATES[2].substring(5).replace("-", "/")}
+                                        <div className="w-1.5 h-1.5 rounded-full bg-white ml-0.5" />
+                                    </button>
+                                </PopoverTrigger>
+                                <PopoverContent className="w-auto p-0 border-slate-700 bg-slate-800 text-slate-200" align="end">
+                                    <Calendar
+                                        mode="single"
+                                        selected={new Date(dateKey)}
+                                        onSelect={(date) => {
+                                            if (date) {
+                                                const formattedDate = format(date, "yyyy-MM-dd");
+                                                if (MOCK_DATA[formattedDate as keyof typeof MOCK_DATA]) {
+                                                    setDateKey(formattedDate);
+                                                }
+                                            }
+                                        }}
+                                        initialFocus
+                                        className="bg-slate-800 text-slate-200"
+                                    />
+                                </PopoverContent>
+                            </Popover>
                         </div>
                         <span className="text-slate-400 text-[11px]">업데이트: {dateKey.replace(/-/g, ".")} 18:30 KST</span>
                     </div>
