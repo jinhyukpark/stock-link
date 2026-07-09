@@ -424,7 +424,7 @@ export default function SocialAnalysisView() {
 
                     <div className="flex flex-col items-end gap-2 shrink-0">
                         {/* Custom DatePicker Tab */}
-                        <div className="flex items-center gap-1 bg-slate-800/50 p-1.5 rounded-lg border border-slate-700">
+                        <div className="flex items-center bg-slate-800/80 rounded-md border border-slate-700/80 p-0.5">
                             {DATES.slice(0, 2).map(d => {
                                 const isActive = dateKey === d;
                                 const formatted = d.substring(5).replace("-", "/");
@@ -433,12 +433,11 @@ export default function SocialAnalysisView() {
                                         key={d}
                                         onClick={() => setDateKey(d)}
                                         className={cn(
-                                            "px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-1.5",
-                                            isActive ? "bg-blue-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-200 hover:bg-slate-700"
+                                            "px-4 py-1.5 rounded-md text-sm font-medium transition-all flex items-center justify-center min-w-[70px]",
+                                            isActive ? "bg-slate-700/80 text-white shadow-sm" : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
                                         )}
                                     >
                                         {formatted}
-                                        {isActive && <div className="w-1.5 h-1.5 rounded-full bg-white" />}
                                     </button>
                                 )
                             })}
@@ -447,15 +446,15 @@ export default function SocialAnalysisView() {
                                 <PopoverTrigger asChild>
                                     <button 
                                         className={cn(
-                                            "px-4 py-1.5 rounded-md text-sm font-medium transition-colors flex items-center gap-1.5",
-                                            (!DATES.slice(0, 2).includes(dateKey)) ? "bg-blue-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-200 hover:bg-slate-700"
+                                            "px-4 py-1.5 rounded-md text-sm font-medium transition-all flex items-center justify-center gap-1 min-w-[70px]",
+                                            (!DATES.slice(0, 2).includes(dateKey)) ? "bg-blue-600 text-white shadow-sm" : "text-slate-400 hover:text-slate-200 hover:bg-slate-700/50"
                                         )}
                                     >
                                         {(!DATES.slice(0, 2).includes(dateKey)) ? dateKey.substring(5).replace("-", "/") : DATES[2].substring(5).replace("-", "/")}
-                                        <div className="w-1.5 h-1.5 rounded-full bg-white ml-0.5" />
+                                        <div className="w-1 h-1 rounded-full bg-white ml-0.5" />
                                     </button>
                                 </PopoverTrigger>
-                                <PopoverContent className="w-auto p-0 border-slate-700 bg-slate-800 text-slate-200" align="end">
+                                <PopoverContent className="w-auto p-0 border-slate-700 bg-slate-800 text-slate-200 shadow-xl" align="end">
                                     <Calendar
                                         mode="single"
                                         selected={new Date(dateKey)}
@@ -468,7 +467,7 @@ export default function SocialAnalysisView() {
                                             }
                                         }}
                                         initialFocus
-                                        className="bg-slate-800 text-slate-200"
+                                        className="bg-slate-800 text-slate-200 rounded-md"
                                     />
                                 </PopoverContent>
                             </Popover>
