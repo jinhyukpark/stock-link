@@ -746,9 +746,9 @@ export default function SocialAnalysisView() {
                                                 <td className="px-6 py-4 w-[280px]">
                                                     <div className="flex flex-col gap-2">
                                                         {stock.speakers?.map((sp: any, idx: number) => (
-                                                            <div key={idx} className="flex items-center gap-2 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60 w-fit max-w-full">
-                                                                <span className="text-slate-100 text-[14px] font-bold shrink-0">{sp.name || "인플루언서"}</span>
-                                                                {sp.title && <span className="text-slate-400 text-[12px] truncate">{sp.title}</span>}
+                                                            <div key={idx} className="flex items-center gap-2 bg-slate-800/80 px-2.5 py-1 rounded-md border border-slate-700/60 w-fit max-w-full">
+                                                                <span className="text-slate-100 text-sm font-medium shrink-0">{sp.name || "인플루언서"}</span>
+                                                                {sp.title && <span className="text-slate-400 text-xs truncate">{sp.title}</span>}
                                                             </div>
                                                         ))}
                                                     </div>
@@ -826,9 +826,9 @@ export default function SocialAnalysisView() {
                                                 <td className="px-6 py-4 w-[280px]">
                                                     <div className="flex flex-col gap-2">
                                                         {stock.speakers?.map((sp: any, idx: number) => (
-                                                            <div key={idx} className="flex items-center gap-2 bg-slate-800/80 px-3 py-1.5 rounded-lg border border-slate-700/60 w-fit max-w-full">
-                                                                <span className="text-slate-100 text-[14px] font-bold shrink-0">{sp.name || "인플루언서"}</span>
-                                                                {sp.title && <span className="text-slate-400 text-[12px] truncate">{sp.title}</span>}
+                                                            <div key={idx} className="flex items-center gap-2 bg-slate-800/80 px-2.5 py-1 rounded-md border border-slate-700/60 w-fit max-w-full">
+                                                                <span className="text-slate-100 text-sm font-medium shrink-0">{sp.name || "인플루언서"}</span>
+                                                                {sp.title && <span className="text-slate-400 text-xs truncate">{sp.title}</span>}
                                                             </div>
                                                         ))}
                                                     </div>
