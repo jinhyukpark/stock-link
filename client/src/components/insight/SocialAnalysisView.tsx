@@ -714,7 +714,6 @@ export default function SocialAnalysisView() {
                                 <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                     <tr>
                                         <th className="px-6 py-4 w-64 font-semibold text-left border-b border-slate-700">종목</th>
-                                        <th className="px-6 py-4 w-28 font-semibold text-center border-b border-slate-700">섹터</th>
                                         <th className="px-6 py-4 w-64 font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
                                         <th className="px-6 py-4 font-semibold text-left border-b border-slate-700">영향 근거</th>
                                         <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">수혜 강도</th>
@@ -731,18 +730,18 @@ export default function SocialAnalysisView() {
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-3">
                                                         <StockLogo ticker={stock.ticker} name={stock.name} className="w-8 h-8 rounded-md" />
-                                                        <div className="flex flex-col">
-                                                            <span className="text-white font-bold text-sm">{stock.name}</span>
+                                                        <div className="flex flex-col gap-1">
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="text-white font-bold text-sm">{stock.name}</span>
+                                                                <span className="text-slate-400 text-[10px] font-medium bg-slate-800/80 px-1.5 py-0.5 rounded-sm shrink-0 border border-slate-700/50">{sector}</span>
+                                                            </div>
                                                             {stock.ticker.match(/^\d{6}$/) ? (
                                                                 <span className="text-slate-500 text-[10px] font-mono">{stock.ticker}</span>
                                                             ) : (
-                                                                <Badge variant="outline" className="w-fit text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800 mt-0.5">해외</Badge>
+                                                                <Badge variant="outline" className="w-fit text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800">해외</Badge>
                                                             )}
                                                         </div>
                                                     </div>
-                                                </td>
-                                                <td className="px-6 py-4 text-center">
-                                                    <span className="text-slate-400 text-[11px] font-medium bg-slate-800/80 px-2 py-1 rounded-md">{sector}</span>
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex flex-wrap gap-2.5">
@@ -795,7 +794,6 @@ export default function SocialAnalysisView() {
                                 <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                     <tr>
                                         <th className="px-6 py-4 w-64 font-semibold text-left border-b border-slate-700">종목</th>
-                                        <th className="px-6 py-4 w-28 font-semibold text-center border-b border-slate-700">섹터</th>
                                         <th className="px-6 py-4 w-64 font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
                                         <th className="px-6 py-4 font-semibold text-left border-b border-slate-700">영향 근거</th>
                                         <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">리스크 강도</th>
@@ -812,18 +810,18 @@ export default function SocialAnalysisView() {
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-3">
                                                         <StockLogo ticker={stock.ticker} name={stock.name} className="w-8 h-8 rounded-md" />
-                                                        <div className="flex flex-col">
-                                                            <span className="text-white font-bold text-sm">{stock.name}</span>
+                                                        <div className="flex flex-col gap-1">
+                                                            <div className="flex items-center gap-2">
+                                                                <span className="text-white font-bold text-sm">{stock.name}</span>
+                                                                <span className="text-slate-400 text-[10px] font-medium bg-slate-800/80 px-1.5 py-0.5 rounded-sm shrink-0 border border-slate-700/50">{sector}</span>
+                                                            </div>
                                                             {stock.ticker.match(/^\d{6}$/) ? (
                                                                 <span className="text-slate-500 text-[10px] font-mono">{stock.ticker}</span>
                                                             ) : (
-                                                                <Badge variant="outline" className="w-fit text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800 mt-0.5">해외</Badge>
+                                                                <Badge variant="outline" className="w-fit text-[9px] px-1 py-0 h-4 border-slate-600 text-slate-400 bg-slate-800">해외</Badge>
                                                             )}
                                                         </div>
                                                     </div>
-                                                </td>
-                                                <td className="px-6 py-4 text-center">
-                                                    <span className="text-slate-400 text-[11px] font-medium bg-slate-800/80 px-2 py-1 rounded-md">{sector}</span>
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex flex-wrap gap-2.5">
