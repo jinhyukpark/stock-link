@@ -582,7 +582,7 @@ export default function SocialAnalysisView() {
                         <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                             <tr>
                                 <th className="px-4 py-4 w-24 font-semibold text-center border-b border-slate-700/50 align-middle">영향도 강도</th>
-                                <th className="px-4 py-4 w-[160px] font-semibold text-left border-b border-slate-700/50 align-middle">인물</th>
+                                <th className="px-4 py-4 w-[240px] font-semibold text-left border-b border-slate-700/50 align-middle">인물</th>
                                 <th className="px-4 py-4 font-semibold text-left border-b border-slate-700/50 align-middle">시장 영향 분석</th>
                                 <th className="px-3 py-4 w-[210px] font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-b border-slate-700/50 align-middle">📈 수혜 종목</th>
                                 <th className="px-3 py-4 w-[210px] font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-b border-slate-700/50 align-middle">📉 리스크 종목</th>
@@ -614,14 +614,19 @@ export default function SocialAnalysisView() {
                                         
                                         {/* 2. 인물 */}
                                         <td className="px-4 py-6 border-r border-white/5 align-middle">
-                                            <div className="flex flex-col items-start justify-center gap-1.5 w-full">
-                                                <div className="flex items-center justify-start gap-1.5">
-                                                    {speaker.countryCode && (
-                                                        <img src={flagUrl(speaker.countryCode)} alt={speaker.country} className="w-5 object-contain shadow-sm rounded-sm" />
-                                                    )}
-                                                    <span className="text-white font-bold text-[14px] leading-tight whitespace-nowrap">{speaker.speaker}</span>
+                                            <div className="flex items-center gap-3">
+                                                <div className="flex flex-col items-center gap-1 shrink-0 pt-0.5">
+                                                    <Avatar name={speaker.speaker} />
                                                 </div>
-                                                <span className="text-slate-400 text-[11px] leading-tight bg-slate-800/50 px-2 py-1 rounded max-w-[140px] break-keep">{speaker.speakerTitle}</span>
+                                                <div className="flex flex-col gap-1 min-w-0 pr-4">
+                                                    <div className="flex items-center gap-1.5 whitespace-nowrap">
+                                                        <span className="text-white font-bold text-[14px]">{speaker.speaker}</span>
+                                                        {speaker.countryCode && (
+                                                            <img src={flagUrl(speaker.countryCode)} alt={speaker.country} className="w-5 object-contain shadow-sm rounded-sm" />
+                                                        )}
+                                                    </div>
+                                                    <span className="text-slate-400 text-[12px] leading-tight break-keep">{speaker.speakerTitle}</span>
+                                                </div>
                                             </div>
                                         </td>
 
