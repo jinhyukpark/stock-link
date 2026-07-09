@@ -443,23 +443,40 @@ export default function SocialAnalysisView() {
             {/* 2. ① 주요 인사 발언 (상단) */}
             <section className="mb-16">
                 <SectionTitle icon={Target} title="🎙 주요 인사 발언" subtitle="오늘 증권 관련 주요 발언을 모니터링했습니다" />
-                <div className="bg-slate-900 border border-white/10 rounded-xl overflow-hidden shadow-lg w-full overflow-x-auto custom-scrollbar">
+                <div className="bg-slate-900 border border-white/10 rounded-xl shadow-lg w-full">
                     
-                    <table className="w-full text-left min-w-[1100px] border-collapse">
+                    <table className="w-full text-left border-collapse table-fixed">
                         <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                             <tr>
-                                <th className="px-6 py-4 w-48 font-semibold text-left">인물</th>
-                                <th className="px-6 py-4 w-32 font-semibold text-center">플랫폼</th>
-                                <th className="px-6 py-4 min-w-[220px] font-semibold text-left">발언 요약</th>
-                                <th className="px-6 py-4 min-w-[140px] w-40 font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-l border-emerald-900/20">📈 수혜 종목</th>
-                                <th className="px-6 py-4 min-w-[140px] w-40 font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-l border-[#ff7c7e]/10">📉 리스크 종목</th>
-                                <th className="px-6 py-4 w-28 font-semibold text-center">강도</th>
+                                <th className="px-6 py-4 w-28 font-semibold text-center border-b border-slate-700/50">영향도</th>
+                                <th className="px-6 py-4 w-52 font-semibold text-left border-b border-slate-700/50">인물</th>
+                                <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700/50">플랫폼</th>
+                                <th className="px-6 py-4 font-semibold text-left border-b border-slate-700/50">발언 요약</th>
+                                <th className="px-6 py-4 w-44 font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-b border-slate-700/50">📈 수혜 종목</th>
+                                <th className="px-6 py-4 w-44 font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-b border-slate-700/50">📉 리스크 종목</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
-                            {data.speakers.map((item, i) => (
-                                <tr key={`speaker-${item.id}`} className={cn(i % 2 === 0 ? "bg-slate-800/60" : "bg-slate-900", "align-top")}>
-                                    <td className="px-6 py-5 min-w-[160px]">
+                            {data.speakers.map((item, i) => {
+                                const impactLevel = item.impactLevel || (((item as any).stars || 3) >= 4 ? 'high' : ((item as any).stars || 3) === 3 ? 'medium' : 'low');
+                                const bgClass = i % 2 === 0 ? "bg-slate-800/60" : "bg-slate-900";
+                                
+                                const impactText = impactLevel === 'high' ? '높음' : impactLevel === 'medium' ? '중간' : '낮음';
+                                const impactColor = impactLevel === 'high' ? 'text-[#ff7c7e]' : impactLevel === 'medium' ? 'text-amber-400' : 'text-emerald-400';
+                                const dotColor = impactLevel === 'high' ? 'bg-[#ff7c7e]' : impactLevel === 'medium' ? 'bg-amber-400' : 'bg-emerald-400';
+                                
+                                return (
+                                <tr key={`speaker-${item.id}`} className={cn(bgClass, "align-top")}>
+                                    <td className="px-6 py-5">
+                                        <div className="flex flex-col items-center justify-start gap-2 h-full pt-1">
+                                            <div className="flex items-center gap-1.5">
+                                                <div className={cn("w-2 h-2 rounded-full shadow-sm", dotColor)}></div>
+                                                <span className={cn("text-xs font-bold whitespace-nowrap tracking-wide", impactColor)}>{impactText}</span>
+                                            </div>
+                                        </div>
+                                    </td>
+                                    
+                                    <td className="px-6 py-5">
                                         <div className="flex items-center gap-3">
                                             <div className="flex flex-col items-center gap-1 shrink-0">
                                                 <Avatar name={item.speaker} />
@@ -490,7 +507,7 @@ export default function SocialAnalysisView() {
                                     </td>
 
                                     {/* Completely separated column: 수혜 종목 */}
-                                    <td className="px-6 py-5 bg-emerald-950/10 border-l border-emerald-900/20">
+                                    <td className="px-6 py-5 bg-emerald-950/10">
                                         <div className="flex flex-wrap gap-1 content-start">
                                             {item.positiveStocks && item.positiveStocks.length > 0 ? (
                                                 item.positiveStocks.map((stock, idx) => (
@@ -503,7 +520,7 @@ export default function SocialAnalysisView() {
                                     </td>
 
                                     {/* Completely separated column: 리스크 종목 */}
-                                    <td className="px-6 py-5 bg-[#ff7c7e]/5 border-l border-[#ff7c7e]/10">
+                                    <td className="px-6 py-5 bg-[#ff7c7e]/5">
                                         <div className="flex flex-wrap gap-1 content-start">
                                             {item.negativeStocks && item.negativeStocks.length > 0 ? (
                                                 item.negativeStocks.map((stock, idx) => (
@@ -514,14 +531,9 @@ export default function SocialAnalysisView() {
                                             )}
                                         </div>
                                     </td>
-
-                                    <td className="px-6 py-6">
-                                        <div className="flex justify-center h-full pt-1">
-                                            <Stars count={(item as any).stars || 3} />
-                                        </div>
-                                    </td>
                                 </tr>
-                            ))}
+                                );
+                            })}
                         </tbody>
                     </table>
                 </div>
