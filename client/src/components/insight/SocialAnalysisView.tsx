@@ -544,15 +544,15 @@ export default function SocialAnalysisView() {
             {/* 3. ② 시장 영향 분석 (하단) */}
             <section className="mb-16">
                 <SectionTitle icon={TrendingUp} title="📊 시장 영향 분석" subtitle="각 발언이 국내 증시에 미칠 영향을 분석했습니다" />
-                <div className="bg-slate-900 border border-white/10 rounded-xl shadow-lg w-full">
-                    <table className="w-full text-left border-collapse table-fixed">
+                <div className="bg-slate-900 border border-white/10 rounded-xl overflow-hidden shadow-lg w-full overflow-x-auto custom-scrollbar">
+                    <table className="w-full text-left border-collapse table-fixed min-w-[1250px]">
                         <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                             <tr>
                                 <th className="px-4 py-4 w-24 font-semibold text-center border-b border-slate-700/50">영향도 강도</th>
-                                <th className="px-4 py-4 w-32 font-semibold text-left border-b border-slate-700/50">인물</th>
+                                <th className="px-4 py-4 w-[240px] font-semibold text-left border-b border-slate-700/50">인물</th>
                                 <th className="px-4 py-4 font-semibold text-left border-b border-slate-700/50">발언</th>
-                                <th className="px-4 py-4 w-40 font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-b border-slate-700/50">📈 수혜 종목</th>
-                                <th className="px-4 py-4 w-40 font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-b border-slate-700/50">📉 리스크 종목</th>
+                                <th className="px-4 py-4 w-[340px] font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-b border-slate-700/50">📈 수혜 종목</th>
+                                <th className="px-4 py-4 w-[340px] font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-b border-slate-700/50">📉 리스크 종목</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
@@ -580,14 +580,14 @@ export default function SocialAnalysisView() {
                                         </td>
                                         
                                         {/* 2. 인물 */}
-                                        <td className="px-4 py-6 min-w-[160px] border-r border-white/5">
-                                            <div className="flex flex-col gap-3">
-                                                <div className="flex items-center gap-3">
-                                                    <Avatar name={speaker.speaker} className="w-10 h-10 shrink-0" />
-                                                    <div className="flex flex-col gap-0.5">
-                                                        <span className="text-white font-bold text-sm leading-tight">{speaker.speaker}</span>
-                                                        <span className="text-slate-400 text-[11px] leading-tight">{speaker.speakerTitle}</span>
+                                        <td className="px-4 py-6 border-r border-white/5 pr-2">
+                                            <div className="flex items-center gap-3">
+                                                <Avatar name={speaker.speaker} className="w-10 h-10 shrink-0" />
+                                                <div className="flex flex-col gap-1 min-w-0 pr-2">
+                                                    <div className="flex items-center gap-1.5 whitespace-nowrap">
+                                                        <span className="text-white font-bold text-sm truncate">{speaker.speaker}</span>
                                                     </div>
+                                                    <span className="text-slate-400 text-[11px] leading-tight truncate">{speaker.speakerTitle}</span>
                                                 </div>
                                             </div>
                                         </td>
