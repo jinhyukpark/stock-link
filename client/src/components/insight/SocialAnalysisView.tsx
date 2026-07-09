@@ -217,113 +217,111 @@ const MOCK_DATA = {
             { 
                 id: 1, 
                 speaker: "도널드 트럼프", speakerTitle: "미국 대통령", 
-                country: "미국",
-                countryCode: "us",
-                platform: "Truth Social", 
-                summary: "블룸버그 펀드스트랫 분석에 따르면 S&P500 상하위 5거래일이 모두 트럼프 발언과 직결. 관세 정책이 미국 제조업 부활 및 재정적자 감소에 도움 된다는 취지.", 
-                followers: "공개 발언",
-                positiveStocks: [{ ticker: "042660", name: "한화오션" }, { ticker: "329180", name: "HD현대중공업" }, { ticker: "SPY", name: "S&P500" }],
-                negativeStocks: [{ ticker: "005930", name: "삼성전자" }, { ticker: "005380", name: "현대차" }, { ticker: "TSLA", name: "Tesla" }, { ticker: "AAPL", name: "Apple" }],
-                stars: 3,
-                time: "2026-04-26"
+                country: "미국", countryCode: "us",
+                platform: "Truth Social / 공개 발언", 
+                summary: "이란과의 협상을 서두르지 않겠다며 'Truth Social'에 '나는 모든 시간이 있지만, 이란에는 없다. 시계가 가고 있다'고 게시. 협상을 원하지 않으면 군사적으로 끝낼 것이라고 경고하고, 호르무즈 해협 기뢰 설치 선박에 대한 격침 명령을 발표. 이스라엘-레바논 휴전은 3주 추가 연장.", 
+                analysis: "호르무즈 해협 봉쇄 현실화 시 전 세계 원유 수출의 약 20%가 차단될 수 있어 에너지 가격 급등 리스크가 현실화됨. 방산주는 단기 수혜가 명확하나, 항공·해운주는 유가 급등과 항로 차질이라는 이중 부담에 노출.",
+                positiveStocks: [{ ticker: "012450", name: "한화에어로스페이스", reason: "전쟁 장기화 기대에 방위산업 수혜" }, { ticker: "079550", name: "LIG넥스원", reason: "미사일/방어시스템 수요 증가 기대" }, { ticker: "064350", name: "현대로템", reason: "방산 수요 증가" }, { ticker: "329180", name: "HD현대중공업", reason: "해군 함정 수요 증가 기대" }, { ticker: "LMT", name: "Lockheed Martin", reason: "전쟁 장기화로 방위산업 수혜" }, { ticker: "XOM", name: "Exxon Mobil", reason: "호르무즈 해협 봉쇄로 유가 상승 수혜" }],
+                negativeStocks: [{ ticker: "003490", name: "대한항공", reason: "유가 상승 및 중동 운항 차질 우려" }, { ticker: "086280", name: "현대글로비스", reason: "해운 운송 리스크 증가" }, { ticker: "010950", name: "S-Oil", reason: "원유 공급 불확실성" }, { ticker: "DAL", name: "Delta Air Lines", reason: "유가 급등 비용 부담" }],
+                impactLevel: "high",
+                time: "2026-04-24"
             },
             { 
                 id: 2, 
                 speaker: "일론 머스크", speakerTitle: "테슬라 CEO / X 오너", 
-                country: "미국",
-                countryCode: "us",
-                platform: "Tesla Q1 어닝콜", 
-                summary: "Capex 250억 달러로 25% 상향, 연말까지 Optimus 100만 대 생산라인 목표. EPS $0.41 서프라이즈이나 매출 소폭 하회.", 
-                followers: "Tesla CEO",
-                positiveStocks: [{ ticker: "005930", name: "삼성전자" }, { ticker: "000660", name: "SK하이닉스" }, { ticker: "TSLA", name: "Tesla" }, { ticker: "NVDA", name: "NVIDIA" }],
-                negativeStocks: [{ ticker: "TSLA", name: "Tesla" }],
-                stars: 3,
-                time: "2026-04-22"
+                country: "미국", countryCode: "us",
+                platform: "테슬라 Q1 2026 실적발표 컨퍼런스콜", 
+                summary: "테슬라 Q1 2026 실적 발표에서 EPS 0.41달러(예상치 0.37달러 상회, 어닝 서프라이즈), 매출 223.9억 달러(기대 미달). 2026년 CapEx를 200억 달러에서 250억 달러로 50억 달러 상향 조정. 옵티머스 로봇 대규모 공장 Q2 착공, 연간 100만 대 생산 목표 제시.", 
+                analysis: "어닝 서프라이즈와 CapEx 대규모 확대가 동시에 발표되어 단기(수익성 우려)와 장기(성장 기대) 사이의 해석이 갈리는 상황. 옵티머스 로봇 연간 100만 대 목표는 로보틱스 섹터 전반의 밸류에이션 재평가를 유도.",
+                positiveStocks: [{ ticker: "000660", name: "SK하이닉스", reason: "AI 자율주행용 HBM 수요 증가" }, { ticker: "277810", name: "레인보우로보틱스", reason: "휴머노이드 로봇 시장 확장 기대" }, { ticker: "TSLA", name: "Tesla", reason: "EPS 어닝 서프라이즈, 자율주행 로봇 미래 성장성" }, { ticker: "NVDA", name: "NVIDIA", reason: "AI 칩 자율주행 인프라 수요 확대" }],
+                negativeStocks: [{ ticker: "TSLA", name: "Tesla", reason: "CapEx 250억 달러 상향으로 단기 수익성 압박, 실적 발표 후 시간외 하락" }],
+                impactLevel: "high",
+                time: "2026-04-22 17:30 ET"
             },
             { 
                 id: 3, 
-                speaker: "이창용", speakerTitle: "전 한국은행 총재", 
-                country: "한국",
-                countryCode: "kr",
-                platform: "금통위 기자간담회", 
-                summary: "기준금리 2.50% 7연속 동결. 중동 전쟁으로 물가 상방·성장 하방 동시 증대. 2026년 성장률 2% 하회, 물가 2.2% 상당폭 상회 경고.", 
-                followers: "한국은행 총재",
-                positiveStocks: [{ ticker: "105560", name: "KB금융" }, { ticker: "055550", name: "신한지주" }, { ticker: "005930", name: "삼성전자" }, { ticker: "000660", name: "SK하이닉스" }],
-                negativeStocks: [{ ticker: "000720", name: "현대건설" }, { ticker: "N/A", name: "건설사 전반" }],
-                stars: 3,
-                time: "2026-04-10"
+                speaker: "젠슨 황", speakerTitle: "NVIDIA CEO", 
+                country: "미국", countryCode: "us",
+                platform: "Fortune 인터뷰", 
+                summary: "2027년까지 NVIDIA AI 칩 주문이 1조 달러에 달한다고 전망. AI가 '추론 인플렉션 포인트'에 진입했으며 반도체 수요는 '지수적(exponential)' 증가세라고 강조.", 
+                analysis: "1조 달러 AI 칩 수요 전망은 AI 인프라 투자 사이클이 최소 2027년까지 지속됨을 의미하며, HBM 공급망 전반에 구조적 매수 근거를 강화함.",
+                positiveStocks: [{ ticker: "000660", name: "SK하이닉스", reason: "AI 가속기용 HBM 수요 급증 수혜" }, { ticker: "042700", name: "한미반도체", reason: "HBM 패키징 장비 수요 증가" }, { ticker: "007660", name: "이수페타시스", reason: "AI 서버 기판 수요 증가" }, { ticker: "NVDA", name: "NVIDIA", reason: "AI 칩 수요 1조 달러 전망" }],
+                negativeStocks: [],
+                impactLevel: "high",
+                time: "2026-04-22"
             },
             { 
                 id: 4, 
-                speaker: "SK하이닉스 (공식)", 
-                country: "한국",
-                countryCode: "kr",
-                platform: "공식 보도자료", 
-                summary: "1Q26 매출 52.6조 원, 영업이익 37.6조 원(이익률 72%). 역대 최대 분기 실적. HBM3E 확대 주효. 코스피 6,500선 돌파 촉매.", 
-                followers: "경영진",
-                positiveStocks: [{ ticker: "000660", name: "SK하이닉스" }, { ticker: "005930", name: "삼성전자" }, { ticker: "042700", name: "한미반도체" }, { ticker: "NVDA", name: "NVIDIA" }, { ticker: "MU", name: "Micron" }],
-                negativeStocks: [],
-                stars: 3,
-                time: "2026-04-23"
+                speaker: "신현송", speakerTitle: "한국은행 신임 총재", 
+                country: "한국", countryCode: "kr",
+                platform: "취임사 / 공식 기자회견", 
+                summary: "취임 일성으로 '신중하고 유연한 통화정책 운영을 통해 물가안정과 금융안정을 도모하겠다'고 밝힘. 가계부채를 관리하지 못하면 내수 침체로 이어질 수 있다고 경고. 전문가들은 하반기 금리 인상 가능성을 주목.", 
+                analysis: "하반기 금리 인상 가능성이 열리며 인터넷은행 할부금융주에 부담이 증가. 전통 금융지주사는 금리 상승 환경에서 예대마진 확대 수혜 기대.",
+                positiveStocks: [{ ticker: "105560", name: "KB금융", reason: "금융안정 정책 수혜" }, { ticker: "016360", name: "삼성증권", reason: "금융안정 강조로 자본시장 신뢰 제고" }, { ticker: "006800", name: "미래에셋증권", reason: "자본시장 안정 기대" }],
+                negativeStocks: [{ ticker: "323410", name: "카카오뱅크", reason: "가계부채 규제 강화 우려" }, { ticker: "279570", name: "케이뱅크", reason: "가계대출 축소 압력" }, { ticker: "005380", name: "현대차", reason: "금리 인상 가능성에 자동차 할부 수요 감소" }],
+                impactLevel: "high",
+                time: "2026-04-21 KST"
             },
             { 
                 id: 5, 
-                speaker: "한국은행 (공식)", speakerTitle: "중앙은행", 
-                country: "한국",
-                countryCode: "kr",
-                platform: "공식 보도자료", 
-                summary: "1Q26 실질 GDP 전 분기 대비 +1.7%, 시장 예상 0.9% 두 배 상회. 5년 반 만에 최고치. ING 성장률 전망 2.8%로 상향.", 
-                followers: "경제통계국",
-                positiveStocks: [{ ticker: "005930", name: "삼성전자" }, { ticker: "000660", name: "SK하이닉스" }, { ticker: "069500", name: "코스피 ETF" }],
-                negativeStocks: [],
-                stars: 3,
-                time: "2026-04-23"
+                speaker: "팀 쿡", speakerTitle: "애플 CEO", 
+                country: "미국", countryCode: "us",
+                platform: "공식 보도자료 (Apple Newsroom)", 
+                summary: "팀 쿡 CEO가 2026년 9월 1일부로 Executive Chairman으로 전환하고, 존 터너스 SVP가 차기 CEO. 재임 중 시가총액이 3,500억 달러에서 4조 달러로 성장. Q2 2026 실적은 4월 30일 발표 예정.", 
+                analysis: "공식 승계 계획 발표로 최악의 시나리오는 회피함. 4월 30일 Q2 실적 발표가 신규 CEO 체제 첫 결정적 모멘텀.",
+                positiveStocks: [{ ticker: "034220", name: "LG디스플레이", reason: "애플 부품 공급망 안정 지속 기대" }, { ticker: "AAPL", name: "Apple", reason: "승계 계획 공개로 불확실성 해소" }],
+                negativeStocks: [{ ticker: "AAPL", name: "Apple", reason: "리더십 전환 불확실성으로 시간외 소폭 하락" }],
+                impactLevel: "high",
+                time: "2026-04-20"
             },
             { 
                 id: 6, 
-                speaker: "케빈 워시", speakerTitle: "연준 의장 지명자", 
-                country: "미국",
-                countryCode: "us",
-                platform: "상원 청문회", 
-                summary: "연준 '레짐 체인지' 예고, 대차대조표 축소 의지 천명. 트럼프 꼭두각시 안 되겠다 독립성 강조. 매파 성향으로 금리인상 가속 우려.", 
-                followers: "연준 의장 지명자",
-                positiveStocks: [],
-                negativeStocks: [{ ticker: "N/A", name: "성장주 전반" }, { ticker: "SPY", name: "S&P500" }, { ticker: "NVDA", name: "NVIDIA" }, { ticker: "TSLA", name: "Tesla" }],
-                stars: 3,
-                time: "2026-04-20"
-            }
-        ],
-        marketImpact: [
-            { id: 1, ticker: "005930", name: "삼성전자", sector: "반도체/AI 인프라", comment: "Tesla AI 로봇 투자 확대로 메모리 반도체 수요가 견고해질 것이란 전망이 부각됩니다.", direction: "수혜", stars: 3, influencer: "일론 머스크" },
-            { id: 2, ticker: "000660", name: "SK하이닉스", sector: "반도체/AI 인프라", comment: "역대 최대 1분기 실적과 HBM3E 독주 체제 재확인으로 업황 모멘텀이 포착됩니다.", direction: "수혜", stars: 3, influencer: "SK하이닉스 경영진" },
-            { id: 3, ticker: "005380", name: "현대차", sector: "자동차/수출제조업", comment: "트럼프의 관세 15% 적용 의지 재확인으로 수출 실적에 역풍 우려가 쌓이고 있습니다.", direction: "리스크", stars: 3, influencer: "도널드 트럼프" },
-            { id: 4, ticker: "TSLA", name: "Tesla", sector: "전기차/AI 로봇", comment: "Optimus 구체화는 긍정적이나 단기 Capex 급증과 수익성 훼손으로 방향을 탐색 중입니다.", direction: "관망", stars: 3, influencer: "일론 머스크" },
-            { id: 5, ticker: "042660", name: "한화오션", sector: "조선/방산/전력", comment: "미국 관세 우회 및 해군 함정 협력 기대로 수혜 흐름이 이어집니다.", direction: "수혜", stars: 2, influencer: "도널드 트럼프" },
-            { id: 6, ticker: "105560", name: "KB금융", sector: "금융/은행", comment: "기준금리 장기 동결 기조로 인해 은행권 예대마진 방어에 훈풍이 불고 있습니다.", direction: "소폭 수혜", stars: 2, influencer: "이창용" },
-            { id: 7, ticker: "000720", name: "현대건설", sector: "건설", comment: "금리 인하 지연으로 부동산 및 PF 시장 회복이 지연되며 발목을 잡힐 수 있습니다.", direction: "리스크", stars: 2, influencer: "이창용" }
-        ],
-        positiveStocks: [
-            { ticker: "005930", name: "삼성전자", reason: "1Q26 영업이익 57.2조(YoY +755%) 사상 최대, AI 반도체 호황 확인", influencer: "SK하이닉스, 한국은행 등" },
-            { ticker: "000660", name: "SK하이닉스", reason: "1Q26 영업이익 37.6조(이익률 72%) 역대 최대, HBM3E 독주 증명", influencer: "머스크, SK하이닉스 등" },
-            { ticker: "012450", name: "한화에어로스페이스", reason: "방산 비중 확대 의견 및 중장기 모멘텀 유효", influencer: "코스피 전문가" },
-            { ticker: "NVDA", name: "NVIDIA", reason: "Q4 FY26 매출 $68.1B(YoY +80%), 시총 5조 달러 돌파", influencer: "머스크, 젠슨 황" }
-        ],
-        negativeStocks: [
-            { ticker: "005930", name: "삼성전자", reason: "관세 강화 발언 시 수출 타격 우려 상존", influencer: "트럼프, 베센트" },
-            { ticker: "005380", name: "현대차", reason: "미국 관세 15% 적용 우려 및 영업이익 감소 가능성", influencer: "트럼프, 현대자동차" },
-            { ticker: "TSLA", name: "Tesla", reason: "관세 불확실성, 소비자 불매, capex 250억 달러 급증 등 복합 악재", influencer: "머스크, 트럼프 등" },
-            { ticker: "AAPL", name: "Apple", reason: "중국 공급망 관세 부담 지속 및 재무과 우려", influencer: "트럼프, 베센트" }
-        ],
-        positiveSectors: [
-            { name: "반도체/AI 인프라", value: 7 },
-            { name: "금융/은행", value: 4 },
-            { name: "조선/방산/전력", value: 1 }
-        ],
-        negativeSectors: [
-            { name: "무역·관세/수출 제조업", value: 2 },
-            { name: "전기차/AI 로봇", value: 1 },
-            { name: "자동차/수출제조업", value: 1 }
-        ],
+                speaker: "이창용", speakerTitle: "전 한국은행 총재", 
+                country: "한국", countryCode: "kr",
+                platform: "금통위 기자간담회", 
+                summary: "기준금리 2.50% 7연속 동결 결정. '환율 안정 상태에서 후임에게 넘기고 싶었는데 트럼프 대통령이 도와주지 않았다'고 이임 발언.", 
+                analysis: "2.50% 기준금리 7연속 동결로 금융지주사의 예대마진 환경 안정적 유지. 트럼프발 환율 변동성 지속이 에너지·해운주의 구조적 리스크로 지속.",
+                positiveStocks: [{ ticker: "105560", name: "KB금융", reason: "금리 동결로 은행 예대마진 안정" }, { ticker: "055550", name: "신한지주", reason: "대출 수익 유지" }, { ticker: "086790", name: "하나금융지주", reason: "금리 동결 수혜" }],
+                negativeStocks: [{ ticker: "015760", name: "한국전력", reason: "고환율 지속으로 연료 수입 비용 부담" }, { ticker: "042660", name: "한화오션", reason: "환율 불확실성 부담" }],
+                impactLevel: "high",
+                time: "2026-04-10 KST"
+            },
+            { 
+                id: 7, 
+                speaker: "스콧 베센트", speakerTitle: "미국 재무장관", 
+                country: "미국", countryCode: "us",
+                platform: "달라스 이코노믹 클럽", 
+                summary: "미국인 40%가 주식시장에 노출되지 않았다며 '트럼프 어카운트' 등 주식 시장 참여 확대 필요성 역설. 관세 수익 '실질적으로 변하지 않을 것'이라고 발언.", 
+                analysis: "개인 투자자 참여 확대는 브로커리지 및 소매 플랫폼에 긍정적이나, 제조업은 여전히 관세 불확실성 지속.",
+                positiveStocks: [{ ticker: "006800", name: "미래에셋증권", reason: "" }, { ticker: "016360", name: "삼성증권", reason: "" }, { ticker: "SCHW", name: "Charles Schwab", reason: "소매 투자자 확대 수혜" }, { ticker: "HOOD", name: "Robinhood", reason: "소매 투자자 확대 수혜" }],
+                negativeStocks: [{ ticker: "XLI", name: "Manufacturing ETF", reason: "관세 불확실성 지속" }],
+                impactLevel: "medium",
+                time: "2026-04-25"
+            },
+            { 
+                id: 8, 
+                speaker: "캐롤라인 레빗", speakerTitle: "백악관 대변인", 
+                country: "미국", countryCode: "us",
+                platform: "폭스뉴스 인터뷰", 
+                summary: "미·이란 직접 회담 재개 발표. 파키스탄 중재 하 4월 25일 이슬라마바드에서 협상 재개. 긴장 완화 기대.", 
+                analysis: "중동 긴장 완화로 유가 하락 기대, 항공 및 정유 섹터 변동성 예상.",
+                positiveStocks: [{ ticker: "003490", name: "대한항공", reason: "" }, { ticker: "010950", name: "S-Oil", reason: "" }, { ticker: "DAL", name: "Delta Air Lines", reason: "유가 하락 기대" }],
+                negativeStocks: [],
+                impactLevel: "medium",
+                time: "2026-04-24"
+            },
+            { 
+                id: 9, 
+                speaker: "이재명", speakerTitle: "더불어민주당 대표", 
+                country: "한국", countryCode: "kr",
+                platform: "X(트위터) / 공개 발언", 
+                summary: "주식 과세체계 개편 필요성, 코스닥 제도 개선 가속화 희망, 자본시장 4대 개혁 추진.", 
+                analysis: "코스닥 및 대표 플랫폼, 게임주 전반의 투자심리 개선 기대.",
+                positiveStocks: [{ ticker: "KOSDAQ", name: "코스닥 전체", reason: "" }, { ticker: "035720", name: "카카오", reason: "" }, { ticker: "259960", name: "크래프톤", reason: "" }, { ticker: "247540", name: "에코프로비엠", reason: "" }],
+                negativeStocks: [],
+                impactLevel: "low",
+                time: "2026-04-09 KST"
+            }],
         sectorSummary: [
             { name: "반도체/AI 인프라", positive: 85, negative: 15, comment: "역대 최대 실적 릴레이와 AI 설비 투자 소식에 강력한 시선이 쏠리고 있습니다.", speakers: ["젠슨 황", "일론 머스크", "최태원"] },
             { name: "금융/전체 시장", positive: 50, negative: 50, comment: "기준금리 동결과 매파적 교체가 혼재되며 뚜렷한 방향을 찾지 못하고 있습니다.", speakers: ["스콧 베센트", "신원식", "이창용"] },
@@ -523,103 +521,125 @@ export default function SocialAnalysisView() {
             <section className="mb-16">
                 <SectionTitle icon={TrendingUp} title="📊 시장 영향 분석" subtitle="각 발언이 국내 증시에 미칠 영향을 분석했습니다" />
                 <div className="bg-slate-900 border border-white/10 rounded-xl overflow-hidden shadow-lg w-full overflow-x-auto custom-scrollbar">
-                    <table className="w-full text-left min-w-[1200px] border-collapse">
+                    <table className="w-full text-left min-w-[1400px] border-collapse">
                         <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                             <tr>
-                                <th className="px-6 py-4 w-48 font-semibold text-left">인물</th>
-                                <th className="px-6 py-4 min-w-[300px] font-semibold text-left">발언 요약</th>
-                                <th className="px-6 py-4 min-w-[140px] w-40 font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-l border-emerald-900/20">📈 수혜 종목</th>
-                                <th className="px-6 py-4 min-w-[140px] w-40 font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-l border-[#ff7c7e]/10">📉 리스크 종목</th>
-                                <th className="px-6 py-4 w-24 font-semibold text-center">방향</th>
-                                <th className="px-6 py-4 w-28 font-semibold text-center">강도</th>
+                                <th className="px-4 py-4 w-28 font-semibold text-center border-b border-slate-700/50">영향도 강도</th>
+                                <th className="px-4 py-4 w-48 font-semibold text-left border-b border-slate-700/50">인물</th>
+                                <th className="px-4 py-4 min-w-[320px] font-semibold text-left border-b border-slate-700/50">발언</th>
+                                <th className="px-4 py-4 min-w-[220px] w-64 font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-b border-slate-700/50">📈 수혜 종목</th>
+                                <th className="px-4 py-4 min-w-[220px] w-64 font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-b border-slate-700/50">📉 리스크 종목</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
                             {data.speakers.map((speaker, i) => {
-                                // Determine overall direction based on stock counts or logic.
-                                // For simplicity, if positive stocks > negative stocks, it's '수혜', etc.
-                                // But data.marketImpact might have the specific directions. Let's just use a simple heuristic based on stars and mock data structure.
-                                const isPositive = speaker.positiveStocks.length >= speaker.negativeStocks.length;
-                                const directionText = isPositive ? '수혜' : '리스크';
+                                const impactLevel = speaker.impactLevel || (speaker.stars >= 4 ? 'high' : speaker.stars === 3 ? 'medium' : 'low');
+                                const bgClass = impactLevel === 'high' ? 'bg-[#ff7c7e]/10 hover:bg-[#ff7c7e]/15' :
+                                                impactLevel === 'medium' ? 'bg-amber-500/10 hover:bg-amber-500/15' :
+                                                'bg-emerald-500/10 hover:bg-emerald-500/15';
+                                
+                                const impactText = impactLevel === 'high' ? '높음' : impactLevel === 'medium' ? '중간' : '낮음';
+                                const impactColor = impactLevel === 'high' ? 'text-[#ff7c7e]' : impactLevel === 'medium' ? 'text-amber-400' : 'text-emerald-400';
+                                const dotColor = impactLevel === 'high' ? 'bg-[#ff7c7e]' : impactLevel === 'medium' ? 'bg-amber-400' : 'bg-emerald-400';
                                 
                                 return (
                                     <tr key={`overview-${speaker.id}`} className={cn(
-                                        i % 2 === 0 ? "bg-slate-800/60" : "bg-slate-900", 
-                                        "align-middle",
-                                        "hover:bg-slate-800 transition-colors"
+                                        "align-top transition-colors",
+                                        bgClass
                                     )}>
-                                        <td className="px-6 py-5 min-w-[160px]">
-                                            <div className="flex items-center gap-3">
-                                                <Avatar name={speaker.speaker} className="w-10 h-10 shrink-0" />
-                                                <div className="flex flex-col gap-0.5">
-                                                    <span className="text-white font-bold text-sm whitespace-nowrap">{speaker.speaker}</span>
-                                                    <span className="text-slate-500 text-[11px] whitespace-nowrap">{speaker.speakerTitle}</span>
+                                        {/* 1. 영향도 강도 */}
+                                        <td className="px-4 py-6 border-r border-white/5">
+                                            <div className="flex flex-col items-center justify-start gap-2 pt-2">
+                                                <div className={cn("w-3.5 h-3.5 rounded-full shadow-[0_0_8px_rgba(0,0,0,0.5)]", dotColor)}></div>
+                                                <span className={cn("text-xs font-bold whitespace-nowrap", impactColor)}>{impactText}</span>
+                                            </div>
+                                        </td>
+                                        
+                                        {/* 2. 인물 */}
+                                        <td className="px-4 py-6 min-w-[160px] border-r border-white/5">
+                                            <div className="flex flex-col gap-3">
+                                                <div className="flex items-center gap-3">
+                                                    <Avatar name={speaker.speaker} className="w-10 h-10 shrink-0" />
+                                                    <div className="flex flex-col gap-0.5">
+                                                        <span className="text-white font-bold text-sm leading-tight">{speaker.speaker}</span>
+                                                        <span className="text-slate-400 text-[11px] leading-tight">{speaker.speakerTitle}</span>
+                                                    </div>
                                                 </div>
                                             </div>
                                         </td>
 
-                                        <td className="px-6 py-5 pr-8">
-                                            <p className="text-slate-300 text-sm leading-relaxed line-clamp-3" title={speaker.summary}>
-                                                {speaker.summary}
-                                            </p>
+                                        {/* 3. 발언 */}
+                                        <td className="px-4 py-6 border-r border-white/5">
+                                            <div className="flex flex-col gap-4">
+                                                <div className="flex flex-col gap-1.5">
+                                                    <span className="text-slate-400 font-bold text-[11px] uppercase tracking-wider">발언 요약</span>
+                                                    <p className="text-slate-200 text-sm leading-relaxed font-medium">
+                                                        {speaker.summary}
+                                                    </p>
+                                                </div>
+                                                
+                                                <div className="flex flex-col gap-1.5">
+                                                    <span className="text-slate-400 font-bold text-[11px] uppercase tracking-wider">시장 영향 분석</span>
+                                                    <p className="text-slate-400 text-[13px] leading-relaxed">
+                                                        {speaker.analysis || `${speaker.speaker}의 발언은 관련 섹터에 즉각적인 변동성을 야기하고 있으며, 단기 포지션 관리의 핵심 변수로 부상했습니다.`}
+                                                    </p>
+                                                </div>
+                                                
+                                                <div className="flex items-center gap-4 mt-2 pt-3 border-t border-white/5">
+                                                    <a href="#" className="inline-flex items-center text-blue-400 hover:text-blue-300 hover:underline text-[11px] font-medium" onClick={(e) => e.preventDefault()}>
+                                                        <ExternalLink className="w-3 h-3 mr-1" />
+                                                        원문 보기
+                                                    </a>
+                                                    <div className="flex items-center text-slate-500 text-[11px] font-mono tracking-wider gap-1">
+                                                        <CalendarIcon className="w-3 h-3" />
+                                                        {speaker.time ? speaker.time : "2026-04-26 09:00 KST"}
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </td>
 
-                                        <td className="px-6 py-5">
+                                        {/* 4. 수혜 종목 */}
+                                        <td className="px-4 py-6 border-r border-white/5">
                                             <div className="flex flex-col gap-2">
-                                                {speaker.positiveStocks.length > 0 && (
-                                                    <div className="flex flex-col gap-1">
-                                                        <span className="text-emerald-400 font-bold text-xs flex items-center gap-1"><TrendingUp className="w-3 h-3"/> 긍정 종목</span>
-                                                        <div className="flex flex-wrap gap-1">
-                                                            {speaker.positiveStocks.map((stock, idx) => (
-                                                                <div key={idx} className="flex items-center gap-1">
-                                                                    <StockLogo ticker={stock.ticker} name={stock.name} className="w-3.5 h-3.5 rounded-sm grayscale opacity-80" />
-                                                                    <span className="text-slate-300 text-xs">{stock.name}</span>
-                                                                    <span className="text-slate-500 text-[10px] font-mono">({stock.ticker})</span>
-                                                                </div>
-                                                            ))}
+                                                {speaker.positiveStocks && speaker.positiveStocks.length > 0 ? (
+                                                    speaker.positiveStocks.map((stock, idx) => (
+                                                        <div key={idx} className="flex flex-col gap-1 px-3 py-2 rounded-md bg-emerald-500/10 border border-emerald-500/20">
+                                                            <div className="flex items-center gap-1.5">
+                                                                <StockLogo ticker={stock.ticker} name={stock.name} className="w-3.5 h-3.5 rounded-sm shrink-0" />
+                                                                <span className="text-emerald-400 text-xs font-bold">{stock.name}</span>
+                                                                <span className="text-emerald-500/70 text-[10px] font-mono">({stock.ticker})</span>
+                                                            </div>
+                                                            {stock.reason && (
+                                                                <span className="text-emerald-200/70 text-[11px] leading-snug pl-5">- {stock.reason}</span>
+                                                            )}
                                                         </div>
-                                                    </div>
-                                                )}
-                                                {speaker.positiveStocks.length > 0 && speaker.negativeStocks.length > 0 && <div className="w-full h-px bg-white/5 my-1"></div>}
-                                                {speaker.negativeStocks.length > 0 && (
-                                                    <div className="flex flex-col gap-1">
-                                                        <span className="text-rose-400 font-bold text-xs flex items-center gap-1"><TrendingDown className="w-3 h-3"/> 부정 종목</span>
-                                                        <div className="flex flex-wrap gap-1">
-                                                            {speaker.negativeStocks.map((stock, idx) => (
-                                                                <div key={idx} className="flex items-center gap-1">
-                                                                    <StockLogo ticker={stock.ticker} name={stock.name} className="w-3.5 h-3.5 rounded-sm grayscale opacity-80" />
-                                                                    <span className="text-slate-300 text-xs">{stock.name}</span>
-                                                                    <span className="text-slate-500 text-[10px] font-mono">({stock.ticker})</span>
-                                                                </div>
-                                                            ))}
-                                                        </div>
-                                                    </div>
+                                                    ))
+                                                ) : (
+                                                    <div className="text-slate-600 text-xs w-full text-center py-4">—</div>
                                                 )}
                                             </div>
                                         </td>
 
-                                        <td className="px-6 py-5 text-center">
-                                            <DirectionBadge type={directionText} />
-                                        </td>
-
-                                        <td className="px-6 py-5 text-center">
-                                            <div className="flex justify-center gap-0.5 mt-1">
-                                                {[...Array(5)].map((_, idx) => (
-                                                    <Star 
-                                                        key={idx} 
-                                                        className={cn(
-                                                            "w-3.5 h-3.5", 
-                                                            idx < speaker.stars 
-                                                                ? (isPositive ? "fill-emerald-400 text-emerald-400" : "fill-[#ff7c7e] text-[#ff7c7e]") 
-                                                                : "fill-slate-700 text-slate-700"
-                                                        )} 
-                                                    />
-                                                ))}
+                                        {/* 5. 리스크 종목 */}
+                                        <td className="px-4 py-6">
+                                            <div className="flex flex-col gap-2">
+                                                {speaker.negativeStocks && speaker.negativeStocks.length > 0 ? (
+                                                    speaker.negativeStocks.map((stock, idx) => (
+                                                        <div key={idx} className="flex flex-col gap-1 px-3 py-2 rounded-md bg-rose-500/10 border border-rose-500/20">
+                                                            <div className="flex items-center gap-1.5">
+                                                                <StockLogo ticker={stock.ticker} name={stock.name} className="w-3.5 h-3.5 rounded-sm shrink-0 grayscale opacity-80" />
+                                                                <span className="text-rose-400 text-xs font-bold">{stock.name}</span>
+                                                                <span className="text-rose-500/70 text-[10px] font-mono">({stock.ticker})</span>
+                                                            </div>
+                                                            {stock.reason && (
+                                                                <span className="text-rose-200/70 text-[11px] leading-snug pl-5">- {stock.reason}</span>
+                                                            )}
+                                                        </div>
+                                                    ))
+                                                ) : (
+                                                    <div className="text-slate-600 text-xs w-full text-center py-4">—</div>
+                                                )}
                                             </div>
-                                        </td>
-                                        
-                                        <td className="px-6 py-5 text-center">
-                                            <span className="text-slate-400 text-xs font-mono">{speaker.time}</span>
                                         </td>
                                     </tr>
                                 );
@@ -627,7 +647,7 @@ export default function SocialAnalysisView() {
                         </tbody>
                     </table>
                 </div>
-            </section>
+                </section>
 
             <div className="mb-20 border-t-2 border-slate-700/50"></div>
 
