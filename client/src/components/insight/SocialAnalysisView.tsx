@@ -527,11 +527,11 @@ export default function SocialAnalysisView() {
                         <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                             <tr>
                                 <th className="px-6 py-4 w-48 font-semibold text-left">인물</th>
-                                <th className="px-6 py-4 min-w-[200px] font-semibold text-left">발언 요약</th>
-                                <th className="px-6 py-4 min-w-[240px] font-semibold text-left">영향받은 종목 리스트</th>
+                                <th className="px-6 py-4 min-w-[300px] font-semibold text-left">발언 요약</th>
+                                <th className="px-6 py-4 min-w-[140px] w-40 font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-l border-emerald-900/20">📈 수혜 종목</th>
+                                <th className="px-6 py-4 min-w-[140px] w-40 font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-l border-[#ff7c7e]/10">📉 리스크 종목</th>
                                 <th className="px-6 py-4 w-24 font-semibold text-center">방향</th>
                                 <th className="px-6 py-4 w-28 font-semibold text-center">강도</th>
-                                <th className="px-6 py-4 w-32 font-semibold text-center">발언 시각</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
