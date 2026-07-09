@@ -534,7 +534,7 @@ export default function SocialAnalysisView() {
                                     </td>
 
                                     <td className="px-6 py-5 pr-8 align-middle">
-                                        <div className="text-slate-200 text-sm leading-relaxed line-clamp-3">
+                                        <div className="text-slate-200 text-sm leading-relaxed">
                                             {item.summary}
                                         </div>
                                     </td>
