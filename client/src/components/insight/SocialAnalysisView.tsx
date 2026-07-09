@@ -159,7 +159,7 @@ const SECTOR_COLORS: Record<string, string> = {
 };
 
 const BenefitChip = ({ name, ticker, domain }: { name: string, ticker: string, domain?: string }) => {
-    const isKr = /^\d{6}$/.test(ticker);
+    const isKr = /^\d{6}$/.test(ticker) || domain === "kr" || ticker === "KOSDAQ" || ticker === "KOSPI";
     const countryCode = isKr ? "kr" : "us";
     
     return (
@@ -172,7 +172,7 @@ const BenefitChip = ({ name, ticker, domain }: { name: string, ticker: string, d
 };
 
 const RiskChip = ({ name, ticker, domain }: { name: string, ticker: string, domain?: string }) => {
-    const isKr = /^\d{6}$/.test(ticker);
+    const isKr = /^\d{6}$/.test(ticker) || domain === "kr" || ticker === "KOSDAQ" || ticker === "KOSPI";
     const countryCode = isKr ? "kr" : "us";
     
     return (
@@ -544,7 +544,7 @@ export default function SocialAnalysisView() {
                                         <div className="flex flex-wrap gap-1 content-center">
                                             {item.positiveStocks && item.positiveStocks.length > 0 ? (
                                                 item.positiveStocks.map((stock, idx) => (
-                                                    <BenefitChip key={idx} name={stock.name} ticker={stock.ticker} />
+                                                    <BenefitChip key={idx} name={stock.name} ticker={stock.ticker} domain={stock.ticker === "KOSDAQ" ? "kr" : undefined} />
                                                 ))
                                             ) : (
                                                 <div className="text-slate-600 text-xs w-full">—</div>
