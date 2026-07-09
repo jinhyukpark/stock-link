@@ -498,9 +498,9 @@ export default function SocialAnalysisView() {
                                 const dotColor = impactLevel === 'high' ? 'bg-[#ff7c7e]' : impactLevel === 'medium' ? 'bg-amber-400' : 'bg-emerald-400';
                                 
                                 return (
-                                <tr key={`speaker-${item.id}`} className={cn(bgClass, "align-top")}>
-                                    <td className="px-6 py-5">
-                                        <div className="flex flex-col items-center justify-start gap-2 h-full pt-1">
+                                <tr key={`speaker-${item.id}`} className={cn(bgClass, "align-middle")}>
+                                    <td className="px-6 py-5 align-middle">
+                                        <div className="flex items-center justify-center h-full">
                                             <div className="flex items-center gap-1.5">
                                                 <div className={cn("w-2 h-2 rounded-full shadow-sm", dotColor)}></div>
                                                 <span className={cn("text-xs font-bold whitespace-nowrap tracking-wide", impactColor)}>{impactText}</span>
@@ -508,8 +508,8 @@ export default function SocialAnalysisView() {
                                         </div>
                                     </td>
                                     
-                                    <td className="px-6 py-5">
-                                        <div className="flex items-start gap-3">
+                                    <td className="px-6 py-5 align-middle">
+                                        <div className="flex items-center gap-3">
                                             <div className="flex flex-col items-center gap-1 shrink-0 pt-0.5">
                                                 <Avatar name={item.speaker} />
                                             </div>
@@ -533,15 +533,15 @@ export default function SocialAnalysisView() {
                                         </div>
                                     </td>
 
-                                    <td className="px-6 py-5 pr-8">
+                                    <td className="px-6 py-5 pr-8 align-middle">
                                         <div className="text-slate-200 text-sm leading-relaxed line-clamp-3">
                                             {item.summary}
                                         </div>
                                     </td>
 
                                     {/* Completely separated column: 수혜 종목 */}
-                                    <td className="px-6 py-5 bg-emerald-950/10">
-                                        <div className="flex flex-wrap gap-1 content-start">
+                                    <td className="px-6 py-5 bg-emerald-950/10 align-middle">
+                                        <div className="flex flex-wrap gap-1 content-center">
                                             {item.positiveStocks && item.positiveStocks.length > 0 ? (
                                                 item.positiveStocks.map((stock, idx) => (
                                                     <BenefitChip key={idx} name={stock.name} ticker={stock.ticker} />
@@ -553,8 +553,8 @@ export default function SocialAnalysisView() {
                                     </td>
 
                                     {/* Completely separated column: 리스크 종목 */}
-                                    <td className="px-6 py-5 bg-[#ff7c7e]/5">
-                                        <div className="flex flex-wrap gap-1 content-start">
+                                    <td className="px-6 py-5 bg-[#ff7c7e]/5 align-middle">
+                                        <div className="flex flex-wrap gap-1 content-center">
                                             {item.negativeStocks && item.negativeStocks.length > 0 ? (
                                                 item.negativeStocks.map((stock, idx) => (
                                                     <RiskChip key={idx} name={stock.name} ticker={stock.ticker} />
@@ -582,10 +582,10 @@ export default function SocialAnalysisView() {
                         <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                             <tr>
                                 <th className="px-4 py-4 w-24 font-semibold text-center border-b border-slate-700/50 align-middle">영향도 강도</th>
-                                <th className="px-4 py-4 w-[160px] font-semibold text-center border-b border-slate-700/50 align-middle">인물</th>
-                                <th className="px-4 py-4 font-semibold text-center border-b border-slate-700/50 align-middle">발언</th>
-                                <th className="px-3 py-4 w-[210px] font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-center border-b border-slate-700/50 align-middle">📈 수혜 종목</th>
-                                <th className="px-3 py-4 w-[210px] font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-center border-b border-slate-700/50 align-middle">📉 리스크 종목</th>
+                                <th className="px-4 py-4 w-[160px] font-semibold text-left border-b border-slate-700/50 align-middle">인물</th>
+                                <th className="px-4 py-4 font-semibold text-left border-b border-slate-700/50 align-middle">발언</th>
+                                <th className="px-3 py-4 w-[210px] font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-b border-slate-700/50 align-middle">📈 수혜 종목</th>
+                                <th className="px-3 py-4 w-[210px] font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-b border-slate-700/50 align-middle">📉 리스크 종목</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
@@ -605,7 +605,7 @@ export default function SocialAnalysisView() {
                                         bgClass
                                     )}>
                                         {/* 1. 영향도 강도 */}
-                                        <td className="px-4 border-r border-white/5 align-middle">
+                                        <td className="px-4 py-6 border-r border-white/5 align-middle">
                                             <div className="flex items-center justify-center gap-1.5 h-full">
                                                 <div className={cn("w-2 h-2 rounded-full shadow-sm", dotColor)}></div>
                                                 <span className={cn("text-xs font-bold whitespace-nowrap tracking-wide", impactColor)}>{impactText}</span>
@@ -614,14 +614,14 @@ export default function SocialAnalysisView() {
                                         
                                         {/* 2. 인물 */}
                                         <td className="px-4 py-6 border-r border-white/5 align-middle">
-                                            <div className="flex flex-col items-center justify-center gap-1.5 w-full">
-                                                <div className="flex items-center justify-center gap-1.5">
+                                            <div className="flex flex-col items-start justify-center gap-1.5 w-full">
+                                                <div className="flex items-center justify-start gap-1.5">
                                                     {speaker.countryCode && (
                                                         <img src={flagUrl(speaker.countryCode)} alt={speaker.country} className="w-5 object-contain shadow-sm rounded-sm" />
                                                     )}
-                                                    <span className="text-white font-bold text-[14px] text-center leading-tight whitespace-nowrap">{speaker.speaker}</span>
+                                                    <span className="text-white font-bold text-[14px] leading-tight whitespace-nowrap">{speaker.speaker}</span>
                                                 </div>
-                                                <span className="text-slate-400 text-[11px] leading-tight text-center bg-slate-800/50 px-2 py-1 rounded max-w-[140px] break-keep">{speaker.speakerTitle}</span>
+                                                <span className="text-slate-400 text-[11px] leading-tight bg-slate-800/50 px-2 py-1 rounded max-w-[140px] break-keep">{speaker.speakerTitle}</span>
                                             </div>
                                         </td>
 
@@ -657,34 +657,34 @@ export default function SocialAnalysisView() {
 
                                         {/* 4. 수혜 종목 */}
                                         <td className="px-3 py-6 border-r border-white/5 align-middle">
-                                            <div className="flex flex-col items-center justify-center gap-2 h-full">
+                                            <div className="flex flex-col items-start justify-center gap-2 h-full">
                                                 {speaker.positiveStocks && speaker.positiveStocks.length > 0 ? (
                                                     speaker.positiveStocks.map((stock, idx) => (
-                                                        <div key={idx} className="flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 whitespace-nowrap w-fit max-w-full">
+                                                        <div key={idx} className="flex items-center justify-start gap-2 px-3 py-1.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 whitespace-nowrap w-fit max-w-full">
                                                             <StockLogo ticker={stock.ticker} name={stock.name} className="w-4 h-4 rounded-sm shrink-0" />
-                                                            <span className="text-emerald-400 text-[12px] font-bold truncate max-w-[100px] text-center">{stock.name}</span>
+                                                            <span className="text-emerald-400 text-[12px] font-bold truncate max-w-[100px] text-left">{stock.name}</span>
                                                             <span className="text-emerald-500/70 text-[10px] font-mono shrink-0">({stock.ticker})</span>
                                                         </div>
                                                     ))
                                                 ) : (
-                                                    <div className="text-slate-600 text-xs w-full text-center py-4">—</div>
+                                                    <div className="text-slate-600 text-xs w-full text-left py-4 pl-3">—</div>
                                                 )}
                                             </div>
                                         </td>
 
                                         {/* 5. 리스크 종목 */}
                                         <td className="px-3 py-6 align-middle">
-                                            <div className="flex flex-col items-center justify-center gap-2 h-full">
+                                            <div className="flex flex-col items-start justify-center gap-2 h-full">
                                                 {speaker.negativeStocks && speaker.negativeStocks.length > 0 ? (
                                                     speaker.negativeStocks.map((stock, idx) => (
-                                                        <div key={idx} className="flex items-center justify-center gap-2 px-3 py-1.5 rounded-md bg-rose-500/10 border border-rose-500/20 whitespace-nowrap w-fit max-w-full">
+                                                        <div key={idx} className="flex items-center justify-start gap-2 px-3 py-1.5 rounded-md bg-rose-500/10 border border-rose-500/20 whitespace-nowrap w-fit max-w-full">
                                                             <StockLogo ticker={stock.ticker} name={stock.name} className="w-4 h-4 rounded-sm shrink-0 grayscale opacity-80" />
-                                                            <span className="text-rose-400 text-[12px] font-bold truncate max-w-[100px] text-center">{stock.name}</span>
+                                                            <span className="text-rose-400 text-[12px] font-bold truncate max-w-[100px] text-left">{stock.name}</span>
                                                             <span className="text-rose-500/70 text-[10px] font-mono shrink-0">({stock.ticker})</span>
                                                         </div>
                                                     ))
                                                 ) : (
-                                                    <div className="text-slate-600 text-xs w-full text-center py-4">—</div>
+                                                    <div className="text-slate-600 text-xs w-full text-left py-4 pl-3">—</div>
                                                 )}
                                             </div>
                                         </td>
