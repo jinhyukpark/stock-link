@@ -50,9 +50,11 @@ const getLogoUrl = (ticker: string, domain?: string) => {
 };
 
 // 1. Avatar Component
-const Avatar = ({ name, className }: { name: string, className?: string }) => {
+const Avatar = ({ name, className }: { name?: string, className?: string }) => {
+    if (!name) return null;
+
     const src = influencerAvatars[name];
-    const initials = name.replace(/\s/g, '').slice(0, 2);
+    const initials = typeof name === "string" ? name.replace(/\s/g, '').slice(0, 2) : "??";
 
     
 
@@ -163,7 +165,7 @@ const BenefitChip = ({ name, ticker, domain }: { name: string, ticker: string, d
         <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 shadow-sm hover:bg-emerald-500/20 transition-colors w-full min-w-[120px] max-w-[180px]">
             <img src={flagUrl(countryCode)} alt={countryCode} className="w-3.5 h-2.5 object-cover rounded-sm shadow-sm" />
             <span className="text-emerald-400 text-xs font-bold tracking-tight">{name}</span>
-            <span className="text-emerald-500/80 text-[10px] font-bold ml-0.5">{(ticker.charCodeAt(0) + name.length) % 40 + 50}%</span>
+            <span className="text-emerald-500/80 text-[10px] font-bold ml-0.5">{(ticker.charCodeAt(0) + (name ? name.length : 0)) % 40 + 50}%</span>
         </div>
     );
 };
@@ -176,7 +178,7 @@ const RiskChip = ({ name, ticker, domain }: { name: string, ticker: string, doma
         <div className="flex items-center gap-1.5 px-2 py-1.5 rounded-md bg-rose-500/10 border border-rose-500/20 shadow-sm hover:bg-rose-500/20 transition-colors w-full min-w-[120px] max-w-[180px]">
             <img src={flagUrl(countryCode)} alt={countryCode} className="w-3.5 h-2.5 object-cover rounded-sm shadow-sm" />
             <span className="text-rose-400 text-xs font-bold tracking-tight">{name}</span>
-            <span className="text-rose-500/80 text-[10px] font-bold ml-0.5">{(ticker.charCodeAt(0) + name.length) % 40 + 50}%</span>
+            <span className="text-rose-500/80 text-[10px] font-bold ml-0.5">{(ticker.charCodeAt(0) + (name ? name.length : 0)) % 40 + 50}%</span>
         </div>
     );
 };
@@ -366,7 +368,17 @@ const DATES = ["2026-04-24", "2026-04-25", "2026-04-26"];
 
 export default function SocialAnalysisView() {
     const [dateKey, setDateKey] = useState<string>("2026-04-26");
+    
     const data = MOCK_DATA[dateKey as keyof typeof MOCK_DATA] || MOCK_DATA["2026-04-26"];
+
+    // Compute aggregated stocks from speakers
+    const allPositiveStocks = data.speakers?.flatMap(s => s.positiveStocks || []) || [];
+    const allNegativeStocks = data.speakers?.flatMap(s => s.negativeStocks || []) || [];
+    
+    // Deduplicate by ticker
+    const uniquePositiveStocks = Array.from(new Map(allPositiveStocks.map(item => [item.ticker, item])).values());
+    const uniqueNegativeStocks = Array.from(new Map(allNegativeStocks.map(item => [item.ticker, item])).values());
+
 
     return (
         <div className="space-y-4 pb-20 animate-in fade-in duration-500 max-w-[1400px] mx-auto relative overflow-hidden px-4 md:px-6">
@@ -390,7 +402,7 @@ export default function SocialAnalysisView() {
                         <div className="flex items-center gap-2 bg-slate-800/50 p-1.5 rounded-lg border border-slate-700">
                             {DATES.map(d => {
                                 const isActive = dateKey === d;
-                                const formatted = format(new Date(d), "MM/dd");
+                                const formatted = d.substring(5).replace("-", "/");
                                 return (
                                     <button 
                                         key={d}
@@ -406,7 +418,7 @@ export default function SocialAnalysisView() {
                                 )
                             })}
                         </div>
-                        <span className="text-slate-400 text-[11px]">업데이트: {format(new Date(dateKey), "yyyy.MM.dd")} 18:30 KST</span>
+                        <span className="text-slate-400 text-[11px]">업데이트: {dateKey.replace(/-/g, ".")} 18:30 KST</span>
                     </div>
                 </div>
             </div>
@@ -462,7 +474,7 @@ export default function SocialAnalysisView() {
                                                         onError={(e) => { (e.target as HTMLImageElement).style.display = 'none'; }}
                                                     />
                                                 </div>
-                                                <span className="text-slate-500 text-[10px] leading-tight mt-0.5 line-clamp-2">{item.followers}</span>
+                                                <span className="text-slate-500 text-[10px] leading-tight mt-0.5 line-clamp-2">{(item as any).followers || "공개 발언" || "공개 발언"}</span>
                                             </div>
                                         </div>
                                     </td>
@@ -480,7 +492,7 @@ export default function SocialAnalysisView() {
                                     {/* Completely separated column: 수혜 종목 */}
                                     <td className="px-6 py-5 bg-emerald-950/10 border-l border-emerald-900/20">
                                         <div className="flex flex-wrap gap-1 content-start">
-                                            {item.positiveStocks.length > 0 ? (
+                                            {item.positiveStocks && item.positiveStocks.length > 0 ? (
                                                 item.positiveStocks.map((stock, idx) => (
                                                     <BenefitChip key={idx} name={stock.name} ticker={stock.ticker} />
                                                 ))
@@ -493,7 +505,7 @@ export default function SocialAnalysisView() {
                                     {/* Completely separated column: 리스크 종목 */}
                                     <td className="px-6 py-5 bg-[#ff7c7e]/5 border-l border-[#ff7c7e]/10">
                                         <div className="flex flex-wrap gap-1 content-start">
-                                            {item.negativeStocks.length > 0 ? (
+                                            {item.negativeStocks && item.negativeStocks.length > 0 ? (
                                                 item.negativeStocks.map((stock, idx) => (
                                                     <RiskChip key={idx} name={stock.name} ticker={stock.ticker} />
                                                 ))
@@ -505,7 +517,7 @@ export default function SocialAnalysisView() {
 
                                     <td className="px-6 py-6">
                                         <div className="flex justify-center h-full pt-1">
-                                            <Stars count={item.stars} />
+                                            <Stars count={(item as any).stars || 3} />
                                         </div>
                                     </td>
                                 </tr>
@@ -533,7 +545,7 @@ export default function SocialAnalysisView() {
                         </thead>
                         <tbody className="divide-y divide-white/5">
                             {data.speakers.map((speaker, i) => {
-                                const impactLevel = speaker.impactLevel || (speaker.stars >= 4 ? 'high' : speaker.stars === 3 ? 'medium' : 'low');
+                                const impactLevel = speaker.impactLevel || (((speaker as any).stars || 3) >= 4 ? 'high' : ((speaker as any).stars || 3) === 3 ? 'medium' : 'low');
                                 const bgClass = impactLevel === 'high' ? 'bg-[#ff7c7e]/10 hover:bg-[#ff7c7e]/15' :
                                                 impactLevel === 'medium' ? 'bg-amber-500/10 hover:bg-amber-500/15' :
                                                 'bg-emerald-500/10 hover:bg-emerald-500/15';
@@ -674,10 +686,10 @@ export default function SocialAnalysisView() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-white/5">
-                                    {data.positiveStocks.length > 0 ? data.positiveStocks.map((stock, i) => {
-                                        const relatedImpact = data.marketImpact.find(impact => impact.name === stock.name);
+                                    {uniquePositiveStocks.length > 0 ? uniquePositiveStocks.map((stock, i) => {
+                                        const relatedImpact = null;
                                         const sector = relatedImpact ? "반도체/AI 인프라" : "IT/플랫폼";
-                                        const stars = relatedImpact?.stars || 3;
+                                        const stars = (relatedImpact as any)?.stars || 3;
                                         
                                         return (
                                             <tr key={i} className="hover:bg-slate-800/50 transition-colors bg-slate-900">
@@ -699,8 +711,8 @@ export default function SocialAnalysisView() {
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-2">
-                                                        <Avatar name={stock.influencer} className="w-6 h-6" />
-                                                        <span className="text-slate-300 text-sm font-medium">{stock.influencer}</span>
+                                                        <Avatar name={"인플루언서"} className="w-6 h-6" />
+                                                        <span className="text-slate-300 text-sm font-medium">{"인플루언서"}</span>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4">
@@ -751,10 +763,10 @@ export default function SocialAnalysisView() {
                                     </tr>
                                 </thead>
                                 <tbody className="divide-y divide-white/5">
-                                    {data.negativeStocks.length > 0 ? data.negativeStocks.map((stock, i) => {
-                                        const relatedImpact = data.marketImpact.find(impact => impact.name === stock.name);
+                                    {uniqueNegativeStocks.length > 0 ? uniqueNegativeStocks.map((stock, i) => {
+                                        const relatedImpact = null;
                                         const sector = relatedImpact ? "자동차/수출제조업" : "금융/은행";
-                                        const stars = relatedImpact?.stars || 3;
+                                        const stars = (relatedImpact as any)?.stars || 3;
                                         
                                         return (
                                             <tr key={i} className="hover:bg-slate-800/50 transition-colors bg-slate-900">
@@ -776,8 +788,8 @@ export default function SocialAnalysisView() {
                                                 </td>
                                                 <td className="px-6 py-4">
                                                     <div className="flex items-center gap-2">
-                                                        <Avatar name={stock.influencer} className="w-6 h-6" />
-                                                        <span className="text-slate-300 text-sm font-medium">{stock.influencer}</span>
+                                                        <Avatar name={"인플루언서"} className="w-6 h-6" />
+                                                        <span className="text-slate-300 text-sm font-medium">{"인플루언서"}</span>
                                                     </div>
                                                 </td>
                                                 <td className="px-6 py-4">
