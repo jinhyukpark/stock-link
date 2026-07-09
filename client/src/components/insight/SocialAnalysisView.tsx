@@ -713,8 +713,8 @@ export default function SocialAnalysisView() {
                             <table className="w-full text-left min-w-[1000px] border-collapse">
                                 <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                     <tr>
-                                        <th className="px-6 py-4 w-64 font-semibold text-left border-b border-slate-700">종목</th>
-                                        <th className="px-6 py-4 w-64 font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
+                                        <th className="px-6 py-4 w-[210px] font-semibold text-left border-b border-slate-700">종목</th>
+                                        <th className="px-6 py-4 w-[280px] font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
                                         <th className="px-6 py-4 font-semibold text-left border-b border-slate-700">영향 근거</th>
                                         <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">수혜 강도</th>
                                     </tr>
@@ -743,12 +743,12 @@ export default function SocialAnalysisView() {
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-4">
-                                                    <div className="flex flex-wrap gap-2.5">
+                                                <td className="px-6 py-4 w-[280px]">
+                                                    <div className="flex flex-col gap-2">
                                                         {stock.speakers?.map((sp: any, idx: number) => (
-                                                            <div key={idx} className="flex flex-col bg-slate-800/80 px-3 py-2 rounded-md border border-slate-700/50 min-w-fit">
-                                                                <span className="text-slate-300 text-[13px] font-bold">{sp.name || "인플루언서"}</span>
-                                                                {sp.title && <span className="text-slate-500 text-[11px] leading-tight mt-0.5">{sp.title}</span>}
+                                                            <div key={idx} className="flex items-baseline gap-2 w-fit max-w-full">
+                                                                <span className="text-slate-200 text-[14px] font-bold shrink-0">{sp.name || "인플루언서"}</span>
+                                                                {sp.title && <span className="text-slate-500 text-[12px] truncate">{sp.title}</span>}
                                                             </div>
                                                         ))}
                                                     </div>
@@ -793,8 +793,8 @@ export default function SocialAnalysisView() {
                             <table className="w-full text-left min-w-[1000px] border-collapse">
                                 <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                                     <tr>
-                                        <th className="px-6 py-4 w-64 font-semibold text-left border-b border-slate-700">종목</th>
-                                        <th className="px-6 py-4 w-64 font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
+                                        <th className="px-6 py-4 w-[210px] font-semibold text-left border-b border-slate-700">종목</th>
+                                        <th className="px-6 py-4 w-[280px] font-semibold text-left border-b border-slate-700">주요 언급 인사</th>
                                         <th className="px-6 py-4 font-semibold text-left border-b border-slate-700">영향 근거</th>
                                         <th className="px-6 py-4 w-32 font-semibold text-center border-b border-slate-700">리스크 강도</th>
                                     </tr>
@@ -823,12 +823,12 @@ export default function SocialAnalysisView() {
                                                         </div>
                                                     </div>
                                                 </td>
-                                                <td className="px-6 py-4">
-                                                    <div className="flex flex-wrap gap-2.5">
+                                                <td className="px-6 py-4 w-[280px]">
+                                                    <div className="flex flex-col gap-2">
                                                         {stock.speakers?.map((sp: any, idx: number) => (
-                                                            <div key={idx} className="flex flex-col bg-slate-800/80 px-3 py-2 rounded-md border border-slate-700/50 min-w-fit">
-                                                                <span className="text-slate-300 text-[13px] font-bold">{sp.name || "인플루언서"}</span>
-                                                                {sp.title && <span className="text-slate-500 text-[11px] leading-tight mt-0.5">{sp.title}</span>}
+                                                            <div key={idx} className="flex items-baseline gap-2 w-fit max-w-full">
+                                                                <span className="text-slate-200 text-[14px] font-bold shrink-0">{sp.name || "인플루언서"}</span>
+                                                                {sp.title && <span className="text-slate-500 text-[12px] truncate">{sp.title}</span>}
                                                             </div>
                                                         ))}
                                                     </div>
