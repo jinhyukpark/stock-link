@@ -545,14 +545,14 @@ export default function SocialAnalysisView() {
             <section className="mb-16">
                 <SectionTitle icon={TrendingUp} title="📊 시장 영향 분석" subtitle="각 발언이 국내 증시에 미칠 영향을 분석했습니다" />
                 <div className="bg-slate-900 border border-white/10 rounded-xl overflow-hidden shadow-lg w-full overflow-x-auto custom-scrollbar">
-                    <table className="w-full text-left border-collapse table-fixed min-w-[1250px]">
+                    <table className="w-full text-left border-collapse table-fixed min-w-[1000px]">
                         <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                             <tr>
                                 <th className="px-4 py-4 w-24 font-semibold text-center border-b border-slate-700/50">영향도 강도</th>
-                                <th className="px-4 py-4 w-[240px] font-semibold text-left border-b border-slate-700/50">인물</th>
+                                <th className="px-4 py-4 w-[160px] font-semibold text-left border-b border-slate-700/50">인물</th>
                                 <th className="px-4 py-4 font-semibold text-left border-b border-slate-700/50">발언</th>
-                                <th className="px-4 py-4 w-[340px] font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-b border-slate-700/50">📈 수혜 종목</th>
-                                <th className="px-4 py-4 w-[340px] font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-b border-slate-700/50">📉 리스크 종목</th>
+                                <th className="px-2 py-4 w-[130px] font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-b border-slate-700/50">📈 수혜 종목</th>
+                                <th className="px-2 py-4 w-[130px] font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-b border-slate-700/50">📉 리스크 종목</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
@@ -581,13 +581,13 @@ export default function SocialAnalysisView() {
                                         
                                         {/* 2. 인물 */}
                                         <td className="px-4 py-6 border-r border-white/5 pr-2">
-                                            <div className="flex items-center gap-3">
-                                                <Avatar name={speaker.speaker} className="w-10 h-10 shrink-0" />
-                                                <div className="flex flex-col gap-1 min-w-0 pr-2">
+                                            <div className="flex items-center gap-2">
+                                                <Avatar name={speaker.speaker} className="w-8 h-8 shrink-0" />
+                                                <div className="flex flex-col gap-1 min-w-0">
                                                     <div className="flex items-center gap-1.5 whitespace-nowrap">
-                                                        <span className="text-white font-bold text-sm truncate">{speaker.speaker}</span>
+                                                        <span className="text-white font-bold text-[13px] truncate">{speaker.speaker}</span>
                                                     </div>
-                                                    <span className="text-slate-400 text-[11px] leading-tight truncate">{speaker.speakerTitle}</span>
+                                                    <span className="text-slate-400 text-[10px] leading-tight truncate">{speaker.speakerTitle}</span>
                                                 </div>
                                             </div>
                                         </td>
@@ -623,14 +623,14 @@ export default function SocialAnalysisView() {
                                         </td>
 
                                         {/* 4. 수혜 종목 */}
-                                        <td className="px-4 py-6 border-r border-white/5">
+                                        <td className="px-2 py-6 border-r border-white/5">
                                             <div className="flex flex-col gap-2">
                                                 {speaker.positiveStocks && speaker.positiveStocks.length > 0 ? (
                                                     speaker.positiveStocks.map((stock, idx) => (
-                                                        <div key={idx} className="flex items-center gap-1.5 px-3 py-2 rounded-md bg-emerald-500/10 border border-emerald-500/20">
+                                                        <div key={idx} className="flex items-center gap-1 px-1 py-1.5 rounded-md bg-emerald-500/10 border border-emerald-500/20 whitespace-nowrap overflow-hidden">
                                                             <StockLogo ticker={stock.ticker} name={stock.name} className="w-3.5 h-3.5 rounded-sm shrink-0" />
-                                                            <span className="text-emerald-400 text-xs font-bold">{stock.name}</span>
-                                                            <span className="text-emerald-500/70 text-[10px] font-mono">({stock.ticker})</span>
+                                                            <span className="text-emerald-400 text-[11px] font-bold truncate max-w-[55px]">{stock.name}</span>
+                                                            <span className="text-emerald-500/70 text-[9px] font-mono shrink-0 ml-auto">({stock.ticker})</span>
                                                         </div>
                                                     ))
                                                 ) : (
@@ -640,14 +640,14 @@ export default function SocialAnalysisView() {
                                         </td>
 
                                         {/* 5. 리스크 종목 */}
-                                        <td className="px-4 py-6">
+                                        <td className="px-2 py-6">
                                             <div className="flex flex-col gap-2">
                                                 {speaker.negativeStocks && speaker.negativeStocks.length > 0 ? (
                                                     speaker.negativeStocks.map((stock, idx) => (
-                                                        <div key={idx} className="flex items-center gap-1.5 px-3 py-2 rounded-md bg-rose-500/10 border border-rose-500/20">
+                                                        <div key={idx} className="flex items-center gap-1 px-1 py-1.5 rounded-md bg-rose-500/10 border border-rose-500/20 whitespace-nowrap overflow-hidden">
                                                             <StockLogo ticker={stock.ticker} name={stock.name} className="w-3.5 h-3.5 rounded-sm shrink-0 grayscale opacity-80" />
-                                                            <span className="text-rose-400 text-xs font-bold">{stock.name}</span>
-                                                            <span className="text-rose-500/70 text-[10px] font-mono">({stock.ticker})</span>
+                                                            <span className="text-rose-400 text-[11px] font-bold truncate max-w-[55px]">{stock.name}</span>
+                                                            <span className="text-rose-500/70 text-[9px] font-mono shrink-0 ml-auto">({stock.ticker})</span>
                                                         </div>
                                                     ))
                                                 ) : (
