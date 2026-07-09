@@ -428,13 +428,13 @@ export default function SocialAnalysisView() {
                             <PopoverTrigger asChild>
                                 <Button 
                                     variant="outline" 
-                                    className="w-[180px] h-[46px] px-4 py-2 flex flex-row-reverse justify-between bg-white border border-slate-300 text-slate-900 hover:bg-slate-50 hover:text-slate-900 font-medium shadow-sm rounded-md"
+                                    className="w-[180px] h-[46px] px-4 py-2 flex flex-row-reverse justify-between bg-transparent border border-slate-700 text-white hover:bg-slate-800 hover:text-white font-medium shadow-sm rounded-md"
                                 >
-                                    <CalendarIcon className="h-6 w-6 text-slate-900" />
+                                    <CalendarIcon className="h-5 w-5 text-white opacity-80" />
                                     <span className="text-[15px]">{dateKey}</span>
                                 </Button>
                             </PopoverTrigger>
-                            <PopoverContent className="w-auto p-0 border-slate-700 bg-slate-800 text-slate-200 shadow-xl" align="end">
+                            <PopoverContent className="w-auto p-0 border-slate-700 bg-[#1e293b] text-slate-200 shadow-xl" align="end">
                                 <Calendar
                                     mode="single"
                                     selected={new Date(dateKey)}
@@ -447,7 +447,7 @@ export default function SocialAnalysisView() {
                                         }
                                     }}
                                     initialFocus
-                                    className="bg-slate-800 text-slate-200 rounded-md"
+                                    className="bg-[#1e293b] text-slate-200 rounded-md"
                                 />
                             </PopoverContent>
                         </Popover>
