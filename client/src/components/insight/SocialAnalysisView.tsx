@@ -361,7 +361,7 @@ const PlatformBadge = ({ platform }: { platform: string }) => {
     else if (platform.includes("News") || platform.includes("보도자료") || platform.includes("간담회") || platform.includes("청문회")) colorClass = "bg-blue-900/50 text-blue-300 border-blue-800";
     else if (platform.includes("Truth Social") || platform.includes("공개 발언")) colorClass = "bg-orange-900/50 text-orange-300 border-orange-800";
     
-    return <span className={cn("inline-block rounded-md border px-2 py-0.5 text-xs font-medium whitespace-nowrap", colorClass)}>{platform}</span>;
+    return <span className={cn("inline-block max-w-full rounded-md border px-2 py-0.5 text-[11px] font-medium leading-[1.4] text-left whitespace-normal break-keep", colorClass)}>{platform}</span>;
 }
 
 const DATES = ["2026-04-24", "2026-04-25", "2026-04-26"];
@@ -449,10 +449,10 @@ export default function SocialAnalysisView() {
                         <thead className="bg-slate-800 text-xs font-semibold text-slate-400 uppercase tracking-wider">
                             <tr>
                                 <th className="px-6 py-4 w-24 font-semibold text-center border-b border-slate-700/50">영향도</th>
-                                <th className="px-6 py-4 w-56 font-semibold text-left border-b border-slate-700/50">인물</th>
+                                <th className="px-6 py-4 w-[280px] font-semibold text-left border-b border-slate-700/50">인물</th>
                                 <th className="px-6 py-4 font-semibold text-left border-b border-slate-700/50">발언 요약</th>
-                                <th className="px-6 py-4 w-52 font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-b border-slate-700/50">📈 수혜 종목</th>
-                                <th className="px-6 py-4 w-52 font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-b border-slate-700/50">📉 리스크 종목</th>
+                                <th className="px-6 py-4 w-[200px] font-semibold text-emerald-400 text-xs bg-emerald-950/10 text-left border-b border-slate-700/50">📈 수혜 종목</th>
+                                <th className="px-6 py-4 w-[200px] font-semibold text-[#ff7c7e] text-xs bg-[#ff7c7e]/5 text-left border-b border-slate-700/50">📉 리스크 종목</th>
                             </tr>
                         </thead>
                         <tbody className="divide-y divide-white/5">
@@ -480,7 +480,7 @@ export default function SocialAnalysisView() {
                                             <div className="flex flex-col items-center gap-1 shrink-0 pt-0.5">
                                                 <Avatar name={item.speaker} />
                                             </div>
-                                            <div className="flex flex-col gap-1 min-w-0">
+                                            <div className="flex flex-col gap-1 min-w-0 pr-4">
                                                 <div className="flex items-center gap-1.5 whitespace-nowrap">
                                                     <span className="text-white font-bold text-sm">{item.speaker}</span>
                                                     <img 
