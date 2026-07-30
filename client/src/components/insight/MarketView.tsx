@@ -786,7 +786,7 @@ export default function MarketView() {
                      size="icon"
                      className="h-12 w-12 rounded-full border border-white/10 bg-[#151921] hover:bg-primary/20 hover:border-primary/50 text-gray-400 hover:text-white transition-all shadow-lg"
                      onClick={() => {
-                        const currentIndex = allCharts.findIndex(c => c.id === selectedChart?.id);
+                        const currentIndex = allCharts.findIndex(c => c.title === selectedChart?.title);
                         const prevIndex = (currentIndex - 1 + allCharts.length) % allCharts.length;
                         setSelectedChart(allCharts[prevIndex]);
                      }}
@@ -802,7 +802,7 @@ export default function MarketView() {
                      size="icon"
                      className="h-12 w-12 rounded-full border border-white/10 bg-[#151921] hover:bg-primary/20 hover:border-primary/50 text-gray-400 hover:text-white transition-all shadow-lg"
                      onClick={() => {
-                        const currentIndex = allCharts.findIndex(c => c.id === selectedChart?.id);
+                        const currentIndex = allCharts.findIndex(c => c.title === selectedChart?.title);
                         const nextIndex = (currentIndex + 1) % allCharts.length;
                         setSelectedChart(allCharts[nextIndex]);
                      }}
@@ -829,7 +829,7 @@ export default function MarketView() {
                      {/* Navigation Tabs (Pill Shaped) */}
                      <div className="flex bg-[#151921] rounded-full p-1 border border-white/5 overflow-x-auto max-w-[80%] no-scrollbar">
                         {navLinks.map((link) => {
-                           const isSelected = selectedChart?.id === link.id;
+                           const isSelected = selectedChart?.title === link.label;
                            return (
                               <button
                                  key={link.id}

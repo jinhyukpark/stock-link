@@ -1,0 +1,109 @@
+Please apply the following four updates:
+
+---
+
+## 1. 종합 요약 테이블 — 관련 종목 로고 + 코드 표시
+
+Each ticker chip in the 관련 종목 column must show:
+- Left: a square placeholder box representing the company logo
+  - Style: `w-5 h-5 rounded-sm bg-slate-600 border border-slate-500 inline-block mr-1 align-middle flex-shrink-0`
+  - This box simulates a logo space (actual logo integration is out of scope)
+- Right of the box: stock code + name stacked or inline
+  - Format: `삼성전자 005930`
+  - Code style: `text-slate-400 text-[10px] font-mono`
+  - Name style: `text-blue-300 text-xs font-medium`
+- Each ticker chip: `flex items-center gap-1 bg-slate-800 border border-slate-700 rounded-md px-2 py-1`
+- Multiple tickers in one cell: wrap with `flex flex-wrap gap-1`
+
+---
+
+## 2. 테이블 행 클릭 시 상세 패널 표출
+
+When a table row is clicked, show a detail drawer/modal sliding in from the right (or expanding below the row).
+
+**패널 구조:**
+
+### 상단 — 인플루언서 정보
+- 이름 (large, bold, white)
+- 플랫폼 badge (same chip style as table)
+- 팔로워/구독자 수 (e.g. "팔로워 1.2억명") in `text-slate-400 text-sm`
+- 발언 일시 (e.g. "2026-04-26 14:32") in `text-slate-500 text-xs`
+
+### 발언 원문 박스
+- Label: "💬 발언 내용" in `text-slate-400 text-xs font-semibold mb-1`
+- Content box: `bg-slate-900 border border-slate-700 rounded-lg p-4`
+- Text: `text-slate-200 text-sm leading-relaxed`
+- Positive/negative keywords highlighted (same rule as 하이라이트 section)
+
+### 관련 종목 섹션
+- Label: "📌 관련 종목"
+- Each stock: logo placeholder box + 종목명 + 코드 + 시장 영향도 badge
+- Show as horizontal chips row
+
+### 시장 영향 분석 박스
+- Label: "📊 영향 분석"
+- 영향도 badge (large version): 호재/악재/중립
+- 영향 강도: ★★★ (large stars)
+- 분석 요약 텍스트 2–3줄: `text-slate-300 text-sm`
+
+### 출처 링크
+- "🔗 원문 보기" button: `text-blue-400 underline text-sm hover:text-blue-300`
+
+**패널 스타일:**
+- `bg-slate-900 border-l border-slate-700 shadow-2xl`
+- Close button top-right: ✕ in `text-slate-400 hover:text-white`
+- Clicking outside the panel closes it (overlay background `bg-black/40`)
+
+---
+
+## 3. 긍정/부정 색상 모호함 제거
+
+In a Korean stock service, red = price up and blue = price down.
+Using red for 부정 sentiment creates confusion. Redesign as follows:
+
+**변경 후 색상 컨벤션:**
+
+| 구분 | 기존 | 변경 후 |
+|------|------|---------|
+| 호재 (긍정) | green | `#34d399` emerald-400 — 유지 |
+| 악재 (부정) | red | `#fb923c` orange-400 |
+| 중립 | gray | `#94a3b8` slate-400 — 유지 |
+
+- Replace ALL instances of red (`red-400`, `red-500`, `red-900`) used for 부정/악재 sentiment with orange (`orange-400`, `orange-500`, `orange-900`)
+- This applies to: 시장 영향도 badges, 종목 카드 accents, 하이라이트 negative keywords, sector summary text
+- Stock price movement colors (상승/하락 arrows in sector summary) remain:
+  - ↑ 상승: `text-red-400` (주가 상승 = 빨강, 한국 증시 컨벤션 유지)
+  - ↓ 하락: `text-blue-400`
+  - ↗ 소폭 상승: `text-red-400`
+  - ↘ 소폭 하락: `text-blue-400`
+  - → 중립: `text-slate-400`
+- This way, red strictly means "price going up" and orange means "negative sentiment/news" — no overlap
+
+**Badge 변경:**
+- 호재: `bg-emerald-500 text-white`
+- 악재: `bg-orange-500 text-white`
+- 중립: `bg-slate-500 text-white`
+
+---
+
+## 4. 긍/부정 종목 종합 — 시각화 강화
+
+**섹션 헤더:**
+- 상승/호재 기대 종목: `📈 상승 · 호재 기대` — header text in `text-emerald-400 font-bold`
+- 하락/악재 우려 종목: `📉 하락 · 악재 우려` — header text in `text-orange-400 font-bold`
+
+**컬럼 컨테이너:**
+- 상승 컬럼: `bg-emerald-950/15 rounded-xl p-4 border border-emerald-900/30`
+- 하락 컬럼: `bg-orange-950/15 rounded-xl p-4 border border-orange-900/30`
+
+**종목 카드:**
+- 상승 카드:
+  - Left icon badge: `↑` in a `bg-emerald-500/20 text-emerald-400 rounded-md w-8 h-8` box
+  - Ticker chip: `bg-emerald-950 text-emerald-300 border border-emerald-800`
+- 하락 카드:
+  - Left icon badge: `↓` in a `bg-orange-500/20 text-orange-400 rounded-md w-8 h-8` box
+  - Ticker chip: `bg-orange-950 text-orange-300 border border-orange-800`
+- Card itself: `bg-slate-800 rounded-xl p-4 shadow-md` (no colored border on card)
+- 종목명: `text-white font-bold text-base`
+- 이유 텍스트: `text-slate-300 text-sm mt-1`
+- 출처 인플루언서: `text-slate-500 text-xs mt-2` prefixed with "주요 언급:"

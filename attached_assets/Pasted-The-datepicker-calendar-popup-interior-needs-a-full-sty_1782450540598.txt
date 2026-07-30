@@ -1,0 +1,60 @@
+The datepicker calendar popup interior needs a full styling overhaul. Fix as follows:
+
+## 🗓️ Datepicker 내부 스타일 수정
+
+---
+
+**1. "nav" 레이블 제거**
+- Remove the stray "nav" text/badge visible in the top-left corner of the calendar popup
+- This is likely a leftover label on the prev arrow button — remove any text content inside navigation buttons and use icon only (‹ ›)
+
+---
+
+**2. 캘린더 팝업 컨테이너**
+- Background: `bg-slate-900`
+- Border: `border border-slate-700 rounded-xl`
+- Shadow: `shadow-xl shadow-black/50`
+- Padding: `p-4`
+- Width: fixed `w-72` — must match the trigger button width exactly
+- Position: `absolute top-[calc(100%+4px)] right-0` under the trigger
+
+---
+
+**3. 월/년 헤더 (June 2026)**
+- Layout: flex row, space-between, vertically centered
+- Month+Year text: `text-white font-semibold text-sm`
+- Prev/Next arrow buttons:
+  - Style: `text-slate-400 hover:text-white transition`
+  - Size: `w-7 h-7 flex items-center justify-center rounded-md hover:bg-slate-700`
+  - Icons: use `‹` and `›` characters or chevron SVG — NO text labels
+
+---
+
+**4. 요일 헤더 (Su Mo Tu We Th Fr Sa)**
+- Text: `text-slate-500 text-xs font-medium text-center`
+- Grid: `grid grid-cols-7 gap-0 mb-1`
+- Each cell: `text-center py-1`
+
+---
+
+**5. 날짜 셀**
+- Grid: `grid grid-cols-7 gap-0.5`
+- Default cell style:
+  - `text-slate-300 text-sm text-center rounded-lg w-9 h-9 flex items-center justify-center`
+  - `hover:bg-slate-700 hover:text-white cursor-pointer transition`
+- 오늘 날짜 (today):
+  - `bg-blue-600 text-white font-semibold rounded-lg`
+  - NO extra ring or outline — bg color alone is sufficient
+- 선택된 날짜 (selected):
+  - `bg-blue-500 text-white font-bold rounded-lg`
+- 이전/다음 달 날짜 (out-of-month):
+  - `text-slate-600 cursor-default` — visually greyed out, not clickable
+- 주말 (Sa/Su): no special color — same as weekdays
+
+---
+
+**6. 트리거 버튼 (날짜 표시 버튼)**
+- Style: `bg-slate-800 border border-slate-700 rounded-lg px-4 py-2`
+- Text: `text-white text-sm font-medium`
+- Icon: calendar icon on the left, chevron ▾ on the right
+- Width: `w-52` fixed — calendar popup must match this exact width

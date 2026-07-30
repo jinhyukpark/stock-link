@@ -1,0 +1,93 @@
+Build a financial influencer monitoring dashboard — a single-page web app (React + Tailwind CSS).
+
+---
+
+## 🎯 Overview
+This is a daily report page that analyzes influencer posts (from U.S. news, Korean news, and U.S. social media like X/Twitter) and shows their potential impact on the Korean stock market.
+
+---
+
+## 📐 Page Layout
+
+### 1. Header
+- Page title: "[일일 리포트] 인플루언서 증권 관련 SNS 모니터링"
+- Date dropdown (top-right or top-center): selectable by past daily dates (last 30 days), default = today
+- Data source badges below the title: 미국 뉴스 | 한국 뉴스 | 미국 SNS (X/Twitter)
+- When a date is selected, all sections below update to show mock data for that date
+
+---
+
+### 2. 주요 하이라이트 (Key Highlights)
+- Card with a light background, left border accent
+- Bullet list of 3–5 lines summarizing key influencer mentions of the day
+- Example content:
+  - "일론 머스크, X에서 반도체 공급망 이슈 언급 → 삼성전자/SK하이닉스 단기 주목"
+  - "미국 핀테크 유튜버 3인, 금리 동결 전망 언급 → 금융주 긍정 시그널"
+  - "국내 경제 유튜버, 2차전지 섹터 조정 경고 → 관련주 하방 압력 우려"
+
+---
+
+### 3. 종합 요약 테이블 + 시장 영향도
+A full-width table with the following columns:
+- 인플루언서명 (name + platform icon)
+- 플랫폼 (X, YouTube, News, Instagram)
+- 발언 요약 (brief quote or summary, max 2 lines)
+- 관련 종목 (ticker chips, e.g. 삼성전자 005930)
+- 시장 영향도 badge: 긍정 (green), 부정 (red), 중립 (gray)
+- 영향 강도: ★☆☆ / ★★☆ / ★★★
+
+Include 5–7 mock rows across different influencers and sectors.
+
+---
+
+### 4. 긍/부정 종목 종합
+Two-column layout side by side:
+
+**Left — 📈 상승/호재 기대 종목**
+- Card per stock: ticker, company name, brief reason, influencer name
+
+**Right — 📉 하락/악재 우려 종목**
+- Same card format
+- Red accent color
+
+Include 3–4 stocks per side as mock data.
+
+---
+
+### 5. 섹터별 영향 분석
+Horizontal bar chart or card grid showing sentiment score per sector:
+- Sectors: 반도체, 2차전지, 바이오/헬스케어, 금융, 에너지, 플랫폼/IT
+- Each sector shows: 긍정 count vs 부정 count, and an overall direction arrow (↑ / ↓ / →)
+- Use a simple bar visualization (CSS or recharts)
+
+---
+
+### 6. 투자 시사점
+Text card at the bottom:
+- Header: "📌 오늘의 투자 시사점"
+- 3–4 paragraphs or bullet points
+- Tone: neutral, analytical (like a research note)
+- Include a disclaimer at the bottom: "본 리포트는 참고용이며 투자 권유가 아닙니다."
+
+---
+
+## 🎨 Design Requirements
+- Dark finance dashboard theme (dark navy/charcoal background, white/light gray text)
+- Accent colors: green (#22c55e) for positive, red (#ef4444) for negative, gray (#94a3b8) for neutral
+- Clean card-based layout with subtle borders
+- Responsive (desktop-first, but usable on tablet)
+- Smooth date dropdown with a calendar-style picker or simple select
+
+---
+
+## 📦 Mock Data
+- Create at least 2 distinct mock datasets for different dates (today and yesterday) so the date dropdown visually changes content
+- Influencers to include: 일론 머스크 (X), 짐 크레이머 (CNBC), 국내 경제유튜버 A (YouTube), 미국 핀테크 블로거 B (X), 한국 애널리스트 C (뉴스)
+
+---
+
+## ⚙️ Tech Stack
+- React (functional components + hooks)
+- Tailwind CSS
+- Recharts for sector bar chart
+- No backend needed — all data is mock/static JSON defined in the component

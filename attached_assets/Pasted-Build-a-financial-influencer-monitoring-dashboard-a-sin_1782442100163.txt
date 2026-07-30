@@ -1,0 +1,131 @@
+Build a financial influencer monitoring dashboard — a single-page web app (React + Tailwind CSS).
+
+---
+
+## 🎯 Overview
+This is a daily report page that analyzes influencer posts (from U.S. news, Korean news, and U.S. social media like X/Twitter) and shows their potential impact on the Korean stock market.
+
+---
+
+## 📐 Page Layout
+
+### 1. Header
+- Page title: "[일일 리포트] 인플루언서 증권 관련 SNS 모니터링"
+- Date dropdown (top-right or top-center): selectable by past daily dates (last 30 days), default = today
+- Data source badges below the title: 미국 뉴스 | 한국 뉴스 | 미국 SNS (X/Twitter)
+- When a date is selected, all sections below update to show mock data for that date
+
+---
+
+### 2. 주요 하이라이트 (Key Highlights)
+- Card with a light background, left border accent
+- Bullet list of 3–5 lines summarizing key influencer mentions of the day
+- **Visual emphasis rules (IMPORTANT):**
+  - Highlight stock names/tickers in a colored chip or bold tag (e.g. `삼성전자` in a green or blue pill)
+  - Highlight the sentiment direction word with color: positive words (급등, 호재, 강세) in green bold, negative words (하락, 경고, 악재) in red bold
+  - Key influencer names should appear in a distinct color (e.g. yellow or accent blue)
+- Example content:
+  - "**일론 머스크**, X에서 반도체 공급망 이슈 언급 → `삼성전자` `SK하이닉스` <span style='color:green'>단기 주목</span>"
+  - "미국 핀테크 유튜버 3인, 금리 동결 전망 언급 → 금융주 <span style='color:green'>긍정 시그널</span>"
+  - "국내 경제 유튜버, 2차전지 섹터 조정 <span style='color:red'>경고</span> → 관련주 하방 압력 우려"
+
+---
+
+### 3. 종합 요약 테이블 + 시장 영향도
+A full-width table with the following columns:
+- 인플루언서명 (name + platform icon)
+- 플랫폼 (X, YouTube, News, Instagram)
+- 발언 요약 (brief quote or summary, max 2 lines)
+- 관련 종목 (ticker chips — styled as small colored pills)
+- 시장 영향도 badge: 긍정 (green filled badge), 부정 (red filled badge), 중립 (gray filled badge)
+- 영향 강도: ★☆☆ / ★★☆ / ★★★
+
+**Visual emphasis rules (IMPORTANT):**
+- 시장 영향도 badges must be visually prominent — large enough to read at a glance, with colored background (not just text)
+- ★★★ strength rows should have a subtle left border highlight (green or red depending on sentiment)
+- Ticker chips must use distinct background color (dark blue pill with white text, or color-coded by sentiment)
+- Alternate row background for readability
+
+Include 5–7 mock rows across different influencers and sectors.
+
+---
+
+### 4. 긍/부정 종목 종합
+Two-column layout side by side:
+
+**Left — 📈 상승/호재 기대 종목**
+- Card per stock: ticker chip, company name (bold), brief reason, influencer name in small gray text
+- Green left border on each card
+- Add a small upward arrow icon (↑) next to the ticker
+
+**Right — 📉 하락/악재 우려 종목**
+- Same card format
+- Red left border on each card
+- Add a small downward arrow icon (↓) next to the ticker
+
+**Visual emphasis rules (IMPORTANT):**
+- The two columns must have clearly distinct color zones (green tinted bg on left, red tinted bg on right)
+- Ticker should be the most visually prominent element in each card (largest or boldest text)
+
+Include 3–4 stocks per side as mock data.
+
+---
+
+### 5. 섹터별 영향 분석
+**Use a Pie Chart (NOT a bar chart) — implemented with Recharts PieChart.**
+
+Layout: two pie charts side by side
+- Left pie: "긍정 언급 섹터 분포" — slice per sector with positive mention count
+- Right pie: "부정 언급 섹터 분포" — slice per sector with negative mention count
+
+Sectors to include: 반도체, 2차전지, 바이오/헬스케어, 금융, 에너지, 플랫폼/IT
+
+Each pie slice should:
+- Show the sector name and percentage as a label outside the slice
+- Use distinct colors per sector (consistent across both pies)
+- Include a legend below each chart
+
+Below both charts, show a small summary row:
+- One line per sector: sector name | 긍정 n건 | 부정 n건 | 방향 arrow (↑ / ↓ / →)
+
+**Visual emphasis rules (IMPORTANT):**
+- Section title "섹터별 영향 분석" should include a small icon and be visually heavier than body text
+- The two pie chart cards should have a clear visual separation (border or shadow)
+
+---
+
+### 6. 투자 시사점
+Text card at the bottom:
+- Header: "📌 오늘의 투자 시사점" — bold, larger font, with a distinct background color (e.g. dark card with accent border on top)
+- 3–4 bullet points
+- Tone: neutral, analytical (like a research note)
+
+**Visual emphasis rules (IMPORTANT):**
+- Key action phrases (e.g. "단기 매수 관심", "비중 축소 고려", "모니터링 필요") should be highlighted in bold or a contrasting color
+- Stock tickers mentioned here should appear as inline chips, same style as the rest of the page (visual consistency)
+- Add a disclaimer at the bottom in small gray text: "본 리포트는 참고용이며 투자 권유가 아닙니다."
+
+---
+
+## 🎨 Global Design Requirements
+- Dark finance dashboard theme (dark navy/charcoal background, white/light gray text)
+- Accent colors: green (#22c55e) for positive, red (#ef4444) for negative, gray (#94a3b8) for neutral, yellow (#facc15) for influencer names
+- All section titles should follow a consistent pattern: icon + title text + thin separator line underneath
+- Cards should use subtle box-shadow and rounded corners (rounded-xl)
+- Use font-weight contrast heavily — titles bold/700, body regular/400, labels medium/500
+- Responsive (desktop-first, but usable on tablet)
+- Ticker chips: consistent style across all sections — `bg-blue-900 text-blue-200 rounded-full px-2 py-0.5 text-xs font-mono`
+
+---
+
+## 📦 Mock Data
+- Create at least 2 distinct mock datasets for different dates (today and yesterday) so the date dropdown visually changes content
+- Influencers to include: 일론 머스크 (X), 짐 크레이머 (CNBC), 국내 경제유튜버 A (YouTube), 미국 핀테크 블로거 B (X), 한국 애널리스트 C (뉴스)
+
+---
+
+## ⚙️ Tech Stack
+- React (functional components + hooks)
+- Tailwind CSS
+- Recharts for pie charts (PieChart, Pie, Cell, Tooltip, Legend from 'recharts')
+- No backend needed — all data is mock/static JSON defined in the component
