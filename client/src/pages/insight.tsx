@@ -25,6 +25,7 @@ import ThemeView from "@/components/insight/ThemeView";
 import NewsView from "@/components/insight/NewsView";
 import MarketMapView from "@/components/insight/MarketMapView";
 import CompareView from "@/components/insight/CompareView";
+import SocialAnalysisView from "@/components/insight/SocialAnalysisView";
 
 export default function InsightPage() {
   const [activeTab, setActiveTab] = useState<InsightTab>("momentum");
@@ -132,6 +133,8 @@ export default function InsightPage() {
                         <ThemeView />
                     ) : activeTab === 'compare' ? (
                         <CompareView />
+                    ) : activeTab === 'social' ? (
+                        <SocialAnalysisView />
                     ) : (
                         <>
                             {/* Placeholder for other tabs */}
