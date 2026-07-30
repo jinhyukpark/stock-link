@@ -1,0 +1,176 @@
+Please apply the following comprehensive updates to the social analysis dashboard:
+
+---
+
+## 1. 종목 로고 처리
+
+- Use logo placeholder via Clearbit Logo API format:
+  `https://logo.clearbit.com/{domain}`
+  - 삼성전자 → `samsung.com`, SK하이닉스 → `skhynix.com`, 현대차 → `hyundai.com` 등
+- For Korean stocks without a Clearbit match, fall back to:
+  `https://file.alphasquare.co.kr/media/images/stock_logo/kr/{종목코드}.png`
+- For US stocks: `https://logo.clearbit.com/{ticker}.com`
+- If logo fails to load, fall back to a styled initial letter badge:
+  `w-8 h-8 rounded-lg bg-slate-700 flex items-center justify-center 
+  text-white text-xs font-bold`
+
+---
+
+## 2. 인플루언서 아바타 이미지
+
+For well-known public figures, use their Wikipedia image via:
+`https://en.wikipedia.org/wiki/Special:FilePath/{Name}.jpg`
+
+Recommended sources per influencer:
+- 일론 머스크: use `https://upload.wikimedia.org/wikipedia/commons/thumb/3/34/Elon_Musk_Royal_Society_%28crop2%29.jpg/220px-Elon_Musk_Royal_Society_%28crop2%29.jpg`
+- 도널드 트럼프: Wikipedia commons image
+- 짐 크레이머: Wikipedia commons image
+- For unknown/domestic influencers: fall back to an initials avatar badge styled as:
+  `w-10 h-10 rounded-full bg-slate-600 flex items-center justify-center 
+  text-white text-sm font-bold`
+
+Avatar display in table:
+- `w-10 h-10 rounded-full object-cover border-2 border-slate-600`
+- Show avatar in the 인플루언서명 column, left of the name
+- If image fails onError → swap to initials fallback
+
+---
+
+## 3. 주요 인사별 국가 표시
+
+In the 종합 요약 테이블 인플루언서명 column, add a country flag emoji next to each name:
+- 미국 인사: 🇺🇸 (Trump, Musk, Cramer 등)
+- 한국 인사: 🇰🇷 (국내 유튜버, 애널리스트 등)
+- Flag appears immediately after the name in small size: `text-xs ml-1`
+
+Also add a small country label in the avatar section:
+- `text-slate-500 text-[10px] text-center mt-0.5`
+
+---
+
+## 4. 테이블 가시성 전면 개선
+
+**행 스타일:**
+- Increase row height: `py-5` instead of `py-3`
+- Stronger alternating row: `bg-slate-800/60` and `bg-slate-900`
+- 인플루언서명: `text-white font-bold text-base`
+- 발언 요약: `text-slate-200 text-sm leading-relaxed` (not `text-slate-400`)
+
+**시장 영향도 badge (크기 업):**
+- Increase badge size: `px-3 py-1 text-sm font-bold rounded-lg`
+- 호재: `bg-emerald-500 text-white`
+- 악재: `bg-[#ff7c7e] text-white`
+- 중립: `bg-slate-500 text-white`
+
+**영향 강도 stars:**
+- Increase star size: `text-lg`
+- Active: `text-amber-400`
+- Empty: `text-slate-700`
+
+**고영향 행 강조 (★★★):**
+- Left border accent `border-l-2`
+- Subtle glow row background
+
+---
+
+## 5. 팝업 제거 → 인라인 확장 (아코디언)
+
+Remove the modal popup entirely.
+
+When a row is clicked:
+- Expand an inline detail section directly below the clicked row (accordion style)
+- The expanded area sits inside the table as a full-width sub-row
+- Background: `bg-slate-800/80 border-t border-b border-slate-700`
+- Clicking the same row again collapses it
+- Only one row can be expanded at a time
+
+**인라인 확장 내부 레이아웃 (2-column grid):**
+
+Left column:
+- 💬 발언 내용 box
+- 📌 관련 종목 list (긍정/부정 그룹 분리, 로고+종목명+코드+코멘트)
+  - 긍정 그룹: `text-emerald-400` label
+  - 부정 그룹: `text-[#ff7c7e]` label
+  - 국내 종목: show `>` clickable
+  - 국외 종목: show `해외` badge, no dimming, no `>`
+
+Right column:
+- 📊 영향 분석 (badge + stars + 분석 텍스트)
+- 🔗 원문 보기 (ghost button, keep external link icon)
+
+---
+
+## 6. 긍/부정 종목 종합 — 2열 병렬 표시 강화
+
+The 긍/부정 종목 종합 section must show TWO clearly separated columns side by side:
+
+**상승·호재 기대 (left):**
+- Column header: `📈 상승 · 호재 기대` in `text-emerald-400 font-bold text-base`
+- Container: `bg-emerald-950/20 rounded-xl p-4 border border-emerald-900/40`
+- Card `↑` icon badge: `bg-emerald-500/30 text-emerald-300 w-8 h-8 rounded-md`
+- Ticker chip: `bg-emerald-950 text-emerald-300 border border-emerald-600 font-bold`
+- Color saturation: match the visual weight of the 하락 column — same vividness level
+
+**하락·악재 우려 (right):**
+- Column header: `📉 하락 · 악재 우려` in `text-[#ff7c7e] font-bold text-base`
+- Container: `bg-[#ff7c7e]/5 rounded-xl p-4 border border-[#ff7c7e]/20`
+- Card `↓` icon badge: `bg-[#ff7c7e]/20 text-[#ff7c7e] w-8 h-8 rounded-md`
+- Ticker chip: `bg-[#ff7c7e]/10 text-[#ff7c7e] border border-[#ff7c7e]/40 font-bold`
+
+---
+
+## 7. 섹터별 영향 분석 — 파이차트 → 인사이트 중심으로 재설계
+
+**Remove the standalone "그래서 어쩌라고?" feel of the pie charts.**
+Redesign this section to answer: "이 섹터, 지금 어떻게 봐야 하나?"
+
+**새로운 레이아웃 (파이차트는 보조 역할로 축소):**
+
+상단: 섹터 카드 그리드 (2x3, 6섹터)
+Each card:
+- 섹터명 (bold)
+- 방향 화살표 + 한줄 인사이트 코멘트
+  - e.g. "반도체 ↑ 머스크 AI 설비 투자 발언으로 단기 수요 기대 고조"
+  - e.g. "2차전지 ↓ 관세 우려와 전기차 수요 둔화 언급 겹쳐 하방 압력"
+- 긍정 n건 / 부정 n건 (numbers in their respective colors)
+- Mini horizontal bar showing 긍정 vs 부정 ratio visually
+  - `bg-emerald-500` fill left, `bg-[#ff7c7e]` fill right, total width 100%
+- Card background tint:
+  - 긍정 우세: `bg-emerald-950/15 border border-emerald-900/30`
+  - 부정 우세: `bg-[#ff7c7e]/5 border border-[#ff7c7e]/15`
+  - 중립: `bg-slate-800 border border-slate-700`
+
+하단: 기존 파이차트 2개 (긍정/부정 분포)
+- Keep as a secondary visual reference, but shrink to 60% of current size
+- Add a subtitle under each chart: 
+  - "어느 섹터가 가장 긍정 언급이 많았나?"
+  - "어느 섹터가 가장 리스크 신호를 받았나?"
+
+---
+
+## 8. 투자 시사점 — 3관점 분류
+
+Replace the current bullet-list format with 3 distinct perspective cards:
+
+**매수 관점 카드:**
+- Header: `✅ 매수 관점` in `text-emerald-400 font-bold`
+- Background: `bg-emerald-950/20 border border-emerald-900/40 rounded-xl p-4`
+- Content: 2–3 bullet points of actionable buy-side rationale
+- Include specific ticker chips for mentioned stocks
+
+**관망 관점 카드:**
+- Header: `⏸ 관망 관점` in `text-slate-300 font-bold`
+- Background: `bg-slate-800 border border-slate-700 rounded-xl p-4`
+- Content: 2–3 bullet points for wait-and-see scenarios
+
+**주의 관점 카드:**
+- Header: `⚠️ 주의 관점` in `text-[#ff7c7e] font-bold`
+- Background: `bg-[#ff7c7e]/5 border border-[#ff7c7e]/20 rounded-xl p-4`
+- Content: 2–3 bullet points of risk warnings
+- Include specific ticker chips for at-risk stocks
+
+Layout: 3 cards in a row (`grid grid-cols-3 gap-4`)
+
+Disclaimer below all three cards:
+`text-slate-600 text-xs text-center mt-4`
+"본 리포트는 참고용이며 투자 권유가 아닙니다."

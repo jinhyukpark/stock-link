@@ -1,0 +1,50 @@
+uploads = []
+outputs = []
+
+[[generated]]
+id = "GgygxQpWmrGWyw1TzqQXJ"
+uri = "file://client/public/images/drawn_elon.png"
+type = "image"
+title = "Drawn portrait of Elon Musk"
+
+[[generated]]
+id = "ll7042Ia2TSdgCjfzaOJl"
+uri = "file://client/public/images/drawn_trump.png"
+type = "image"
+title = "Drawn portrait of Donald Trump"
+
+[[generated]]
+id = "7LsMyA0HCiWP-WYoeNHGu"
+uri = "file://client/public/images/drawn_lee.png"
+type = "image"
+title = "Drawn portrait of Lee Chang-yong"
+
+[[generated]]
+id = "v-KNVtJacXBpRn_SShCV7"
+uri = "file://client/public/images/drawn_warsh.png"
+type = "image"
+title = "Drawn portrait of Kevin Warsh"
+
+[[generated]]
+id = "cz-OEp3Y9xc1L2yZs-myN"
+uri = "file://client/public/images/drawn_cramer.png"
+type = "image"
+title = "Drawn portrait of Jim Cramer"
+
+[[generated]]
+id = "mPsjnjMtujhGazxLCnznl"
+uri = "file://client/public/images/drawn_buffett.png"
+type = "image"
+title = "Drawn portrait of Warren Buffett"
+
+[[generated]]
+id = "fNf045qrXbMAu-QZeZBe3"
+uri = "file://client/public/images/drawn_dalio.png"
+type = "image"
+title = "Drawn portrait of Ray Dalio"
+
+[[generated]]
+id = "H2Au9xfZvm179OvCAItKr"
+uri = "file://client/public/images/drawn_powell.png"
+type = "image"
+title = "Drawn portrait of Jerome Powell"

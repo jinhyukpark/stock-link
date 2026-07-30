@@ -33,12 +33,12 @@ export default function InsightPage() {
 
   const menuItems = [
     { id: "momentum", label: "Momentum Analysis", icon: Zap },
+    { id: "social", label: "Social Analysis", icon: Share2 },
     { id: "news", label: "News Analysis", icon: Newspaper },
     { id: "market", label: "Market Analysis", icon: BarChart3 },
     { id: "market-map", label: "Market Map Analysis", icon: Globe },
     { id: "theme", label: "Theme Analysis", icon: Layers },
     { id: "compare", label: "Stock Comparison", icon: GitCompare },
-    { id: "social", label: "Social Analysis", icon: Share2 },
   ];
 
   return (

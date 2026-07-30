@@ -1,0 +1,54 @@
+Please apply the following two fixes:
+
+## 1. Datepicker 캘린더 드롭다운 정렬
+
+The calendar dropdown is currently misaligned with the trigger button. Fix as follows:
+
+- The datepicker trigger button and the calendar dropdown must share the same parent 
+  with `position: relative`
+- Calendar dropdown: `position: absolute`, `top: 100%`, `right: 0`
+  (right-align the calendar to the right edge of the trigger button)
+- Do NOT use `left: 0` — use `right: 0` so the right edges are flush
+- `margin-top: 4px` only — no additional offset
+- Calendar min-width should match or slightly exceed the trigger button width
+- z-index must be high enough to appear above all other content (`z-index: 50`)
+
+## 2. 색상 포인트 복구 (흑백 → 포인트 컬러 추가)
+
+The page is currently too monochromatic. Restore color to the following specific elements:
+
+**헤더 & 소스 뱃지**
+- 미국 뉴스 badge: `bg-blue-900 text-blue-300 border border-blue-700`
+- 한국 뉴스 badge: `bg-indigo-900 text-indigo-300 border border-indigo-700`  
+- 미국 SNS(X) badge: `bg-slate-700 text-slate-200 border border-slate-500`
+
+**종합 요약 테이블**
+- 시장 영향도 badges — use solid filled color, clearly readable:
+  - 긍정: `bg-emerald-500 text-white font-semibold`
+  - 부정: `bg-red-500 text-white font-semibold`
+  - 중립: `bg-slate-500 text-white font-semibold`
+- ★★★ 영향 강도: active stars in `text-amber-400`, empty in `text-slate-600`
+- High-impact rows (★★★): add `border-l-4` colored accent
+  - 긍정 rows: `border-l-4 border-emerald-500`
+  - 부정 rows: `border-l-4 border-red-500`
+- 플랫폼 chips: each platform gets a subtle distinct color
+  - X (Twitter): `bg-slate-700 text-slate-200`
+  - YouTube: `bg-red-900 text-red-300`
+  - News: `bg-blue-900 text-blue-300`
+  - Truth Social: `bg-orange-900 text-orange-300`
+
+**종목 ticker chips (전 섹션 동일 적용)**
+- `bg-blue-950 text-blue-300 border border-blue-800 rounded-full px-2 py-0.5 text-xs font-mono`
+
+**주요 하이라이트**
+- Positive keywords: `text-emerald-400 font-semibold`
+- Negative keywords: `text-red-400 font-semibold`
+- Ticker chips: same blue chip style as above
+
+**섹션 타이틀 아이콘**
+- Keep icons next to section titles, color them in `text-blue-400`
+
+**유지할 것 (건드리지 말 것)**
+- Card/section backgrounds: stay in slate-800 / slate-900 range
+- Body text: slate-300
+- No tinted background fills on cards

@@ -1,0 +1,88 @@
+Apply the following structural and visual updates:
+
+---
+
+## 1. 인터랙션 제거 — 모든 콘텐츠 즉시 노출
+
+Remove ALL click-to-expand, accordion, dropdown, and modal interactions.
+Every piece of information must be visible on page load with zero user effort.
+
+**제거 대상:**
+- 테이블 행 클릭 시 펼쳐지는 아코디언 상세 패널 → 완전 제거
+- 날짜 선택 드롭다운 → 상단에 날짜 탭 버튼 형태로 교체
+  (예: [04/24] [04/25] [04/26 ●] 형태의 pill 탭, 기본값 = 오늘)
+- 기타 클릭 없이는 볼 수 없는 콘텐츠 일체 제거
+
+**대신 가독성 유지 방법:**
+- 각 섹션 간 충분한 여백 (`mb-16`)
+- 섹션 타이틀에 굵은 구분선 (`border-t-2 border-slate-600 pt-6 mb-6`)
+- 카드/행 간 `gap-3` 이상 확보
+- 발언 요약 텍스트: 최대 3줄, `line-clamp-3` 적용 후 전체 텍스트를 tooltip 없이 그냥 3줄로 표시 (말줄임 허용)
+
+---
+
+## 2. 종합 요약 테이블 — 수혜종목 / 리스크종목 열 추가
+
+Add two new columns to the 주요 인사 발언 table:
+
+**열 순서 (왼쪽 → 오른쪽):**
+인물 | 플랫폼 | 발언 요약 | 수혜 종목 | 리스크 종목 | 방향 | 강도
+
+**수혜 종목 열:**
+- Label: `📈 수혜 종목`
+- Each stock: logo img + 종목명 chip
+  - Chip style: `flex items-center gap-1 bg-emerald-950 
+    border border-emerald-700 text-emerald-300 
+    rounded-md px-2 py-1 text-xs font-medium`
+  - Logo: `w-5 h-5 rounded-sm object-cover` (Clearbit or fallback initial badge)
+- Multiple stocks: `flex flex-wrap gap-1`
+- Empty: `text-slate-600 text-xs` — "–"
+
+**리스크 종목 열:**
+- Label: `📉 리스크 종목`
+- Each stock: logo img + 종목명 chip
+  - Chip style: `flex items-center gap-1 bg-[#ff7c7e]/10 
+    border border-[#ff7c7e]/40 text-[#ff7c7e] 
+    rounded-md px-2 py-1 text-xs font-medium`
+  - Logo: same as above
+- Multiple stocks: `flex flex-wrap gap-1`
+- Empty: `text-slate-600 text-xs` — "–"
+
+**테이블 컬럼 너비 조정:**
+- 인물: `w-48` (아바타 + 이름 + 국기)
+- 플랫폼: `w-28`
+- 발언 요약: `flex-1 min-w-[180px]`
+- 수혜 종목: `w-40`
+- 리스크 종목: `w-40`
+- 방향: `w-20`
+- 강도: `w-24`
+
+---
+
+## 3. 국기 추가 — 인물 열
+
+In the 인물 column, display a country flag for each influencer:
+
+**표시 방법:**
+- Use flag emoji directly: 🇺🇸 🇰🇷
+- Position: immediately after the influencer name, same line
+  `<span className="ml-1 text-sm">{flag}</span>`
+- Determination rule:
+  - 6-digit numeric ticker stocks, Korean names, Korean platforms → 🇰🇷
+  - English names, X/Twitter/CNBC/Bloomberg → 🇺🇸
+  - Define flag as a field in mock data per influencer
+
+**아바타 아래 소속 국가 텍스트:**
+- `text-slate-500 text-[10px] text-center`
+- e.g. "미국", "한국"
+
+---
+
+## 4. 종목 로고 — 전 섹션 통일 적용
+
+Apply logo images consistently across ALL sections:
+(테이블 수혜/리스크 종목 열, 긍/부정 종목 종합 카드, 시장 영향 분석 섹션)
+
+**로고 소스 우선순위:**
+
+국내 종목:

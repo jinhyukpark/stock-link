@@ -1,0 +1,67 @@
+Change the row click detail view from a right sidebar drawer 
+to a centered modal popup. Reference style: dark overlay + 
+centered card modal (like a stock detail popup).
+
+## 모달 구조 및 스타일
+
+**오버레이:**
+- Full screen: `fixed inset-0 bg-black/60 backdrop-blur-sm z-50`
+- Click outside to close
+
+**모달 카드:**
+- Position: `fixed top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2`
+- Size: `w-[560px] max-h-[80vh] overflow-y-auto`
+- Style: `bg-slate-900 rounded-2xl shadow-2xl shadow-black/60 border border-slate-700`
+- Padding: `p-6`
+
+**닫기 버튼:**
+- Top-right corner: ✕
+- Style: `absolute top-4 right-4 text-slate-400 hover:text-white 
+  w-8 h-8 flex items-center justify-center 
+  rounded-lg hover:bg-slate-700 transition`
+
+---
+
+## 모달 내부 레이아웃
+
+### ① 상단 — 인플루언서 정보
+- 인플루언서명: `text-white text-xl font-bold`
+- 플랫폼 badge: 기존 테이블과 동일한 chip 스타일
+- 팔로워 수 + 발언 일시: `text-slate-400 text-sm` — 이름 바로 아래 한 줄
+- 하단에 `border-b border-slate-700 pb-4 mb-4`로 섹션 구분
+
+### ② 발언 내용 박스
+- Label: `💬 발언 내용` — `text-slate-400 text-xs font-semibold mb-2`
+- Box: `bg-slate-800 rounded-xl p-4 border border-slate-700/50`
+- Text: `text-slate-200 text-sm leading-relaxed`
+- Positive keywords: `text-emerald-400 font-semibold`
+- Negative keywords: `text-orange-400 font-semibold`
+
+### ③ 관련 종목 리스트
+- Label: `📌 관련 종목` — `text-slate-400 text-xs font-semibold mb-2`
+- Each stock row (like the image's stock list style):
+  - Layout: `flex items-center justify-between py-3 
+    border-b border-slate-800 last:border-0`
+  - Left: rank number `text-slate-500 text-xs w-4` + 
+    logo placeholder `w-8 h-8 rounded-lg bg-slate-700 border border-slate-600` + 
+    종목명 `text-white text-sm font-semibold` + 
+    종목코드 `text-slate-500 text-xs`
+  - Right: 현재가 `text-white text-sm font-bold` + 
+    등락 `text-red-400 text-xs` (상승) or `text-blue-400 text-xs` (하락)
+    (한국 증시 컨벤션: 상승=빨강, 하락=파랑)
+
+### ④ 시장 영향 분석
+- Label: `📊 영향 분석` — `text-slate-400 text-xs font-semibold mb-2`
+- Row: 영향도 badge (large) + 영향 강도 ★★★ side by side
+- 분석 요약 텍스트: `text-slate-300 text-sm leading-relaxed mt-2`
+
+### ⑤ 원문 보기 버튼
+- Bottom: `🔗 원문 보기`
+- Style: `text-blue-400 text-sm hover:text-blue-300 underline cursor-pointer`
+
+---
+
+## 애니메이션
+- Modal open: `animate-fade-in` or `transition: opacity 150ms, scale 150ms`
+- Entry: scale from 0.95 → 1.0, opacity 0 → 1
+- Exit: reverse

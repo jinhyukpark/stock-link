@@ -1,0 +1,71 @@
+Apply the following two structural and copywriting updates:
+
+---
+
+## 1. 시장 영향 & 주요 인사 섹션 분리
+
+Currently 종합 요약 테이블 mixes influencer info and market impact in one table.
+Split into TWO separate sections:
+
+**① 주요 인사 발언 (상단)**
+- Focus: WHO said WHAT
+- Columns: 인물 (아바타 + 이름 + 국가) | 플랫폼 | 발언 요약 | 관련 섹터 | 날짜/시간
+- No market impact scoring here — purely the raw signal
+- Row click → accordion expand with 발언 상세 + 원문 보기
+
+**② 시장 영향 분석 (하단)**
+- Focus: what the market is expected to DO
+- Columns: 종목 (로고 + 이름 + 코드) | 섹터 | 영향 근거 (한 줄) | 방향 | 강도 ★★★ | 주요 언급 인사
+- Direction column uses the new vocabulary (see section 2 below)
+- This section is the "so what" — actionable read, not a speaker directory
+
+Divider between the two sections:
+- `border-t border-slate-700/60 my-8`
+- Section label for each: icon + title + `text-slate-400 text-xs` subtitle explaining purpose
+  - 주요 인사 발언: subtitle "오늘 증권 관련 주요 발언을 모니터링했습니다"
+  - 시장 영향 분석: subtitle "각 발언이 국내 증시에 미칠 영향을 분석했습니다"
+
+---
+
+## 2. 상승/하락 표현 탈AI화 — 자연스러운 금융 언어로 교체
+
+Replace all generic "상승/하락", "긍정/부정", "호재/악재" labels 
+with specific, journalistic, human-sounding financial expressions.
+Think: how a seasoned Korean financial journalist or analyst would actually phrase it.
+
+**방향 표현 교체표:**
+
+| 기존 표현 | 교체 표현 (상황에 따라 선택) |
+|-----------|---------------------------|
+| 상승 | 탄력 기대 / 훈풍 / 수혜 가능 / 모멘텀 포착 / 주목 집중 |
+| 하락 | 역풍 우려 / 부담 가중 / 발목 잡힐 수 있어 / 경계 필요 / 조정 압박 |
+| 긍정 | 수혜 | 
+| 부정 | 리스크 |
+| 호재 | 모멘텀 / 촉매 / 불씨 |
+| 악재 | 변수 / 걸림돌 / 역풍 |
+| 영향 없음 / 중립 | 관망 / 방향 탐색 중 / 뚜렷한 신호 없음 |
+
+**섹션 타이틀 교체:**
+- "상승·호재 기대 종목" → "수혜 가능 종목"
+- "하락·악재 우려 종목" → "리스크 주시 종목"
+- "긍정 영향" → "수혜 흐름"
+- "부정 영향" → "리스크 요인"
+- "시장 영향도: 긍정" badge → "수혜"
+- "시장 영향도: 부정" badge → "리스크"
+- "시장 영향도: 중립" badge → "관망"
+
+**투자 시사점 카드 타이틀 교체:**
+- "✅ 매수 관점" → "✅ 담아볼 만한 흐름"
+- "⏸ 관망 관점" → "⏸ 좀 더 지켜볼 구간"
+- "⚠️ 주의 관점" → "⚠️ 한 발 물러설 이유"
+
+**섹터 인사이트 코멘트 톤 가이드:**
+- Avoid: "긍정적 영향이 예상됩니다", "부정적 요인이 작용할 수 있습니다"
+- Use instead: 
+  - "AI 설비 발언 이후 시선이 쏠리고 있습니다"
+  - "관세 우려가 다시 수면 위로 올라왔습니다"
+  - "단기 반등 불씨가 살아날지 주목됩니다"
+  - "고점 부담이 쌓이는 구간입니다"
+  - "방향을 가늠하기 어려운 시점입니다"
+- Tone: a senior analyst talking to a colleague — 
+  direct, specific, no padding, no filler phrases
